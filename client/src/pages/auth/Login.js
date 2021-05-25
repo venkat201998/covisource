@@ -6,7 +6,7 @@ const Login = ({history}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const rolebasedredirect=(user) => {
+    const rolebasedredirect=() => {
         history.push('/')
     }
     const handleSubmit = async (e) => {
@@ -19,7 +19,7 @@ const Login = ({history}) => {
         catch(error){
             toast.error("Invalid Credentials")
         }
-        rolebasedredirect(user);
+        rolebasedredirect();
     }
    
   
