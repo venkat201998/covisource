@@ -1,13 +1,27 @@
 import { React, useState } from 'react';
+import { auth } from '../../firebase/firebase';
+import { toast } from 'react-toastify';
 
-const Login = () => {
+const Login = ({history}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const handleSubmit = () => {
-
+    const rolebasedredirect=(user) => {
+        history.push('/')
     }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try{
+        const result=await auth.signInWithEmailAndPassword(email,password);
+   const {user}=result;
+   console.log(user);
+        }
+        catch(error){
+            toast.error("Invalid Credentials")
+        }
+        rolebasedredirect(user);
+    }
+   
   
     return(
         <div className="container mt-5">
