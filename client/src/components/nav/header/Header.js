@@ -1,8 +1,21 @@
 import React from "react";
+import firebase from 'firebase';
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
+
+  const { user } = useSelector((state) => ({...state}));
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    firebase.auth().signOut();
+    dispatch({
+      type: 'LOGOUT',
+      payload: null
+    })
+  }
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-lg px-md-5">
@@ -13,12 +26,13 @@ const Header = () => {
         </button>
         <div className="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
           <ul className="navbar-nav">
-            <li className="nav-item p-1">
+            {!user && <li className="nav-item p-1">
               <Link className="nav-link" to="/login">
                 <button className="btn btn-raised">Login</button>
               </Link>
-            </li>
-            <div class="dropdown nav-item m-auto">
+            </li>}
+
+            {!user && <div class="dropdown nav-item m-auto">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Register
               </button>
@@ -26,7 +40,13 @@ const Header = () => {
                 <li><Link  className="dropdown-item" to="/userRegister">User</Link></li>
                 <li><Link  className="dropdown-item" to="/hospitalRegister">Hospital</Link></li>
               </ul>
-            </div>
+            </div>}
+
+            {user && <li className="nav-item p-1">
+              <Link className="nav-link" to="/login">
+                <button className="btn btn-raised" onClick={logout}>Logout</button>
+              </Link>
+            </li>}
           </ul>
         </div>
       </div>
