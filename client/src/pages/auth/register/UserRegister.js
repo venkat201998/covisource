@@ -28,6 +28,7 @@ const UserRegister = () => {
         <div className="container mt-5">
             <div className="row mt-5 pt-5">
                 <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
+                    <h3>User Registration</h3>
                     <form onSubmit={handleSubmit}>
                         <input
                         type="email"
