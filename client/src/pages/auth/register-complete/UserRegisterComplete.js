@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
-import { auth } from '../../../firebase/firebase';
+import { auth } from '../../../firebase';
 
 const UserRegisterComplete = () => {
 
