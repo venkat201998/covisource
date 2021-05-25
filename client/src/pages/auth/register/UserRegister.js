@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { auth } from '../../../firebase/firebase';
+import { auth } from '../../../firebase';
 import { toast } from 'react-toastify';
 
 const UserRegister = () => {
