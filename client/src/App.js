@@ -9,6 +9,8 @@ import UserRegister from './pages/auth/register/UserRegister';
 import HospitalRegister from './pages/auth/register/HospitalRegister'
 import Header from './components/nav/header/Header';
 import UserRegisterComplete from './pages/auth/register-complete/UserRegisterComplete';
+import hospitalRegisterComplete from './pages/auth/register-complete/HospitalRegisterComplete';
+
 
 const App = () => {
 
@@ -22,6 +24,7 @@ const App = () => {
         <Route exact path="/userRegister" component={ UserRegister }></Route>
         <Route exact path="/hospitalRegister" component={ HospitalRegister }></Route>
         <Route exact path="/userRegisterComplete" component={ UserRegisterComplete }></Route>
+        <Route exact path="/hospitalRegisterComplete" component={ hospitalRegisterComplete }></Route>
       </Switch>
     </>
   )

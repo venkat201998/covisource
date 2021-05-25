@@ -36,7 +36,7 @@ const UserRegisterComplete = () => {
             user.updatePassword(password);
             toast.success(`Registered Successfully`);
         }
-
+        window.localStorage.removeItem("email");
         history.push('/login');
 
     }
