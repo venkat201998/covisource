@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { auth } from '../../../firebase';
+import { createOrUpdateUser } from '../../../functions/auth';
 
 const UserRegisterComplete = () => {
 
@@ -34,7 +35,12 @@ const UserRegisterComplete = () => {
         if(result.user.emailVerified){
             const user = auth.currentUser;
             user.updatePassword(password);
-            console.log(user);
+            const authToken = await user.getIdTokenResult();
+
+            createOrUpdateUser(authToken.token)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+
             toast.success(`Registered Successfully`);
         }
         window.localStorage.removeItem("email");
