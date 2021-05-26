@@ -34,6 +34,7 @@ const UserRegisterComplete = () => {
         if(result.user.emailVerified){
             const user = auth.currentUser;
             user.updatePassword(password);
+            console.log(user);
             toast.success(`Registered Successfully`);
         }
         window.localStorage.removeItem("email");
