@@ -6,12 +6,11 @@ const userSchema = new mongoose.Schema(
         lastName: String,
         email:{
             type: String,
-            required: true,
             index: true,
+            required: true
         },
         phoneNumber:{
-            type: int,
-            required: true
+            type: Number,
         },
         gender: String,
         DOB: Date,
@@ -23,6 +22,6 @@ const userSchema = new mongoose.Schema(
         ]
     },
     {timestamps: true}
-)
+);
 
-module.export = mongoose.Schema("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
