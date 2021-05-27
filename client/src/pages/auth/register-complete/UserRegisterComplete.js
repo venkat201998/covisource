@@ -37,7 +37,7 @@ const UserRegisterComplete = () => {
             user.updatePassword(password);
             const authToken = await user.getIdTokenResult();
 
-            createOrUpdateUser(authToken.token)
+            createOrUpdateUser(authToken.token, "Subscriber")
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
 
