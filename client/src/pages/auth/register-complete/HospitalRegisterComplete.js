@@ -38,7 +38,8 @@ const HospitalRegisterComplete = () => {
             user.updatePassword(password);
 
             const authToken = await user.getIdTokenResult();
-
+            
+            console.log("Hospital Registration")
             createOrUpdateHospitalUser(authToken.token, "Hospital")
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
