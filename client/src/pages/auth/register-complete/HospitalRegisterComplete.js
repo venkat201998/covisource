@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { auth } from '../../../firebase';
-import { createOrUpdateHospitalUser } from '../../../functions/auth';
+// import { createOrUpdateHospitalUser } from '../../../functions/auth';
 
 
 const HospitalRegisterComplete = () => {
@@ -37,12 +37,12 @@ const HospitalRegisterComplete = () => {
             const user = auth.currentUser;
             user.updatePassword(password);
 
-            const authToken = await user.getIdTokenResult();
+            // const authToken = await user.getIdTokenResult();
             
-            console.log("Hospital Registration")
-            createOrUpdateHospitalUser(authToken.token, "Hospital")
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+            // console.log("Hospital Registration")
+            // createOrUpdateHospitalUser(authToken.token, "Hospital")
+            // .then((res) => console.log(res))
+            // .catch((err) => console.log(err));
 
             toast.success(`Registered Successfully`);
         }
