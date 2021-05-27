@@ -3,12 +3,21 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+import { currentUser } from '../../functions/auth';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const rolebasedredirect = () => {
-    history.push("/");
+  const rolebasedredirect = (type) => {
+    if(type==="Admin"){
+      history.push("/admin/dashboard");
+    }
+    else if(type==="Hospital"){
+      history.push("/hospital/dashboard");
+    }
+    else if(type==="Subscriber"){
+      history.push("/");
+    }
   };
 
   let dispatch = useDispatch();
@@ -18,17 +27,28 @@ const Login = ({ history }) => {
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const {user} = result;
-      console.log(user.email);
-      dispatch({
-        type: "DUMMY_ADD_TO_CART",
-        payload: {
-          email: user.email
-        },
-      });
+      const idTokenResult = await user.getIdTokenResult();
+
+      currentUser(idTokenResult.token)
+      .then((res)=>{
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: {
+            email: res.data.email,
+            firstName: res.data.firstName,
+            type: res.data.type,
+            _id: res.data._id,
+            token: res.config.headers.idToken
+          },
+        });
+        rolebasedredirect(res.data.type);
+      })
+      .catch((e)=> console.log(e))
+      
     } catch (error) {
       toast.error("Invalid Credentials");
     }
-    rolebasedredirect();
+    
   };
 
   return (

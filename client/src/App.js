@@ -14,6 +14,12 @@ import UserRegisterComplete from './pages/auth/register-complete/UserRegisterCom
 import HospitalRegisterComplete from './pages/auth/register-complete/HospitalRegisterComplete';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import { auth } from './firebase';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import HospitalDashboard from './pages/hospital/HospitalDashboard';
+import AdminRoute from './components/routes/AdminRoute';
+import UserRoute from './components/routes/UserRoute';
+import HospitalRoute from './components/routes/HospitalRoute';
+import { currentUser } from './functions/auth';
 
 
 const App = () => {
@@ -26,13 +32,20 @@ const App = () => {
         const idTokenResult = await user.getIdTokenResult();
         // console.log("user", user);
 
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: user.email,
-            idToken: user.idTokenResult
-          },
-        });
+        currentUser(idTokenResult.token)
+        .then((res)=>{
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              email: res.data.email,
+              firstName: res.data.firstName,
+              type: res.data.type,
+              _id: res.data._id,
+              token: res.config.headers.idToken
+            },
+          });
+        })
+        
       }
     })
   }, [])
@@ -49,6 +62,8 @@ const App = () => {
         <Route exact path="/userRegisterComplete" component={ UserRegisterComplete }></Route>
         <Route exact path="/hospitalRegisterComplete" component={ HospitalRegisterComplete }></Route>
         <Route exact path="/forgot/password" component={ForgotPassword} />
+        <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} /> 
+        <HospitalRoute exact path="/hospital/dashboard" component={HospitalDashboard} />
       </Switch>
     </>
   )

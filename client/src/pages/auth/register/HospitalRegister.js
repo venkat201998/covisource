@@ -1,23 +1,39 @@
 import { React, useState } from "react";
 import { auth } from "../../../firebase";
 import { toast } from "react-toastify";
+import { checkUser } from '../../../functions/auth';
 
-const HospitalRegister = () => {
+const HospitalRegister = ({history}) => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const config = {
-      url: "http://localhost:3000/hospitalRegisterComplete",
-      handleCodeInApp: true,
-    };
+    checkUser(email)
+    .then((res)=> {
+      userRedirect(res.data);
 
-    await auth.sendSignInLinkToEmail(email, config);
+    })
+    .catch((e)=> console.log(e));
 
-    toast.success(
-      `Email is sent to ${email}. Click the link to complete your registration.`
-    );
+    const userRedirect=(data)=>{
+      if(data==="Subscriber" || data==="Hospital"){
+        toast.error(`You're already registered as ${data}`);
+        history.push("/login");
+      }
+      else if(data==="User not found"){
+        const config = {
+          url: "http://localhost:3000/hospitalRegisterComplete",
+          handleCodeInApp: true,
+        };
+    
+        auth.sendSignInLinkToEmail(email, config);
+    
+        toast.success(
+          `Email is sent to ${email}. Click the link to complete your registration.`
+        );
+      }
+    } 
 
     window.localStorage.setItem("email", email);
   };
