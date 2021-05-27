@@ -3,9 +3,11 @@ import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 import { auth } from "../../../firebase";
 import { createOrUpdateUser,currentUser } from '../../../functions/auth';
+import { useDispatch } from 'react-redux';
 
 const HospitalRegisterComplete = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +19,8 @@ const HospitalRegisterComplete = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await auth.signInWithEmailLink(email, window.location.href);
+    const user = auth.currentUser;
+    const authToken = await user.getIdTokenResult();
 
     if (!email || !password) {
       toast.error("Email and password is required");
@@ -29,10 +33,7 @@ const HospitalRegisterComplete = () => {
     }
 
     if (result.user.emailVerified) {
-      const user = auth.currentUser;
       user.updatePassword(password);
-
-      const authToken = await user.getIdTokenResult();
 
       createOrUpdateUser(authToken.token, "Hospital")
       .then((res) => toast.success("Registration Success"))
@@ -41,7 +42,7 @@ const HospitalRegisterComplete = () => {
     }
     window.localStorage.removeItem("email");
 
-    currentUser(idTokenResult.token)
+    currentUser(authToken.token)
         .then((res)=>{
           dispatch({
             type: "LOGGED_IN_USER",
