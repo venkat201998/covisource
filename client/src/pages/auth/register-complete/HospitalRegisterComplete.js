@@ -56,7 +56,7 @@ const HospitalRegisterComplete = () => {
           });
         })
 
-    history.push("/");
+    history.push("/hospital/dashboard");
   };
 
   return (
