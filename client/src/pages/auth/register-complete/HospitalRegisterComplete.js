@@ -2,6 +2,8 @@ import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { auth } from '../../../firebase';
+import { createOrUpdateHospitalUser } from '../../../functions/auth';
+
 
 const HospitalRegisterComplete = () => {
 
@@ -34,6 +36,13 @@ const HospitalRegisterComplete = () => {
         if(result.user.emailVerified){
             const user = auth.currentUser;
             user.updatePassword(password);
+
+            const authToken = await user.getIdTokenResult();
+
+            createOrUpdateHospitalUser(authToken.token, "Hospital")
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+
             toast.success(`Registered Successfully`);
         }
         window.localStorage.removeItem("email");
