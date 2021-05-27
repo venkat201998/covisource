@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { auth } from '../../../firebase';
-import { createOrUpdateUser } from '../../../functions/auth';
+import { createOrUpdateUser, currentUser } from '../../../functions/auth';
 
 const UserRegisterComplete = () => {
 
@@ -43,6 +43,21 @@ const UserRegisterComplete = () => {
 
         }
         window.localStorage.removeItem("email");
+
+        currentUser(idTokenResult.token)
+        .then((res)=>{
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              email: res.data.email,
+              firstName: res.data.firstName,
+              type: res.data.type,
+              _id: res.data._id,
+              token: res.config.headers.idToken
+            },
+          });
+        })
+
         history.push('/');
 
     }
