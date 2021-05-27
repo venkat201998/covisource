@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const createOrUpdateUser = async (idToken, type) => {
-
     return await axios.post(
         `${process.env.REACT_APP_API}/create-or-update-user`,
         {
@@ -15,14 +14,19 @@ export const createOrUpdateUser = async (idToken, type) => {
     )
 }
 
-export const createOrUpdateHospitalUser = async (idToken, type) => {
-    console.log("auth.js/functions: ", idToken, type);
+export const checkUser = async (email) => {
     return await axios.post(
-        `${process.env.REACT_APP_API}/create-or-update-hospital-user`,
-        // "http://localhost:8000/api/create-or-update-hospital-user",
+        `${process.env.REACT_APP_API}/check-user`,
         {
-            type
-        },
+            email
+        }
+    )
+}
+
+export const currentUser = async (idToken) =>{
+    return await axios.post(
+        `${process.env.REACT_APP_API}/current-user`,
+        {},
         {
             headers:{
                 idToken

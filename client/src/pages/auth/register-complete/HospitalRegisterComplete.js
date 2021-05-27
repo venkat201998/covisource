@@ -2,9 +2,12 @@ import { React, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 import { auth } from "../../../firebase";
+import { createOrUpdateUser,currentUser } from '../../../functions/auth';
+import { useDispatch } from 'react-redux';
 
 const HospitalRegisterComplete = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,6 +19,8 @@ const HospitalRegisterComplete = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await auth.signInWithEmailLink(email, window.location.href);
+    const user = auth.currentUser;
+    const authToken = await user.getIdTokenResult();
 
     if (!email || !password) {
       toast.error("Email and password is required");
@@ -28,13 +33,30 @@ const HospitalRegisterComplete = () => {
     }
 
     if (result.user.emailVerified) {
-      const user = auth.currentUser;
       user.updatePassword(password);
 
-      toast.success(`Registered Successfully`);
+      createOrUpdateUser(authToken.token, "Hospital")
+      .then((res) => toast.success("Registration Success"))
+      .catch((err) => toast.error("Registration Failure"));
+
     }
     window.localStorage.removeItem("email");
-    history.push("/login");
+
+    currentUser(authToken.token)
+        .then((res)=>{
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              email: res.data.email,
+              firstName: res.data.firstName,
+              type: res.data.type,
+              _id: res.data._id,
+              token: res.config.headers.idToken
+            },
+          });
+        })
+
+    history.push("/");
   };
 
   return (
