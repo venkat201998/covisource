@@ -20,6 +20,7 @@ exports.createOrUpdateUser = async(req, res) => {
 };
 
 exports.createOrUpdateHospitalUser = async(req, res) => {
+    console.log("auth.js/controllers: ", req.body.type, req.user.email);
     try {
         const type = req.body.type;
         const { email, name, picture } = req.user;
