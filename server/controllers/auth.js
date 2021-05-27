@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const HospitalUser = require("../models/hospitalUsers");
 
 exports.createOrUpdateUser = async(req, res) => {
     try {
