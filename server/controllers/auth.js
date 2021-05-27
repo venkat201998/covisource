@@ -36,4 +36,3 @@ exports.createOrUpdateHospitalUser = async(req, res) => {
         res.json(error);
     }
 };
-
