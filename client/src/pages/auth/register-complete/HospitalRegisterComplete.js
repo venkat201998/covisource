@@ -35,13 +35,12 @@ const HospitalRegisterComplete = () => {
       const authToken = await user.getIdTokenResult();
 
       createOrUpdateUser(authToken.token, "Hospital")
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => toast.success("Registration Success"))
+      .catch((err) => toast.error("Registration Failure"));
 
-      toast.success(`Registered Successfully`);
     }
     window.localStorage.removeItem("email");
-    history.push("/login");
+    history.push("/");
   };
 
   return (
