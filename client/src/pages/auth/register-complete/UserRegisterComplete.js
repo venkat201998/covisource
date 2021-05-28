@@ -22,7 +22,6 @@ const UserRegisterComplete = () => {
         const result = await auth.signInWithEmailLink(email, window.location.href);
         const user = auth.currentUser;
         const idTokenResult = await user.getIdTokenResult();
-        let options=[];
 
         if (!email || !password) {
             toast.error("Email and password is required");
@@ -45,13 +44,20 @@ const UserRegisterComplete = () => {
         }
         window.localStorage.removeItem("email");
 
+        let options=[];
+        let uaoptions=[];
+
         currentUser(idTokenResult.token)
         .then((res)=>{
             switch(res.data.type){
-                case 'Admin': options=['Dashboard', 'Hospital', 'Hospitals', 'User', 'Users', 'Password'];
+                case 'Admin': options.push('Dashboard', 'CreateHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                            //   uaoptions.push('Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword');
                 break;
                 case 'Hospital': options=['Dashboard', 'ManageHospital', 'CreatePatient', 'ManagePatients', 'UpdatePassword'];
                 break;
+                case 'User': options=['Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword'];
+                break;
+                
             }
           dispatch({
             type: "LOGGED_IN_USER",
@@ -61,6 +67,7 @@ const UserRegisterComplete = () => {
               type: res.data.type,
               _id: res.data._id,
               options: options,
+              uaoptions: uaoptions,
               token: res.config.headers.idToken
             },
           });
