@@ -34,3 +34,4 @@ export const currentUser = async (idToken) =>{
         }
     )
 }
+
