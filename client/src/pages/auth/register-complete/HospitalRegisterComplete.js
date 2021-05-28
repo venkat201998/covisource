@@ -20,7 +20,8 @@ const HospitalRegisterComplete = () => {
     e.preventDefault();
     const result = await auth.signInWithEmailLink(email, window.location.href);
     const user = auth.currentUser;
-    const authToken = await user.getIdTokenResult();
+    const idTokenResult = await user.getIdTokenResult();
+    let options=[];
 
     if (!email || !password) {
       toast.error("Email and password is required");
@@ -35,15 +36,21 @@ const HospitalRegisterComplete = () => {
     if (result.user.emailVerified) {
       user.updatePassword(password);
 
-      createOrUpdateUser(authToken.token, "Hospital")
+      createOrUpdateUser(idTokenResult.token, "Hospital")
       .then((res) => toast.success("Registration Success"))
       .catch((err) => toast.error("Registration Failure"));
 
     }
     window.localStorage.removeItem("email");
 
-    currentUser(authToken.token)
+    currentUser(idTokenResult.token)
         .then((res)=>{
+            switch(res.data.type){
+                case 'Admin': options=['Dashboard', 'Hospital', 'Hospitals', 'User', 'Users', 'Password'];
+                break;
+                case 'Hospital': options=['Dashboard', 'ManageHospital', 'CreatePatient', 'ManagePatients', 'UpdatePassword'];
+                break;
+            }
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
@@ -51,6 +58,7 @@ const HospitalRegisterComplete = () => {
               firstName: res.data.firstName,
               type: res.data.type,
               _id: res.data._id,
+              options: options,
               token: res.config.headers.idToken
             },
           });
