@@ -10,12 +10,12 @@ const Login = ({ history }) => {
   const [password, setPassword] = useState("");
   const rolebasedredirect = (type) => {
     if(type==="Admin"){
-      history.push("/admin/dashboard");
+      history.push("/");
     }
     else if(type==="Hospital"){
-      history.push("/hospital/dashboard");
+      history.push("/");
     }
-    else if(type==="Subscriber"){
+    else if(type==="User"){
       history.push("/");
     }
   };
@@ -28,23 +28,34 @@ const Login = ({ history }) => {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const {user} = result;
       const idTokenResult = await user.getIdTokenResult();
+      let options=[];
+      let uaoptions=[];
 
       currentUser(idTokenResult.token)
-      .then((res)=>{
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            email: res.data.email,
-            firstName: res.data.firstName,
-            type: res.data.type,
-            _id: res.data._id,
-            token: res.config.headers.idToken
-          },
-        });
-        rolebasedredirect(res.data.type);
-      })
-      .catch((e)=> console.log(e))
-      
+        .then((res)=>{
+            switch(res.data.type){
+                case 'Admin': options.push('Dashboard', 'CreateHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                             // uaoptions.push('Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword');
+                break;
+                case 'Hospital': options=['Dashboard', 'ManageHospital', 'CreatePatient', 'ManagePatients', 'UpdatePassword'];
+                break;
+                case 'User': options=['Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword'];
+                break;
+            }
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              email: res.data.email,
+              firstName: res.data.firstName,
+              type: res.data.type,
+              _id: res.data._id,
+              options: options,
+              uaoptions: uaoptions,
+              token: res.config.headers.idToken
+            },
+          });
+          rolebasedredirect(res.data.type);
+        })
     } catch (error) {
       toast.error("Invalid Credentials");
     }

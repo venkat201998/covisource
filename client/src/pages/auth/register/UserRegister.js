@@ -18,7 +18,7 @@ const UserRegister = ({history}) => {
     .catch((e)=> console.log(e));
 
     const userRedirect=(data)=>{
-      if(data==="Subscriber" || data==="Hospital"){
+      if(data==="User" || data==="Hospital"){
         toast.error(`You're already registered as ${data}`);
         history.push("/login");
       }
