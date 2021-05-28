@@ -8,7 +8,7 @@ const UserRoute = ({...rest}) =>{
     const [ok, setOk] = useState(false);
 
     useEffect(()=>{
-        if(user && user.type==="Subscriber"){
+        if(user && (user.type==="User" || user.type==="Admin")){
             setOk(true);
         }
     },[user]);

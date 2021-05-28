@@ -33,11 +33,13 @@ const App = () => {
         const idTokenResult = await user.getIdTokenResult();
         // console.log("user", user);
         let options=[];
+        let uaoptions=[];
 
         currentUser(idTokenResult.token)
         .then((res)=>{
             switch(res.data.type){
-                case 'Admin': options=['Dashboard', 'Hospital', 'Hospitals', 'User', 'Users', 'Password'];
+                case 'Admin': options.push('Dashboard', 'CreateHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                              //uaoptions.push('Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword');
                 break;
                 case 'Hospital': options=['Dashboard', 'ManageHospital', 'CreatePatient', 'ManagePatients', 'UpdatePassword'];
                 break;
@@ -53,6 +55,7 @@ const App = () => {
               type: res.data.type,
               _id: res.data._id,
               options: options,
+              uaoptions: uaoptions,
               token: res.config.headers.idToken
             },
           });

@@ -42,12 +42,15 @@ const Header = () => {
               </ul>
             </div>}
 
-            {user && <div class="dropdown nav-item m-auto">
+            {user && <div class="dropdown nav-item my-auto mx-5">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user"></i>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><Link  className="dropdown-item" to="/">User</Link></li>
+                <li><Link  className="dropdown-item" to={`/${user.type}/Dashboard`}>{user.type} Dashboard</Link></li>
+                {
+                  (user && user.type==="Admin") && <li><Link  className="dropdown-item" to={`/User/Dashboard`}>User Dashboard</Link></li>
+                }
                 <li><Link  className="dropdown-item" to="/login" onClick={logout}>Logout</Link></li>
               </ul>
             </div>}
