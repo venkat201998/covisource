@@ -1,0 +1,22 @@
+[
+    {
+        "state": "Andhra Pradesh",
+        "cities":[
+            "Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Kurnool",
+            "Kakinada", "Rajamahendravaram", "Kadapa", "Tirupati", "Eluru",
+            "Anantapuram", "Vizianagaram", "Nandyal", "Ongole", "Adoni",
+            "Madanapalle", "Machilipatnam", "Tenali", "Proddatur", "Chittoor",
+            "Hindupur", "Srikakulam", "Bhimavaram", "Dharmavaram", "Tadepalligudem",
+            "Guntakal", "Gudivada", "Narasaraopet", "Tadipatri", "Mangalagiri", "Chilakaluripeta"
+        ]
+    },
+    {
+        "state": "Telangana",
+        "cities":[
+            "Hyderabad", "Warangal", "Nizamabad", "Karimnagar", "Khammam",
+            "Ramagundam", "Mahabubnagar", "Nalgonda", "Adilabad", "Siddipet",
+            "Suryapet", "Miryalaguda", "Jagtial", "Sangareddy", "Mancherial",
+            "Sircilla", "Metpally", "Koratla", "Gadwal", "Bhongir"
+        ]
+    }
+]

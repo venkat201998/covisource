@@ -28,12 +28,12 @@ const Header = () => {
           <ul className="navbar-nav">
             {!user && <li className="nav-item p-1">
               <Link className="nav-link" to="/login">
-                <button className="btn btn-raised">Login</button>
+                <button className="btn btn-yellow btn-raised">Login</button>
               </Link>
             </li>}
 
             {!user && <div class="dropdown nav-item m-auto">
-              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <button class="btn btn-yellow dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Register
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -43,8 +43,8 @@ const Header = () => {
             </div>}
 
             {user && <div class="dropdown nav-item my-auto mx-5">
-              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-user"></i>
+              <button class="btn btn-yellow dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user fs-5"></i>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><Link  className="dropdown-item" to={`/${user.type}/Dashboard`}>{user.type} Dashboard</Link></li>

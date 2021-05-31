@@ -1,5 +1,5 @@
-const user = require("../models/user");
 const User = require("../models/user");
+const RegistrationHospital = require("../models/registrationHospital");
 
 exports.createOrUpdateUser = async(req, res) => {
     try {
@@ -48,6 +48,46 @@ exports.currentUser = async(req, res) => {
         else{
             res.json("User not found");
         }
+    }
+    catch(error){
+        res.json(error);
+    }
+}
+
+exports.createHospitalDetails = async(req, res)=> {
+    try{
+        const hospitalDetails = req.body.hospitalDetails;
+        const email = req.body.email;
+        console.log(hospitalDetails, email);
+
+        const newHospital = await new RegistrationHospital({
+            email: email,
+            hospitalName: hospitalDetails.hospitalName,
+            streetAddress: hospitalDetails.address,
+            state: hospitalDetails.state,
+            city: hospitalDetails.city,
+            pinCode: hospitalDetails.pinCode,
+            contact: hospitalDetails.contact,
+            generalBeds: hospitalDetails.generalBeds,
+            icuBeds: hospitalDetails.icuBeds,
+            ventilatorBeds: hospitalDetails.ventilatorBeds,
+            oxygenBeds: hospitalDetails.oxygenBeds }).save();
+        console.log("Hospital created");
+        res.json(newHospital);
+    }
+    catch(error){
+        res.json(error);
+    }
+}
+
+exports.checkIfUserRegisteredHospital = async(req, res) => {
+    try{
+        const email= req.body.email;
+        const hospital = await RegistrationHospital.findOne({email});
+        if(hospital){
+            res.json(hospital);
+        }
+        else res.json("Hospital not registered")
     }
     catch(error){
         res.json(error);

@@ -85,6 +85,7 @@ const HospitalRegisterComplete = () => {
               value={email}
               placeholder="Your email"
               disabled
+              // readOnly
             />
             <input
               type="password"

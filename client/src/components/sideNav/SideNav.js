@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import './SideNav.css';
 
 const SideNav = () =>{
 
@@ -21,7 +22,7 @@ const SideNav = () =>{
                                             </li>)
                 } */}
                 {
-                    user && user.options.map((item)=> <li className="nav-item">
+                    user && user.options.map((item)=> <li className="nav-item fs-5">
                                                 <Link className="nav-link active" aria-current="page" to={`/${user.type}/${item}`}> {item} </Link>
                                             </li>)
                 }
