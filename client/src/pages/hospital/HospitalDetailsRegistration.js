@@ -4,9 +4,11 @@ import { toast } from 'react-toastify';
 import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
 import { createHospitalDetails } from '../../functions/auth';
+import { useHistory } from 'react-router-dom';
 
-const HospitalDetailsRegistration = ({history}) =>{
+const HospitalDetailsRegistration = () =>{
     const { user } = useSelector((state) => ({ ...state }));
+    const history = useHistory();
     // console.log(user);
 
     const [hospitalName, setHospitalName] = useState("");
@@ -40,7 +42,7 @@ const HospitalDetailsRegistration = ({history}) =>{
         .then((res) => toast.success("Added Details and waiting to be validated by admin"))
         .catch((err) => toast.error("Failed Registration"));
 
-        history.push("/Hospital/Dashboard");
+        history.push("/hospital/Dashboard");
     }
 
 
