@@ -30,10 +30,10 @@ const HospitalDashboard = ({history}) =>{
                     <SideNav/>
                     
                     <div className="col-lg-10 col-12 p-md-4 p-3 text-center">
-                    <h4>{user && user.email}</h4>
+                    {/* <h4>{user && user.email}</h4> */}
                         { (path==='/Hospital/Dashboard') && (hospitalRegistered ? <HospitalDetailsDisplay/> : <HospitalDetailsRegistration/>) }
                         { (path==='/Hospital/ManageHospital') && <h3>ManageHospital</h3> }
-                        { (path==='/Hospital/CreatePatient') && <CreatePatientFromHospital/> }
+                        { (path==='/Hospital/RegisterPatient') && <CreatePatientFromHospital/> }
                         { (path==='/Hospital/ManagePatients') && <h3>ManagePatients</h3> }
                         { (path==='/Hospital/UpdatePassword') && <h3>UpdatePassword</h3> }
 
