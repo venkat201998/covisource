@@ -22,6 +22,8 @@ const HospitalDetailsRegistration = () =>{
     const [icuBeds, setIcuBeds] = useState("");
     const [ventilatorBeds, setVentilatorBeds] = useState("");
     const [oxygenBeds, setOxygenBeds] = useState("");
+
+    const [status, setStatus] = useState("Inactive");
     let citiesOptions = null;
     const dispatch = useDispatch();
 
@@ -37,7 +39,7 @@ const HospitalDetailsRegistration = () =>{
     const handleSubmit = async (e) =>{
         e.preventDefault();
         
-        const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds};
+        const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, status};
         
         createHospital(hospitalDetails, user.email, user.token)
         .then((res) =>{

@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
-import { updateHospital } from '../../functions/auth';
+import { updateHospital, checkHospital } from '../../functions/auth';
 import { useHistory } from 'react-router-dom';
+
 
 const ManageHospital = () =>{
     const { user, hospital } = useSelector((state) => ({ ...state }));
     const history = useHistory();
 
-
+    useEffect(()=>{
+        checkHospital(user.email)
+        .then((res)=>{
+            if(res.data!=="Hospital not registered"){
+                dispatch({
+                    type:'LOGIN',
+                    payload: {
+                        data: res.data
+                    } 
+                })
+            }
+        })
+        .catch((e) => console.log(e));
+    })
 
     const [hospitalName, setHospitalName] = useState(hospital && hospital.data.hospitalName);
     const [address, setAddress] = useState(hospital && hospital.data.streetAddress);

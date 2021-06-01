@@ -19,14 +19,35 @@ const HospitalSchema = new mongoose.Schema(
         ventilatorBeds: String,
         oxygenBeds: String,
 
-        status: {
-            default: "Inactive",
-            type: String
-        },
+        status: String,
+        
         patients:[
             {
                 firstName: String,
-                lastName: String
+                lastName: String,
+                dob: String,
+                gender:String,
+                email: String,
+                contact: String,
+                address: String,
+                state: String,
+                city:String,
+                pinCode: String,
+                maritalStatus: String,
+                
+                eFirstName: String,
+                eLastName: String,
+                relationShip: String,
+                eContact: String,
+
+                weight: String,
+                height: String,
+                medicationStatus: String,
+                medicationList: String,
+                medicationAllergies: String,
+                operationsList: String,
+                healthIssuesChecked: Array,
+                covidSymptomsChecked: Array
             }
         ]
         
