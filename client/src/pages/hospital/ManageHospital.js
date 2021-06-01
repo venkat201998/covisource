@@ -3,32 +3,30 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
-import { createHospital } from '../../functions/auth';
+import { updateHospital } from '../../functions/auth';
 import { useHistory } from 'react-router-dom';
 
-const HospitalDetailsRegistration = () =>{
-    const { user } = useSelector((state) => ({ ...state }));
+const ManageHospital = () =>{
+    const { user, hospital } = useSelector((state) => ({ ...state }));
     const history = useHistory();
-    // console.log(user);
 
-    const [hospitalName, setHospitalName] = useState("");
-    const [address, setAddress] = useState("");
-    const [state, setState] = useState("");
-    const [city, setCity] = useState("");
-    const [pinCode, setPinCode] = useState("");
-    const [contact, setContact] = useState("");
 
-    const [generalBeds, setGeneralBeds] = useState("");
-    const [icuBeds, setIcuBeds] = useState("");
-    const [ventilatorBeds, setVentilatorBeds] = useState("");
-    const [oxygenBeds, setOxygenBeds] = useState("");
+
+    const [hospitalName, setHospitalName] = useState(hospital && hospital.data.hospitalName);
+    const [address, setAddress] = useState(hospital && hospital.data.streetAddress);
+    const [state, setState] = useState(hospital && hospital.data.state);
+    const [city, setCity] = useState(hospital && hospital.data.city);
+    const [pinCode, setPinCode] = useState(hospital && hospital.data.pinCode);
+    const [contact, setContact] = useState(hospital && hospital.data.contact);
+
+    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.data.generalBeds);
+    const [icuBeds, setIcuBeds] = useState(hospital && hospital.data.icuBeds);
+    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.data.ventilatorBeds);
+    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.data.oxygenBeds);
     let citiesOptions = null;
+
     const dispatch = useDispatch();
 
-    // console.log(HospitalCities);
-
-    // console.log(state, city, pinCode);
-    
     HospitalCities.map((item)=>{
             if(item.state===state)
             citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
@@ -39,10 +37,10 @@ const HospitalDetailsRegistration = () =>{
         
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds};
         
-        createHospital(hospitalDetails, user.email, user.token)
+        updateHospital(hospitalDetails, user.email, user.token)
         .then((res) =>{
-            if(res.data!=="Hospital already exists"){
-                toast.success("Added Details and waiting to be validated by admin");
+            if(res.data!=="Update Failed"){
+                toast.success("Details Updated");
                 dispatch({
                     type:'LOGIN',
                     payload: {
@@ -78,6 +76,7 @@ const HospitalDetailsRegistration = () =>{
                                     placeholder="Name"
                                     onChange={(e) => setHospitalName(e.target.value)}
                                     autoFocus
+                                    
                                 />
                             </div>
                         </div>
@@ -187,10 +186,7 @@ const HospitalDetailsRegistration = () =>{
 
                         <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
                             <div className="col-lg-5">
-                                <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Submit</button>
-                            </div>
-                            <div className="col-lg-5 offset-1">
-                                <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">Reset</button>
+                                <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
                             </div>
                         </div>
                     </form>
@@ -198,4 +194,4 @@ const HospitalDetailsRegistration = () =>{
             //  </div>
         )
 }
-export default HospitalDetailsRegistration;
+export default ManageHospital;

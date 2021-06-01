@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const RegistrationHospital = require("../models/registrationHospital");
+const Hospital = require("../models/hospital");
 
 exports.createOrUpdateUser = async(req, res) => {
     try {
@@ -54,14 +54,59 @@ exports.currentUser = async(req, res) => {
     }
 }
 
-exports.createHospitalDetails = async(req, res)=> {
+exports.createHospital = async(req, res)=> {
     try{
         const hospitalDetails = req.body.hospitalDetails;
         const email = req.body.email;
         console.log(hospitalDetails, email);
 
-        const newHospital = await new RegistrationHospital({
-            email: email,
+        const hospital = await Hospital.findOne({email});
+        if(hospital){
+            res.json("Hospital already exists");
+        }
+        else{
+
+            const newHospital = await new Hospital({
+                email: email,
+                hospitalName: hospitalDetails.hospitalName,
+                streetAddress: hospitalDetails.address,
+                state: hospitalDetails.state,
+                city: hospitalDetails.city,
+                pinCode: hospitalDetails.pinCode,
+                contact: hospitalDetails.contact,
+                generalBeds: hospitalDetails.generalBeds,
+                icuBeds: hospitalDetails.icuBeds,
+                ventilatorBeds: hospitalDetails.ventilatorBeds,
+                oxygenBeds: hospitalDetails.oxygenBeds }).save();
+            console.log("Hospital created");
+            res.json(newHospital);
+        }
+    }
+    catch(error){
+        res.json(error);
+    }
+}
+
+exports.checkHospital = async(req, res) => {
+    try{
+        const email= req.body.email;
+        const hospital = await Hospital.findOne({email});
+        if(hospital){
+            res.json(hospital);
+        }
+        else res.json("Hospital not registered")
+    }
+    catch(error){
+        res.json(error);
+    }
+}
+
+exports.updateHospital = async(req, res) => {
+    try{
+        const email = req.body.email;
+        const hospitalDetails = req.body.hospitalDetails;
+        
+        const updateHospital = await Hospital.findOneAndUpdate({email},{
             hospitalName: hospitalDetails.hospitalName,
             streetAddress: hospitalDetails.address,
             state: hospitalDetails.state,
@@ -71,23 +116,38 @@ exports.createHospitalDetails = async(req, res)=> {
             generalBeds: hospitalDetails.generalBeds,
             icuBeds: hospitalDetails.icuBeds,
             ventilatorBeds: hospitalDetails.ventilatorBeds,
-            oxygenBeds: hospitalDetails.oxygenBeds }).save();
-        console.log("Hospital created");
-        res.json(newHospital);
+            oxygenBeds: hospitalDetails.oxygenBeds },
+            { new: true }
+        );
+        console.log("Hospital updated");
+        if(updateHospital){
+            res.json(updateHospital);
+        }
+        else{
+            res.json("Update Failed");
+        }
     }
     catch(error){
         res.json(error);
     }
 }
 
-exports.checkIfUserRegisteredHospital = async(req, res) => {
+exports.registerPatient = async(req, res) => {
     try{
-        const email= req.body.email;
-        const hospital = await RegistrationHospital.findOne({email});
-        if(hospital){
-            res.json(hospital);
+        const email = req.body.email;
+        const hospital = await Hospital.findOne({email});
+        const patients = hospital.patients;
+
+        patients.push(req.body.patientDetails);
+        
+        const updateHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} )
+        if(updateHospital){
+            res.json(updateHospital);
         }
-        else res.json("Hospital not registered")
+        else{
+            res.json("Update Failed");
+        }
+
     }
     catch(error){
         res.json(error);

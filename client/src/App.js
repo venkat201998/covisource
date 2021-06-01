@@ -20,7 +20,7 @@ import UserDashboard from './pages/user/UserDashboard';
 import AdminRoute from './components/routes/AdminRoute';
 import UserRoute from './components/routes/UserRoute';
 import HospitalRoute from './components/routes/HospitalRoute';
-import { currentUser } from './functions/auth';
+import { currentUser, checkHospital } from './functions/auth';
 
 
 const App = () => {
@@ -38,10 +38,10 @@ const App = () => {
         currentUser(idTokenResult.token)
         .then((res)=>{
             switch(res.data.type){
-                case 'Admin': options.push('Dashboard', 'CreateHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
                               //uaoptions.push('Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword');
                 break;
-                case 'Hospital': options=['Dashboard', 'ManageHospital', 'CreatePatient', 'ManagePatients', 'UpdatePassword'];
+                case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'UpdatePassword'];
                 break;
                 case 'User': options=['Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword'];
                 break;
@@ -60,6 +60,19 @@ const App = () => {
             },
           });
         })
+
+        checkHospital(user.email)
+        .then((res)=>{
+            if(res.data!=="Hospital not registered"){
+                dispatch({
+                    type:'LOGIN',
+                    payload: {
+                        data: res.data
+                    } 
+                })
+            }
+        })
+        .catch((e) => console.log(e));
         
       }
     })
@@ -79,9 +92,9 @@ const App = () => {
         <Route exact path="/forgot/password" component={ForgotPassword} />
         {/* <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />  */}
         {/* <HospitalRoute exact path="/hospital/dashboard" component={HospitalDashboard} /> */}
-        <AdminRoute exact path="/admin/:slug" component={AdminDashboard} />
-        <HospitalRoute exact path="/hospital/:slug" component={HospitalDashboard} />
-        <UserRoute exact path="/user/:slug" component={UserDashboard}/>
+        <AdminRoute exact path="/Admin/:slug" component={AdminDashboard} />
+        <HospitalRoute exact path="/Hospital/:slug" component={HospitalDashboard} />
+        <UserRoute exact path="/User/:slug" component={UserDashboard}/>
       </Switch>
     </>
   )

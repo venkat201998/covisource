@@ -50,10 +50,10 @@ const UserRegisterComplete = () => {
         currentUser(idTokenResult.token)
         .then((res)=>{
             switch(res.data.type){
-                case 'Admin': options.push('Dashboard', 'CreateHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
                             //   uaoptions.push('Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword');
                 break;
-                case 'Hospital': options=['Dashboard', 'ManageHospital', 'CreatePatient', 'ManagePatients', 'UpdatePassword'];
+                case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'UpdatePassword'];
                 break;
                 case 'User': options=['Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword'];
                 break;

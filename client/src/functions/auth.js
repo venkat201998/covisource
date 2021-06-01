@@ -35,21 +35,56 @@ export const currentUser = async (idToken) =>{
     )
 }
 
-export const createHospitalDetails = async (hospitalDetails, email) => {
+export const createHospital = async (hospitalDetails, email, idToken) => {
     return axios.post(
         `${process.env.REACT_APP_API}/create-hospital-details`,
         {
             hospitalDetails,
             email
+        },
+        {
+            headers:{
+                idToken
+            }
         }
     )
 } 
 
-export const checkIfUserRegisteredHospital = async (email) => {
+export const checkHospital = async (email) => {
     return axios.post(
-        `${process.env.REACT_APP_API}/check-if-user-registered-hospital`,
+        `${process.env.REACT_APP_API}/check-hospital`,
         {
             email
         }
+    )
+}
+
+export const updateHospital = async (hospitalDetails, email, idToken) => {
+    return axios.post(
+        `${process.env.REACT_APP_API}/update-hospital`,
+        {
+            hospitalDetails,
+            email
+        },
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+}
+
+export const registerPatient = async (patientDetails, email, idToken) => {
+    return axios.post(
+        `${process.env.REACT_APP_API}/register-patient`,
+        {
+            patientDetails,
+            email
+        },
+        {
+            headers:{
+                idToken
+            }
+        } 
     )
 }
