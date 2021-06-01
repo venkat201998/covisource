@@ -77,7 +77,8 @@ exports.createHospital = async(req, res)=> {
                 generalBeds: hospitalDetails.generalBeds,
                 icuBeds: hospitalDetails.icuBeds,
                 ventilatorBeds: hospitalDetails.ventilatorBeds,
-                oxygenBeds: hospitalDetails.oxygenBeds }).save();
+                oxygenBeds: hospitalDetails.oxygenBeds,
+                status: hospitalDetails.status }).save();
             console.log("Hospital created");
             res.json(newHospital);
         }
@@ -116,7 +117,8 @@ exports.updateHospital = async(req, res) => {
             generalBeds: hospitalDetails.generalBeds,
             icuBeds: hospitalDetails.icuBeds,
             ventilatorBeds: hospitalDetails.ventilatorBeds,
-            oxygenBeds: hospitalDetails.oxygenBeds },
+            oxygenBeds: hospitalDetails.oxygenBeds
+            },
             { new: true }
         );
         console.log("Hospital updated");
@@ -138,8 +140,9 @@ exports.registerPatient = async(req, res) => {
         const hospital = await Hospital.findOne({email});
         const patients = hospital.patients;
 
+        console.table(req.body.patientDetails);
         patients.push(req.body.patientDetails);
-        
+        console.log(patients);
         const updateHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} )
         if(updateHospital){
             res.json(updateHospital);

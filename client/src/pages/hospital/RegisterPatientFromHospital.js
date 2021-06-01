@@ -7,7 +7,7 @@ import { registerPatient } from '../../functions/auth';
 const RegisterPatientFromHospital = () =>{
 
     const { user } = useSelector((state) => ({ ...state }))
-    
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [dob, setDob] = useState("");
@@ -27,6 +27,17 @@ const RegisterPatientFromHospital = () =>{
     const [height, setHeight] = useState("");
     const [medicationStatus, setMedicationStatus] = useState("");
     const [medicationList, setMedicationList] = useState("");
+    const [medicationAllergies, setMedicationAllergies] = useState("");
+    const [operationsList, setOperationsList] = useState("");
+
+    // const [healthIssuesC, setHealthIssuesC] = useState([]);
+    // const [covidSymptomsC, setCovidSymptomsC] = useState([]);
+
+    const inputChecked= false;
+    let healthIssues=[];
+    let healthIssuesChecked=[];
+    let covidSymptoms=[];
+    let covidSymptomsChecked=[];
     
     let citiesOptions = null;
 
@@ -42,11 +53,52 @@ const RegisterPatientFromHospital = () =>{
         citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
     })
 
+    const checkListHandler = (e) =>{
+        if(e.target.id==="healthIssues"){
+            if(healthIssues[e.target.value]===true){
+                healthIssues[e.target.value]=false;
+                healthIssuesChecked = healthIssuesChecked.filter((item)=> item!== e.target.value);
+            }
+            else if (healthIssues[e.target.value]===false){
+                healthIssues[e.target.value]=true;
+                healthIssuesChecked.push(e.target.value);
+            }
+            else{
+                healthIssues[e.target.value] = !inputChecked;
+                healthIssuesChecked.push(e.target.value);
+            }
+            
+            console.log(healthIssues);
+            console.log(healthIssuesChecked);
+            // setHealthIssuesC(healthIssuesChecked);
+        }
+        else{
+            if(covidSymptoms[e.target.value]===true){
+                covidSymptoms[e.target.value]=false;
+                covidSymptomsChecked = covidSymptomsChecked.filter((item)=> item!== e.target.value);
+            }
+            else if (covidSymptoms[e.target.value]===false){
+                covidSymptoms[e.target.value]=true;
+                covidSymptomsChecked.push(e.target.value);
+            }
+            else{
+                covidSymptoms[e.target.value] = !inputChecked;
+                covidSymptomsChecked.push(e.target.value);
+            }
+            
+            console.log(covidSymptoms);
+            console.log(covidSymptomsChecked);
+            // setCovidSymptomsC(covidSymptomsChecked);
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(firstName, lastName);
-        const patientDetails = { firstName, lastName };
-
+        const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
+                                eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
+                                medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked};
+        console.log(patientDetails);
         registerPatient(patientDetails, user.email, user.token)
         .then((res)=> console.log(res))
         .catch((e)=> console.log(e));
@@ -55,10 +107,9 @@ const RegisterPatientFromHospital = () =>{
 
     return(
         <div className="container">
-            {/* <h3>Create Patient</h3> */}
             <div className="col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
                 <h3>Patient Registration Form</h3>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} onRe>
         {/* ---------Personal details----------- */}    
                     <div class="form-group my-xl-5 my-3 row">
                         <label for="patientName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
@@ -90,6 +141,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="date" 
                                 className="form-control w-100"  
                                 name="patientBirthDate"
+                                value={dob}
                                 placeholder="Date of Birth"
                                 onChange={(e)=> setDob(e.target.value)}
                             />
@@ -98,7 +150,7 @@ const RegisterPatientFromHospital = () =>{
                     <div class="form-group my-xl-5 my-3 row">
                         <label for="gender" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Gender</label>
                         <div class="col-12 mb-3 mb-md-0 col-xl-6">
-                            <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
+                            <select class="w-100 h-100 form-select" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
                                 <option value="sg">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -113,6 +165,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="tel" 
                                 className="form-control w-100"  
                                 name="contactNumber"
+                                value={contact}
                                 placeholder="Contact"
                                 onChange={(e)=> setContact(e.target.value)}
                             />
@@ -125,6 +178,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="email" 
                                 className="form-control w-100"  
                                 name="email"
+                                value={email}
                                 placeholder="example@example.com"
                                 onChange={(e)=> setEmail(e.target.value)}
 
@@ -138,6 +192,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="text" 
                                 className="form-control w-100 mb-3 mb-xl-0"  
                                 name="streetAddress"
+                                value={address}
                                 placeholder="Street address"
                                 onChange={(e)=> setAddress(e.target.value)}
                             />
@@ -160,8 +215,8 @@ const RegisterPatientFromHospital = () =>{
                                 inputMode="numeric"
                                 className="form-control col-12 col-xl-8"  
                                 value={pinCode}
-                                pattern="[0-9]{5}" 
-                                maxLength="5"
+                                pattern="[0-9]{6}" 
+                                maxLength="6"
                                 placeholder="pin code"
                                 onChange={(e) => setPinCode(e.target.value)}/>
                         </div>
@@ -188,6 +243,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="text" 
                                 className="form-control w-100"  
                                 name="EcfirstName"
+                                value={eFirstName}
                                 placeholder="First Name"
                                 onChange={(e)=> setEFirstName(e.target.value)}
                             />
@@ -197,6 +253,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="text" 
                                 className="form-control w-100"  
                                 name="EclastName"
+                                value={eLastName}
                                 placeholder="Last Name"
                                 onChange={(e)=> setELastName(e.target.value)}
                             />
@@ -209,6 +266,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="text" 
                                 className="form-control w-100"  
                                 name="relationship"
+                                value={relationship}
                                 onChange={(e)=> setRelationship(e.target.value)}
                             />
                         </div>
@@ -220,6 +278,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="tel" 
                                 className="form-control w-100"  
                                 name="EContactNumber"
+                                value={eContact}
                                 placeholder="Contact"
                                 onChange={(e)=> setEContact(e.target.value)}
                             />
@@ -234,6 +293,7 @@ const RegisterPatientFromHospital = () =>{
                                 type="text" 
                                 className="form-control w-100"  
                                 name="weight"
+                                value={weight}
                                 placeholder="kg"
                                 onChange={(e)=> setWeight(e.target.value)}
                             />
@@ -243,50 +303,51 @@ const RegisterPatientFromHospital = () =>{
                             <input 
                                 type="text"
                                 inputMode="numeric"
-                                className="form-control w-100"  
-                                pattern="[0-9]{3}" 
-                                maxLength="3"
+                                className="form-control w-100"
+                                name="height"
+                                value={height}  
                                 placeholder="cm"
                                 onChange={(e)=> setHeight(e.target.value)}
                             />
                         </div>
                     </div>
-                    {/* <div class="form-group my-xl-5 my-3 row">
+                    <div class="form-group my-xl-5 my-3 row">
                         <label for="medication" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
                             Are you currently taking any medication?
                         </label>
                         <div class="col-6 col-xl-3 mt-0 mt-xl-4">
-                            <input type="radio" className="col-2" onChange={(e)=> setMedicationStatus(e.target.value)}/>
-                            <label htmlFor="Yes" className="col-4">Yes</label>
+                            <input type="radio" name="medication" className="col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                            <label htmlFor="Yes"  className="col-4">Yes</label>
 
-                            <input type="radio" className="col-2" onChange={(e)=> setMedicationStatus(e.target.value)}/>
-                            <label className="col-4">No</label>
+                            <input type="radio" name="medication" className="col-2" id="No" value="No" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                            <label htmlFor="No" className="col-4">No</label>
                         </div>
-                    </div> */}
+                    </div>
                     <div class="form-group my-xl-5 my-3 row">     
                         <label for="medicationList" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
                             If yes, please list it here...
                         </label>
                         <div class="col-12 col-xl-6">
                             <textarea 
-                                className="form-control"  
-                                onChange={(e)=> setMedicationStatus(e.target.value)}
+                                className="form-control"
+                                value={medicationList}  
+                                onChange={(e)=> setMedicationList(e.target.value)}
                             />
                         </div>
                     </div>
-                    {/* <div class="form-group my-xl-5 my-3 row">
+                    <div class="form-group my-xl-5 my-3 row">
                         <label for="allergies" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
                             Do you have any medication allergies
                         </label>
                         <div class="col-12 col-lg-8 col-xl-6 mt-0 mt-xl-3">
-                            <input type="radio" className="col-1"/>
-                            <label className="col-2">Yes</label>
+                            <input type="radio" name="allergies" className="col-1" id="Yes" value="Yes" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <label htmlFor="Yes" className="col-2">Yes</label>
 
-                            <input type="radio" className="col-1"/>
-                            <label className="col-2">No</label>
+                            <input type="radio" name="allergies" className="col-1" id="No" value="No" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <label htmlFor="No" className="col-2">No</label>
 
-                            <input type="radio" className="col-1"/>
-                            <label className="col-3">Not sure</label>
+                            <input type="radio" name="allergies" className="col-1" id="Not Sure" value="Not Sure" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <label htmlFor="Not Sure" className="col-3">Not sure</label>
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">     
@@ -295,7 +356,9 @@ const RegisterPatientFromHospital = () =>{
                         </label>
                         <div class="col-12 col-xl-6">
                             <textarea 
-                                className="form-control"  
+                                className="form-control"
+                                value={operationsList}
+                                onChange={(e)=> setOperationsList(e.target.value)}  
                             />
                         </div>
                     </div>
@@ -309,15 +372,15 @@ const RegisterPatientFromHospital = () =>{
                                 { healthList.map((item, i)=>{
                                     return(
                                         <div className="col-4 mb-2">
-                                            <input className="col-2 m-auto" type="checkbox" key={item} value={item}/>
+                                            <input className="col-2 m-auto" type="checkbox" id="healthIssues" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler} />
                                             <label className="col-10 m-auto text-start">{item}</label>
                                         </div>)
                                 })}
                             </div>
                         </div>
-                    </div> */}
+                    </div>
         {/* ---------Covid Symptoms----------- */}
-                    {/* <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Covid-19 Questionnaire</div>
+                    <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Covid-19 Questionnaire</div>
                     <div class="form-group my-xl-5 my-3 row">     
                         <label for="covidSymptoms" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
                             Please check the symptoms that apply...
@@ -327,13 +390,13 @@ const RegisterPatientFromHospital = () =>{
                                 { covidSymptomsList.map((item, i)=>{
                                     return(
                                         <div className="col-6 mb-2">
-                                            <input className="col-2 m-auto" type="checkbox" key={item} value={item}/>
+                                            <input className="col-2 m-auto" type="checkbox" id="covidSymptoms" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler}/>
                                             <label className="col-10 m-auto text-start">{item}</label>
                                         </div>)
                                 })}
                             </div>
                         </div>
-                    </div> */}
+                    </div>
                     <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
                             <div className="col-lg-5">
                                 <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Submit</button>

@@ -22,6 +22,8 @@ const HospitalDetailsRegistration = () =>{
     const [icuBeds, setIcuBeds] = useState("");
     const [ventilatorBeds, setVentilatorBeds] = useState("");
     const [oxygenBeds, setOxygenBeds] = useState("");
+
+    const [status, setStatus] = useState("Inactive");
     let citiesOptions = null;
     const [status, setStatus] = useState("");
     const dispatch = useDispatch();
