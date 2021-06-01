@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DisplayCard from '../../components/cards/DisplayCard';
 import { getHospitals } from '../../functions/auth';
-import DisplayCard from '../../components/cards/DisplayCard';
 
 const AdminDashboard = () => {
 

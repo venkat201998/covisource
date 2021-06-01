@@ -25,7 +25,6 @@ const HospitalDetailsRegistration = () =>{
 
     const [status, setStatus] = useState("Inactive");
     let citiesOptions = null;
-    const [status, setStatus] = useState("");
     const dispatch = useDispatch();
 
 
