@@ -20,7 +20,6 @@ const UserDashboard = ({history}) => {
                     
                         { (path==='/User/Dashboard') && <h3>User Dashboard</h3> }
                         { (path==='/User/Slot') && <h3>Slot</h3> }
-                        { (path==='/User/ManageHospitals') && <h3>ManageHospitals</h3> }
                         { (path==='/User/SlotsHistory') && <h3>SlotsHistory</h3> }
                         { (path==='/User/UpdatePassword') && <h3>UpdatePassword</h3> }
 

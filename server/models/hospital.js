@@ -19,10 +19,7 @@ const HospitalSchema = new mongoose.Schema(
         ventilatorBeds: String,
         oxygenBeds: String,
 
-        status: {
-            default: "Inactive",
-            type: String
-        },
+        status: String,
         patients:[
             {
                 firstName: String,
