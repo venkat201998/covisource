@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from "react-toastify";
 import SideNav from '../../components/sideNav/SideNav';
 import HospitalDetailsRegistration from './HospitalDetailsRegistration';
 import HospitalDetailsDisplay from './HospitalDetailsDisplay';
@@ -18,7 +19,6 @@ const HospitalDashboard = ({history}) =>{
 
         checkHospital(user.email)
         .then((res)=>{
-            console.log(res.data);
             if(res.data!=="Hospital not registered"){
                 setHospitalStatus(true);
                 dispatch({
@@ -29,7 +29,7 @@ const HospitalDashboard = ({history}) =>{
                 })
             }
         })
-        .catch((e) => console.log(e))
+        .catch((e) => toast.error(e))
 
     },[history.location.pathname]);
 
@@ -39,7 +39,6 @@ const HospitalDashboard = ({history}) =>{
                     <SideNav/>
                     
                     <div className="col-lg-10 col-12 p-md-4 p-3 text-center">
-                    <h4>{user && user.email}</h4>
                         { (path==='/Hospital/Dashboard') && (hospitalStatus ? <HospitalDetailsDisplay/> : <HospitalDetailsRegistration/>) }
                         { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
                         { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }

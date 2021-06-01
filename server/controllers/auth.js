@@ -7,11 +7,9 @@ exports.createOrUpdateUser = async(req, res) => {
         const { email, name, picture } = req.user;
         const user = await User.findOneAndUpdate({ email }, { firstName: email.split('@')[0], picture, type }, { new: true });
         if (user) {
-            console.log("User Updated");
             res.json(user);
         } else {
             const newUser = await new User({ email: email, firstName: email.split('@')[0], picture, type }).save();
-            console.log("User Created");
             res.json(newUser);
         }
     } catch (error) {
@@ -23,14 +21,10 @@ exports.checkUser = async(req, res) =>{
     try{
         const email = req.body.email;
         const user = await User.findOne({email});
-        console.log(user);
         if(user){
-            console.log("User already exists");
-            console.log("type:", user.type);
             res.json(user.type);
         }
         else{
-            console.log("User Not found");
             res.json("User not found");
         }
     } catch(error){
@@ -58,7 +52,6 @@ exports.createHospital = async(req, res)=> {
     try{
         const hospitalDetails = req.body.hospitalDetails;
         const email = req.body.email;
-        console.log(hospitalDetails, email);
 
         const hospital = await Hospital.findOne({email});
         if(hospital){
@@ -79,7 +72,6 @@ exports.createHospital = async(req, res)=> {
                 ventilatorBeds: hospitalDetails.ventilatorBeds,
                 oxygenBeds: hospitalDetails.oxygenBeds,
                 status: hospitalDetails.status }).save();
-            console.log("Hospital created");
             res.json(newHospital);
         }
     }
@@ -121,7 +113,6 @@ exports.updateHospital = async(req, res) => {
             },
             { new: true }
         );
-        console.log("Hospital updated");
         if(updateHospital){
             res.json(updateHospital);
         }
@@ -142,7 +133,6 @@ exports.registerPatient = async(req, res) => {
 
         console.table(req.body.patientDetails);
         patients.push(req.body.patientDetails);
-        console.log(patients);
         const updateHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} )
         if(updateHospital){
             res.json(updateHospital);

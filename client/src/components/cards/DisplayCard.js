@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { updateHospitalStatus, removeHospital } from "../../functions/auth";
 
 const DisplayCard = ({ hospital }) => {
@@ -8,18 +9,16 @@ const DisplayCard = ({ hospital }) => {
 
   const handleSubmit = async (e, email) => {
     e.preventDefault();
-    console.log(email);
     updateHospitalStatus(email, user.token)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => toast.success("Hospital Registration Request Accepted Successfully"))
+      .catch((err) => toast.error(err));
   };
 
   const handleReject = (e, email) => {
-    console.log("Reject");
     e.preventDefault();
     removeHospital(email, user.token)
-    .then((res) => console.log(res))
-    .catch((res) => console.log(res))
+    .then((res) => toast.success("Hospital Registration Request Rejected Successfully"))
+    .catch((err) => toast.error(err))
   };
 
   return (

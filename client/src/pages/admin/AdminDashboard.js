@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import DisplayCard from '../../components/cards/DisplayCard';
 import { getHospitals } from '../../functions/auth';
 
 const AdminDashboard = () => {
 
-    const { user, inActiveHospital } = useSelector((state) => ({...state}));
+    const { user } = useSelector((state) => ({...state}));
     const [hospitals, setHospitals] = useState("");
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         getHospitals(user.token)
         .then((res) => {
-            dispatch({
-                type: "INACTIVE_HOSPITALS_LOGIN",
-                payload: res.data
-            })
             setHospitals(res.data)
         })
         .catch((err) => console.log(err));

@@ -77,10 +77,10 @@ const ManageHospital = () =>{
             // <div className="container border">
                 // <h3>Hospital Dashboard</h3>
                 <div className="col-10 offset-1 col-lg-8 offset-lg-2 shadow p-lg-5 p-md-4 p-3">
-                    <h3>Registration Form</h3>
+                    <h3>Hospital Info</h3>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="hospitalName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-5">Hospital</label>
+                            <label for="hospitalName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Hospital</label>
                             <div className="col-12 col-xl-8">
                                 <input 
                                     type="text" 
@@ -95,7 +95,7 @@ const ManageHospital = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="address" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-5">Address</label>
+                            <label for="address" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Address</label>
                             <div className="col-12 col-xl-8">
                                 <input 
                                     type="text" 
@@ -106,7 +106,7 @@ const ManageHospital = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="state" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-5">State</label>
+                            <label for="state" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">State</label>
                             <div className="col-12 col-xl-8">
                                 <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
                                     <option value="ss">Select State</option>
@@ -116,7 +116,7 @@ const ManageHospital = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label for="city" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-5">City</label>
+                                <label for="city" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">City</label>
                                 <div className="col-12 col-xl-3 mb-3 mb-xl-0">
                                     <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
                                         <option value="sc">Select City</option>
@@ -124,7 +124,7 @@ const ManageHospital = () =>{
                                     </select>
                                 </div>
                                 
-                                <label for="pinCode" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-5">Pin Code</label>
+                                <label for="pinCode" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Pin Code</label>
                                 <div className="col-12 col-md-6 col-xl-3">
                                     <input 
                                         type="text"
@@ -138,7 +138,7 @@ const ManageHospital = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="hospitalContact" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-5">Contact</label>
+                            <label for="hospitalContact" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact</label>
                             <div className="col-12 col-xl-8">
                                 <input 
                                     type="text" 
@@ -152,7 +152,7 @@ const ManageHospital = () =>{
                         </div>
                         <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label for="generalBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-5">General</label>
+                                <label for="generalBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">General</label>
                                 <div className="col-12 col-md-8 col-xl-3 mb-3 mb-xl-0">
                                     <input 
                                         type="text" 
@@ -163,7 +163,7 @@ const ManageHospital = () =>{
                                         onChange={(e)=> setGeneralBeds(e.target.value)} />
                                 </div>
                                 
-                                <label for="icuBeds" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-5">ICU</label>
+                                <label for="icuBeds" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">ICU</label>
                                 <div className="col-12 col-md-8 col-xl-3">
                                     <input 
                                         type="text"
@@ -175,7 +175,7 @@ const ManageHospital = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label for="ventilatorBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-5">Ventilator</label>
+                                <label for="ventilatorBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Ventilator</label>
                                 <div className="col-12 col-md-8 col-xl-3 mb-3 mb-xl-0">
                                     <input 
                                         type="text" 
@@ -186,7 +186,7 @@ const ManageHospital = () =>{
                                         onChange={(e)=> setVentilatorBeds(e.target.value)} />
                                 </div>
                                 
-                                <label for="oxygenBeds" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-5">Oxygen</label>
+                                <label for="oxygenBeds" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Oxygen</label>
                                 <div className="col-12 col-md-8 col-xl-3">
                                     <input 
                                         type="text"

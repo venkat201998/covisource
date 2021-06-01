@@ -9,7 +9,6 @@ import { useHistory } from 'react-router-dom';
 const HospitalDetailsRegistration = () =>{
     const { user } = useSelector((state) => ({ ...state }));
     const history = useHistory();
-    // console.log(user);
 
     const [hospitalName, setHospitalName] = useState("");
     const [address, setAddress] = useState("");
@@ -17,7 +16,7 @@ const HospitalDetailsRegistration = () =>{
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [contact, setContact] = useState("");
-
+    const [email, setEmail] = useState("");
     const [generalBeds, setGeneralBeds] = useState("");
     const [icuBeds, setIcuBeds] = useState("");
     const [ventilatorBeds, setVentilatorBeds] = useState("");
@@ -30,15 +29,13 @@ const HospitalDetailsRegistration = () =>{
 
     useEffect(() => {
         if(user && user.type === "Hospital"){
+            setEmail(user.email);
             setStatus("Inactive");
         }else if(user && user.type === "Admin"){
+            setEmail("");
             setStatus("Active");
         }
     }, [user])
-
-    // console.log(HospitalCities);
-
-    // console.log(state, city, pinCode);
     
     HospitalCities.map((item)=>{
             if(item.state===state)
@@ -50,10 +47,12 @@ const HospitalDetailsRegistration = () =>{
         
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, status};
         
-        createHospital(hospitalDetails, user.email, user.token)
+        createHospital(hospitalDetails, email, user.token)
         .then((res) =>{
             if(res.data!=="Hospital already exists"){
-                toast.success("Added Details and waiting to be validated by admin");
+                user && user.type === "Hospital" 
+                ? toast.success("Added Details and waiting to be validated by admin")
+                : toast.success("Hospital Registered Succesfully");
                 dispatch({
                     type:'LOGIN',
                     payload: {
@@ -149,8 +148,35 @@ const HospitalDetailsRegistration = () =>{
                                     placeholder="Number"
                                     onChange={(e)=> setContact(e.target.value)}
                                     />
-                                </div>
+                            </div>
                         </div>
+                        {user && user.type === "Admin" 
+                        ? <div className="form-group my-xl-5 my-3 row">
+                            <label for="hospitalContact" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Email</label>
+                            <div className="col-12 col-xl-8">
+                                <input 
+                                    type="text" 
+                                    className="form-control w-100"
+                                    name="hospitalContact"
+                                    value= {email}  
+                                    placeholder="Number"
+                                    onChange={(e)=> setEmail(e.target.value)}
+                                    />
+                            </div>
+                        </div>
+                        :<div className="form-group my-xl-5 my-3 row">
+                            <label for="hospitalContact" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Email</label>
+                            <div className="col-12 col-xl-8">
+                                <input 
+                                    type="text" 
+                                    className="form-control w-100"
+                                    name="hospitalContact"
+                                    value= {email}  
+                                    placeholder="Number"
+                                    disabled
+                                    />
+                            </div>
+                        </div>}
                         <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</div>
                         <div className="form-group my-xl-5 my-3 row">
                                 <label for="generalBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">General</label>

@@ -20,7 +20,7 @@ import UserDashboard from './pages/user/UserDashboard';
 import AdminRoute from './components/routes/AdminRoute';
 import UserRoute from './components/routes/UserRoute';
 import HospitalRoute from './components/routes/HospitalRoute';
-import { currentUser, checkHospital, getHospitals } from './functions/auth';
+import { currentUser, checkHospital } from './functions/auth';
 
 
 const App = () => {
@@ -72,17 +72,7 @@ const App = () => {
                 })
             }
         })
-        .catch((e) => console.log(e));
-
-        getHospitals(idTokenResult.token)
-        .then((res) => {
-            dispatch({
-                type: "INACTIVE_HOSPITALS_LOGIN",
-                payload: res.data
-            })
-        })
-        .catch((err) => console.log(err));
-        
+        .catch((e) => console.log(e));        
       }
     })
   }, [])

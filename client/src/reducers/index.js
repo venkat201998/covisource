@@ -1,12 +1,10 @@
 import { combineReducers } from "redux";
-import { userReducer } from "./userReducer";
+import { userReducer } from "./UserReducer";
 import { hospitalReducer } from "./HospitalReducer";
-import { inActiveHospitalReducer } from "./InActiveHospitalReducer"
 
 const rootReducer = combineReducers({
   user: userReducer,
-  hospital: hospitalReducer,
-  inActiveHospital: inActiveHospitalReducer,
+  hospital: hospitalReducer
 });
 
 export default rootReducer;
