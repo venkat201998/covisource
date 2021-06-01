@@ -3,7 +3,7 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-import { currentUser } from '../../functions/auth';
+import { currentUser, getHospitals } from '../../functions/auth';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -30,6 +30,15 @@ const Login = ({ history }) => {
       const idTokenResult = await user.getIdTokenResult();
       let options=[];
       let uaoptions=[];
+
+      getHospitals(idTokenResult.token)
+        .then((res) => {
+            dispatch({
+                type: "INACTIVE_HOSPITALS_LOGIN",
+                payload: res.data
+            })
+        })
+        .catch((err) => console.log(err));
 
       currentUser(idTokenResult.token)
         .then((res)=>{

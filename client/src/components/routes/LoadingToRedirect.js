@@ -13,10 +13,10 @@ const LoadingToRedirect = () =>{
             setCount((currentCount) => --currentCount);
         }, 1000);
 
-        if(count === 0 && user.type === "Subscriber"){
+        if(count === 0 && (user && user.type === "User")){
             history.push("/");
         }
-        else if(count === 0 && user.type === "Hospital"){
+        else if(count === 0 && (user && user.type === "Hospital")){
             history.push("/hospital/dashboard");
         }
         else if(count === 0){

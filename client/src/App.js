@@ -14,13 +14,13 @@ import UserRegisterComplete from './pages/auth/register-complete/UserRegisterCom
 import HospitalRegisterComplete from './pages/auth/register-complete/HospitalRegisterComplete';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import { auth } from './firebase';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import AdminHome from './pages/admin/AdminHome';
 import HospitalDashboard from './pages/hospital/HospitalDashboard';
 import UserDashboard from './pages/user/UserDashboard';
 import AdminRoute from './components/routes/AdminRoute';
 import UserRoute from './components/routes/UserRoute';
 import HospitalRoute from './components/routes/HospitalRoute';
-import { currentUser, checkHospital } from './functions/auth';
+import { currentUser, checkHospital, getHospitals } from './functions/auth';
 
 
 const App = () => {
@@ -73,6 +73,15 @@ const App = () => {
             }
         })
         .catch((e) => console.log(e));
+
+        getHospitals(idTokenResult.token)
+        .then((res) => {
+            dispatch({
+                type: "INACTIVE_HOSPITALS_LOGIN",
+                payload: res.data
+            })
+        })
+        .catch((err) => console.log(err));
         
       }
     })
@@ -92,7 +101,7 @@ const App = () => {
         <Route exact path="/forgot/password" component={ForgotPassword} />
         {/* <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />  */}
         {/* <HospitalRoute exact path="/hospital/dashboard" component={HospitalDashboard} /> */}
-        <AdminRoute exact path="/Admin/:slug" component={AdminDashboard} />
+        <AdminRoute exact path="/Admin/:slug" component={AdminHome} />
         <HospitalRoute exact path="/Hospital/:slug" component={HospitalDashboard} />
         <UserRoute exact path="/User/:slug" component={UserDashboard}/>
       </Switch>

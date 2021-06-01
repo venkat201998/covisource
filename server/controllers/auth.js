@@ -154,3 +154,40 @@ exports.registerPatient = async(req, res) => {
     }
 }
 
+exports.getHospitals = async(req, res) => {
+    try{
+        const status = "Inactive";
+        const hospitals = await Hospital.find({status});
+        res.json(hospitals);
+    }catch(error){
+        res.json(error)
+    }
+}
+
+exports.updateHospitalStatus = async(req, res) => {
+    try{
+        const email = req.body.email;
+        const updateHospital = await Hospital.findOneAndUpdate({email},{status: "Active"},{new: true});
+        if(updateHospital){
+            res.json(updateHospital);
+        }else{
+            res.json("Failed to update");
+        }
+    }catch(error){
+        res.json(error)
+    }
+}
+
+exports.removeHospital = async (req, res) => {
+    try{
+        const email = req.body.email;
+        const removeHospital = await Hospital.findOneAndDelete({email});
+        if(removeHospital){
+            res.json("Hospital Removed Successfully");
+        }else{
+            res.json("Failed To Remove The Hospital");
+        }
+    }catch(error){
+        res.json(error)
+    }
+}

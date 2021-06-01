@@ -88,3 +88,42 @@ export const registerPatient = async (patientDetails, email, idToken) => {
         } 
     )
 }
+
+export const getHospitals = async (idToken) => {
+    return axios.get(
+        `${process.env.REACT_APP_API}/get-hospitals`,
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+} 
+
+export const updateHospitalStatus = async (email, idToken) => {
+    return axios.post(
+        `${process.env.REACT_APP_API}/update-hospital-status`,
+        {
+            email
+        },
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+}
+
+export const removeHospital = async (email, idToken) => {
+    return axios.post(
+        `${process.env.REACT_APP_API}/remove-hospital`,
+        {
+            email
+        },
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+}
