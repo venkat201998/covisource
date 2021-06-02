@@ -36,11 +36,11 @@ const HospitalHome = ({history}) =>{
     },[history.location.pathname]);
 
     return(
-        <div className="container-fluid mt-5">
-                <div className="row mt-5 pt-5">
+        <div className="container-fluid mt-5 px-md-5">
+                <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
                     
-                    <div className="col-lg-10 col-12 p-md-4 p-3 text-center">
+                    
                         { (path==='/Hospital/Dashboard') && (hospitalStatus ? <HospitalDashboard/> : <HospitalDetailsRegistration/>) }
                         { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
                         { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }
@@ -48,7 +48,6 @@ const HospitalHome = ({history}) =>{
                         { (path==='/Hospital/UpdatePassword') && <UpdatePassword/> }
 
                         
-                    </div>
                 </div>
         </div>
     )

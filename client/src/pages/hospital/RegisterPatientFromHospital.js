@@ -114,10 +114,9 @@ const RegisterPatientFromHospital = () =>{
 
 
     return(
-        <div className="container">
-            <div className="col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
+        <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
                 <h3>Patient Registration Form</h3>
-                <form onSubmit={handleSubmit} onRe>
+                <form onSubmit={handleSubmit}>
         {/* ---------Personal details----------- */}    
                     <div class="form-group my-xl-5 my-3 row">
                         <label for="patientName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
@@ -414,8 +413,8 @@ const RegisterPatientFromHospital = () =>{
                             </div>
                         </div>
                 </form>
-            </div>
-        </div>    
+            
+        </div>   
     )
 }
 export default RegisterPatientFromHospital;

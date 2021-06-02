@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
@@ -58,10 +58,8 @@ const UpdatePassword = () => {
     }
 
     return (
-        <div className="container mt-3">
-        <div className="row px-5">
-            <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
-            <h3 className="mb-4">Update Password</h3>
+            <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
+                <h3 className="mb-4">Update Password</h3>
                 <form onSubmit={handleSubmit} onReset={forgotPassword}>
                     <div className="form-group my-2">
                         <input
@@ -106,8 +104,6 @@ const UpdatePassword = () => {
                     </button>
                 </form>
             </div>
-        </div>
-        </div>
     );
 };
 

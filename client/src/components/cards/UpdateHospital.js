@@ -61,7 +61,7 @@ const UpdateHospital = () =>{
         removeHospital(email, user.token)
         .then((res) => {
             toast.success("Hospital Removed Successfully");
-            history.push('/Admin/ManageHospital');
+            history.push('/Admin/ManageHospitals');
         })
         .catch((err) => toast.error(err))
 
@@ -79,11 +79,11 @@ const UpdateHospital = () =>{
 
 
         return(
-            <div className="container-fluid mt-5">
-                <div className="row mt-5 pt-5">
+            <div className="container-fluid mt-5 px-md-5">
+                <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
                     
-                    <div className="col-lg-10 col-md-8 col-sm-8 p-md-4 p-3 text-center">
+                    <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
 
                         <h3>Hospital Info</h3>
                         <form onSubmit={handleSubmit} onReset={handleDelete}>

@@ -7,11 +7,10 @@ const ManagePatients = () => {
     const { hospital } = useSelector((state) => ({...state}));
 
     return(
-        <div className="container-fluid">
-            <div className="row">
-                {hospital && hospital.data.patients.map((patient) => <PatientCard patient={patient}/>)}
-            </div>
+        <div className="col-8 offset-1  p-md-4 p-3 text-center">
+            {hospital && hospital.data.patients.map((patient) => <PatientCard patient={patient}/>)}
         </div>
+
     )
 }
 

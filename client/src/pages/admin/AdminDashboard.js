@@ -8,7 +8,7 @@ const AdminDashboard = () => {
 
 
     return(
-        <div className="container-fluid">
+        <div className="col-8 offset-1  p-md-4 p-3 text-center">
             <div className="row">
                 {registeredHospital && registeredHospital.map((hospital) => <DisplayCard hospital={hospital}/>)}
             </div>

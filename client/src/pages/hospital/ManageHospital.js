@@ -74,8 +74,7 @@ const ManageHospital = () =>{
 
 
         return(
-            <div className="container">
-                <div className="col-10 offset-1 col-lg-8 offset-lg-2 shadow p-lg-5 p-md-4 p-3">
+            <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
                     <h3>Hospital Info</h3>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group my-xl-5 my-3 row">
@@ -203,8 +202,8 @@ const ManageHospital = () =>{
                             </div>
                         </div>
                     </form>
-                </div>
-             </div>
+            </div>
+
         )
 }
 export default ManageHospital;

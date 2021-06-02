@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const DisplayCard = ({ hospital }) => {
+const HospitalCard = ({ hospital }) => {
 
   return (
     <div key={hospital._id} className="col-12 p-4">
@@ -37,4 +37,4 @@ const DisplayCard = ({ hospital }) => {
   );
 };
 
-export default DisplayCard;
+export default HospitalCard;

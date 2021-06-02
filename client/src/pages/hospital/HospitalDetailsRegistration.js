@@ -75,9 +75,7 @@ const HospitalDetailsRegistration = () =>{
 
 
         return(
-            // <div className="container border">
-                // <h3>Hospital Dashboard</h3>
-                <div className="col-10 offset-1 col-lg-8 offset-lg-2 shadow p-lg-5 p-md-4 p-3">
+                <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
                     <h3>Registration Form</h3>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group my-xl-5 my-3 row">
@@ -235,7 +233,6 @@ const HospitalDetailsRegistration = () =>{
                         </div>
                     </form>
                 </div>
-            //  </div>
         )
 }
 export default HospitalDetailsRegistration;

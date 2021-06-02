@@ -6,8 +6,7 @@ import { registerPatient } from '../../functions/auth';
 import { toast } from 'react-toastify';
 import SideNav from '../../components/sideNav/SideNav';
 
-const UpdatePatient = () =>{
-
+const HospitalHome = ({history}) =>{
     const { user } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
 
@@ -113,17 +112,15 @@ const UpdatePatient = () =>{
         .catch((e)=> toast.error(e));
     }
 
-
     return(
-        <div className="container-fluid mt-5 px-5">
-                <div className="row mt-5 pt-5">
+        <div className="container-fluid mt-5 px-md-5">
+                <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
                     
-                    <div className="col-lg-8 col-md-8 col-sm-8 p-md-4 p-3 text-center">
-                        <div className="row justify-content-center  border shadow">
-                            <div className="col-lg-8">
+                    <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
+
                         <h3>Hospital Info</h3>
-                        <form>
+                        <form onSubmit={handleSubmit} onRe>
                 {/* ---------Personal details----------- */}    
                             <div class="form-group my-xl-5 my-3 row">
                                 <label for="patientName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
@@ -298,12 +295,132 @@ const UpdatePatient = () =>{
                                     />
                                 </div>
                             </div>
+                {/* ---------Health & medical history----------- */}
+                            <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Health and Medical History</div>
+                            <div class="form-group my-xl-5 my-3 row">
+                                <label for="weight" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Weight</label>
+                                <div class="col-12 col-md-6 col-xl-3 mb-3 mb-xl-0">
+                                    <input 
+                                        type="text" 
+                                        className="form-control w-100"  
+                                        name="weight"
+                                        value={weight}
+                                        placeholder="kg"
+                                        onChange={(e)=> setWeight(e.target.value)}
+                                    />
+                                </div>     
+                                <label for="height" class="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Height</label>
+                                <div class="col-12 col-md-6 col-xl-3">
+                                    <input 
+                                        type="text"
+                                        inputMode="numeric"
+                                        className="form-control w-100"
+                                        name="height"
+                                        value={height}  
+                                        placeholder="cm"
+                                        onChange={(e)=> setHeight(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group my-xl-5 my-3 row">
+                                <label for="medication" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                                    Are you currently taking any medication?
+                                </label>
+                                <div class="col-6 col-xl-3 mt-0 mt-xl-4">
+                                    <input type="radio" name="medication" className="col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                                    <label htmlFor="Yes"  className="col-4">Yes</label>
+
+                                    <input type="radio" name="medication" className="col-2" id="No" value="No" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                                    <label htmlFor="No" className="col-4">No</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-xl-5 my-3 row">     
+                                <label for="medicationList" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                                    If yes, please list it here...
+                                </label>
+                                <div class="col-12 col-xl-6">
+                                    <textarea 
+                                        className="form-control"
+                                        value={medicationList}  
+                                        onChange={(e)=> setMedicationList(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group my-xl-5 my-3 row">
+                                <label for="allergies" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                                    Do you have any medication allergies
+                                </label>
+                                <div class="col-12 col-lg-8 col-xl-6 mt-0 mt-xl-3">
+                                    <input type="radio" name="allergies" className="col-1" id="Yes" value="Yes" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                                    <label htmlFor="Yes" className="col-2">Yes</label>
+
+                                    <input type="radio" name="allergies" className="col-1" id="No" value="No" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                                    <label htmlFor="No" className="col-2">No</label>
+
+                                    <input type="radio" name="allergies" className="col-1" id="Not Sure" value="Not Sure" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                                    <label htmlFor="Not Sure" className="col-3">Not sure</label>
+                                </div>
+                            </div>
+                            <div class="form-group my-xl-5 my-3 row">     
+                                <label for="operations" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                                    Please list any operations and dates of each
+                                </label>
+                                <div class="col-12 col-xl-6">
+                                    <textarea 
+                                        className="form-control"
+                                        value={operationsList}
+                                        onChange={(e)=> setOperationsList(e.target.value)}  
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group my-xl-5 my-3 row">     
+                                <label for="healthIssues" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                                    Have you ever had <br/>
+                                    ( Please check all that apply...)
+                                </label>
+                                <div className="col-12 col-xl-8">
+                                    <div className="row my-2">
+                                        { healthList.map((item, i)=>{
+                                            return(
+                                                <div className="col-4 mb-2">
+                                                    <input className="col-2 m-auto" type="checkbox" id="healthIssues" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler} />
+                                                    <label className="col-10 m-auto text-start">{item}</label>
+                                                </div>)
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                {/* ---------Covid Symptoms----------- */}
+                            <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Covid-19 Questionnaire</div>
+                            <div class="form-group my-xl-5 my-3 row">     
+                                <label for="covidSymptoms" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                                    Please check the symptoms that apply...
+                                </label>
+                                <div className="col-12 col-xl-8">
+                                    <div className="row my-2">
+                                        { covidSymptomsList.map((item, i)=>{
+                                            return(
+                                                <div className="col-6 mb-2">
+                                                    <input className="col-2 m-auto" type="checkbox" id="covidSymptoms" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler}/>
+                                                    <label className="col-10 m-auto text-start">{item}</label>
+                                                </div>)
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
+                                    <div className="col-lg-5">
+                                        <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Submit</button>
+                                    </div>
+                                    <div className="col-lg-5 offset-1">
+                                        <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">Reset</button>
+                                    </div>
+                                </div>
                         </form>
                     </div>
-                    </div>
                 </div>
-                </div>
-             </div>   
+             </div>
     )
 }
-export default UpdatePatient;
+
+export default HospitalHome;
