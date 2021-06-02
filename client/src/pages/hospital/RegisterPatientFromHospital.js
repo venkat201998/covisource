@@ -242,7 +242,11 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
         {/* ---------Emergency Fields----------- */}
-                    <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>In Case Of Emergency</div>
+                    <div className="row border-top border-3 pt-3 fs-4" >
+                        <div className="col text-center">
+                            <h4 style={{color: "gray", borderColor: "gray"}}>In Case of Emergency</h4>
+                        </div>
+                    </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label for="emergencyCName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Emergency Contact</label>
                         <div class="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
@@ -292,7 +296,11 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
         {/* ---------Health & medical history----------- */}
-                    <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Health and Medical History</div>
+                    <div className="row border-top border-3 pt-3 fs-4" >
+                        <div className="col text-center">
+                            <h4 style={{color: "gray", borderColor: "gray"}}>Health and Medical History</h4>
+                        </div>
+                    </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label for="weight" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Weight</label>
                         <div class="col-12 col-md-6 col-xl-3 mb-3 mb-xl-0">
@@ -387,7 +395,11 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
         {/* ---------Covid Symptoms----------- */}
-                    <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Covid-19 Questionnaire</div>
+                    <div className="row border-top border-3 pt-3 fs-4" >
+                        <div className="col text-center">
+                            <h4 style={{color: "gray", borderColor: "gray"}}>Covid-19 Questionnaire</h4>
+                        </div>
+                    </div>
                     <div class="form-group my-xl-5 my-3 row">     
                         <label for="covidSymptoms" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
                             Please check the symptoms that apply...

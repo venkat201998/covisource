@@ -148,7 +148,11 @@ const ManageHospital = () =>{
                                     />
                                 </div>
                         </div>
-                        <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</div>
+                        <div className="row border-top border-3 pt-3 fs-4" >
+                            <div className="col text-center">
+                                <h4 style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</h4>
+                            </div>
+                        </div>
                         <div className="form-group my-xl-5 my-3 row">
                                 <label for="generalBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">General</label>
                                 <div className="col-12 col-md-8 col-xl-3 mb-3 mb-xl-0">
