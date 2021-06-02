@@ -147,11 +147,11 @@ exports.registerPatient = async(req, res) => {
     }
 }
 
-exports.getHospitals = async(req, res) => {
+exports.getInactiveHospitals = async(req, res) => {
     try{
         const status = "Inactive";
-        const hospitals = await Hospital.find({status});
-        res.json(hospitals);
+        const inActiveHospitals = await Hospital.find({status});
+        res.json(inActiveHospitals);
     }catch(error){
         res.json(error)
     }
@@ -180,6 +180,16 @@ exports.removeHospital = async (req, res) => {
         }else{
             res.json("Failed To Remove The Hospital");
         }
+    }catch(error){
+        res.json(error)
+    }
+}
+
+exports.getHospitals = async(req, res) => {
+    try{
+        const status = "Active";
+        const activeHospitals = await Hospital.find({status});
+        res.json(activeHospitals);
     }catch(error){
         res.json(error)
     }

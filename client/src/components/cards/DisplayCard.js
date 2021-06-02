@@ -1,24 +1,41 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { updateHospitalStatus, removeHospital } from "../../functions/auth";
+import { updateHospitalStatus, removeHospital, getInactiveHospitals } from "../../functions/auth";
 
 const DisplayCard = ({ hospital }) => {
   
   const { user } = useSelector((state) => ({...state}));
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e, email) => {
     e.preventDefault();
     updateHospitalStatus(email, user.token)
       .then((res) => toast.success("Hospital Registration Request Accepted Successfully"))
       .catch((err) => toast.error(err));
+    getInactiveHospitals(user.token)
+      .then((res) => {
+          dispatch({
+              type: "HOSPITAL_STATUS_INACTIVE",
+              payload: res.data
+          })
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleReject = (e, email) => {
     e.preventDefault();
     removeHospital(email, user.token)
-    .then((res) => toast.success("Hospital Registration Request Rejected Successfully"))
-    .catch((err) => toast.error(err))
+      .then((res) => toast.success("Hospital Registration Request Rejected Successfully"))
+      .catch((err) => toast.error(err))
+    getInactiveHospitals(user.token)
+      .then((res) => {
+          dispatch({
+              type: "HOSPITAL_STATUS_INACTIVE",
+              payload: res.data
+          })
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

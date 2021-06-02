@@ -89,9 +89,9 @@ export const registerPatient = async (patientDetails, email, idToken) => {
     )
 }
 
-export const getHospitals = async (idToken) => {
+export const getInactiveHospitals = async (idToken) => {
     return axios.get(
-        `${process.env.REACT_APP_API}/get-hospitals`,
+        `${process.env.REACT_APP_API}/get-inactive-hospitals`,
         {
             headers:{
                 idToken
@@ -127,3 +127,14 @@ export const removeHospital = async (email, idToken) => {
         }
     )
 }
+
+export const getHospitals = async (idToken) => {
+    return axios.get(
+        `${process.env.REACT_APP_API}/get-hospitals`,
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+} 

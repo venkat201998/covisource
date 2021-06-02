@@ -1,9 +1,10 @@
 import { Switch, Route } from 'react-router-dom';
-import './App.css';
 import { ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { auth } from './firebase';
 import "react-toastify/dist/ReactToastify.css";
+import './App.css';
 
 import Home from './pages/Home';
 import Login from './pages/auth/Login';
@@ -13,14 +14,14 @@ import Header from './components/nav/header/Header';
 import UserRegisterComplete from './pages/auth/register-complete/UserRegisterComplete';
 import HospitalRegisterComplete from './pages/auth/register-complete/HospitalRegisterComplete';
 import ForgotPassword from './pages/auth/ForgotPassword';
-import { auth } from './firebase';
 import AdminHome from './pages/admin/AdminHome';
-import HospitalDashboard from './pages/hospital/HospitalDashboard';
+import HospitalHome from './pages/hospital/HospitalHome';
 import UserDashboard from './pages/user/UserDashboard';
 import AdminRoute from './components/routes/AdminRoute';
 import UserRoute from './components/routes/UserRoute';
 import HospitalRoute from './components/routes/HospitalRoute';
 import { currentUser, checkHospital } from './functions/auth';
+import HospitalDetailsRegistration from './pages/hospital/HospitalDetailsRegistration';
 
 
 const App = () => {
@@ -75,7 +76,8 @@ const App = () => {
         .catch((e) => console.log(e));        
       }
     })
-  }, [])
+    return () => unsubscribe();
+  }, [dispatch]);
 
   return(
     <>
@@ -92,7 +94,8 @@ const App = () => {
         {/* <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />  */}
         {/* <HospitalRoute exact path="/hospital/dashboard" component={HospitalDashboard} /> */}
         <AdminRoute exact path="/Admin/:slug" component={AdminHome} />
-        <HospitalRoute exact path="/Hospital/:slug" component={HospitalDashboard} />
+        <AdminRoute exact path="/Admin/ManageHospitals/:slug" component={ HospitalDetailsRegistration } />
+        <HospitalRoute exact path="/Hospital/:slug" component={HospitalHome} />
         <UserRoute exact path="/User/:slug" component={UserDashboard}/>
       </Switch>
     </>
