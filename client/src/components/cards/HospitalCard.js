@@ -26,7 +26,7 @@ const DisplayCard = ({ hospital }) => {
             <div className="col-2">
                 <ul className="list-group d-flex flex-row justify-content-center">
                     <li className="list-group-item border-0 bg-transparent">
-                        <button className="btn btn-success text-white" type="submit"><Link to={`ManageHospitals/${hospital._id}`}>View</Link></button>
+                        <button className="btn btn-success" type="submit"><Link className="text-white fw-bold" to={`ManageHospitals/${hospital._id}`}>View</Link></button>
                     </li>
                 </ul>
             </div>

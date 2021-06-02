@@ -27,6 +27,13 @@ const Login = ({ history }) => {
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const {user} = result;
+      if(user){
+        toast.success("Login Success");
+      }else{
+        toast.error("Something went wrong");
+        history.push("/login");
+      }
+
       const idTokenResult = await user.getIdTokenResult();
       let options=[];
       let uaoptions=[];

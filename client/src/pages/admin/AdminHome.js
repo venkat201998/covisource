@@ -23,7 +23,6 @@ const AdminHome = ({history}) => {
 
         getHospitals(user.token)
         .then((res) => {
-            console.log(res.data);
             dispatch({
                 type: "ACTIVE_HOSPITALS",
                 payload: res.data

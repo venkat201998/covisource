@@ -51,7 +51,7 @@ const ManageHospital = () =>{
         
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds};
         
-        updateHospital(hospitalDetails, user.email, user.token)
+        updateHospital(hospitalDetails, user.token)
         .then((res) =>{
             if(res.data!=="Update Failed"){
                 toast.success("Details Updated");

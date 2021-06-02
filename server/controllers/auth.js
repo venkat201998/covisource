@@ -96,7 +96,12 @@ exports.checkHospital = async(req, res) => {
 
 exports.updateHospital = async(req, res) => {
     try{
-        const email = req.body.email;
+
+        if(req.body.hospitalDetails.email){
+            const email = req.body.hospitalDetails.email;
+        }else{
+            const { email } = req.user;
+        }
         const hospitalDetails = req.body.hospitalDetails;
         
         const updateHospital = await Hospital.findOneAndUpdate({email},{
