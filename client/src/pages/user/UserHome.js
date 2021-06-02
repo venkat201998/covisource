@@ -1,9 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import SideNav from '../../components/sideNav/SideNav';
+import UpdatePassword from '../../components/UpdatePassword';
 
 
-const UserDashboard = ({history}) => {
+const UserHome = ({history}) => {
     const { user } = useSelector((state) => ({ ...state }));
     const [path, setPath] = useState("");
     
@@ -21,7 +22,7 @@ const UserDashboard = ({history}) => {
                         { (path==='/User/Dashboard') && <h3>User Dashboard</h3> }
                         { (path==='/User/Slot') && <h3>Slot</h3> }
                         { (path==='/User/SlotsHistory') && <h3>SlotsHistory</h3> }
-                        { (path==='/User/UpdatePassword') && <h3>UpdatePassword</h3> }
+                        { (path==='/User/UpdatePassword') && <UpdatePassword/> }
 
                         <h4>{user && user.email}</h4>
                     </div>
@@ -30,4 +31,4 @@ const UserDashboard = ({history}) => {
     )
 }
 
-export default UserDashboard;
+export default UserHome;

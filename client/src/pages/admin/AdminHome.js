@@ -5,6 +5,7 @@ import HospitalDetailsRegistration from '../hospital/HospitalDetailsRegistration
 import ManageHospitals from '../admin/ManageHospitals';
 import AdminDashboard from './AdminDashboard';
 import { getInactiveHospitals, getHospitals } from '../../functions/auth';
+import UpdatePassword from '../../components/UpdatePassword';
 
 const AdminHome = ({history}) => {
     const { user } = useSelector((state) => ({ ...state }));
@@ -44,7 +45,7 @@ const AdminHome = ({history}) => {
                         { (path==='/Admin/RegisterHospital') && <HospitalDetailsRegistration/> }
                         { (path==='/Admin/ManageHospitals') && <ManageHospitals/> }
                         { (path==='/Admin/ManageUsers') && <h3>ManageUsers</h3> }
-                        { (path==='/Admin/UpdatePassword') && <h3>UpdatePassword</h3> }
+                        { (path==='/Admin/UpdatePassword') && <UpdatePassword/> }
                     </div>
                 </div>
         </div>

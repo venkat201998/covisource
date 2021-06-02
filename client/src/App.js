@@ -16,12 +16,14 @@ import HospitalRegisterComplete from './pages/auth/register-complete/HospitalReg
 import ForgotPassword from './pages/auth/ForgotPassword';
 import AdminHome from './pages/admin/AdminHome';
 import HospitalHome from './pages/hospital/HospitalHome';
-import UserDashboard from './pages/user/UserDashboard';
+import UserHome from './pages/user/UserHome';
 import AdminRoute from './components/routes/AdminRoute';
 import UserRoute from './components/routes/UserRoute';
 import HospitalRoute from './components/routes/HospitalRoute';
 import { currentUser, checkHospital } from './functions/auth';
 import UpdateHospital from './components/cards/UpdateHospital';
+import UpdatePatient from './pages/hospital/UpdatePatient';
+
 
 
 const App = () => {
@@ -96,7 +98,8 @@ const App = () => {
         <AdminRoute exact path="/Admin/:slug" component={ AdminHome } />
         <AdminRoute exact path="/Admin/ManageHospitals/:slug" component={ UpdateHospital } />
         <HospitalRoute exact path="/Hospital/:slug" component={ HospitalHome } />
-        <UserRoute exact path="/User/:slug" component={ UserDashboard }/>
+        <HospitalRoute exact path="/Hospital/ManagePatients/:slug" component={ UpdatePatient } />
+        <UserRoute exact path="/User/:slug" component={ UserHome}/>
       </Switch>
     </>
   )
