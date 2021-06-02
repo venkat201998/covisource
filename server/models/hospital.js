@@ -47,8 +47,17 @@ const HospitalSchema = new mongoose.Schema(
                 medicationAllergies: String,
                 operationsList: String,
                 healthIssuesChecked: Array,
-                covidSymptomsChecked: Array
-            }
+                covidSymptomsChecked: Array,
+                createdDate:{
+                    type:Date,
+                    default: Date.now
+                },
+                updatedDate:{
+                    type:Date,
+                    default: Date.now
+                },
+            },
+            
         ]
         
     },
