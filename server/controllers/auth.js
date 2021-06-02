@@ -136,7 +136,6 @@ exports.registerPatient = async(req, res) => {
         const hospital = await Hospital.findOne({email});
         const patients = hospital.patients;
 
-        console.table(req.body.patientDetails);
         patients.push(req.body.patientDetails);
         const updateHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} )
         if(updateHospital){
