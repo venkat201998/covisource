@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
 import { registerPatient } from '../../functions/auth';
+import { toast } from 'react-toastify';
 
 const RegisterPatientFromHospital = () =>{
 
     const { user } = useSelector((state) => ({ ...state }))
+    const dispatch = useDispatch();
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -94,14 +96,20 @@ const RegisterPatientFromHospital = () =>{
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(firstName, lastName);
         const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
                                 eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
                                 medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked};
-        console.log(patientDetails);
         registerPatient(patientDetails, user.email, user.token)
-        .then((res)=> console.log(res))
-        .catch((e)=> console.log(e));
+        .then((res)=> {
+            dispatch({
+                type:'LOGIN',
+                payload: {
+                    data: res.data
+                } 
+            })
+            toast.success("Patient Registered")
+        })
+        .catch((e)=> toast.error(e));
     }
 
 

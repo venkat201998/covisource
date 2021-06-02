@@ -7,6 +7,8 @@ import HospitalDashboard from './HospitalDashboard';
 import RegisterPatientFromHospital from './RegisterPatientFromHospital';
 import { checkHospital } from '../../functions/auth';
 import ManageHospital from './ManageHospital';
+import UpdatePassword from '../../components/UpdatePassword';
+import ManagePatients from './ManagePatients';
 
 const HospitalHome = ({history}) =>{
     const { user } = useSelector((state) => ({ ...state }));
@@ -42,8 +44,8 @@ const HospitalHome = ({history}) =>{
                         { (path==='/Hospital/Dashboard') && (hospitalStatus ? <HospitalDashboard/> : <HospitalDetailsRegistration/>) }
                         { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
                         { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }
-                        { (path==='/Hospital/ManagePatients') && <h3>ManagePatients</h3> }
-                        { (path==='/Hospital/UpdatePassword') && <h3>UpdatePassword</h3> }
+                        { (path==='/Hospital/ManagePatients') && <ManagePatients/> }
+                        { (path==='/Hospital/UpdatePassword') && <UpdatePassword/> }
 
                         
                     </div>
