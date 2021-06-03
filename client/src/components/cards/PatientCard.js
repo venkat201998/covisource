@@ -18,6 +18,9 @@ const PatientCard = ({ patient, type }) => {
               <li className="list-group-item border-0 bg-transparent">
                 {patient.contact}, {patient.email}
               </li>
+              <li className="list-group-item border-0 bg-transparent">
+                {patient.city}, {patient.state}, {patient.pinCode}
+              </li>
             </div>
             <div className="col-5">
                 <li className="list-group-item border-0 bg-transparent">
@@ -25,9 +28,6 @@ const PatientCard = ({ patient, type }) => {
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
                     {type && type!=="ManagePatients" ? (<p><span className="fw-bold"> {patient && patient.status} Date: </span> <span>{patient && patient.updatedDate}</span></p>)  : "" }
-                </li>
-                <li className="list-group-item border-0 bg-transparent">
-                    {patient.city}, {patient.state}, {patient.pinCode}
                 </li>
             </div>
             <div className="col-2">

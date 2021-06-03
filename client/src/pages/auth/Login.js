@@ -8,6 +8,13 @@ import { currentUser } from '../../functions/auth';
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user } = useSelector((state) => ({...state}));
+
+  useEffect(() => {
+    if (user && user.token) history.push("/");
+  }, [user]);
+
+
   const rolebasedredirect = (type) => {
     if(type==="Admin"){
       history.push("/");

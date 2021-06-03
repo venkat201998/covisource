@@ -199,7 +199,7 @@ exports.getHospitals = async(req, res) => {
     }
 }
 
-exports.updatePatientStatus = async(req, res) => {
+exports.updatePatientStatus = async (req, res) => {
     
     try{
         const { email } = req.user;
@@ -224,6 +224,36 @@ exports.updatePatientStatus = async(req, res) => {
         }
         else{
             res.json("Update failed");
+        }
+    }catch(error){
+        res.json(error)
+    }
+}
+
+exports.getUsers = async (req, res) => {
+    try{
+        const users = await User.find({});
+        if(users){
+            res.json(users);
+        }else{
+            res.json("No User Found");
+        }
+    }catch(error){
+        res.json(error)
+    }
+}
+
+exports.updateUser = async (req, res) => {
+    try{
+        const {firstName, lastName, dob, gender, email, contact, address, state, city, pinCode } = req.body.userDetails;
+        const user = await User.findOneAndUpdate({email}, {firstName, lastName, dob, gender, email, contact, address, state, city, pinCode});
+        const users = await User.find({});
+
+        if(users){
+            console.log("Updated Users", users)
+            res.json(users);
+        }else{
+            res.json("No User Found");
         }
     }catch(error){
         res.json(error)

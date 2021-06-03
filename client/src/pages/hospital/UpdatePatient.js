@@ -33,7 +33,7 @@ const UpdatePatient = () =>{
     const [relationship, setRelationship] = useState( patientDetails && patientDetails.relationship);
     const [eContact, setEContact] = useState( patientDetails && patientDetails.eContact);
 
-    const [status, setStatus] = useState("Active");
+    const [status, setStatus] = useState("Admitted");
     const [comments, setComments] = useState("");
     let citiesOptions = null;
 

@@ -4,9 +4,8 @@ const router = express.Router();
 
 const { authCheck, adminCheck } = require("../middlewares/auth");
 
-
 // controller
-const { createOrUpdateUser, currentUser, checkUser, createHospital, checkHospital, updateHospital, registerPatient, getInactiveHospitals, updateHospitalStatus, removeHospital, getHospitals, updatePatientStatus} = require("../controllers/auth");
+const { createOrUpdateUser, currentUser, checkUser, createHospital, checkHospital, updateHospital, registerPatient, getInactiveHospitals, updateHospitalStatus, removeHospital, getHospitals, updatePatientStatus, getUsers, updateUser} = require("../controllers/auth");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
 router.post("/check-user", checkUser);
@@ -20,4 +19,6 @@ router.post("/update-hospital-status", authCheck, adminCheck, updateHospitalStat
 router.post("/remove-hospital", authCheck, adminCheck, removeHospital);
 router.get("/get-hospitals", authCheck, adminCheck, getHospitals);
 router.post("/update-patient-status", authCheck, updatePatientStatus);
+router.get("/get-users", authCheck, adminCheck, getUsers);
+router.post("/update-user", authCheck, adminCheck, updateUser);
 module.exports = router;

@@ -21,9 +21,10 @@ import AdminRoute from './components/routes/AdminRoute';
 import UserRoute from './components/routes/UserRoute';
 import HospitalRoute from './components/routes/HospitalRoute';
 import { currentUser, checkHospital } from './functions/auth';
-import UpdateHospital from './components/cards/UpdateHospital';
+import UpdateHospital from './pages/admin/UpdateHospital';
 import UpdatePatient from './pages/hospital/UpdatePatient';
 import UpdateHospitalStatus from './pages/admin/UpdateHospitalStatus';
+import UpdateUser from './pages/admin/UpdateUser';
 
 
 
@@ -96,6 +97,7 @@ const App = () => {
         {/* <HospitalRoute exact path="/hospital/dashboard" component={HospitalDashboard} /> */}
         <AdminRoute exact path="/Admin/:slug" component={ AdminHome } />
         <AdminRoute exact path="/Admin/ManageHospitals/:slug" component={ UpdateHospital } />
+        <AdminRoute exact path="/Admin/ManageUsers/:slug" component={ UpdateUser } />
         <AdminRoute exact path="/Admin/Dashboard/:slug" component={ UpdateHospitalStatus } />
         <HospitalRoute exact path="/Hospital/:slug" component={ HospitalHome } />
         <HospitalRoute exact path="/Hospital/ManagePatients/:slug" component={ UpdatePatient } />

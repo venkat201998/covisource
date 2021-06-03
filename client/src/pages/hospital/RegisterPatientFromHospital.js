@@ -344,7 +344,7 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="kg"
                                 onChange={(e)=> setWeight(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>     
                         <label for="height" class="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Height</label>

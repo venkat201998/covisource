@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import SideNav from '../../components/sideNav/SideNav';
 import HospitalDetailsRegistration from '../hospital/HospitalDetailsRegistration';
 import ManageHospitals from '../admin/ManageHospitals';
+import ManageUsers from '../admin/ManageUsers';
 import AdminDashboard from './AdminDashboard';
-import { getInactiveHospitals, getHospitals } from '../../functions/auth';
+import { getInactiveHospitals, getHospitals, getUsers } from '../../functions/auth';
 import UpdatePassword from '../../components/UpdatePassword';
+import { toast } from 'react-toastify';
 
 const AdminHome = ({history}) => {
     const { user } = useSelector((state) => ({ ...state }));
@@ -20,7 +22,7 @@ const AdminHome = ({history}) => {
                 payload: res.data
             })
         })
-        .catch((err) => console.log(err));
+        .catch((err) => toast.error(err));
 
         getHospitals(user.token)
         .then((res) => {
@@ -29,7 +31,18 @@ const AdminHome = ({history}) => {
                 payload: res.data
             })
         })
-        .catch((err) => console.log(err));
+        .catch((err) => toast.error(err));
+
+        getUsers(user.token)
+        .then((res) => {
+            if(res.data !== "No User Found"){
+                dispatch({
+                    type: "REGISTERED_USERS",
+                    payload: res.data
+                })
+            }
+        })
+        .catch((err) => toast.error(err))
 
         setPath(history.location.pathname);
     },[history.location.pathname, user]);
@@ -43,7 +56,7 @@ const AdminHome = ({history}) => {
                         { (path==='/Admin/Dashboard') && <AdminDashboard/> }
                         { (path==='/Admin/RegisterHospital') && <HospitalDetailsRegistration/> }
                         { (path==='/Admin/ManageHospitals') && <ManageHospitals/> }
-                        { (path==='/Admin/ManageUsers') && <h3>ManageUsers</h3> }
+                        { (path==='/Admin/ManageUsers') && <ManageUsers/> }
                         { (path==='/Admin/UpdatePassword') && <UpdatePassword/> }
                     
                 </div>

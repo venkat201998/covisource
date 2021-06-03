@@ -4,26 +4,23 @@ const userSchema = new mongoose.Schema(
     {
         firstName: String,
         lastName: String,
+        dob: String,
+        gender:String,
         email:{
             type: String,
             index: true,
             required: true
         },
+        contact: String,
+        address: String,
+        state: String,
+        city:String,
+        pinCode: String,      
+        
         type: {
             type: String,
             required: true
         },
-        phoneNumber:{
-            type: Number,
-        },
-        gender: String,
-        DOB: Date,
-        address:[
-            {city: String},
-            {district: String},
-            {state: String},
-            {pinCode: String},
-        ]
     },
     {timestamps: true}
 );

@@ -3,12 +3,14 @@ import { userReducer } from "./UserReducer";
 import { hospitalReducer } from "./HospitalReducer";
 import { hospitalsReducer } from "./HospitalsReducer";
 import { registeredHospitalReducer } from "./RegisteredHospitalsReducer";
+import { usersReducer } from './UsersReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
   hospital: hospitalReducer,
   registeredHospital: registeredHospitalReducer,
-  hospitals: hospitalsReducer
+  hospitals: hospitalsReducer,
+  users: usersReducer
 });
 
 export default rootReducer;

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import HospitalCities from '../../pages/hospital/Json/HospitalCities.json';
-import HospitalStates from '../../pages/hospital/Json/HospitalStates.json';
-import SideNav from '../sideNav/SideNav';
+import HospitalCities from '../hospital/Json/HospitalCities.json';
+import HospitalStates from '../hospital/Json/HospitalStates.json';
+import SideNav from '../../components/sideNav/SideNav';
 import { updateHospital, removeHospital, getHospitals } from '../../functions/auth';
 
 const UpdateHospital = () =>{
