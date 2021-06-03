@@ -22,7 +22,7 @@ const ManageHospital = () =>{
             }
         })
         .catch((e) => console.log(e));
-    })
+    },[user])
 
     const [hospitalName, setHospitalName] = useState(hospital && hospital.hospitalName);
     const [address, setAddress] = useState(hospital && hospital.streetAddress);
@@ -48,24 +48,28 @@ const ManageHospital = () =>{
         e.preventDefault();
         
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds};
-        
-        updateHospital(hospitalDetails, user.token)
-        .then((res) =>{
-            if(res.data!=="Update Failed"){
-                toast.success("Details Updated");
-                dispatch({
-                    type:'LOGIN',
-                    payload: {
-                        data: res.data
-                    } 
-                })
-            }
-            else{
-                toast.error("Already Hospital registered");
-            }
-        })
-            
-        .catch((err) => toast.error("Failed Registration"));
+        let answer = window.confirm("Update Hospital Details?");
+        if(answer){
+            updateHospital(hospitalDetails, user.token)
+            .then((res) =>{
+                if(res.data!=="Update Failed"){
+                    toast.success("Details Updated");
+                    dispatch({
+                        type:'LOGIN',
+                        payload: {
+                            data: res.data
+                        } 
+                    })
+                }
+                else{
+                    toast.error("Already Hospital registered");
+                }
+            })
+                
+            .catch((err) => toast.error("Failed Registration"));
+        }else{
+            toast.error("Failed To Update")
+        }
 
         history.push("/Hospital/ManageHospital");
     }
@@ -73,8 +77,9 @@ const ManageHospital = () =>{
 
         return(
             <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
-                    <h3>Hospital Info</h3>
-                    <form onSubmit={handleSubmit}>
+                {hospital ?
+                    (<form onSubmit={handleSubmit}>
+                        <h3>Hospital Info</h3>
                         <div className="form-group my-xl-5 my-3 row">
                             <label for="hospitalName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Hospital</label>
                             <div className="col-12 col-xl-8">
@@ -203,7 +208,7 @@ const ManageHospital = () =>{
                                 <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
                             </div>
                         </div>
-                    </form>
+                    </form>) : (<h3>Hospital Not Registered</h3>)}
             </div>
 
         )

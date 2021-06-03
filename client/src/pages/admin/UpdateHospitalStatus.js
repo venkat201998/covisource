@@ -15,35 +15,47 @@ const UpdateHospitalStatus = () =>{
 
     const handleSubmit = async (e, email) => {
         e.preventDefault();
-        updateHospitalStatus(email, user.token)
-          .then((res) => toast.success("Hospital Registration Request Accepted Successfully"))
-          .catch((err) => toast.error(err));
-        getInactiveHospitals(user.token)
-          .then((res) => {
-              dispatch({
-                  type: "HOSPITAL_STATUS_INACTIVE",
-                  payload: res.data
-              })
-              
-          })
-          .catch((err) => console.log(err));
-          history.push('/Admin/Dashboard');
+        let answer = window.confirm("Accept?");
+        if(answer){
+            updateHospitalStatus(email, user.token)
+            .then((res) => toast.success("Hospital Registration Request Accepted Successfully"))
+            .catch((err) => toast.error(err));
+
+            getInactiveHospitals(user.token)
+            .then((res) => {
+                dispatch({
+                    type: "HOSPITAL_STATUS_INACTIVE",
+                    payload: res.data
+                })
+                
+            })
+            .catch((err) => console.log(err));
+        }else{
+            toast.error("Failed To Accept");
+        }
+        
+        history.push('/Admin/Dashboard');
     };
     
     const handleReject = (e, email) => {
         e.preventDefault();
-        removeHospital(email, user.token)
-          .then((res) => toast.success("Hospital Registration Request Rejected Successfully"))
-          .catch((err) => toast.error(err))
-        getInactiveHospitals(user.token)
-          .then((res) => {
-              dispatch({
-                  type: "HOSPITAL_STATUS_INACTIVE",
-                  payload: res.data
-              })
-          })
-          .catch((err) => console.log(err));
-          history.push('/Admin/Dashboard');
+        let answer = window.confirm("Accept?");
+        if(answer){
+            removeHospital(email, user.token)
+            .then((res) => toast.success("Hospital Registration Request Rejected Successfully"))
+            .catch((err) => toast.error(err))
+            getInactiveHospitals(user.token)
+            .then((res) => {
+                dispatch({
+                    type: "HOSPITAL_STATUS_INACTIVE",
+                    payload: res.data
+                })
+            })
+            .catch((err) => console.log(err));
+        }else{
+            toast.error("Failed To Delete");
+        }
+        history.push('/Admin/Dashboard');
     };
  
 

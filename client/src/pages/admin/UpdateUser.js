@@ -39,20 +39,24 @@ const UpdateUser = () =>{
         e.preventDefault();
         
         const userDetails = {firstName, lastName, dob, gender, email, contact, address, state, city, pinCode };
-
-        updateUser(userDetails, user.token)
-        .then((res) => {
-            if(res.data !== "Update Failed"){
-                dispatch({
-                    type: "REGISTERED_USERS",
-                    payload: res.data
-                })
-                toast.success("User Deatils Updated")
-            }else{
-                toast.error("Update Failed")
-            }
-        })
-        .catch((err) => toast.error("Update Failed"))        
+        let answer = window.confirm("Update User Details?");
+        if(answer){
+            updateUser(userDetails, user.token)
+            .then((res) => {
+                if(res.data !== "Update Failed"){
+                    dispatch({
+                        type: "REGISTERED_USERS",
+                        payload: res.data
+                    })
+                    toast.success("User Deatils Updated")
+                }else{
+                    toast.error("Update Failed")
+                }
+            })
+            .catch((err) => toast.error("Update Failed"))  
+        }else{
+            toast.error("Failed To Update");
+        }      
     }
 
     

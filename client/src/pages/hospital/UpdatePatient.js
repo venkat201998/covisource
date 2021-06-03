@@ -45,19 +45,24 @@ const UpdatePatient = () =>{
     const handleSubmit = (e) => {
         e.preventDefault();
         const patientDetails = { eFirstName, eLastName, relationship, eContact, status, comments };
-        updatePatientStatus(patientDetails, slug, user.token)
-        .then((res)=> {
-            if(res.data!== "Update failed"){
-                dispatch({
-                    type:'LOGIN',
-                    payload: res.data 
-                })
-                toast.success("Patient updated");
-            }
-           history.push("/Hospital/ManagePatients");
-            
-        })
-        .catch((e)=> toast.error(e));
+        let answer = window.confirm("Confirm Update?");
+        if(answer){
+            updatePatientStatus(patientDetails, slug, user.token)
+            .then((res)=> {
+                if(res.data!== "Update failed"){
+                    dispatch({
+                        type:'LOGIN',
+                        payload: res.data 
+                    })
+                    toast.success("Patient updated");
+                }
+            history.push("/Hospital/ManagePatients");
+                
+            })
+            .catch((e)=> toast.error(e));
+        }else{
+            toast.error("Failed To Update Patient Details")
+        }
     }
 
     return(

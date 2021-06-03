@@ -39,18 +39,23 @@ const UpdateHospital = () =>{
         
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, status};
 
-        updateHospital(hospitalDetails, user.token)
-        .then((res) => toast.success("Hospital Updated Successfully"))
-        .catch((err) => toast.error(err))
+        let answer = window.confirm("Update Hospital Details?");
+        if(answer){
+            updateHospital(hospitalDetails, user.token)
+            .then((res) => toast.success("Hospital Updated Successfully"))
+            .catch((err) => toast.error(err))
 
-        getHospitals(user.token)
-        .then((res) => {
-            dispatch({
-                type: "ACTIVE_HOSPITALS",
-                payload: res.data
+            getHospitals(user.token)
+            .then((res) => {
+                dispatch({
+                    type: "ACTIVE_HOSPITALS",
+                    payload: res.data
+                })
             })
-        })
-        .catch((err) => toast.error(err));
+            .catch((err) => toast.error(err));
+        }else{
+            toast.error("Failed To Update")
+        }
 
         
     }
@@ -58,21 +63,26 @@ const UpdateHospital = () =>{
     const handleDelete = async (e) =>{
         e.preventDefault();
 
-        removeHospital(email, user.token)
-        .then((res) => {
-            toast.success("Hospital Removed Successfully");
-            history.push('/Admin/ManageHospitals');
-        })
-        .catch((err) => toast.error(err))
-
-        getHospitals(user.token)
-        .then((res) => {
-            dispatch({
-                type: "ACTIVE_HOSPITALS",
-                payload: res.data
+        let answer = window.confirm("Delete Hospital?");
+        if(answer){
+            removeHospital(email, user.token)
+            .then((res) => {
+                toast.success("Hospital Removed Successfully");
+                history.push('/Admin/ManageHospitals');
             })
-        })
-        .catch((err) => toast.error(err));
+            .catch((err) => toast.error(err))
+
+            getHospitals(user.token)
+            .then((res) => {
+                dispatch({
+                    type: "ACTIVE_HOSPITALS",
+                    payload: res.data
+                })
+            })
+            .catch((err) => toast.error(err));
+        }else{
+            toast.error("Failed To Delete");
+        }
 
         
     }

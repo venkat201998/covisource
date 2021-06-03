@@ -37,7 +37,7 @@ const HospitalSchema = new mongoose.Schema(
                 
                 eFirstName: String,
                 eLastName: String,
-                relationShip: String,
+                relationship: String,
                 eContact: String,
 
                 weight: String,

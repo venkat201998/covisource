@@ -20,13 +20,20 @@ const UpdatePassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const result = await auth.signInWithEmailAndPassword(email, password);
-            const {user} = result;
-            if(user){
-              auth.currentUser.updatePassword(newPassword);
-              toast.success("Updated password successfully");
+            let answer = window.confirm("Update Password?");
+            if(answer){
+                const result = await auth.signInWithEmailAndPassword(email, password);
+                const {user} = result;
+                if(user){
+                    auth.currentUser.updatePassword(newPassword);
+                    toast.success("Updated password successfully");
+                }else{
+                    toast.error("Wrong password. Try forgot password");
+                }
             }else{
-              toast.error("Wrong password. Try forgot password");
+                toast.error("Failed To Update Password");
+                setPassword("");
+                setNewPassword("");
             }
         }
         catch (error) {
@@ -36,11 +43,13 @@ const UpdatePassword = () => {
 
     const forgotPassword = async (e) => {
         e.preventDefault();
-        const config = {
-            url: "http://localhost:3000/login",
-            handleCodeInApp: true,
-          };
-          await auth
+        let answer = window.confirm("Forgot Password? Confirm To Reset");
+        if(answer){
+            const config = {
+                url: "http://localhost:3000/login",
+                handleCodeInApp: true,
+            };
+            await auth
             .sendPasswordResetEmail(email, config)
             .then(() => {
                 toast.success("Check your email for password reset link");
@@ -49,12 +58,14 @@ const UpdatePassword = () => {
                 dispatch({
                 type: 'LOGOUT',
                 payload: null
-                })
-                    
+                })            
             })
             .catch((error) => {
-              toast.error(error.message);
+                toast.error(error.message);
             });
+        }else{
+            toast.error("Failed To Get Reset Link");
+        }
     }
 
     return (

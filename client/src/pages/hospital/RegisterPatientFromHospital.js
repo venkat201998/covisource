@@ -106,20 +106,30 @@ const RegisterPatientFromHospital = () =>{
         const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
                                 eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
                                 medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, status};
-        registerPatient(patientDetails, user.email, user.token)
-        .then((res)=> {
-            dispatch({
-                type:'LOGIN',
-                payload: res.data 
+        let answer = window.confirm("Confirm Registration?");
+        if(answer){
+            registerPatient(patientDetails, user.email, user.token)
+            .then((res)=> {
+                dispatch({
+                    type:'LOGIN',
+                    payload: res.data 
+                })
+                toast.success("Patient Registered");
+                resetData();
             })
-            toast.success("Patient Registered");
-            resetData();
-        })
-        .catch((e)=> toast.error(e));
+            .catch((e)=> toast.error(e));
+        }else{
+            toast.error("Failed To Register")
+        }
     }
 
     const handleReset = (e) => {
-        resetData();
+        let answer = window.confirm("Reset Form?");
+        if(answer){
+            resetData();
+        }else{
+            toast.error("Failed To Reset Form");
+        }
     }
 
     return(

@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 const PatientCard = ({ patient, type }) => {
 
-  
-
   return (
     <div key={patient._id} className="col-12 p-4">
       <form>
@@ -24,7 +22,7 @@ const PatientCard = ({ patient, type }) => {
             </div>
             <div className="col-5">
                 <li className="list-group-item border-0 bg-transparent">
-                    <span className="fw-bold">Admitted Date: </span> {patient.createdDate}
+                    <span className="fw-bold">Admitted Date: </span> {patient.createdDate }
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
                     {type && type!=="ManagePatients" ? (<p><span className="fw-bold"> {patient && patient.status} Date: </span> <span>{patient && patient.updatedDate}</span></p>)  : "" }

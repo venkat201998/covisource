@@ -137,7 +137,9 @@ exports.registerPatient = async(req, res) => {
         const patients = hospital.patients;
 
         patients.push(req.body.patientDetails);
+        console.log("Data from forntend:", req.body.patientDetails)
         const updateHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} )
+        console.log(updateHospital);
         if(updateHospital){
             res.json(updateHospital);
         }
