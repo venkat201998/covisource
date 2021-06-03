@@ -48,6 +48,8 @@ const HospitalSchema = new mongoose.Schema(
                 operationsList: String,
                 healthIssuesChecked: Array,
                 covidSymptomsChecked: Array,
+                status: String,
+                comments: String,
                 createdDate:{
                     type:Date,
                     default: Date.now

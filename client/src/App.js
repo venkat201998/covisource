@@ -45,7 +45,7 @@ const App = () => {
                 case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
                               //uaoptions.push('Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword');
                 break;
-                case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'UpdatePassword'];
+                case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
                 break;
                 case 'User': options=['Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword'];
                 break;
@@ -70,9 +70,7 @@ const App = () => {
             if(res.data!=="Hospital not registered"){
                 dispatch({
                     type:'LOGIN',
-                    payload: {
-                        data: res.data
-                    } 
+                    payload: res.data
                 })
             }
         })
@@ -101,6 +99,7 @@ const App = () => {
         <AdminRoute exact path="/Admin/Dashboard/:slug" component={ UpdateHospitalStatus } />
         <HospitalRoute exact path="/Hospital/:slug" component={ HospitalHome } />
         <HospitalRoute exact path="/Hospital/ManagePatients/:slug" component={ UpdatePatient } />
+        <HospitalRoute exact path="/Hospital/PatientsHistory/:slug" component={ UpdatePatient } />
         <UserRoute exact path="/User/:slug" component={ UserHome}/>
       </Switch>
     </>

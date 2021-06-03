@@ -17,26 +17,24 @@ const ManageHospital = () =>{
             if(res.data!=="Hospital not registered"){
                 dispatch({
                     type:'LOGIN',
-                    payload: {
-                        data: res.data
-                    } 
+                    payload: res.data 
                 })
             }
         })
         .catch((e) => console.log(e));
     })
 
-    const [hospitalName, setHospitalName] = useState(hospital && hospital.data.hospitalName);
-    const [address, setAddress] = useState(hospital && hospital.data.streetAddress);
-    const [state, setState] = useState(hospital && hospital.data.state);
-    const [city, setCity] = useState(hospital && hospital.data.city);
-    const [pinCode, setPinCode] = useState(hospital && hospital.data.pinCode);
-    const [contact, setContact] = useState(hospital && hospital.data.contact);
+    const [hospitalName, setHospitalName] = useState(hospital && hospital.hospitalName);
+    const [address, setAddress] = useState(hospital && hospital.streetAddress);
+    const [state, setState] = useState(hospital && hospital.state);
+    const [city, setCity] = useState(hospital && hospital.city);
+    const [pinCode, setPinCode] = useState(hospital && hospital.pinCode);
+    const [contact, setContact] = useState(hospital && hospital.contact);
 
-    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.data.generalBeds);
-    const [icuBeds, setIcuBeds] = useState(hospital && hospital.data.icuBeds);
-    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.data.ventilatorBeds);
-    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.data.oxygenBeds);
+    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.generalBeds);
+    const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
+    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
+    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
     let citiesOptions = null;
 
     const dispatch = useDispatch();

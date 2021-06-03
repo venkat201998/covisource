@@ -2,112 +2,60 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
-import { registerPatient } from '../../functions/auth';
 import { toast } from 'react-toastify';
 import SideNav from '../../components/sideNav/SideNav';
+import { useParams, useHistory } from 'react-router-dom';
+import { updatePatientStatus } from '../../functions/auth';
 
-const HospitalHome = ({history}) =>{
-    const { user } = useSelector((state) => ({ ...state }))
+const UpdatePatient = () =>{
+    const { user, hospital } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
+    const { slug } = useParams();
+    const history = useHistory();
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [dob, setDob] = useState("");
-    const [gender, setGender] = useState("");
-    const [email, setEmail] = useState("");
-    const [contact, setContact] = useState("");
-    const [address, setAddress] = useState("");
-    const [state, setState] = useState("");
-    const [city, setCity] = useState("");
-    const [pinCode, setPinCode] = useState("");
-    const [maritalStatus, setMaritalStatus] = useState("");
-    const [eFirstName, setEFirstName] = useState("");
-    const [eLastName, setELastName] = useState("");
-    const [relationship, setRelationship] = useState("");
-    const [eContact, setEContact] = useState("");
-    const [weight, setWeight] = useState("");
-    const [height, setHeight] = useState("");
-    const [medicationStatus, setMedicationStatus] = useState("");
-    const [medicationList, setMedicationList] = useState("");
-    const [medicationAllergies, setMedicationAllergies] = useState("");
-    const [operationsList, setOperationsList] = useState("");
-
-    // const [healthIssuesC, setHealthIssuesC] = useState([]);
-    // const [covidSymptomsC, setCovidSymptomsC] = useState([]);
-
-    const inputChecked= false;
-    let healthIssues=[];
-    let healthIssuesChecked=[];
-    let covidSymptoms=[];
-    let covidSymptomsChecked=[];
+    const patients =hospital && hospital.patients;
     
+    const patientDetails = patients && patients.find((patient)=> patient._id===slug);
+
+    const [firstName, setFirstName] = useState( patientDetails && patientDetails.firstName);
+    const [lastName, setLastName] = useState( patientDetails && patientDetails.lastName);
+    const [dob, setDob] = useState( patientDetails && patientDetails.dob);
+    const [gender, setGender] = useState( patientDetails && patientDetails.gender);
+    const [email, setEmail] = useState( patientDetails && patientDetails.email);
+    const [contact, setContact] = useState( patientDetails && patientDetails.contact);
+    const [address, setAddress] = useState( patientDetails && patientDetails.address);
+    const [state, setState] = useState( patientDetails && patientDetails.state);
+    const [city, setCity] = useState( patientDetails && patientDetails.city);
+    const [pinCode, setPinCode] = useState( patientDetails && patientDetails.pinCode);
+    const [maritalStatus, setMaritalStatus] = useState( patientDetails && patientDetails.maritalStatus);
+    const [eFirstName, setEFirstName] = useState( patientDetails && patientDetails.eFirstName);
+    const [eLastName, setELastName] = useState( patientDetails && patientDetails.eLastName);
+    const [relationship, setRelationship] = useState( patientDetails && patientDetails.relationship);
+    const [eContact, setEContact] = useState( patientDetails && patientDetails.eContact);
+
+    const [status, setStatus] = useState("Active");
+    const [comments, setComments] = useState("");
     let citiesOptions = null;
-
-    const healthList = [ "Anemia", "Asthma", "Arthritis", "Cancer", "Diabetes", "Epilepsy Seizures", "Gallstones", "Heart Disease", "Heart Attack", "Rheumatic Fever",
-                         "Blood Pressure", "Digestive Problems", "Ulcerative Colitis", "Ulcer Disease","Hepatitis", "Kidney Disease", "Liver Disease", "Sleep Apnea",
-                         "Thyroid Problems", "Tuberculosis", "Venereal Disease", "Emphysema", "Bleeding Disorders", "Lung Disease"];
-
-    const covidSymptomsList = [ "High Fever", "Cough", "Difficulty in breathing", "Pain or pressure in chest",
-                                "Body aches", "Nasal congestion", "Runny nose", "Sore throat", "Diarrhea", "Other"];
 
     HospitalCities.map((item)=>{
         if(item.state===state)
         citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
     })
 
-    const checkListHandler = (e) =>{
-        if(e.target.id==="healthIssues"){
-            if(healthIssues[e.target.value]===true){
-                healthIssues[e.target.value]=false;
-                healthIssuesChecked = healthIssuesChecked.filter((item)=> item!== e.target.value);
-            }
-            else if (healthIssues[e.target.value]===false){
-                healthIssues[e.target.value]=true;
-                healthIssuesChecked.push(e.target.value);
-            }
-            else{
-                healthIssues[e.target.value] = !inputChecked;
-                healthIssuesChecked.push(e.target.value);
-            }
-            
-            console.log(healthIssues);
-            console.log(healthIssuesChecked);
-            // setHealthIssuesC(healthIssuesChecked);
-        }
-        else{
-            if(covidSymptoms[e.target.value]===true){
-                covidSymptoms[e.target.value]=false;
-                covidSymptomsChecked = covidSymptomsChecked.filter((item)=> item!== e.target.value);
-            }
-            else if (covidSymptoms[e.target.value]===false){
-                covidSymptoms[e.target.value]=true;
-                covidSymptomsChecked.push(e.target.value);
-            }
-            else{
-                covidSymptoms[e.target.value] = !inputChecked;
-                covidSymptomsChecked.push(e.target.value);
-            }
-            
-            console.log(covidSymptoms);
-            console.log(covidSymptomsChecked);
-            // setCovidSymptomsC(covidSymptomsChecked);
-        }
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
-                                eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
-                                medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked};
-        registerPatient(patientDetails, user.email, user.token)
+        const patientDetails = { eFirstName, eLastName, relationship, eContact, status, comments };
+        updatePatientStatus(patientDetails, slug, user.token)
         .then((res)=> {
-            dispatch({
-                type:'LOGIN',
-                payload: {
-                    data: res.data
-                } 
-            })
-            toast.success("Patient Registered")
+            if(res.data!== "Update failed"){
+                dispatch({
+                    type:'LOGIN',
+                    payload: res.data 
+                })
+                toast.success("Patient updated");
+            }
+           history.push("/Hospital/ManagePatients");
+            
         })
         .catch((e)=> toast.error(e));
     }
@@ -119,49 +67,55 @@ const HospitalHome = ({history}) =>{
                     
                     <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
 
-                        <h3>Hospital Info</h3>
-                        <form onSubmit={handleSubmit} onRe>
+                        <h3>Update Patient</h3>
+                        <form onSubmit={handleSubmit}>
                 {/* ---------Personal details----------- */}    
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="patientName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
-                                <div class="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="patientName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
+                                <div className="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
                                     <input 
+                                        id="patientName"
                                         type="text" 
                                         className="form-control w-100"  
                                         name="firstName"
                                         value={firstName}
                                         placeholder="First Name"
                                         onChange={(e)=> setFirstName(e.target.value)}
+                                        disabled
                                     />
                                 </div>
-                                <div class="col-12 col-md-6 col-xl-4">
+                                <div className="col-12 col-md-6 col-xl-4">
                                     <input 
+                                        id="patientName"
                                         type="text" 
                                         className="form-control w-100"  
                                         name="lastName"
                                         value={lastName}
                                         placeholder="Last Name"
                                         onChange={(e)=> setLastName(e.target.value)}
+                                        disabled
                                     />
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="patientBirthDate" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Birth Date</label>
-                                <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="patientBirthDate" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Birth Date</label>
+                                <div className="col-12 mb-3 mb-md-0 col-xl-6">
                                     <input 
+                                        id="patientBirthDate"
                                         type="date" 
                                         className="form-control w-100"  
                                         name="patientBirthDate"
                                         value={dob}
                                         placeholder="Date of Birth"
                                         onChange={(e)=> setDob(e.target.value)}
+                                        disabled
                                     />
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="gender" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Gender</label>
-                                <div class="col-12 mb-3 mb-md-0 col-xl-6">
-                                    <select class="w-100 h-100 form-select" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="gender" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Gender</label>
+                                <div className="col-12 mb-3 mb-md-0 col-xl-6">
+                                    <select className="w-100 h-100 form-select" id="gender" value={gender} disabled aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
                                         <option value="sg">Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
@@ -169,54 +123,60 @@ const HospitalHome = ({history}) =>{
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="contactNumber" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
-                                <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="contactNumber" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
+                                <div className="col-12 mb-3 mb-md-0 col-xl-6">
                                     <input 
+                                        id="contactNumber"
                                         type="tel" 
                                         className="form-control w-100"  
                                         name="contactNumber"
                                         value={contact}
                                         placeholder="Contact"
                                         onChange={(e)=> setContact(e.target.value)}
+                                        disabled
                                     />
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="email" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">E-mail</label>
-                                <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="email" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">E-mail</label>
+                                <div className="col-12 mb-3 mb-md-0 col-xl-6">
                                     <input 
+                                        id="email"
                                         type="email" 
                                         className="form-control w-100"  
                                         name="email"
                                         value={email}
                                         placeholder="example@example.com"
                                         onChange={(e)=> setEmail(e.target.value)}
+                                        disabled
 
                                     />
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="streetAddress" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Address</label>
-                                <div class="col-12 mb-3 mb-md-0 col-xl-8">
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="streetAddress" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Address</label>
+                                <div className="col-12 mb-3 mb-md-0 col-xl-8">
                                     <input 
+                                        id="streetAddress"
                                         type="text" 
                                         className="form-control w-100 mb-3 mb-xl-0"  
                                         name="streetAddress"
                                         value={address}
                                         placeholder="Street address"
                                         onChange={(e)=> setAddress(e.target.value)}
+                                        disabled
                                     />
                                     <div className="row my-xl-3 my-2">
-                                        <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                            <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
-                                                <option value="ss">Select State</option>
+                                        <div className="col-12 col-xl-6 mb-3 mb-xl-0">
+                                            <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setState(e.target.value) }>
+                                                <option value="ss">{state}</option>
                                                 { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                             </select>
                                         </div>
-                                        <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                            <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
-                                                <option value="sc">Select City</option>
+                                        <div className="col-12 col-xl-6 mb-3 mb-xl-0">
+                                            <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setCity(e.target.value) }>
+                                                <option value="sc">{city}</option>
                                                     {citiesOptions}
                                             </select>
                                         </div>
@@ -229,14 +189,16 @@ const HospitalHome = ({history}) =>{
                                         pattern="[0-9]{6}" 
                                         maxLength="6"
                                         placeholder="pin code"
-                                        onChange={(e) => setPinCode(e.target.value)}/>
+                                        onChange={(e) => setPinCode(e.target.value)}
+                                        disabled
+                                        />
                                 </div>
                             </div>
                             <div className="form-group my-xl-5 my-3 row">
-                                <label for="maritalStatus" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Marital Status</label>
-                                <div class="col-12 col-xl-6">
-                                    <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setMaritalStatus(e.target.value) }>
-                                        <option value="ss">Select status</option>
+                                <label htmlFor="maritalStatus" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Marital Status</label>
+                                <div className="col-12 col-xl-6">
+                                    <select id="maritalStatus" className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setMaritalStatus(e.target.value) }>
+                                        <option value="ss">{maritalStatus}</option>
                                         <option value="single">Single</option>
                                         <option value="married">Married</option>
                                         <option value="divorced">Divorced</option>
@@ -246,11 +208,16 @@ const HospitalHome = ({history}) =>{
                                 </div>
                             </div>
                 {/* ---------Emergency Fields----------- */}
-                            <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>In Case Of Emergency</div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="emergencyCName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Emergency Contact</label>
-                                <div class="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                            <div className="row border-top border-3 pt-3 fs-4" >
+                                <div className="col text-center">
+                                    <h4 style={{color: "gray", borderColor: "gray"}}>In Case of Emergency</h4>
+                                </div>
+                            </div>
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="emergencyCName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Emergency Contact</label>
+                                <div className="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
                                     <input 
+                                        id="emergencyCName"
                                         type="text" 
                                         className="form-control w-100"  
                                         name="EcfirstName"
@@ -259,8 +226,9 @@ const HospitalHome = ({history}) =>{
                                         onChange={(e)=> setEFirstName(e.target.value)}
                                     />
                                 </div>
-                                <div class="col-12 col-md-6 col-xl-4">
-                                    <input 
+                                <div className="col-12 col-md-6 col-xl-4">
+                                    <input
+                                        id="emergencyCName" 
                                         type="text" 
                                         className="form-control w-100"  
                                         name="EclastName"
@@ -270,10 +238,11 @@ const HospitalHome = ({history}) =>{
                                     />
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="relationship" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Relationship</label>
-                                <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="relationship" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Relationship</label>
+                                <div className="col-12 mb-3 mb-md-0 col-xl-6">
                                     <input 
+                                        id="relationship"
                                         type="text" 
                                         className="form-control w-100"  
                                         name="relationship"
@@ -282,10 +251,11 @@ const HospitalHome = ({history}) =>{
                                     />
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="EContactNumber" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
-                                <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="EContactNumber" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
+                                <div className="col-12 mb-3 mb-md-0 col-xl-6">
                                     <input 
+                                        id="EContactNumber"
                                         type="tel" 
                                         className="form-control w-100"  
                                         name="EContactNumber"
@@ -295,127 +265,30 @@ const HospitalHome = ({history}) =>{
                                     />
                                 </div>
                             </div>
-                {/* ---------Health & medical history----------- */}
-                            <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Health and Medical History</div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="weight" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Weight</label>
-                                <div class="col-12 col-md-6 col-xl-3 mb-3 mb-xl-0">
-                                    <input 
-                                        type="text" 
-                                        className="form-control w-100"  
-                                        name="weight"
-                                        value={weight}
-                                        placeholder="kg"
-                                        onChange={(e)=> setWeight(e.target.value)}
-                                    />
-                                </div>     
-                                <label for="height" class="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Height</label>
-                                <div class="col-12 col-md-6 col-xl-3">
-                                    <input 
-                                        type="text"
-                                        inputMode="numeric"
-                                        className="form-control w-100"
-                                        name="height"
-                                        value={height}  
-                                        placeholder="cm"
-                                        onChange={(e)=> setHeight(e.target.value)}
-                                    />
+                            <div className="row border-top border-3 pt-3 fs-4" >
+                                <div className="col text-center">
+                                    <h4 style={{color: "gray", borderColor: "gray"}}>Patient Status</h4>
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="medication" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
-                                    Are you currently taking any medication?
-                                </label>
-                                <div class="col-6 col-xl-3 mt-0 mt-xl-4">
-                                    <input type="radio" name="medication" className="col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationStatus(e.target.value)}/>
-                                    <label htmlFor="Yes"  className="col-4">Yes</label>
-
-                                    <input type="radio" name="medication" className="col-2" id="No" value="No" onChange={(e)=> setMedicationStatus(e.target.value)}/>
-                                    <label htmlFor="No" className="col-4">No</label>
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="patientStatus" className="col-6 col-md-3 col-form-label text-start text-xl-end fw-bold fs-6">Update Status</label>
+                                <div className="col-6 col-md-3">
+                                    <select ud="patientStatus" className="w-100 form-select" aria-label="Default select example" onChange={(e)=> setStatus(e.target.value)}>
+                                        <option value="ss">Select status</option>
+                                        <option value="Discharged">Discharged</option>
+                                        <option value="Deceased">Deceased</option>
+                                    </select>
+                                </div>
+                                <div className="col-6 col-md-3">
+                                    <textarea className="form-control" placeholder="Comments" required value={comments} onChange={(e)=> setComments(e.target.value)}></textarea>
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">     
-                                <label for="medicationList" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
-                                    If yes, please list it here...
-                                </label>
-                                <div class="col-12 col-xl-6">
-                                    <textarea 
-                                        className="form-control"
-                                        value={medicationList}  
-                                        onChange={(e)=> setMedicationList(e.target.value)}
-                                    />
+                            <div className="form-group mx-auto my-md-5 my-3 d-flex flex-col px-lg-2 justify-content-center">
+                                <div className="col-2">
+                                    <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
                                 </div>
                             </div>
-                            <div class="form-group my-xl-5 my-3 row">
-                                <label for="allergies" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
-                                    Do you have any medication allergies
-                                </label>
-                                <div class="col-12 col-lg-8 col-xl-6 mt-0 mt-xl-3">
-                                    <input type="radio" name="allergies" className="col-1" id="Yes" value="Yes" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
-                                    <label htmlFor="Yes" className="col-2">Yes</label>
-
-                                    <input type="radio" name="allergies" className="col-1" id="No" value="No" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
-                                    <label htmlFor="No" className="col-2">No</label>
-
-                                    <input type="radio" name="allergies" className="col-1" id="Not Sure" value="Not Sure" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
-                                    <label htmlFor="Not Sure" className="col-3">Not sure</label>
-                                </div>
-                            </div>
-                            <div class="form-group my-xl-5 my-3 row">     
-                                <label for="operations" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
-                                    Please list any operations and dates of each
-                                </label>
-                                <div class="col-12 col-xl-6">
-                                    <textarea 
-                                        className="form-control"
-                                        value={operationsList}
-                                        onChange={(e)=> setOperationsList(e.target.value)}  
-                                    />
-                                </div>
-                            </div>
-                            <div class="form-group my-xl-5 my-3 row">     
-                                <label for="healthIssues" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
-                                    Have you ever had <br/>
-                                    ( Please check all that apply...)
-                                </label>
-                                <div className="col-12 col-xl-8">
-                                    <div className="row my-2">
-                                        { healthList.map((item, i)=>{
-                                            return(
-                                                <div className="col-4 mb-2">
-                                                    <input className="col-2 m-auto" type="checkbox" id="healthIssues" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler} />
-                                                    <label className="col-10 m-auto text-start">{item}</label>
-                                                </div>)
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                {/* ---------Covid Symptoms----------- */}
-                            <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Covid-19 Questionnaire</div>
-                            <div class="form-group my-xl-5 my-3 row">     
-                                <label for="covidSymptoms" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
-                                    Please check the symptoms that apply...
-                                </label>
-                                <div className="col-12 col-xl-8">
-                                    <div className="row my-2">
-                                        { covidSymptomsList.map((item, i)=>{
-                                            return(
-                                                <div className="col-6 mb-2">
-                                                    <input className="col-2 m-auto" type="checkbox" id="covidSymptoms" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler}/>
-                                                    <label className="col-10 m-auto text-start">{item}</label>
-                                                </div>)
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
-                                    <div className="col-lg-5">
-                                        <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Submit</button>
-                                    </div>
-                                    <div className="col-lg-5 offset-1">
-                                        <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">Reset</button>
-                                    </div>
-                                </div>
+                
                         </form>
                     </div>
                 </div>
@@ -423,4 +296,4 @@ const HospitalHome = ({history}) =>{
     )
 }
 
-export default HospitalHome;
+export default UpdatePatient;

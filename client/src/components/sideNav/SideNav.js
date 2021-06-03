@@ -22,7 +22,7 @@ const SideNav = () =>{
                                             </li>)
                 } */}
                 {
-                    user && user.options.map((item)=> <li className="nav-item fs-6">
+                    user && user.options.map((item)=> <li className="nav-item fs-6" key={item}>
                                                 <Link className="nav-link active" aria-current="page" to={`/${user.type}/${item}`}> {item} </Link>
                                             </li>)
                 }

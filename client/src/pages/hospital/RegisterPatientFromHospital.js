@@ -31,9 +31,8 @@ const RegisterPatientFromHospital = () =>{
     const [medicationList, setMedicationList] = useState("");
     const [medicationAllergies, setMedicationAllergies] = useState("");
     const [operationsList, setOperationsList] = useState("");
+    const [status, setStatus] = useState("Admitted");
 
-    // const [healthIssuesC, setHealthIssuesC] = useState([]);
-    // const [covidSymptomsC, setCovidSymptomsC] = useState([]);
 
     const inputChecked= false;
     let healthIssues=[];
@@ -70,8 +69,8 @@ const RegisterPatientFromHospital = () =>{
                 healthIssuesChecked.push(e.target.value);
             }
             
-            console.log(healthIssues);
-            console.log(healthIssuesChecked);
+            // console.log(healthIssues);
+            // console.log(healthIssuesChecked);
             // setHealthIssuesC(healthIssuesChecked);
         }
         else{
@@ -88,35 +87,45 @@ const RegisterPatientFromHospital = () =>{
                 covidSymptomsChecked.push(e.target.value);
             }
             
-            console.log(covidSymptoms);
-            console.log(covidSymptomsChecked);
+            // console.log(covidSymptoms);
+            // console.log(covidSymptomsChecked);
             // setCovidSymptomsC(covidSymptomsChecked);
         }
+    }
+     
+    const resetData = () => {
+        setFirstName(""); setLastName(""); setDob(""); setGender(""); setEmail(""); setContact("");
+        setAddress(""); setState(""); setCity(""); setPinCode(""); setMaritalStatus("");
+        setEFirstName(""); setELastName(""); setRelationship(""); setEContact("");
+        setWeight(""); setHeight(""); setMedicationStatus(""); setMedicationList(""); 
+        setMedicationAllergies(""); setOperationsList(""); healthIssuesChecked=[]; covidSymptomsChecked=[];
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
                                 eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
-                                medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked};
+                                medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, status};
         registerPatient(patientDetails, user.email, user.token)
         .then((res)=> {
             dispatch({
                 type:'LOGIN',
-                payload: {
-                    data: res.data
-                } 
+                payload: res.data 
             })
-            toast.success("Patient Registered")
+            toast.success("Patient Registered");
+            resetData();
         })
         .catch((e)=> toast.error(e));
     }
 
+    const handleReset = (e) => {
+        resetData();
+    }
 
     return(
         <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
                 <h3>Patient Registration Form</h3>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} onReset={handleReset}>
         {/* ---------Personal details----------- */}    
                     <div class="form-group my-xl-5 my-3 row">
                         <label for="patientName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
@@ -126,8 +135,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="firstName"
                                 value={firstName}
+                                required
                                 placeholder="First Name"
                                 onChange={(e)=> setFirstName(e.target.value)}
+                                autoFocus
                             />
                         </div>
                         <div class="col-12 col-md-6 col-xl-4">
@@ -136,8 +147,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="lastName"
                                 value={lastName}
+                                required
                                 placeholder="Last Name"
                                 onChange={(e)=> setLastName(e.target.value)}
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -149,8 +162,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="patientBirthDate"
                                 value={dob}
+                                required
                                 placeholder="Date of Birth"
                                 onChange={(e)=> setDob(e.target.value)}
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -173,8 +188,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="contactNumber"
                                 value={contact}
+                                required
                                 placeholder="Contact"
                                 onChange={(e)=> setContact(e.target.value)}
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -186,9 +203,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="email"
                                 value={email}
+                                required
                                 placeholder="example@example.com"
                                 onChange={(e)=> setEmail(e.target.value)}
-
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -200,8 +218,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100 mb-3 mb-xl-0"  
                                 name="streetAddress"
                                 value={address}
+                                required
                                 placeholder="Street address"
                                 onChange={(e)=> setAddress(e.target.value)}
+                                autoFocus
                             />
                             <div className="row my-xl-3 my-2">
                                 <div class="col-12 col-xl-6 mb-3 mb-xl-0">
@@ -222,10 +242,13 @@ const RegisterPatientFromHospital = () =>{
                                 inputMode="numeric"
                                 className="form-control col-12 col-xl-8"  
                                 value={pinCode}
+                                required
                                 pattern="[0-9]{6}" 
                                 maxLength="6"
                                 placeholder="pin code"
-                                onChange={(e) => setPinCode(e.target.value)}/>
+                                onChange={(e) => setPinCode(e.target.value)}
+                                autoFocus
+                            />
                         </div>
                     </div>
                     <div className="form-group my-xl-5 my-3 row">
@@ -255,8 +278,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="EcfirstName"
                                 value={eFirstName}
+                                required
                                 placeholder="First Name"
                                 onChange={(e)=> setEFirstName(e.target.value)}
+                                autoFocus
                             />
                         </div>
                         <div class="col-12 col-md-6 col-xl-4">
@@ -265,8 +290,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="EclastName"
                                 value={eLastName}
+                                required
                                 placeholder="Last Name"
                                 onChange={(e)=> setELastName(e.target.value)}
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -278,7 +305,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="relationship"
                                 value={relationship}
+                                required
+                                placeholder="relationship"
                                 onChange={(e)=> setRelationship(e.target.value)}
+                                required
                             />
                         </div>
                     </div>
@@ -290,8 +320,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="EContactNumber"
                                 value={eContact}
+                                required
                                 placeholder="Contact"
                                 onChange={(e)=> setEContact(e.target.value)}
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -309,8 +341,10 @@ const RegisterPatientFromHospital = () =>{
                                 className="form-control w-100"  
                                 name="weight"
                                 value={weight}
+                                required
                                 placeholder="kg"
                                 onChange={(e)=> setWeight(e.target.value)}
+                                autoFocus
                             />
                         </div>     
                         <label for="height" class="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Height</label>
@@ -320,9 +354,11 @@ const RegisterPatientFromHospital = () =>{
                                 inputMode="numeric"
                                 className="form-control w-100"
                                 name="height"
-                                value={height}  
+                                value={height}
+                                required  
                                 placeholder="cm"
                                 onChange={(e)=> setHeight(e.target.value)}
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -345,7 +381,7 @@ const RegisterPatientFromHospital = () =>{
                         <div class="col-12 col-xl-6">
                             <textarea 
                                 className="form-control"
-                                value={medicationList}  
+                                value={medicationList}
                                 onChange={(e)=> setMedicationList(e.target.value)}
                             />
                         </div>
@@ -373,7 +409,7 @@ const RegisterPatientFromHospital = () =>{
                             <textarea 
                                 className="form-control"
                                 value={operationsList}
-                                onChange={(e)=> setOperationsList(e.target.value)}  
+                                onChange={(e)=> setOperationsList(e.target.value)}
                             />
                         </div>
                     </div>
@@ -386,7 +422,7 @@ const RegisterPatientFromHospital = () =>{
                             <div className="row my-2">
                                 { healthList.map((item, i)=>{
                                     return(
-                                        <div className="col-4 mb-2">
+                                        <div className="col-6 col-lg-4 mb-2">
                                             <input className="col-2 m-auto" type="checkbox" id="healthIssues" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler} />
                                             <label className="col-10 m-auto text-start">{item}</label>
                                         </div>)
@@ -423,7 +459,7 @@ const RegisterPatientFromHospital = () =>{
                             <div className="col-lg-5 offset-1">
                                 <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">Reset</button>
                             </div>
-                        </div>
+                    </div>
                 </form>
             
         </div>   

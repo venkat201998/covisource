@@ -198,3 +198,34 @@ exports.getHospitals = async(req, res) => {
         res.json(error)
     }
 }
+
+exports.updatePatientStatus = async(req, res) => {
+    
+    try{
+        const { email } = req.user;
+        const {patientUpdatedDetails, id} = req.body;
+        const { eFirstName, eLastName, relationship, eContact, status, comments } = patientUpdatedDetails;
+        const hospital = await Hospital.findOne({email});
+        const patients = hospital.patients;
+
+        const patientIndex = patients.findIndex((patient)=> patient._id == id);
+
+        patients[patientIndex].eFirstName = eFirstName;
+        patients[patientIndex].eLastName = eLastName;
+        patients[patientIndex].relationship = relationship;
+        patients[patientIndex].eContact = eContact;
+        patients[patientIndex].status = status;
+        patients[patientIndex].comments = comments;
+        patients[patientIndex].updatedDate = Date.now();
+        
+        const updatedHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} );
+        if(updatedHospital){
+            res.json(updateHospital);
+        }
+        else{
+            res.json("Update failed");
+        }
+    }catch(error){
+        res.json(error)
+    }
+}

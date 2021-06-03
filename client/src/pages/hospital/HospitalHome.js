@@ -25,9 +25,7 @@ const HospitalHome = ({history}) =>{
                 setHospitalStatus(true);
                 dispatch({
                     type:'LOGIN',
-                    payload: {
-                        data: res.data
-                    } 
+                    payload: res.data 
                 })
             }
         })
@@ -45,6 +43,7 @@ const HospitalHome = ({history}) =>{
                         { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
                         { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }
                         { (path==='/Hospital/ManagePatients') && <ManagePatients/> }
+                        { (path==='/Hospital/PatientsHistory') && <ManagePatients/> }
                         { (path==='/Hospital/UpdatePassword') && <UpdatePassword/> }
 
                         

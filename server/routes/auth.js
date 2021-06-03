@@ -6,7 +6,7 @@ const { authCheck, adminCheck } = require("../middlewares/auth");
 
 
 // controller
-const { createOrUpdateUser, currentUser, checkUser, createHospital, checkHospital, updateHospital, registerPatient, getInactiveHospitals, updateHospitalStatus, removeHospital, getHospitals} = require("../controllers/auth");
+const { createOrUpdateUser, currentUser, checkUser, createHospital, checkHospital, updateHospital, registerPatient, getInactiveHospitals, updateHospitalStatus, removeHospital, getHospitals, updatePatientStatus} = require("../controllers/auth");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
 router.post("/check-user", checkUser);
@@ -19,4 +19,5 @@ router.get("/get-inactive-hospitals", authCheck, adminCheck, getInactiveHospital
 router.post("/update-hospital-status", authCheck, adminCheck, updateHospitalStatus);
 router.post("/remove-hospital", authCheck, adminCheck, removeHospital);
 router.get("/get-hospitals", authCheck, adminCheck, getHospitals);
+router.post("/update-patient-status", authCheck, updatePatientStatus);
 module.exports = router;

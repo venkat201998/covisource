@@ -137,3 +137,18 @@ export const getHospitals = async (idToken) => {
         }
     )
 } 
+
+export const updatePatientStatus = async (patientUpdatedDetails, id, idToken) => {
+    return axios.post(
+        `${process.env.REACT_APP_API}/update-patient-status`,
+        {
+            patientUpdatedDetails,
+            id
+        },
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+} 

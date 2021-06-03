@@ -55,9 +55,7 @@ const HospitalDetailsRegistration = () =>{
                 : toast.success("Hospital Registered Succesfully");
                 dispatch({
                     type:'LOGIN',
-                    payload: {
-                        data: res.data
-                    } 
+                    payload: res.data 
                 })
             }
             else{
