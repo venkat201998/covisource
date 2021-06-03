@@ -103,12 +103,12 @@ const UpdatePassword = () => {
                     </div>
                     <br />
                     <div className="form-group row justify-content-center">
-                            <div className="col-2 ">
+                            <div className="col-3">
                                 <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!password && !newPassword}>
                                     Update Password
                                 </button>
                             </div>
-                            <div className="col-2">
+                            <div className="col-3">
                                 <button className="btn btn-outline-danger" type="reset">
                                     Forgot Password
                                 </button>
