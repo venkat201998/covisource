@@ -127,12 +127,12 @@ export const removeHospital = async (email, idToken) => {
     )
 }
 
-export const getHospitals = async (idToken) => {
+export const getHospitals = async () => {
     return axios.get(
         `${process.env.REACT_APP_API}/get-hospitals`,
         {
             headers:{
-                idToken
+                
             }
         }
     )

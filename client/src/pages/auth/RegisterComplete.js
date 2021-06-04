@@ -1,13 +1,13 @@
 import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
-import { auth } from '../../../firebase';
-import { createOrUpdateUser, currentUser } from '../../../functions/auth';
+import { auth } from '../../firebase';
+import { createOrUpdateUser, currentUser } from '../../functions/auth';
 import { useDispatch } from 'react-redux';
-import HospitalCities from '../../hospital/Json/HospitalCities';
-import HospitalStates from '../../hospital/Json/HospitalStates';
+import HospitalCities from '../hospital/Json/HospitalCities';
+import HospitalStates from '../hospital/Json/HospitalStates';
 
-const UserRegisterComplete = () => {
+const RegisterComplete = () => {
     const [loading, setLoading] = useState("");
     const history = useHistory();
     const dispatch = useDispatch();
@@ -23,11 +23,12 @@ const UserRegisterComplete = () => {
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
-    const [type, setType] = useState("User");
+    const [type, setType] = useState("");
     let citiesOptions = null;
 
     useEffect(()=>{
         setEmail(window.localStorage.getItem('email'));
+        setType(window.localStorage.getItem('type'));
     },[])
 
     HospitalCities.map((item)=>{
@@ -69,6 +70,8 @@ const UserRegisterComplete = () => {
 
         }
         window.localStorage.removeItem("email");
+        window.localStorage.removeItem("type");
+
 
         let options=[];
         let uaoptions=[];
@@ -105,9 +108,18 @@ const UserRegisterComplete = () => {
                 token: res.config.headers.idToken
             },
           });
+          switch(res.data.type){
+            case 'Admin': history.push('/');
+            break;
+            case 'Hospital': history.push("/Hospital/Dashboard");
+            break;
+            case 'User': history.push('/');
+            break;
+            
+        }
         })
 
-        history.push('/');
+        
 
     }
 
@@ -130,6 +142,18 @@ const UserRegisterComplete = () => {
                                             value={email}
                                             disabled
                                         />
+                                    </div>
+                                </div>
+                                <div class="form-group my-xl-5 my-3 row">
+                                    <label htmlFor="userType" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Type</label>
+                                    <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                                        <input 
+                                            type="text" 
+                                            className="form-control w-100"  
+                                            name="type"
+                                            value={type}
+                                            disabled
+                                        /> 
                                     </div>
                                 </div>
                                 <div class="form-group my-xl-5 my-3 row">
@@ -271,4 +295,4 @@ const UserRegisterComplete = () => {
     )
 }
 
-export default UserRegisterComplete;
+export default RegisterComplete;

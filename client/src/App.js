@@ -6,13 +6,11 @@ import { auth } from './firebase';
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
 
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Login from './pages/auth/Login';
-import UserRegister from './pages/auth/register/UserRegister';
-import HospitalRegister from './pages/auth/register/HospitalRegister'
+import Register from './pages/auth/Register';
 import Header from './components/nav/header/Header';
-import UserRegisterComplete from './pages/auth/register-complete/UserRegisterComplete';
-import HospitalRegisterComplete from './pages/auth/register-complete/HospitalRegisterComplete';
+import RegisterComplete from './pages/auth/RegisterComplete';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import AdminHome from './pages/admin/AdminHome';
 import HospitalHome from './pages/hospital/HospitalHome';
@@ -36,7 +34,6 @@ const App = () => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
-        // console.log("user", user);
         let options=[];
         let uaoptions=[];
 
@@ -44,7 +41,6 @@ const App = () => {
         .then((res)=>{
             switch(res.data.type){
                 case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
-                              //uaoptions.push('Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword');
                 break;
                 case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
                 break;
@@ -96,13 +92,9 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={ Home }></Route>
         <Route exact path="/login" component={ Login }></Route>
-        <Route exact path="/userRegister" component={ UserRegister }></Route>
-        <Route exact path="/hospitalRegister" component={ HospitalRegister }></Route>
-        <Route exact path="/userRegisterComplete" component={ UserRegisterComplete }></Route>
-        <Route exact path="/hospitalRegisterComplete" component={ HospitalRegisterComplete }></Route>
+        <Route exact path="/register" component={ Register }></Route>
+        <Route exact path="/registerComplete" component={ RegisterComplete }></Route>
         <Route exact path="/forgot/password" component={ForgotPassword} />
-        {/* <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />  */}
-        {/* <HospitalRoute exact path="/hospital/dashboard" component={HospitalDashboard} /> */}
         <AdminRoute exact path="/Admin/:slug" component={ AdminHome } />
         <AdminRoute exact path="/Admin/ManageHospitals/:slug" component={ UpdateHospital } />
         <AdminRoute exact path="/Admin/ManageUsers/:slug" component={ UpdateUser } />

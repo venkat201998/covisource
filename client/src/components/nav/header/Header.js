@@ -32,15 +32,10 @@ const Header = () => {
               </Link>
             </li>}
 
-            {!user && <div class="dropdown nav-item m-auto">
-              <button class="btn btn-yellow dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Register
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><Link  className="dropdown-item" to="/userRegister">User</Link></li>
-                <li><Link  className="dropdown-item" to="/hospitalRegister">Hospital</Link></li>
-              </ul>
-            </div>}
+            {!user && <li className="nav-item p-1">
+                <Link  className="nav-link" to="/register">
+                      <button className="btn btn-yellow btn-raised">Register</button>
+                </Link></li>}
 
             {user && <div class="dropdown nav-item my-auto mx-5">
               <button class="btn btn-yellow dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

@@ -24,7 +24,7 @@ const AdminHome = ({history}) => {
         })
         .catch((err) => toast.error(err));
 
-        getHospitals(user.token)
+        getHospitals()
         .then((res) => {
             dispatch({
                 type: "ACTIVE_HOSPITALS",
