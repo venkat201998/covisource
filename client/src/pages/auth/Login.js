@@ -21,7 +21,7 @@ const Login = ({ history }) => {
       history.push("/");
     }
     else if(type==="Hospital"){
-      history.push("/");
+      history.push("/Hospital/Dashboard");
     }
     else if(type==="User"){
       history.push("/");
@@ -60,18 +60,26 @@ const Login = ({ history }) => {
                 case 'User': options=['Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword'];
                 break;
             }
-          dispatch({
-            type: "LOGGED_IN_USER",
-            payload: {
-              email: res.data.email,
-              firstName: res.data.firstName,
-              type: res.data.type,
-              _id: res.data._id,
-              options: options,
-              uaoptions: uaoptions,
-              token: res.config.headers.idToken
-            },
-          });
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                  firstName: res.data.firstName,
+                  lastName: res.data.lastName,
+                  dob: res.data.dob,
+                  gender:res.data.gender,
+                  email:res.data.email,
+                  contact: res.data.contact,
+                  address: res.data.address,
+                  state: res.data.state,
+                  city:res.data.city,
+                  pinCode: res.data.pinCode,      
+                  type: res.data.type,
+                  _id: res.data._id,
+                  options: options,
+                  uaoptions: uaoptions,
+                  token: res.config.headers.idToken
+              },
+            });
           rolebasedredirect(res.data.type);
         })
     } catch (error) {
@@ -86,42 +94,52 @@ const Login = ({ history }) => {
       <div className="row mt-5 pt-5">
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
           <form onSubmit={handleSubmit}>
-            <div className="form-group mb-3 text-center">
-                {loading ? <h4>Loading..</h4> :  <h4>Login</h4>}
-            </div>
-            <div className="form-group my-2">
-              <input
-                type="email"
-                className="form-control"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email"
-                autoFocus
-              />
-            </div>
+                    <div className="form-group mb-4 text-center">
+                      {loading ? <h4>Loading..</h4> :  <h4>Login</h4>}
+                    </div>
+                    <div class="form-group my-3 row">
+                        <label htmlFor="email" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Email</label>
+                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                          <input
+                            id="email"
+                            type="email"
+                            className="form-control"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="abc@example.com"
+                            autoFocus
+                          />
+                        </div>
+                    </div>
+                    <div class="form-group my-3 row">
+                        <label htmlFor="password" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Password</label>
+                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                            <input
+                              id="password"
+                              type="password"
+                              className="form-control"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              placeholder="Password"
+                            />
+                        </div>
+                    </div>
+        
 
-            <div className="form-group my-2">
-              <input
-                type="password"
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Your password"
-              />
-            </div>
-
-            <br />
-            <button
-              className="btn btn-raised btn-primary"
-              type="submit"
-              disabled={!email || password.length < 6}
-            >
-              Login
-            </button>
+                    <div className="form-group row justify-content-center">
+                            <div className="col-3">
+                                <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email || password.length < 6}>
+                                    Login
+                                </button>
+                            </div>
+                            <div className="col-3">
+                                  <Link to="/forgot/password" className="float-end text-danger mt-2">
+                                      Forgot Password
+                                  </Link>
+                            </div>
+                    </div>            
           </form>
-          <Link to="/forgot/password" className="float-end text-danger">
-            Forgot Password
-          </Link>
+          
         </div>
       </div>
     </div>

@@ -52,18 +52,26 @@ const App = () => {
                 break;
                 
             }
-          dispatch({
-            type: "LOGGED_IN_USER",
-            payload: {
-              email: res.data.email,
-              firstName: res.data.firstName,
-              type: res.data.type,
-              _id: res.data._id,
-              options: options,
-              uaoptions: uaoptions,
-              token: res.config.headers.idToken
-            },
-          });
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                  firstName: res.data.firstName,
+                  lastName: res.data.lastName,
+                  dob: res.data.dob,
+                  gender:res.data.gender,
+                  email:res.data.email,
+                  contact: res.data.contact,
+                  address: res.data.address,
+                  state: res.data.state,
+                  city:res.data.city,
+                  pinCode: res.data.pinCode,      
+                  type: res.data.type,
+                  _id: res.data._id,
+                  options: options,
+                  uaoptions: uaoptions,
+                  token: res.config.headers.idToken
+              },
+            });
         })
 
         checkHospital(user.email)

@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-lg px-md-5">
       <div className="container-fluid mx-md-2">
-        <Link to="/" className="navbar-brand"><img src="https://prod-cdn.preprod.co-vin.in/assets/images/covid19logo.jpg" width="140px;" /></Link>
+        <Link to={user ? (user.type!=="Hospital" ? `/` : `/Hospital/Dashboard`) : `/`} className="navbar-brand"><img src="https://prod-cdn.preprod.co-vin.in/assets/images/covid19logo.jpg" width="140px;" /></Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
