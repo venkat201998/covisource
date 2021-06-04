@@ -74,10 +74,10 @@ const UpdatePassword = () => {
     }
 
     return (
-            <div className="col-8 offset-1  p-md-4 p-3 text-center">
+            <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
                 
-                <form className="shadow py-5" onSubmit={handleSubmit} onReset={forgotPassword}>
-                    <div className="form-group mb-3 text-center">
+                <form className="py-5" onSubmit={handleSubmit} onReset={forgotPassword}>
+                    <div className="form-group mb-5 text-center">
                         {loading ? <h4>Loading..</h4> :  <h4>Update Password</h4>}
                     </div>
                     <div class="form-group my-3 row">
