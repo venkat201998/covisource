@@ -9,6 +9,7 @@ const HospitalRegisterComplete = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,6 +18,7 @@ const HospitalRegisterComplete = () => {
   }, []);
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const result = await auth.signInWithEmailLink(email, window.location.href);
     const user = auth.currentUser;
@@ -24,11 +26,13 @@ const HospitalRegisterComplete = () => {
 
     if (!email || !password) {
       toast.error("Email and password is required");
+      setLoading(false);
       return;
     }
 
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long");
+      setLoading(false);
       return;
     }
 
@@ -36,8 +40,14 @@ const HospitalRegisterComplete = () => {
       user.updatePassword(password);
 
       createOrUpdateUser(idTokenResult.token, "Hospital")
-      .then((res) => toast.success("Registration Success"))
-      .catch((err) => toast.error("Registration Failure"));
+      .then((res) => {
+        toast.success("Registration Success");
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error("Registration Failure");
+        setLoading(false);
+      });
 
     }
     window.localStorage.removeItem("email");
@@ -79,6 +89,9 @@ const HospitalRegisterComplete = () => {
       <div className="row mt-5 pt-5">
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
           <form onSubmit={handleSubmit}>
+            <div className="form-group mb-3 text-center">
+              {loading ? <h4>Loading..</h4> :  <h4>Hospital Registration Complete</h4>}
+            </div>
             <input
               type="email"
               className="form-control my-3"

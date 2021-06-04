@@ -8,7 +8,7 @@ import firebase from 'firebase';
 const UpdatePassword = () => {
 
     const { user } = useSelector((state) => ({...state}));
-    
+    const[loading, setLoading] = useState("");
     const[email, setEmail] = useState(user.email);
     const[password, setPassword] = useState("");
     const[newPassword, setNewPassword] = useState("");
@@ -18,6 +18,7 @@ const UpdatePassword = () => {
     
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
         try {
             let answer = window.confirm("Update Password?");
@@ -26,17 +27,21 @@ const UpdatePassword = () => {
                 const {user} = result;
                 if(user){
                     auth.currentUser.updatePassword(newPassword);
+                    setLoading(false);
                     toast.success("Updated password successfully");
                 }else{
+                    setLoading(false);
                     toast.error("Wrong password. Try forgot password");
                 }
             }else{
                 toast.error("Failed To Update Password");
+                setLoading(false);
                 setPassword("");
                 setNewPassword("");
             }
         }
         catch (error) {
+            setLoading(false);
             toast.error("Invalid Credentials");
           }
     };
@@ -72,7 +77,9 @@ const UpdatePassword = () => {
             <div className="col-8 offset-1  p-md-4 p-3 text-center">
                 
                 <form className="shadow py-5" onSubmit={handleSubmit} onReset={forgotPassword}>
-                    <h3 className="mb-4">Update Password</h3>
+                    <div className="form-group mb-3 text-center">
+                        {loading ? <h4>Loading..</h4> :  <h4>Update Password</h4>}
+                    </div>
                     <div class="form-group my-3 row">
                         <label htmlFor="email" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Email</label>
                         <div class="col-12 mb-3 mb-md-0 col-xl-6">

@@ -8,6 +8,7 @@ import { currentUser } from '../../functions/auth';
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState("");
   const { user } = useSelector((state) => ({...state}));
 
   useEffect(() => {
@@ -30,14 +31,17 @@ const Login = ({ history }) => {
   let dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const {user} = result;
       if(user){
         toast.success("Login Success");
+        setLoading(false);
       }else{
         toast.error("Something went wrong");
+        setLoading(false);
         history.push("/login");
       }
 
@@ -72,6 +76,7 @@ const Login = ({ history }) => {
         })
     } catch (error) {
       toast.error("Invalid Credentials");
+      setLoading(false);
     }
     
   };
@@ -80,8 +85,10 @@ const Login = ({ history }) => {
     <div className="container mt-5">
       <div className="row mt-5 pt-5">
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
-        <h4>Login</h4>
           <form onSubmit={handleSubmit}>
+            <div className="form-group mb-3 text-center">
+                {loading ? <h4>Loading..</h4> :  <h4>Login</h4>}
+            </div>
             <div className="form-group my-2">
               <input
                 type="email"
