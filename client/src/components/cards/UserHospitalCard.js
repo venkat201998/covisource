@@ -11,39 +11,52 @@ const UserHospitalCard = ({ hospital }) => {
           <div className="card shadow">
             {/* <img src="" className="card-img-top" alt="..."/> */}
             <div className="card-body">
-                <ul className="list-group p-1">
+                <ul className="list-group flex-row p-1">
                     <li className="list-group-item border-0 bg-transparent p-1 fw-bold fs-5">
-                        <span><i class="fa fa-hospital fs-3"></i></span> {hospital.hospitalName}
+                        <span><i class="fa fa-hospital fs-5"></i></span> 
                     </li>
-                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
-                        <span><i class="fa fa-phone fs-5"></i></span> {hospital.contact}
-                    </li>
-                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
-                        <span><i class="fas fa-map-marker-alt fs-5"></i></span> {hospital.city}, {hospital.state}, {hospital.pinCode}
+                    <li className="list-group-item border-0 bg-transparent p-1 fw-bold fs-5">
+                        {hospital.hospitalName} 
                     </li>
                 </ul>
-                <ul className="list-group flex-row">
+                <ul className="list-group flex-row p-1">
                     <li className="list-group-item border-0 bg-transparent p-1 fs-6">
+                        <span><i class="fa fa-phone fs-6"></i></span>
+                    </li>
+                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
+                        {hospital.contact}
+                    </li>
+                </ul>
+                <ul className="list-group flex-row p-1">
+                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
+                        <span><i class="fas fa-map-marker-alt fs-5"></i></span>
+                    </li>
+                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
+                        {hospital.city}, {hospital.state}, {hospital.pinCode}
+                    </li>
+                </ul>
+                <div className="row px-3">
+                    <div className="col-6 p-1 fs-6">
                         <span className="fw-bold fs-6">General Beds:</span> {hospital.generalBeds}
-                    </li>
-                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
+                    </div>
+                    <div className="col-6 p-1 fs-6">
                         <span className="fw-bold fs-6">ICU Beds:</span> {hospital.icuBeds}
-                    </li>
-                </ul>
-                <ul className="list-group flex-row">
-                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
+                    </div>
+                </div>
+                <div className="row px-3">
+                    <div className="col-6 p-1 fs-6">
                         <span className="fw-bold fs-6">Ventilator Beds:</span> {hospital.ventilatorBeds}
-                    </li>
-                    <li className="list-group-item border-0 bg-transparent p-1 fs-6">
+                    </div>
+                    <div className="col-6 p-1 fs-6">
                         <span className="fw-bold fs-6">Oxygen Beds:</span> {hospital.oxygenBeds}
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
             <div className="card-footer text-center bg-dark">
                 <ul className="list-group">
                     <li className="list-group-item border-0 bg-transparent">
                         <button className="btn btn-outline-warning">
-                            <Link className="text-white" to={`Dashboard/${hospital._id}`} >Book Slot</Link>
+                            <Link className="text-white" to={`/${hospital._id}`} >Book Slot</Link>
                         </button>
                     </li>
                 </ul>
