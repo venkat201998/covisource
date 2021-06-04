@@ -21,7 +21,7 @@ const Home = () => {
             })
         })
         .catch((err) => toast.error(err));
-    })
+    }, [user])
     return(
             <div className="container-fluid p-0 overflow">
                 <div className="container mt-5 px-md-5">

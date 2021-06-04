@@ -6,7 +6,7 @@ import { auth } from './firebase';
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
 
-import Home from './pages/Home/Home';
+import Home from './pages/home/Home';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Header from './components/nav/header/Header';
