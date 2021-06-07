@@ -53,28 +53,34 @@ exports.createHospital = async(req, res)=> {
     try{
         const hospitalDetails = req.body.hospitalDetails;
         const email = req.body.email;
+        const user = await User.findOne({email});
+        if(user){
+            const hospital = await Hospital.findOne({email});
+            if(hospital){
+                res.json("Hospital already exists");
+            }
+            else{
 
-        const hospital = await Hospital.findOne({email});
-        if(hospital){
-            res.json("Hospital already exists");
+                const newHospital = await new Hospital({
+                    email: email,
+                    hospitalName: hospitalDetails.hospitalName,
+                    streetAddress: hospitalDetails.address,
+                    state: hospitalDetails.state,
+                    city: hospitalDetails.city,
+                    pinCode: hospitalDetails.pinCode,
+                    contact: hospitalDetails.contact,
+                    generalBeds: hospitalDetails.generalBeds,
+                    icuBeds: hospitalDetails.icuBeds,
+                    ventilatorBeds: hospitalDetails.ventilatorBeds,
+                    oxygenBeds: hospitalDetails.oxygenBeds,
+                    status: hospitalDetails.status }).save();
+                res.json(newHospital);
+            }
+        }else{
+            res.json("No User Exists With The Email Provided");
         }
-        else{
 
-            const newHospital = await new Hospital({
-                email: email,
-                hospitalName: hospitalDetails.hospitalName,
-                streetAddress: hospitalDetails.address,
-                state: hospitalDetails.state,
-                city: hospitalDetails.city,
-                pinCode: hospitalDetails.pinCode,
-                contact: hospitalDetails.contact,
-                generalBeds: hospitalDetails.generalBeds,
-                icuBeds: hospitalDetails.icuBeds,
-                ventilatorBeds: hospitalDetails.ventilatorBeds,
-                oxygenBeds: hospitalDetails.oxygenBeds,
-                status: hospitalDetails.status }).save();
-            res.json(newHospital);
-        }
+        
     }
     catch(error){
         res.json(error);

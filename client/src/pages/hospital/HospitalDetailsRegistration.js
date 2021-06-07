@@ -51,18 +51,23 @@ const HospitalDetailsRegistration = () =>{
         if(answer){
             createHospital(hospitalDetails, email, user.token)
             .then((res) =>{
-                if(res.data!=="Hospital already exists"){
-                    user && user.type === "Hospital" 
-                    ? toast.success("Added Details and waiting to be validated by admin")
-                    : toast.success("Hospital Registered Succesfully");
-                    dispatch({
-                        type:'LOGIN',
-                        payload: res.data 
-                    })
+                if(res.data !== "No User Exists With The Email Provided"){
+                    if(res.data !== "Hospital already exists"){
+                        user && user.type === "Hospital" 
+                        ? toast.success("Added Details and waiting to be validated by admin")
+                        : toast.success("Hospital Registered Succesfully");
+                        dispatch({
+                            type:'LOGIN',
+                            payload: res.data 
+                        })
+                    }
+                    else{
+                        toast.error("Already Hospital registered");
+                    }
+                }else{
+                    toast.error(res.data);
                 }
-                else{
-                    toast.error("Already Hospital registered");
-                }
+                
             })
             .catch((err) => toast.error("Failed Registration"));
         }else{
