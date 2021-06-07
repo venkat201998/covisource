@@ -97,14 +97,13 @@ exports.checkHospital = async(req, res) => {
 
 exports.updateHospital = async(req, res) => {
     try{
-
+        let email;
         if(req.body.hospitalDetails.email){
-            const email = req.body.hospitalDetails.email;
+            email = req.body.hospitalDetails.email;
         }else{
-            const { email } = req.user;
+            email = req.user.user;
         }
         const hospitalDetails = req.body.hospitalDetails;
-        
         const updateHospital = await Hospital.findOneAndUpdate({email},{
             hospitalName: hospitalDetails.hospitalName,
             streetAddress: hospitalDetails.address,
