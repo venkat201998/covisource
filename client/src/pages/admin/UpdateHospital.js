@@ -38,7 +38,7 @@ const UpdateHospital = () =>{
         e.preventDefault();
         
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, status};
-
+        
         let answer = window.confirm("Update Hospital Details?");
         if(answer){
             updateHospital(hospitalDetails, user.token)

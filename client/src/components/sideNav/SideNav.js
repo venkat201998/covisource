@@ -22,7 +22,7 @@ const SideNav = () =>{
                                             </li>)
                 } */}
                 {
-                    user && user.options.map((item)=> <li className="nav-item fs-5" key={item}>
+                    user && user.options.map((item)=> <li className="nav-item fs-6" key={item}>
                                                 <NavLink className="nav-link active" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
                                                      {item} 
                                                 </NavLink>
