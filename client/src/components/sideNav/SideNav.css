@@ -1,4 +1,22 @@
-.nav-item{
+.nav-link{
     color: #001f60;
     font-weight: 600;
+}
+/* .bgSideNav{
+    background: #094766;
+} */
+.bgSideNav>ul>li {
+    line-height: 6vh;
+    text-decoration: none;
+    text-align: start;
+    box-sizing: border-box;
+    border-top: 2px solid rgba(225,225,225,.1);
+    border-bottom: 1px solid black;
+    transition: .4s;
+}
+.bgSideNav>ul>li:hover {
+    background-color: #0c3f57;
+    border-top: 2px solid rgba(225,225,225,.1);
+    border-bottom: 1px solid black;
+    padding-left: 4vh;
 }

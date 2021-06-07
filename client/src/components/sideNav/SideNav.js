@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import './SideNav.css';
 
 const SideNav = () =>{
@@ -14,7 +14,7 @@ const SideNav = () =>{
     },[history.location.pathname]);
 
     return(
-        <div className="col-lg-2">
+        <div className="col-lg-2 bgSideNav">
             <ul className="nav flex-column">
                 {/* {
                     (user && user.type==="Admin" && path==='/User/Dashboard') && user.uaoptions.map((item)=> <li className="nav-item">
@@ -22,8 +22,10 @@ const SideNav = () =>{
                                             </li>)
                 } */}
                 {
-                    user && user.options.map((item)=> <li className="nav-item fs-6" key={item}>
-                                                <Link className="nav-link active" aria-current="page" to={`/${user.type}/${item}`}> {item} </Link>
+                    user && user.options.map((item)=> <li className="nav-item fs-5" key={item}>
+                                                <NavLink className="nav-link active" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                     {item} 
+                                                </NavLink>
                                             </li>)
                 }
                 {/* {

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 const RegisterPatientFromHospital = () =>{
 
-    const { user } = useSelector((state) => ({ ...state }))
+    const { user, hospital } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
 
     const [firstName, setFirstName] = useState("");
@@ -32,6 +32,7 @@ const RegisterPatientFromHospital = () =>{
     const [medicationAllergies, setMedicationAllergies] = useState("");
     const [operationsList, setOperationsList] = useState("");
     const [status, setStatus] = useState("Admitted");
+    const [bedType, setBedType] = useState("");
 
 
     const inputChecked= false;
@@ -70,7 +71,7 @@ const RegisterPatientFromHospital = () =>{
             }
             
             // console.log(healthIssues);
-            // console.log(healthIssuesChecked);
+            console.log(healthIssuesChecked);
             // setHealthIssuesC(healthIssuesChecked);
         }
         else{
@@ -88,7 +89,7 @@ const RegisterPatientFromHospital = () =>{
             }
             
             // console.log(covidSymptoms);
-            // console.log(covidSymptomsChecked);
+            console.log(covidSymptomsChecked);
             // setCovidSymptomsC(covidSymptomsChecked);
         }
     }
@@ -105,7 +106,7 @@ const RegisterPatientFromHospital = () =>{
         e.preventDefault();
         const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
                                 eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
-                                medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, status};
+                                medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, status};
         let answer = window.confirm("Confirm Registration?");
         if(answer){
             registerPatient(patientDetails, user.email, user.token)
@@ -460,6 +461,18 @@ const RegisterPatientFromHospital = () =>{
                                         </div>)
                                 })}
                             </div>
+                        </div>
+                    </div>
+                    <div className="form-group my-xl-5 my-3 row">
+                        <label for="bedType" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Available Beds</label>
+                        <div class="col-12 col-xl-6">
+                            <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setBedType(e.target.value) }>
+                                <option value="ss">Select Bed</option>
+                                {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Bed</option> : ""}
+                                {hospital && hospital.icuBeds > 0 ? <option value="icuBeds">ICU Bed</option> : ""}
+                                {hospital && hospital.ventilatorBeds > 0 ? <option value="ventilatorBeds">Ventilator Bed</option> : ""}
+                                {hospital && hospital.oxygenBeds > 0 ? <option value="oxygenBeds">Oxygen Bed</option> : ""}
+                            </select>
                         </div>
                     </div>
                     <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">

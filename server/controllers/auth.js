@@ -139,8 +139,28 @@ exports.registerPatient = async(req, res) => {
 
         patients.push(req.body.patientDetails);
         console.log("Data from forntend:", req.body.patientDetails)
-        const updateHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} )
-        console.log(updateHospital);
+
+        const bedType = req.body.patientDetails.bedType;
+        const updateHospital=[];
+        if(bedType==="generalBeds"){
+            const bedTypeCount = parseInt(hospital.generalBeds)-1;
+            updateHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} )
+        }
+        else if(bedType==="icuBeds"){
+            const bedTypeCount = parseInt(hospital.icuBeds)-1;
+            updateHospital = await Hospital.findOneAndUpdate({email},{icuBeds: bedTypeCount, patients }, {new: true} )
+        }
+
+        else if(bedType==="ventilatorBeds"){
+            const bedTypeCount = parseInt(hospital.ventilatorBeds)-1;
+            updateHospital = await Hospital.findOneAndUpdate({email},{ventilatorBeds: bedTypeCount, patients }, {new: true} )
+        }
+
+        else if(bedType==="oxygenBeds"){
+            const bedTypeCount = parseInt(hospital.oxygenBeds)-1;
+            updateHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} )
+        }
+
         if(updateHospital){
             res.json(updateHospital);
         }
