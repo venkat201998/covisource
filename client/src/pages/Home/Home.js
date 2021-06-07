@@ -25,12 +25,12 @@ const Home = () => {
     return(
             <div className="container-fluid p-0 overflow">
                 <div className="container mt-5 px-md-5">
-                    <div className="row mt-5 pt-5 mx-md-2">
+                    <div className="row mt-5 pt-5 mx-md-2 d-none d-md-block">
                         <div className="row mb-3 text-center">
                             <h4 className="my-auto fw-bold">HelpLine</h4>
                         </div>
                         <div className="row mx-auto align-items-center">
-                            <div className="col-3">
+                            <div className="col-lg-3 col-md-6">
                                 <div className="row p-1">
                                     <div className="col-4 text-end">
                                         <span><i class="fa fa-phone-volume fs-2"></i></span>
@@ -41,7 +41,7 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-3">
+                            <div className="col-lg-3 col-md-6">
                                 <div className="row p-1">
                                     <div className="col-4 text-end">
                                         <span><i class="fa fa-user-headset fs-2"></i></span>
@@ -52,7 +52,7 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-3">
+                            <div className="col-lg-3 col-md-6">
                                 <div className="row p-1">
                                     <div className="col-4 text-end">
                                         <span><i class="fa fa-child fs-2"></i></span>
@@ -63,7 +63,7 @@ const Home = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-3">
+                            <div className="col-lg-3 col-md-6">
                                 <div className="row p-1">
                                     <div className="col-4 text-end">
                                         <span><i class="fa fa-head-side-medical fs-2"></i></span>

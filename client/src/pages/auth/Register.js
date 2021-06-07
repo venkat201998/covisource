@@ -49,17 +49,17 @@ const Register = ({history}) => {
     <div className="container mt-5">
       <div className="row mt-5 pt-5">
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="container-fluid">
             <div className="form-group mb-3 text-center">
-                {loading ? <h4>Loading..</h4> :  <h4>User Registration</h4>}
+                {loading ? <h4>Loading..</h4> :  <h4>Registration</h4>}
             </div>
             <div class="form-group my-3 row p-0">
-						<label htmlFor="email" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Email</label>
-						<div class="col-12 mb-3 mb-md-0 col-xl-6 p-0">
+						<label htmlFor="email" class="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
+						<div class="col-md-10 col-12 p-0 mb-3 mb-md-1">
 							<input
 								id="email"
 								type="email"
-								className="form-control w-100"
+								className="form-control w-100 w-md-50"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								placeholder="abc@example.com"
@@ -68,18 +68,18 @@ const Register = ({history}) => {
 						</div>
 					</div>
           <div class="form-group my-3 row p-0">
-						<label htmlFor="userType" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Type</label>
-						<div class="col-12 mb-3 mb-md-0 col-xl-6 p-0">
+						<label htmlFor="userType" class="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Type</label>
+						<div class="col-md-10 col-12 p-0 mb-3 mb-md-1">
 							<select className="form-select w-50" onChange={(e)=> setType(e.target.value)}>
-                <option value="select">Select</option>
+                <option value="select">Select Type</option>
                 <option value="User">User</option>
                 <option value="Hospital">Hospital</option>
                 
               </select> 
 						</div>
 					</div>
-          <div className="form-group row justify-content-center">
-						<div className="col-4 text-center">
+          <div className="form-group row">
+						<div className="col-4 offset-2 p-0">
 							<button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email || !type}>
 								Register
 							</button>
