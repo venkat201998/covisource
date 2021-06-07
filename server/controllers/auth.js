@@ -136,36 +136,43 @@ exports.registerPatient = async(req, res) => {
         const email = req.body.email;
         const hospital = await Hospital.findOne({email});
         const patients = hospital.patients;
-
-        patients.push(req.body.patientDetails);
-        console.log("Data from forntend:", req.body.patientDetails)
-
-        const bedType = req.body.patientDetails.bedType;
-        const updateHospital=[];
-        if(bedType==="generalBeds"){
-            const bedTypeCount = parseInt(hospital.generalBeds)-1;
-            updateHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} )
-        }
-        else if(bedType==="icuBeds"){
-            const bedTypeCount = parseInt(hospital.icuBeds)-1;
-            updateHospital = await Hospital.findOneAndUpdate({email},{icuBeds: bedTypeCount, patients }, {new: true} )
-        }
-
-        else if(bedType==="ventilatorBeds"){
-            const bedTypeCount = parseInt(hospital.ventilatorBeds)-1;
-            updateHospital = await Hospital.findOneAndUpdate({email},{ventilatorBeds: bedTypeCount, patients }, {new: true} )
-        }
-
-        else if(bedType==="oxygenBeds"){
-            const bedTypeCount = parseInt(hospital.oxygenBeds)-1;
-            updateHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} )
-        }
-
-        if(updateHospital){
-            res.json(updateHospital);
+        const checkPatient = patients.findIndex((patient)=> patient.email===(req.body.patientDetails.email));
+        console.log(checkPatient);
+        if(checkPatient>=0){
+            res.json("Patient Already registered with these details");
         }
         else{
-            res.json("Update Failed");
+
+            patients.push(req.body.patientDetails);
+            console.log("Data from forntend:", req.body.patientDetails)
+
+            const bedType = req.body.patientDetails.bedType;
+            const updateHospital=[];
+            if(bedType==="generalBeds"){
+                const bedTypeCount = parseInt(hospital.generalBeds)-1;
+                updateHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} )
+            }
+            else if(bedType==="icuBeds"){
+                const bedTypeCount = parseInt(hospital.icuBeds)-1;
+                updateHospital = await Hospital.findOneAndUpdate({email},{icuBeds: bedTypeCount, patients }, {new: true} )
+            }
+
+            else if(bedType==="ventilatorBeds"){
+                const bedTypeCount = parseInt(hospital.ventilatorBeds)-1;
+                updateHospital = await Hospital.findOneAndUpdate({email},{ventilatorBeds: bedTypeCount, patients }, {new: true} )
+            }
+
+            else if(bedType==="oxygenBeds"){
+                const bedTypeCount = parseInt(hospital.oxygenBeds)-1;
+                updateHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} )
+            }
+
+            if(updateHospital){
+                res.json(updateHospital);
+            }
+            else{
+                res.json("Update Failed");
+            }
         }
 
     }
@@ -232,6 +239,8 @@ exports.updatePatientStatus = async (req, res) => {
         const patients = hospital.patients;
 
         const patientIndex = patients.findIndex((patient)=> patient._id == id);
+        const bedType= patients[patientIndex].bedType;
+        const updatedHospital=[];
 
         patients[patientIndex].eFirstName = eFirstName;
         patients[patientIndex].eLastName = eLastName;
@@ -240,8 +249,33 @@ exports.updatePatientStatus = async (req, res) => {
         patients[patientIndex].status = status;
         patients[patientIndex].comments = comments;
         patients[patientIndex].updatedDate = Date.now();
+
+
+
+        if(status === "Deceased" || status === "Discharged"){
+            if(bedType === "generalBeds"){
+                const bedTypeCount = parseInt(hospital.generalBeds) + 1;
+                updatedHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} );
+            }
+            else if(bedType === "icuBeds"){
+                const bedTypeCount = parseInt(hospital.icuBeds) + 1;
+                console.log(bedTypeCount);
+                updatedHospital = await Hospital.findOneAndUpdate({email},{icuBeds: bedTypeCount, patients }, {new: true} );
+            }
+            else if(bedType === "ventilatorBeds"){
+                const bedTypeCount = parseInt(hospital.ventilatorBeds) + 1;
+                updatedHospital = await Hospital.findOneAndUpdate({email},{ventilatorBeds: bedTypeCount, patients }, {new: true} );
+            }
+            else if(bedType === "oxygenBeds"){
+                const bedTypeCount = parseInt(hospital.oxygenBeds) + 1;
+                updatedHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} );
+            }
+        }
+        else{
+            updatedHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} );
+        }
         
-        const updatedHospital = await Hospital.findOneAndUpdate({email},{ patients }, {new: true} );
+        
         if(updatedHospital){
             res.json(updateHospital);
         }

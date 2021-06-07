@@ -4,11 +4,13 @@ import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
 import { registerPatient } from '../../functions/auth';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
 const RegisterPatientFromHospital = () =>{
 
     const { user, hospital } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -33,13 +35,15 @@ const RegisterPatientFromHospital = () =>{
     const [operationsList, setOperationsList] = useState("");
     const [status, setStatus] = useState("Admitted");
     const [bedType, setBedType] = useState("");
+    let [healthIssuesChecked, setHealthIssuesChecked] = useState([]);
+    let [covidSymptomsChecked, setCovidSymptomsChecked] = useState([]);
 
 
     const inputChecked= false;
     let healthIssues=[];
-    let healthIssuesChecked=[];
+    // let healthIssuesChecked=[];
     let covidSymptoms=[];
-    let covidSymptomsChecked=[];
+    // let covidSymptomsChecked=[];
     
     let citiesOptions = null;
 
@@ -60,36 +64,42 @@ const RegisterPatientFromHospital = () =>{
             if(healthIssues[e.target.value]===true){
                 healthIssues[e.target.value]=false;
                 healthIssuesChecked = healthIssuesChecked.filter((item)=> item!== e.target.value);
+                setHealthIssuesChecked(healthIssuesChecked);
             }
             else if (healthIssues[e.target.value]===false){
                 healthIssues[e.target.value]=true;
                 healthIssuesChecked.push(e.target.value);
+                setHealthIssuesChecked(healthIssuesChecked);
             }
             else{
                 healthIssues[e.target.value] = !inputChecked;
                 healthIssuesChecked.push(e.target.value);
+                setHealthIssuesChecked(healthIssuesChecked);
             }
             
             // console.log(healthIssues);
-            console.log(healthIssuesChecked);
+            // console.log(healthIssuesChecked);
             // setHealthIssuesC(healthIssuesChecked);
         }
         else{
             if(covidSymptoms[e.target.value]===true){
                 covidSymptoms[e.target.value]=false;
                 covidSymptomsChecked = covidSymptomsChecked.filter((item)=> item!== e.target.value);
+                setCovidSymptomsChecked(covidSymptomsChecked);
             }
             else if (covidSymptoms[e.target.value]===false){
                 covidSymptoms[e.target.value]=true;
                 covidSymptomsChecked.push(e.target.value);
+                setCovidSymptomsChecked(covidSymptomsChecked);
             }
             else{
                 covidSymptoms[e.target.value] = !inputChecked;
                 covidSymptomsChecked.push(e.target.value);
+                setCovidSymptomsChecked(covidSymptomsChecked);
             }
             
             // console.log(covidSymptoms);
-            console.log(covidSymptomsChecked);
+            // console.log(covidSymptomsChecked);
             // setCovidSymptomsC(covidSymptomsChecked);
         }
     }
@@ -99,7 +109,7 @@ const RegisterPatientFromHospital = () =>{
         setAddress(""); setState(""); setCity(""); setPinCode(""); setMaritalStatus("");
         setEFirstName(""); setELastName(""); setRelationship(""); setEContact("");
         setWeight(""); setHeight(""); setMedicationStatus(""); setMedicationList(""); 
-        setMedicationAllergies(""); setOperationsList(""); healthIssuesChecked=[]; covidSymptomsChecked=[];
+        setMedicationAllergies(""); setOperationsList(""); setHealthIssuesChecked([]); setCovidSymptomsChecked([]);
     }
 
     const handleSubmit = (e) => {
@@ -111,12 +121,19 @@ const RegisterPatientFromHospital = () =>{
         if(answer){
             registerPatient(patientDetails, user.email, user.token)
             .then((res)=> {
+                //console.log(res);
+                if(res.data!=="Patient Already registered with these details"){
                 dispatch({
                     type:'LOGIN',
                     payload: res.data 
                 })
                 toast.success("Patient Registered");
                 resetData();
+                }
+                else{
+                    toast.error(res.data);
+                    history.push('ManagePatients');
+                }
             })
             .catch((e)=> toast.error(e));
         }else{
