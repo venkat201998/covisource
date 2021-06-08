@@ -5,6 +5,7 @@ import banner from '../../assets/banner.png';
 import { getHospitals } from '../../functions/auth';
 import UserHospitalCard from '../../components/cards/UserHospitalCard';
 import { toast } from 'react-toastify';
+import Trigger from '../../components/triggger/Trigger';
 
 const Home = () => {
     const { user } = useSelector((state) => ({ ...state }));
@@ -24,8 +25,8 @@ const Home = () => {
     }, [user])
     return(
             <div className="container-fluid p-0 overflow">
-                <div className="container mt-5 px-md-5">
-                    <div className="row mt-5 pt-5 mx-md-2 d-none d-md-block">
+                <div className="container mt-5 px-md-5 d-none d-lg-block">
+                    <div className="row mt-5 pt-5 mx-md-2">
                         <div className="row mb-3 text-center">
                             <h4 className="my-auto fw-bold">HelpLine</h4>
                         </div>
@@ -77,13 +78,14 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row banner-div">
                     <img src={banner} className="banner" alt=""/>
                 </div>
+                <Trigger/>
                 <div className="container px-md-5">
                     <div className="row m-md-2">
                         {
-                            hospitals && hospitals.map((hospital)=> <UserHospitalCard hospital={hospital}/>)
+                            hospitals && hospitals.map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
                         }
                     </div>
                 </div>

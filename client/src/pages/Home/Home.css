@@ -4,6 +4,27 @@
 .overflow{
     overflow-x: hidden;
 }
-.banner{
-    height: 25rem
+
+@media screen and (max-width: 420px) {
+    .banner-div{
+        margin-top: 4rem;
+    }
+    .banner{
+        height: 10rem
+    }
+}
+
+@media screen and (min-width: 421px) and (max-width: 768px) {
+    .banner-div{
+        margin-top: 4rem;
+    }
+    .banner{
+        height: 15rem
+    }
+}
+
+@media screen and (min-width: 769px) {
+    /* .banner{
+        height: 25rem
+    } */
 }

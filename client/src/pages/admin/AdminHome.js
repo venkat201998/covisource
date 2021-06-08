@@ -53,11 +53,16 @@ const AdminHome = ({history}) => {
                     <SideNav/>
                     
                     
-                        { (path==='/Admin/Dashboard') && <AdminDashboard/> }
-                        { (path==='/Admin/RegisterHospital') && <HospitalDetailsRegistration/> }
-                        { (path==='/Admin/ManageHospitals') && <ManageHospitals/> }
-                        { (path==='/Admin/ManageUsers') && <ManageUsers/> }
-                        { (path==='/Admin/UpdatePassword') && <UpdatePassword/> }
+                    <div className="col">
+                        <div className="row justify-content-center">
+                            { (path==='/Admin/Dashboard') && <AdminDashboard/> }
+                            { (path==='/Admin/RegisterHospital') && <HospitalDetailsRegistration/> }
+                            { (path==='/Admin/ManageHospitals') && <ManageHospitals/> }
+                            { (path==='/Admin/ManageUsers') && <ManageUsers/> }
+                            { (path==='/Admin/UpdatePassword') && <UpdatePassword/> }
+                        </div>
+                    </div>
+                        
                     
                 </div>
         </div>

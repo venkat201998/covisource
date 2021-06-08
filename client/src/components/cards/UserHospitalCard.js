@@ -8,7 +8,7 @@ const UserHospitalCard = ({ hospital }) => {
     const { user } = useSelector((state) => ({ ...state }));
 
   return (
-      <div key={hospital._id} className="col-12 col-md-6 p-4">
+      <div className="col-12 col-lg-6 p-4">
         <form>
           <div className="card shadow">
             {/* <img src="" className="card-img-top" alt="..."/> */}

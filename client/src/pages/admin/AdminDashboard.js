@@ -22,7 +22,7 @@ const AdminDashboard = () => {
 
 
     return(
-        <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
+        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
             <div className="row">
                 {registeredHospital && registeredHospital.length>0 ? registeredHospital.map((hospital) => <DisplayCard hospital={hospital}/> ) : 
                 

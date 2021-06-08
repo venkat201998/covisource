@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import firebase from 'firebase';
 
 const UpdatePassword = () => {
@@ -74,15 +74,15 @@ const UpdatePassword = () => {
     }
 
     return (
-            <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
+            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                 
-                <form className="py-5" onSubmit={handleSubmit} onReset={forgotPassword}>
+                <form className="py-5" onSubmit={handleSubmit} onReset={forgotPassword} className="container-fluid">
                     <div className="form-group mb-5 text-center">
                         {loading ? <h4>Loading..</h4> :  <h4>Update Password</h4>}
                     </div>
-                    <div class="form-group my-3 row">
-                        <label htmlFor="email" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Email</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                    <div class="form-group my-3 row p-0">
+                        <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="email"
                                 type="email"
@@ -93,9 +93,9 @@ const UpdatePassword = () => {
                             />
                         </div>
                     </div>
-                    <div class="form-group my-3 row">
-                        <label htmlFor="oldPassword" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Old Password</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                    <div class="form-group my-3 row p-0">
+                        <label htmlFor="oldPassword" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Old Password</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="oldPassword"
                                 type="password"
@@ -106,9 +106,9 @@ const UpdatePassword = () => {
                             />
                         </div>
                     </div>
-                    <div class="form-group my-3 row">
-                        <label htmlFor="newPassword" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">New Password</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                    <div class="form-group my-3 row p-0">
+                        <label htmlFor="newPassword" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">New Password</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="newPassword"
                                 type="password"
@@ -119,8 +119,21 @@ const UpdatePassword = () => {
                             />
                         </div>
                     </div>
-                    <br />
-                    <div className="form-group row justify-content-center">
+                    <div className="form-group row p-0">
+                        <div className="col-md-4 col-8 offset-md-3 text-start p-0">
+                            <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email || password.length < 6}>
+                                Update Password
+                            </button>
+                        </div>
+                    </div>
+                    <div className="form-group row justify-content-end">
+                        <div className="col-md-4 col-6 p-0">
+                            <button className="btn btn-outline-none text-danger" type="reset">
+                                Forgot Password
+                            </button>
+                        </div>
+                    </div>
+                    {/* <div className="form-group row p-0 justify-content-center">
                             <div className="col-3">
                                 <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!password && !newPassword}>
                                     Update Password
@@ -131,7 +144,7 @@ const UpdatePassword = () => {
                                     Forgot Password
                                 </button>
                             </div>
-                    </div>
+                    </div> */}
                     
                 </form>
             </div>
