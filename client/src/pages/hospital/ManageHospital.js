@@ -8,10 +8,13 @@ import { useHistory } from 'react-router-dom';
 
 
 const ManageHospital = () =>{
-    const { user, hospital } = useSelector((state) => ({ ...state }));
+    const { user, hospital } = useSelector((state) => ({...state}));
     const history = useHistory();
-
     useEffect(()=>{
+
+        localStorage.setItem("hospital", hospital && JSON.stringify(hospital));
+        console.log(JSON.parse(localStorage.getItem("hospital")));
+        console.log(hospital);
         checkHospital(user.email)
         .then((res)=>{
             if(res.data!=="Hospital not registered"){
@@ -22,9 +25,10 @@ const ManageHospital = () =>{
             }
         })
         .catch((e) => console.log(e));
-    },[user])
+    },[])
 
-    const [hospitalName, setHospitalName] = useState(hospital && hospital.hospitalName);
+
+    const [hospitalName, setHospitalName] = useState(JSON.parse(localStorage.getItem("hospital")) && JSON.parse(localStorage.getItem("hospital")).hospitalName || hospital && hospital.hospitalName);
     const [address, setAddress] = useState(hospital && hospital.streetAddress);
     const [state, setState] = useState(hospital && hospital.state);
     const [city, setCity] = useState(hospital && hospital.city);
@@ -36,6 +40,7 @@ const ManageHospital = () =>{
     const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
     const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
     let citiesOptions = null;
+    
 
     const dispatch = useDispatch();
 
@@ -62,7 +67,7 @@ const ManageHospital = () =>{
                     })
                 }
                 else{
-                    toast.error("Already Hospital registered");
+                    toast.error(res.data);
                 }
             })
                 

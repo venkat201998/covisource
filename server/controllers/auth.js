@@ -101,7 +101,8 @@ exports.updateHospital = async(req, res) => {
         if(req.body.hospitalDetails.email){
             email = req.body.hospitalDetails.email;
         }else{
-            email = req.user.user;
+            console.log(req.user);
+            email = req.user.email;
         }
         const hospitalDetails = req.body.hospitalDetails;
         const updateHospital = await Hospital.findOneAndUpdate({email},{
@@ -267,6 +268,25 @@ exports.updatePatientStatus = async (req, res) => {
             }
             else if(bedType === "oxygenBeds"){
                 const bedTypeCount = parseInt(hospital.oxygenBeds) + 1;
+                updatedHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} );
+            }
+        }
+        else if(status === "Admitted"){
+            if(bedType === "generalBeds"){
+                const bedTypeCount = parseInt(hospital.generalBeds) - 1;
+                updatedHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} );
+            }
+            else if(bedType === "icuBeds"){
+                const bedTypeCount = parseInt(hospital.icuBeds) - 1;
+                console.log(bedTypeCount);
+                updatedHospital = await Hospital.findOneAndUpdate({email},{icuBeds: bedTypeCount, patients }, {new: true} );
+            }
+            else if(bedType === "ventilatorBeds"){
+                const bedTypeCount = parseInt(hospital.ventilatorBeds) - 1;
+                updatedHospital = await Hospital.findOneAndUpdate({email},{ventilatorBeds: bedTypeCount, patients }, {new: true} );
+            }
+            else if(bedType === "oxygenBeds"){
+                const bedTypeCount = parseInt(hospital.oxygenBeds) - 1;
                 updatedHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} );
             }
         }

@@ -33,7 +33,7 @@ const UpdatePatient = () =>{
     const [relationship, setRelationship] = useState( patientDetails && patientDetails.relationship);
     const [eContact, setEContact] = useState( patientDetails && patientDetails.eContact);
 
-    const [status, setStatus] = useState("Admitted");
+    const [status, setStatus] = useState(patientDetails && patientDetails.status);
     const [comments, setComments] = useState("");
     let citiesOptions = null;
 
@@ -280,8 +280,9 @@ const UpdatePatient = () =>{
                                 <div className="col-6 col-md-3">
                                     <select ud="patientStatus" className="w-100 form-select" aria-label="Default select example" onChange={(e)=> setStatus(e.target.value)}>
                                         <option value="ss">Select status</option>
-                                        <option value="Discharged">Discharged</option>
-                                        <option value="Deceased">Deceased</option>
+                                        {patientDetails && patientDetails.status==="Admitted" ? 
+                                        <><option value="Discharged">Discharged</option>
+                                        <option value="Deceased">Deceased</option></> : <option value="Admitted">Admit</option>}
                                     </select>
                                 </div>
                                 <div className="col-6 col-md-3">

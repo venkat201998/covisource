@@ -31,7 +31,7 @@ const PatientCard = ({ patient, type }) => {
             <div className="col-2">
                 <ul className="list-group d-flex flex-row justify-content-center">
                     <li className="list-group-item border-0 bg-transparent">
-                        <button className="btn btn-success" type="submit" disabled={type && type==="PatientsHistory"}>
+                        <button className="btn btn-success" type="submit">
                           <Link className="text-white fw-bold" to={`${patient && type}/${patient._id}`}>View</Link>
                         </button>
                     </li>
