@@ -5,6 +5,7 @@ import UpdatePassword from '../../components/UpdatePassword';
 import UserSlot from './UserSlot';
 import SlotsHistory from './SlotsHistory';
 import UserDashboard from './UserDashboard';
+import RegisterPatientFromHospital from '../hospital/RegisterPatientFromHospital';
 
 
 const UserHome = ({history}) => {
@@ -26,6 +27,7 @@ const UserHome = ({history}) => {
                         { (path==='/User/Slot') && <UserSlot/> }
                         { (path==='/User/SlotsHistory') && <SlotsHistory/> }
                         { (path==='/User/UpdatePassword') && <UpdatePassword/> }
+                        { (path==='/User/SlotRegistration') && <RegisterPatientFromHospital/>}
 
                     </div>
                 </div>

@@ -11,14 +11,15 @@ const RegisterPatientFromHospital = () =>{
     const { user, hospital } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
     const history = useHistory();
+    console.log(hospital);
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [dob, setDob] = useState("");
-    const [gender, setGender] = useState("");
-    const [email, setEmail] = useState("");
-    const [contact, setContact] = useState("");
-    const [address, setAddress] = useState("");
+    const [firstName, setFirstName] = useState(user.type==="User" ? user.firstName : "");
+    const [lastName, setLastName] = useState(user.type==="User" ? user.lastName : "");
+    const [dob, setDob] = useState(user.type==="User" ? user.dob : "");
+    const [gender, setGender] = useState(user.type==="User" ? user.gender : "");
+    const [email, setEmail] = useState(user.type==="User" ? user.email : "");
+    const [contact, setContact] = useState(user.type==="User" ? user.contact : "");
+    const [address, setAddress] = useState(user.type==="User" ? user.address : "");
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
@@ -142,11 +143,22 @@ const RegisterPatientFromHospital = () =>{
     }
 
     const handleReset = (e) => {
-        let answer = window.confirm("Reset Form?");
-        if(answer){
-            resetData();
-        }else{
-            toast.error("Failed To Reset Form");
+        if(user && user.type==="User"){
+            let answer = window.confirm("Cancel Booking?");
+            if(answer){
+                history.push("/");
+            }
+            else{
+                toast.error("Failed To Cancel Booking");
+            } 
+        }
+        else{
+            let answer = window.confirm("Reset Form?");
+            if(answer){
+                resetData();
+            }else{
+                toast.error("Failed To Reset Form");
+            }
         }
     }
 
@@ -485,19 +497,19 @@ const RegisterPatientFromHospital = () =>{
                         <div class="col-12 col-xl-6">
                             <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setBedType(e.target.value) }>
                                 <option value="ss">Select Bed</option>
-                                {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Bed</option> : ""}
-                                {hospital && hospital.icuBeds > 0 ? <option value="icuBeds">ICU Bed</option> : ""}
-                                {hospital && hospital.ventilatorBeds > 0 ? <option value="ventilatorBeds">Ventilator Bed</option> : ""}
-                                {hospital && hospital.oxygenBeds > 0 ? <option value="oxygenBeds">Oxygen Bed</option> : ""}
+                                {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Beds: {hospital.generalBeds}</option> : ""}
+                                {hospital && hospital.icuBeds > 0 ? <option value="icuBeds">ICU Beds: {hospital.icuBeds}</option> : ""}
+                                {hospital && hospital.ventilatorBeds > 0 ? <option value="ventilatorBeds">Ventilator Beds: {hospital.ventilatorBeds}</option> : ""}
+                                {hospital && hospital.oxygenBeds > 0 ? <option value="oxygenBeds">Oxygen Beds: {hospital.oxygenBeds}</option> : ""}
                             </select>
                         </div>
                     </div>
                     <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
                             <div className="col-lg-5">
-                                <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Submit</button>
+                                <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">{user && user.type==="User" ? "Book Slot" : "Submit" }</button>
                             </div>
                             <div className="col-lg-5 offset-1">
-                                <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">Reset</button>
+                                <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">{user && user.type==="User" ? "Cancel" : "Reset" }</button>
                             </div>
                     </div>
                 </form>

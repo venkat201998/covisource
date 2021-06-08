@@ -1,11 +1,34 @@
 import React from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../modals/Modal';
+import { useHistory } from 'react-router-dom';
+import { toast } from "react-toastify";
 
 
 const UserHospitalCard = ({ hospital }) => {
 
-    const { user } = useSelector((state) => ({ ...state }));
+    const { user, hospitals } = useSelector((state) => ({ ...state }));
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const handleBookSlot = (e) =>{
+        if(!user){
+            let answer = window.confirm("Login to book slots");
+            if(answer){
+                history.push("/login");
+            }
+            else toast.error("Failed to login");
+        }
+        else{
+            console.log(e.target.id);
+            dispatch({
+                type:'LOGIN',
+                payload: hospitals.find((hospital)=> hospital._id===e.target.id)
+            })
+            history.push("/User/SlotRegistration");
+
+        }
+    }
 
   return (
       <div className="col-12 col-lg-6 p-4">
@@ -65,7 +88,9 @@ const UserHospitalCard = ({ hospital }) => {
             <div className="card-footer text-center bg-dark">
                 <ul className="list-group">
                     <li className="list-group-item border-0 bg-transparent">
-                    <button type="button" className="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button type="button" className="btn btn-outline-warning" id={hospital._id}
+                    // data-bs-toggle={user ? "modal" : ""} data-bs-target={user ? "#staticBackdrop" : ""} 
+                    onClick={handleBookSlot}>
                         Book Slot
                     </button>
                     </li>
@@ -73,9 +98,9 @@ const UserHospitalCard = ({ hospital }) => {
             </div>
         </div>
 
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            {/* <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <Modal user={user} hospital={hospital.email}/>
-            </div>
+            </div> */}
         </form>
       </div>
   );

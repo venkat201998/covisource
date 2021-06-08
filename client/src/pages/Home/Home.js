@@ -12,7 +12,10 @@ import Trigger from '../../components/triggger/Trigger';
 const Home = () => {
     const { user } = useSelector((state) => ({ ...state }));
     const [hospitals, setHospitals] = useState("");
+    const [searchHospitals, setSearchHospitals] = useState("");
     const dispatch = useDispatch();
+    const [pinOption, setPinOption] = useState(false);
+    const [cityOption, setCityOption] = useState(false);
 
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
@@ -36,6 +39,16 @@ const Home = () => {
         })
         .catch((err) => toast.error(err));
     }, [user])
+
+    const handleSearch = (e) =>{
+        if(e.target.value==="pin"){
+            setSearchHospitals(hospitals.filter((hospital)=> hospital.pinCode===pinCode));
+        }
+        else if(e.target.value==="city"){
+            setSearchHospitals(hospitals.filter((hospital)=> (hospital.city===city && hospital.state===state)));
+        }
+    }
+
     return(
             <div className="container-fluid p-0 overflow">
                 <div className="container mt-5 px-md-5 d-none d-lg-block">
@@ -94,44 +107,65 @@ const Home = () => {
                 <div className="row banner-div">
                     <img src={banner} className="banner" alt=""/>
                 </div>
-<<<<<<< HEAD
-                <div className="container my-5 px-md-5">
-                    <div className="row m-md-2">
-                        <div className="col-3">
-                            <input 
-                                    type="text"
-                                    className="form-control col-12 col-xl-8 border-dark"  
-                                    value={pinCode}
-                                    pattern="[0-9]{6}" 
-                                    maxLength="6"
-                                    placeholder="pin code"
-                                    onChange={(e) => setPinCode(e.target.value)}
-                                />
-                        </div>
-                        <div className="col-3">
-                            <select class="w-100 h-100 form-select border-dark" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
-                                <option value="ss">Select State</option>
-                                { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
-                            </select>
-                        </div>
-                        <div className="col-3">
-                            <select class="w-100 h-100 form-select border-dark" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
-                                <option value="sc">Select City</option>
-                                    {citiesOptions}
-                            </select>
-                        </div>
-                        <div className="col-3">
-                            <button type="button" className="btn btn-raised btn-outline-info w-100 mx-auto">Search</button>
+                <div class="row my-3 mx-md-2 justify-content-center">
+                    <div className="col-3">
+                        <div className="border border-dark rounded-pill d-flex flex-row h-100">
+                            <button type="button" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-5" onClick={()=>{ setState(""); setCity(""); setPinOption(true); setCityOption(false); }}>
+                                Search by PIN
+                            </button>
+                            <button type="button" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-5" onClick={()=>{ setPinCode(""); setPinOption(false); setCityOption(true); }}>
+                                Search by City
+                            </button>
                         </div>
                     </div>
                 </div>
-=======
+                <div className="row my-3 mx-md-2 justify-content-center">
+                    {
+                        pinOption && (
+                            <div className="col-3">
+                                <input 
+                                        id="pinCode"
+                                        type="text"
+                                        className="form-control w-100"  
+                                        value={pinCode}
+                                        pattern="[0-9]{6}" 
+                                        maxLength="6"
+                                        placeholder="Pin Code"
+                                        onChange={(e) => setPinCode(e.target.value)}
+                                />  
+                            </div>
+                        )
+                    }
+                    {
+                        cityOption && (
+                            <>
+                                <div className="col-3">
+                                    <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
+                                        <option value="">Select State</option>
+                                        { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
+                                    </select>
+                                </div>
+                                <div className="col-3">
+                                    <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
+                                        <option value="">Select City</option>
+                                        {citiesOptions}
+                                    </select>
+                                </div>
+                            </>
+                        )
+                    }
+                    <div className="col-2">
+                        <button type="button" className="btn btn-raised btn-outline-info w-100 mx-auto" value={(pinOption && "pin") || (cityOption && "city") } 
+                                disabled={!pinCode && (!state || !city)} onClick={handleSearch}>
+                            Search
+                        </button>
+                    </div>
+                </div>
                 <Trigger/>
->>>>>>> d4b1bbdd3e7cd5e90a65b222319fc72c28bae23d
                 <div className="container px-md-5">
                     <div className="row m-md-2">
                         {
-                            hospitals && hospitals.map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
+                            searchHospitals && searchHospitals.map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
                         }
                     </div>
                 </div>

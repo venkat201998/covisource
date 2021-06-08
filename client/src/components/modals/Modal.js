@@ -5,7 +5,7 @@ const Modal = ({ user, hospital}) => {
 
     const history = useHistory();
     useEffect(()=>{
-        console.log(user);
+        // console.log(user);
         if(!user){
             // history.push("/login");
         }

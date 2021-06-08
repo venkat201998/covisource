@@ -57,7 +57,7 @@ const Login = ({ history }) => {
                 break;
                 case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
                 break;
-                case 'User': options=['Dashboard', 'Slot', 'SlotsHistory', 'UpdatePassword'];
+                case 'User': options=['Dashboard', 'SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'];
                 break;
             }
             dispatch({
