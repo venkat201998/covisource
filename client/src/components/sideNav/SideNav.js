@@ -14,7 +14,7 @@ const SideNav = () =>{
     },[history.location.pathname]);
 
     return(
-        <div className="col-lg-2 bgSideNav">
+        <div className="col-lg-2 bgSideNav d-lg-block d-none position-fixed">
             <ul className="nav flex-column">
                 {/* {
                     (user && user.type==="Admin" && path==='/User/Dashboard') && user.uaoptions.map((item)=> <li className="nav-item">

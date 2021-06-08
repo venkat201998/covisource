@@ -7,6 +7,7 @@ import UserHospitalCard from '../../components/cards/UserHospitalCard';
 import { toast } from 'react-toastify';
 import HospitalStates from '../hospital/Json/HospitalStates.json';
 import HospitalCities from '../hospital/Json/HospitalCities.json';
+import Trigger from '../../components/triggger/Trigger';
 
 const Home = () => {
     const { user } = useSelector((state) => ({ ...state }));
@@ -37,8 +38,8 @@ const Home = () => {
     }, [user])
     return(
             <div className="container-fluid p-0 overflow">
-                <div className="container mt-5 px-md-5">
-                    <div className="row mt-5 pt-5 mx-md-2 d-none d-md-block">
+                <div className="container mt-5 px-md-5 d-none d-lg-block">
+                    <div className="row mt-5 pt-5 mx-md-2">
                         <div className="row mb-3 text-center">
                             <h4 className="my-auto fw-bold">HelpLine</h4>
                         </div>
@@ -90,9 +91,10 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                <div className="row banner-div">
                     <img src={banner} className="banner" alt=""/>
                 </div>
+<<<<<<< HEAD
                 <div className="container my-5 px-md-5">
                     <div className="row m-md-2">
                         <div className="col-3">
@@ -123,10 +125,13 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+=======
+                <Trigger/>
+>>>>>>> d4b1bbdd3e7cd5e90a65b222319fc72c28bae23d
                 <div className="container px-md-5">
                     <div className="row m-md-2">
                         {
-                            hospitals && hospitals.map((hospital)=> <UserHospitalCard hospital={hospital}/>)
+                            hospitals && hospitals.map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
                         }
                     </div>
                 </div>

@@ -34,7 +34,6 @@ const ManageHospital = () =>{
     const [city, setCity] = useState(hospital && hospital.city);
     const [pinCode, setPinCode] = useState(hospital && hospital.pinCode);
     const [contact, setContact] = useState(hospital && hospital.contact);
-
     const [generalBeds, setGeneralBeds] = useState(hospital && hospital.generalBeds);
     const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
     const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
@@ -71,7 +70,7 @@ const ManageHospital = () =>{
                 }
             })
                 
-            .catch((err) => toast.error("Failed Registration"));
+            .catch((err) => toast.error("Failed To Update"));
         }else{
             toast.error("Failed To Update")
         }
