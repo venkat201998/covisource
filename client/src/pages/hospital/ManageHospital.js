@@ -3,21 +3,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
-import { updateHospital, checkHospital } from '../../functions/auth';
+import { updateHospital, checkHospital, getHospitals } from '../../functions/auth';
 import { useHistory } from 'react-router-dom';
 
 
 const ManageHospital = () =>{
     const { user, hospital } = useSelector((state) => ({...state}));
     const history = useHistory();
-    useEffect(()=>{
 
-        localStorage.setItem("hospital", hospital && JSON.stringify(hospital));
-        console.log(JSON.parse(localStorage.getItem("hospital")));
-        console.log(hospital);
+    const [hospitalName, setHospitalName] = useState("");
+    const [address, setAddress] = useState("");
+    const [state, setState] = useState("");
+    const [city, setCity] = useState("");
+    const [pinCode, setPinCode] = useState("");
+    const [contact, setContact] = useState("");
+    const [generalBeds, setGeneralBeds] = useState("");
+    const [icuBeds, setIcuBeds] = useState("");
+    const [ventilatorBeds, setVentilatorBeds] = useState("");
+    const [oxygenBeds, setOxygenBeds] = useState("");
+
+    useEffect(()=>{
         checkHospital(user.email)
         .then((res)=>{
             if(res.data!=="Hospital not registered"){
+                setHospitalName(res.data.hospitalName);
+                setAddress(res.data.streetAddress);
+                setState(res.data.state);
+                setCity(res.data.city);
+                setPinCode(res.data.pinCode);
+                setContact(res.data.contact);
+                setGeneralBeds(res.data.generalBeds);
+                setIcuBeds(res.data.icuBeds);
+                setVentilatorBeds(res.data.ventilatorBeds);
+                setOxygenBeds(res.data.oxygenBeds);
                 dispatch({
                     type:'LOGIN',
                     payload: res.data 
@@ -27,17 +45,6 @@ const ManageHospital = () =>{
         .catch((e) => console.log(e));
     },[])
 
-
-    const [hospitalName, setHospitalName] = useState(JSON.parse(localStorage.getItem("hospital")) && JSON.parse(localStorage.getItem("hospital")).hospitalName || hospital && hospital.hospitalName);
-    const [address, setAddress] = useState(hospital && hospital.streetAddress);
-    const [state, setState] = useState(hospital && hospital.state);
-    const [city, setCity] = useState(hospital && hospital.city);
-    const [pinCode, setPinCode] = useState(hospital && hospital.pinCode);
-    const [contact, setContact] = useState(hospital && hospital.contact);
-    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.generalBeds);
-    const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
-    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
-    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
     let citiesOptions = null;
     
 
