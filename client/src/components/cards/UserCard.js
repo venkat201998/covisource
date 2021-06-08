@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const UserCard = ({ user }) => {
 
-
   return (
     <div className="col-12 p-lg-4 my-4">
       <form className="container-fluid p-0">

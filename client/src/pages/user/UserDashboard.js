@@ -7,11 +7,9 @@ const UserDashboard = () => {
     const address= user.address.concat(', ', user.city, ', ', user.state, ', ', user.pinCode);
     
     return (
-            <div className="col-8 offset-1 p-md-4 p-3 text-center shadow">
+            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
                 
-                {/* <h4>User Dashboard</h4> */}
-
-                <div className="col-12 p-4">
+                <h4>User Dashboard</h4>
                 <form>
                     <div className="card border-0 w-100">
                         <div className="card-body row">
@@ -62,8 +60,6 @@ const UserDashboard = () => {
                         </div>
                     </div>
                 </form>
-                </div>
-
             </div>
     );
 };

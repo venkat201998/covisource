@@ -20,13 +20,15 @@ const UserHome = ({history}) => {
                 <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
                     
-                    <div className="col-lg-10 col-md-8 col-sm-8 p-md-4 p-3">
+                    <div className="col">
+                        <div className="row justify-content-center">
                     
-                        { (path==='/User/Dashboard') && <UserDashboard/> }
-                        { (path==='/User/Slot') && <UserSlot/> }
-                        { (path==='/User/SlotsHistory') && <SlotsHistory/> }
-                        { (path==='/User/UpdatePassword') && <UpdatePassword/> }
-
+                            { (path==='/User/Dashboard') && <UserDashboard/> }
+                            { (path==='/User/Slot') && <UserSlot/> }
+                            { (path==='/User/SlotsHistory') && <SlotsHistory/> }
+                            { (path==='/User/UpdatePassword') && <UpdatePassword/> }
+                        
+                        </div>
                     </div>
                 </div>
         </div>

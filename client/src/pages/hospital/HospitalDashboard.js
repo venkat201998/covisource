@@ -21,20 +21,16 @@ const HospitalDashboard = () => {
     
 
     return(
-        <div className="col-8 offset-1 p-md-4 p-3 text-center shadow">
-
-            <div className="col-12 p-4">
-                <form>
+        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
+                <form className="container-fluid p-0">
                     <div className="card border-0 w-100">
-                    {/* <img src="" className="card-img-top" alt="..."/> 
-                    
-                    */}
+                    {/* <img src="" className="card-img-top" alt="..."/> */}
                     <div className="card-body row">
                         <div className="form-group mb-3 text-center">
                             <h3 className="fw-bold">{hospital.hospitalName}</h3>
                         </div>
                         <div className="row">
-                            <div className="col-6">
+                            <div className="col-lg-6 col-12">
                                 <li className="list-group-item border-0 bg-transparent">
                                     <label className="col-form-label text-start fw-bold fs-6">Contact:</label>
                                     <span className="ps-2">
@@ -42,7 +38,7 @@ const HospitalDashboard = () => {
                                     </span>
                                 </li>
                             </div>
-                            <div className="col-6">
+                            <div className="col-lg-6 col-12">
                                 <li className="list-group-item border-0 bg-transparent">
                                     <label className="col-form-label text-start fw-bold fs-6">Email:</label>
                                     <span className="ps-2">
@@ -66,7 +62,7 @@ const HospitalDashboard = () => {
                                 <h4 style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</h4>
                             </div>
 
-                            <div className="col-6">
+                            <div className="col-md-6">
                                 <li className="list-group-item border-0 bg-transparent">
                                     <label for="generalBeds" className="col-form-label text-start fw-bold fs-6">General:</label>
                                     <span className="ps-2">
@@ -80,7 +76,7 @@ const HospitalDashboard = () => {
                                     </span>
                                 </li>
                             </div>
-                            <div className="col-6">
+                            <div className="col-md-6">
                                 <li className="list-group-item border-0 bg-transparent">
                                     <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Ventilator:</label>
                                     <span className="ps-2">
@@ -98,7 +94,7 @@ const HospitalDashboard = () => {
                                 <h4 style={{color: "gray", borderColor: "gray"}}>Patients</h4>
                             </div>
 
-                            <div className="col-4">
+                            <div className="col-lg-4 col-md-6 col-12">
                                 <li className="list-group-item border-0 bg-transparent">
                                     <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Admitted:</label>
                                     <span className="ps-2">
@@ -106,7 +102,7 @@ const HospitalDashboard = () => {
                                     </span>
                                 </li>
                             </div>
-                            <div className="col-4">
+                            <div className="col-lg-4 col-md-6 col-12">
                                 <li className="list-group-item border-0 bg-transparent">
                                     <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Discharged:</label>
                                     <span className="ps-2">
@@ -114,7 +110,7 @@ const HospitalDashboard = () => {
                                     </span>
                                 </li>
                             </div>
-                            <div className="col-4">
+                            <div className="col-lg-4 col-md-6 col-12">
                                 <li className="list-group-item border-0 bg-transparent">
                                     <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Deceased:</label>
                                     <span className="ps-2">
@@ -129,7 +125,6 @@ const HospitalDashboard = () => {
                     </div>
                     </div>
                 </form>
-                </div>
             </div>
     )
 }

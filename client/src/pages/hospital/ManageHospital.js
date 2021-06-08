@@ -80,9 +80,9 @@ const ManageHospital = () =>{
 
 
         return(
-            <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
+            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                 {hospital ?
-                    (<form onSubmit={handleSubmit}>
+                    (<form onSubmit={handleSubmit} className="container-fluid">
                         <h3>Hospital Info</h3>
                         <div className="form-group my-xl-5 my-3 row">
                             <label for="hospitalName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Hospital</label>

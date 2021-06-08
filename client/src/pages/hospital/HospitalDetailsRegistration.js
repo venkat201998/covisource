@@ -86,7 +86,7 @@ const HospitalDetailsRegistration = () =>{
         return(
                 <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                     <h3>Registration Form</h3>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit} className="container-fluid">
                         <div className="form-group my-xl-5 my-3 row">
                             <label htmlFor="hospitalName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
                             <div className="col-md-9 col-12 mb-3 mb-md-1">
@@ -199,54 +199,52 @@ const HospitalDetailsRegistration = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label htmlFor="generalBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">General</label>
-                                <div className="col-md-9 col-12 mb-3 mb-md-1 mb-3 mb-xl-0">
+                                <label htmlFor="generalBeds" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">General</label>
+                                <div className="col-md-4 col-12 mb-3 mb-md-1 mb-3 mb-xl-0">
                                     <input 
                                         id="generalBeds"
                                         type="text" 
                                         className="form-control w-100"  
                                         name="generalBeds"
                                         value={generalBeds}
-                                        placeholder="No. of General Beds"
+                                        placeholder="General Beds"
                                         onChange={(e)=> setGeneralBeds(e.target.value)} />
                                 </div>
-                        </div>
-                        <div className="form-group my-xl-5 my-3 row">
-                                <label htmlFor="icuBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">ICU</label>
-                                <div className="col-md-9 col-12 mb-3 mb-md-1">
+
+                                <label htmlFor="icuBeds" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">ICU</label>
+                                <div className="col-md-4 col-12 mb-3 mb-md-1">
                                     <input 
                                         id="icuBeds"
                                         type="text"
                                         className="form-control w-100"  
                                         name="icuBeds"
                                         value={icuBeds}
-                                        placeholder="No. of ICU Beds"
+                                        placeholder="ICU Beds"
                                         onChange={(e)=> setIcuBeds(e.target.value)} />
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label htmlFor="ventilatorBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Ventilator</label>
-                                <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                <label htmlFor="ventilatorBeds" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Ventilator</label>
+                                <div className="col-md-4 col-12 mb-3 mb-md-1">
                                     <input
                                         id="ventilatorBeds" 
                                         type="text" 
                                         className="form-control w-100"  
                                         name="ventilatorBeds"
                                         value={ventilatorBeds}
-                                        placeholder="No. of Ventilator Beds"
+                                        placeholder="Ventilator Beds"
                                         onChange={(e)=> setVentilatorBeds(e.target.value)} />
                                 </div>
-                        </div>
-                        <div className="form-group my-xl-5 my-3 row">
-                                <label htmlFor="oxygenBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Oxygen</label>
-                                <div className="col-md-9 col-12 mb-3 mb-md-1">
+
+                                <label htmlFor="oxygenBeds" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Oxygen</label>
+                                <div className="col-md-4 col-12 mb-3 mb-md-1">
                                     <input
                                         id="oxygenBeds" 
                                         type="text"
                                         className="form-control w-100"  
                                         name="oxygenBeds"
                                         value={oxygenBeds}
-                                        placeholder="No. of Oxygen Beds"
+                                        placeholder="Oxygen Beds"
                                         onChange={(e)=> setOxygenBeds(e.target.value)} />
                                 </div>
                         </div>
