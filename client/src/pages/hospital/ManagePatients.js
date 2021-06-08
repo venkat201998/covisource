@@ -14,7 +14,7 @@ const ManagePatients = () => {
     const type = slug==="ManagePatients" ? "ManagePatients" : "PatientsHistory";
 
     return(
-        <div className="col-8 offset-1 p-md-4 p-3 text-center">
+        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center">
             {patients && patients.length > 0 ? (patients.map((patient) => <PatientCard key={patient._id} patient={patient} type={type}/>)) 
                                     : type === "ManagePatients" ? <h3>No Active Patients</h3> 
                                                                     : <h3>No Patients History</h3>}

@@ -163,7 +163,7 @@ const RegisterPatientFromHospital = () =>{
     }
 
     return(
-        <div className="col-8 offset-1  p-md-4 p-3 text-center shadow">
+        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                 <h3>Patient Registration Form</h3>
                 <form onSubmit={handleSubmit} onReset={handleReset}>
         {/* ---------Personal details----------- */}    

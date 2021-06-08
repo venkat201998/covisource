@@ -38,13 +38,16 @@ const HospitalHome = ({history}) =>{
                 <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
                     
-                    
-                        { (path==='/Hospital/Dashboard') && (hospitalStatus ? <HospitalDashboard/> : <HospitalDetailsRegistration/>) }
-                        { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
-                        { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }
-                        { (path==='/Hospital/ManagePatients') && <ManagePatients/> }
-                        { (path==='/Hospital/PatientsHistory') && <ManagePatients/> }
-                        { (path==='/Hospital/UpdatePassword') && <UpdatePassword/> }
+                    <div className="col">
+                        <div className="row justify-content-center">
+                            { (path==='/Hospital/Dashboard') && (hospitalStatus ? <HospitalDashboard/> : <HospitalDetailsRegistration/>) }
+                            { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
+                            { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }
+                            { (path==='/Hospital/ManagePatients') && <ManagePatients/> }
+                            { (path==='/Hospital/PatientsHistory') && <ManagePatients/> }
+                            { (path==='/Hospital/UpdatePassword') && <UpdatePassword/> }
+                        </div>
+                    </div>
 
                         
                 </div>
