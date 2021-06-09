@@ -25,7 +25,7 @@ const HospitalDashboard = () => {
 
     return(
         <>
-        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
+            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
                 <h3 className="fw-bold text-center">{hospital.hospitalName}</h3>
                 <form className="container-fluid p-0">
                     <div className="card border-0">
