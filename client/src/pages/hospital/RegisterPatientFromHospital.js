@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import HospitalCities from './Json/HospitalCities.json';
 import HospitalStates from './Json/HospitalStates.json';
@@ -11,15 +11,14 @@ const RegisterPatientFromHospital = () =>{
     const { user, hospital } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
     const history = useHistory();
-    console.log(hospital);
 
-    const [firstName, setFirstName] = useState(user.type==="User" ? user.firstName : "");
-    const [lastName, setLastName] = useState(user.type==="User" ? user.lastName : "");
-    const [dob, setDob] = useState(user.type==="User" ? user.dob : "");
-    const [gender, setGender] = useState(user.type==="User" ? user.gender : "");
-    const [email, setEmail] = useState(user.type==="User" ? user.email : "");
-    const [contact, setContact] = useState(user.type==="User" ? user.contact : "");
-    const [address, setAddress] = useState(user.type==="User" ? user.address : "");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [dob, setDob] = useState("");
+    const [gender, setGender] = useState("");
+    const [email, setEmail] = useState("");
+    const [contact, setContact] = useState("");
+    const [address, setAddress] = useState("");
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
@@ -34,10 +33,28 @@ const RegisterPatientFromHospital = () =>{
     const [medicationList, setMedicationList] = useState("");
     const [medicationAllergies, setMedicationAllergies] = useState("");
     const [operationsList, setOperationsList] = useState("");
-    const [status, setStatus] = useState("Admitted");
+    const [status, setStatus] = useState("");
     const [bedType, setBedType] = useState("");
     let [healthIssuesChecked, setHealthIssuesChecked] = useState([]);
     let [covidSymptomsChecked, setCovidSymptomsChecked] = useState([]);
+
+    useEffect(()=>{
+        if(user.type==="User"){
+            setFirstName(user.firstName);
+            setLastName(user.lastName);
+            setDob(user.dob);
+            setGender(user.gender);
+            setEmail(user.email);
+            setContact(user.contact);
+            setAddress(user.address);
+            setState(user.state);
+            setCity(user.city);
+            setPinCode(user.pinCode);
+            setStatus("OnHold");
+        }
+        else if(user.type==="Hospital") 
+            setStatus("Admitted");
+    },[user])
 
 
     const inputChecked= false;
@@ -114,13 +131,14 @@ const RegisterPatientFromHospital = () =>{
     }
 
     const handleSubmit = (e) => {
+        const bookedBy = user.email;
         e.preventDefault();
-        const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
+        const patientDetails = { bookedBy, firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
                                 eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
                                 medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, status};
         let answer = window.confirm("Confirm Registration?");
         if(answer){
-            registerPatient(patientDetails, user.email, user.token)
+            registerPatient(patientDetails, hospital.email, user.token)
             .then((res)=> {
                 //console.log(res);
                 if(res.data!=="Patient Already registered with these details"){
@@ -130,6 +148,7 @@ const RegisterPatientFromHospital = () =>{
                 })
                 toast.success("Patient Registered");
                 resetData();
+                history.push('Dashboard');
                 }
                 else{
                     toast.error(res.data);
@@ -265,13 +284,13 @@ const RegisterPatientFromHospital = () =>{
                             />
                             <div className="row my-xl-3 my-2">
                                 <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                    <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
+                                    <select class="w-100 h-100 form-select" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
                                         <option value="ss">Select State</option>
                                         { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                     </select>
                                 </div>
                                 <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                    <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
+                                    <select class="w-100 h-100 form-select" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
                                         <option value="sc">Select City</option>
                                             {citiesOptions}
                                     </select>

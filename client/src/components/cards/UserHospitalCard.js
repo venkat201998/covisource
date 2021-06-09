@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../modals/Modal';
 import { useHistory } from 'react-router-dom';
 import { toast } from "react-toastify";
+import { checkHospital } from '../../functions/auth';
 
 
 const UserHospitalCard = ({ hospital }) => {
@@ -21,10 +22,18 @@ const UserHospitalCard = ({ hospital }) => {
         }
         else{
             console.log(e.target.id);
-            dispatch({
-                type:'LOGIN',
-                payload: hospitals.find((hospital)=> hospital._id===e.target.id)
+            checkHospital(e.target.id)
+            .then((res)=>{
+                if(res.data!=="Hospital not registered"){
+                    dispatch({
+                        type:'LOGIN',
+                        payload: res.data 
+                    })
+                }
+                else toast.error(res.data);
             })
+            .catch((e) => console.log(e));
+            
             history.push("/User/SlotRegistration");
 
         }
@@ -88,7 +97,7 @@ const UserHospitalCard = ({ hospital }) => {
             <div className="card-footer text-center bg-dark">
                 <ul className="list-group">
                     <li className="list-group-item border-0 bg-transparent">
-                    <button type="button" className="btn btn-outline-warning" id={hospital._id}
+                    <button type="button" className="btn btn-outline-warning" id={hospital.email}
                     // data-bs-toggle={user ? "modal" : ""} data-bs-target={user ? "#staticBackdrop" : ""} 
                     onClick={handleBookSlot}>
                         Book Slot

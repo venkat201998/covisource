@@ -138,7 +138,7 @@ exports.updateHospital = async(req, res) => {
 
 exports.registerPatient = async(req, res) => {
     try{
-        const email = req.body.email;
+        const email = req.body.hospitalEmail;
         const hospital = await Hospital.findOne({email});
         const patients = hospital.patients;
         const checkPatient = patients.findIndex((patient)=> patient.email===(req.body.patientDetails.email));

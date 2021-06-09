@@ -73,12 +73,12 @@ export const updateHospital = async (hospitalDetails, idToken) => {
     )
 }
 
-export const registerPatient = async (patientDetails, email, idToken) => {
+export const registerPatient = async (patientDetails, hospitalEmail, idToken) => {
     return axios.post(
         `${process.env.REACT_APP_API}/register-patient`,
         {
             patientDetails,
-            email
+            hospitalEmail
         },
         {
             headers:{

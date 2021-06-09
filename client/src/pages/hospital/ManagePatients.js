@@ -10,7 +10,7 @@ const ManagePatients = () => {
     const { user, hospital } = useSelector((state) => ({...state}));
 
     const patients = hospital && (slug==="ManagePatients" ? hospital.patients &&  hospital.patients.filter((patient)=> patient && patient.status==="Admitted") 
-                                                : hospital.patients &&  hospital.patients.filter((patient)=> patient && patient.status!=="Admitted"));
+                                                : hospital.patients &&  hospital.patients.filter((patient)=> patient && (patient.status!=="Admitted" && patient.status!=="OnHold")));
     const type = slug==="ManagePatients" ? "ManagePatients" : "PatientsHistory";
 
     return(

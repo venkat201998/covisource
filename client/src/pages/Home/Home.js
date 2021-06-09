@@ -6,6 +6,8 @@ import { getHospitals } from '../../functions/auth';
 import UserHospitalCard from '../../components/cards/UserHospitalCard';
 import { toast } from 'react-toastify';
 import Trigger from '../../components/triggger/Trigger';
+import HospitalCities from '../hospital/Json/HospitalCities.json';
+import HospitalStates from '../hospital/Json/HospitalStates.json';
 
 const Home = () => {
     const { user } = useSelector((state) => ({ ...state }));
@@ -14,6 +16,16 @@ const Home = () => {
     const dispatch = useDispatch();
     const [pinOption, setPinOption] = useState(false);
     const [cityOption, setCityOption] = useState(false);
+
+    const [state, setState] = useState("");
+    const [city, setCity] = useState("");
+    const [pinCode, setPinCode] = useState("");
+    let citiesOptions = null;
+
+    HospitalCities.map((item)=>{
+        if(item.state===state)
+        citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
+    })
 
     useEffect(()=>{
         getHospitals()
