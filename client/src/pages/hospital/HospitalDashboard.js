@@ -130,7 +130,7 @@ const HospitalDashboard = () => {
             </div>
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
                 <div className="row">
-                    {confirmPatients && confirmPatients.map((patient)=> <ConfirmPatientCard patient={patient}/>)}
+                    {confirmPatients && confirmPatients.map((patient)=> <ConfirmPatientCard key={patient._id} patient={patient}/>)}
                 </div>
             </div>
         </>    

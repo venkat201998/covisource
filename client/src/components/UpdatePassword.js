@@ -82,7 +82,7 @@ const UpdatePassword = () => {
                     </div>
                     <div class="form-group my-3 row p-0">
                         <label htmlFor="email" class="col-lg-3 d-none d-lg-block col-form-label text-end fw-bold fs-6">Email</label>
-                        <div class="col-lg-9 col-12 mb-3 mb-md-1 p-0">
+                        <div class="col-lg-8 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="email"
                                 type="email"
@@ -95,7 +95,7 @@ const UpdatePassword = () => {
                     </div>
                     <div class="form-group my-3 row p-0">
                         <label htmlFor="oldPassword" class="col-lg-3 d-none d-lg-block col-form-label text-end fw-bold fs-6">Old Password</label>
-                        <div class="col-lg-9 col-12 mb-3 mb-md-1 p-0">
+                        <div class="col-lg-8 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="oldPassword"
                                 type="password"
@@ -108,7 +108,7 @@ const UpdatePassword = () => {
                     </div>
                     <div class="form-group my-3 row p-0">
                         <label htmlFor="newPassword" class="col-lg-3 d-none d-lg-block col-form-label text-end fw-bold fs-6">New Password</label>
-                        <div class="col-lg-9 col-12 mb-3 mb-md-1 p-0">
+                        <div class="col-lg-8 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="newPassword"
                                 type="password"
@@ -127,7 +127,7 @@ const UpdatePassword = () => {
                         </div>
                     </div>
                     <div className="form-group row p-0 justify-content-end">
-                        <div className="col-lg-4 col-10 text-end p-0">
+                        <div className="col-lg-4 col-10">
                             <button className="btn btn-outline-none text-danger" type="reset">
                                 Forgot Password
                             </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import DisplayCard from '../../components/cards/DisplayCard';
+import UpdateHospitalStatus from './UpdateHospitalStatus';
 
 const AdminDashboard = () => {
 
@@ -22,20 +22,10 @@ const AdminDashboard = () => {
 
 
     return(
-        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
+        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
             <div className="row">
-                {registeredHospital && registeredHospital.length>0 ? registeredHospital.map((hospital) => <DisplayCard hospital={hospital}/> ) : 
-                
-                (
-                    <div className="col-12 p-4">
-                        <form>
-                            
-                        <h1>CoviSource</h1>    
-
-                        </form>
-                    </div>
-                )
-                }
+                {registeredHospital && registeredHospital.length>0 ? <h3 className="text-center">Confirm Hospital Registration</h3>:<form className="container-fluid shadow"><h1 className="text-center">CoviSource</h1></form>}
+                {(registeredHospital && registeredHospital.length>0) && registeredHospital.map((hospital) => <UpdateHospitalStatus key={hospital._id} hospital={hospital}/>)}
             </div>
         </div>
 
