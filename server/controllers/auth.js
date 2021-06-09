@@ -385,3 +385,21 @@ exports.confirmPatient = async (req, res) => {
         res.json(error)
     }
 }
+
+//used in UserSlot.js
+exports.getUser = async (req, res) => {
+    try{
+        const email = req.body.email;
+        const user = await User.findOne({email});
+
+        if(user){
+            res.json(user);
+        }
+        else{
+            res.json("User Not found");
+        }
+
+    }catch(error){
+        res.json(error);
+    }
+}

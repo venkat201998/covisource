@@ -195,3 +195,17 @@ export const confirmPatient = async (email, patientId, bookedByEmail, idToken) =
         }
     )
 }
+//used in UserSlot.js
+export const getUser = async (email, idToken) =>{
+    return axios.post(
+        `${process.env.REACT_APP_API}/get-user`,
+        {
+            email
+        },
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+}
