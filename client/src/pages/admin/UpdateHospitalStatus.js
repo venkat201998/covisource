@@ -91,7 +91,7 @@ const UpdateHospitalStatus = () =>{
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div className="card-footer">
+                                        <div className="card-footer bg-dark">
                                             <ul className="list-group flex-row justify-content-center">
                                                 <li className="list-group-item border-0 bg-transparent">
                                                     <button className="btn btn-outline-success">

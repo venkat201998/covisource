@@ -178,3 +178,20 @@ export const updateUser = async (userDetails, idToken) => {
         }
     )
 }
+
+export const confirmPatient = async (email, patientId, bookedByEmail, idToken) => {
+
+    return axios.post(
+        `${process.env.REACT_APP_API}/confirm-patient`,
+        {
+            email,
+            patientId,
+            bookedByEmail
+        },
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+}

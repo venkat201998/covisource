@@ -56,6 +56,9 @@ const HospitalSchema = new mongoose.Schema(
                     type:Date,
                     default: Date.now
                 },
+                confirmedDate:{
+                    type:Date
+                },
                 updatedDate:{
                     type:Date,
                     default: Date.now
