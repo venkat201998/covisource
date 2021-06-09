@@ -78,11 +78,11 @@ const UpdatePassword = () => {
                 
                 <form className="py-5" onSubmit={handleSubmit} onReset={forgotPassword} className="container-fluid">
                     <div className="form-group mb-5 text-center">
-                        {loading ? <h4>Loading..</h4> :  <h4>Update Password</h4>}
+                        {loading ? <h3>Loading..</h3> :  <h3>Update Password</h3>}
                     </div>
                     <div class="form-group my-3 row p-0">
-                        <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1 p-0">
+                        <label htmlFor="email" class="col-lg-3 d-none d-lg-block col-form-label text-end fw-bold fs-6">Email</label>
+                        <div class="col-lg-9 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="email"
                                 type="email"
@@ -94,8 +94,8 @@ const UpdatePassword = () => {
                         </div>
                     </div>
                     <div class="form-group my-3 row p-0">
-                        <label htmlFor="oldPassword" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Old Password</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1 p-0">
+                        <label htmlFor="oldPassword" class="col-lg-3 d-none d-lg-block col-form-label text-end fw-bold fs-6">Old Password</label>
+                        <div class="col-lg-9 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="oldPassword"
                                 type="password"
@@ -107,8 +107,8 @@ const UpdatePassword = () => {
                         </div>
                     </div>
                     <div class="form-group my-3 row p-0">
-                        <label htmlFor="newPassword" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">New Password</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1 p-0">
+                        <label htmlFor="newPassword" class="col-lg-3 d-none d-lg-block col-form-label text-end fw-bold fs-6">New Password</label>
+                        <div class="col-lg-9 col-12 mb-3 mb-md-1 p-0">
                             <input
                                 id="newPassword"
                                 type="password"
@@ -120,14 +120,14 @@ const UpdatePassword = () => {
                         </div>
                     </div>
                     <div className="form-group row p-0">
-                        <div className="col-md-4 col-8 offset-md-3 text-start p-0">
+                        <div className="col-lg-4 col-10 offset-lg-3 text-start p-0">
                             <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email || password.length < 6}>
                                 Update Password
                             </button>
                         </div>
                     </div>
-                    <div className="form-group row justify-content-end">
-                        <div className="col-md-4 col-6 p-0">
+                    <div className="form-group row p-0 justify-content-end">
+                        <div className="col-lg-4 col-10 text-end p-0">
                             <button className="btn btn-outline-none text-danger" type="reset">
                                 Forgot Password
                             </button>

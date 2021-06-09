@@ -52,7 +52,6 @@ const AdminHome = ({history}) => {
                 <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
                     
-                    
                     <div className="col">
                         <div className="row justify-content-center">
                             { (path==='/Admin/Dashboard') && <AdminDashboard/> }

@@ -75,11 +75,11 @@ const UpdatePatient = () =>{
                             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow border">
 
                                 <h3>Update Patient</h3>
-                                <form onSubmit={handleSubmit}>
+                                <form onSubmit={handleSubmit} className="container-fluid">
                         {/* ---------Personal details----------- */}    
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="patientName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                                        <label htmlFor="patientName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Patient Name</label>
+                                        <div className="col-md-5 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="patientName"
                                                 type="text" 
@@ -91,7 +91,7 @@ const UpdatePatient = () =>{
                                                 disabled
                                             />
                                         </div>
-                                        <div className="col-12 col-md-6 col-xl-4">
+                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="patientName"
                                                 type="text" 
@@ -105,8 +105,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="patientBirthDate" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Birth Date</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-xl-6">
+                                        <label htmlFor="patientBirthDate" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Birth Date</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="patientBirthDate"
                                                 type="date" 
@@ -120,8 +120,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="gender" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Gender</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-xl-6">
+                                        <label htmlFor="gender" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <select className="w-100 h-100 form-select" id="gender" value={gender} disabled aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
                                                 <option value="sg">Select Gender</option>
                                                 <option value="male">Male</option>
@@ -131,8 +131,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="contactNumber" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-xl-6">
+                                        <label htmlFor="contactNumber" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="contactNumber"
                                                 type="tel" 
@@ -146,8 +146,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="email" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">E-mail</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-xl-6">
+                                        <label htmlFor="email" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">E-mail</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="email"
                                                 type="email" 
@@ -162,8 +162,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Address</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-xl-8">
+                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="streetAddress"
                                                 type="text" 
@@ -174,20 +174,29 @@ const UpdatePatient = () =>{
                                                 onChange={(e)=> setAddress(e.target.value)}
                                                 disabled
                                             />
-                                            <div className="row my-xl-3 my-2">
-                                                <div className="col-12 col-xl-6 mb-3 mb-xl-0">
+                                        </div>
+                                    </div>
+                                    <div className="form-group my-xl-5 my-3 row">
+                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                                     <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setState(e.target.value) }>
                                                         <option value="ss">{state}</option>
                                                         { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                                     </select>
-                                                </div>
-                                                <div className="col-12 col-xl-6 mb-3 mb-xl-0">
+                                        </div>
+                                    </div>
+                                    <div className="form-group my-xl-5 my-3 row">
+                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                                     <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setCity(e.target.value) }>
                                                         <option value="sc">{city}</option>
                                                             {citiesOptions}
                                                     </select>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="form-group my-xl-5 my-3 row">
+                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 type="text"
                                                 inputMode="numeric"
@@ -202,8 +211,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="maritalStatus" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Marital Status</label>
-                                        <div className="col-12 col-xl-6">
+                                        <label htmlFor="maritalStatus" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Marital Status</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <select id="maritalStatus" className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setMaritalStatus(e.target.value) }>
                                                 <option value="ss">{maritalStatus}</option>
                                                 <option value="single">Single</option>
@@ -221,8 +230,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="emergencyCName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Emergency Contact</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                                        <label htmlFor="emergencyCName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Emergency Contact</label>
+                                        <div className="col-md-5 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="emergencyCName"
                                                 type="text" 
@@ -233,7 +242,7 @@ const UpdatePatient = () =>{
                                                 onChange={(e)=> setEFirstName(e.target.value)}
                                             />
                                         </div>
-                                        <div className="col-12 col-md-6 col-xl-4">
+                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
                                             <input
                                                 id="emergencyCName" 
                                                 type="text" 
@@ -246,8 +255,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="relationship" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Relationship</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-xl-6">
+                                        <label htmlFor="relationship" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Relationship</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="relationship"
                                                 type="text" 
@@ -259,8 +268,8 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="EContactNumber" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
-                                        <div className="col-12 mb-3 mb-md-0 col-xl-6">
+                                        <label htmlFor="EContactNumber" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="EContactNumber"
                                                 type="tel" 
@@ -278,21 +287,24 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="patientStatus" className="col-6 col-md-3 col-form-label text-start text-xl-end fw-bold fs-6">Update Status</label>
-                                        <div className="col-6 col-md-3">
-                                            <select ud="patientStatus" className="w-100 form-select" aria-label="Default select example" onChange={(e)=> setStatus(e.target.value)}>
+                                        <label htmlFor="patientStatus" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Update Status</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                            <select id="patientStatus" className="w-100 form-select" aria-label="Default select example" onChange={(e)=> setStatus(e.target.value)}>
                                                 <option value="ss">Select status</option>
                                                 {patientDetails && patientDetails.status==="Admitted" ? 
                                                 <><option value="Discharged">Discharged</option>
                                                 <option value="Deceased">Deceased</option></> : <option value="Admitted">Admit</option>}
                                             </select>
                                         </div>
-                                        <div className="col-6 col-md-3">
-                                            <textarea className="form-control" placeholder="Comments" required value={comments} onChange={(e)=> setComments(e.target.value)}></textarea>
+                                    </div>
+                                    <div className="form-group my-xl-5 my-3 row">
+                                        <label htmlFor="comments" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Status Message</label>
+                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                            <textarea className="form-control" id="comments" placeholder="Comments" required value={comments} onChange={(e)=> setComments(e.target.value)}></textarea>
                                         </div>
                                     </div>
-                                    <div className="form-group mx-auto my-md-5 my-3 d-flex flex-col px-lg-2 justify-content-center">
-                                        <div className="col-2">
+                                    <div className="form-group row justify-content-center">
+                                        <div className="col-lg-2 col-md-3 col-5">
                                             <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
                                         </div>
                                     </div>

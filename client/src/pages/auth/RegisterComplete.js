@@ -129,14 +129,15 @@ const RegisterComplete = () => {
                 <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
 
                     <form onSubmit={handleSubmit} >
-                                <div className="form-group mb-3 text-center">
-                                    {loading ? <h4>Loading..</h4> :  <h4>User Registration Complete</h4>}
+                                <div className="form-group mb-4 text-center">
+                                    {loading ? <h3>Loading..</h3> :  <h3>User Registration Complete</h3>}
                                 </div>
                                 <div class="form-group my-xl-5 my-3 row">
-                                    <label for="email" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">E-mail</label>
-                                    <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                                    <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">E-mail</label>
+                                    <div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
                                         <input 
                                             type="email" 
+                                            id="email"
                                             className="form-control w-100"  
                                             name="email"
                                             value={email}
@@ -145,10 +146,11 @@ const RegisterComplete = () => {
                                     </div>
                                 </div>
                                 <div class="form-group my-xl-5 my-3 row">
-                                    <label htmlFor="userType" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Type</label>
-                                    <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                                    <label htmlFor="userType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Type</label>
+                                    <div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
+                                            id="userType"
                                             className="form-control w-100"  
                                             name="type"
                                             value={type}
@@ -158,10 +160,11 @@ const RegisterComplete = () => {
                                 </div>
                                 <div class="form-group my-xl-5 my-3 row">
                 
-                                    <label for="password" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Password</label>
-                                    <div class="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                                    <label htmlFor="password" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Password</label>
+                                    <div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
                                         <input
                                             type="password"
+                                            id="password"
                                             className="form-control w-100"
                                             value={password}
                                             onChange= {(e) => setPassword(e.target.value)}
@@ -171,10 +174,11 @@ const RegisterComplete = () => {
                                 </div>
 
                                 <div class="form-group my-xl-5 my-3 row">
-                                    <label for="patientName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Name</label>
-                                    <div class="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                                    <label htmlFor="patientName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Name</label>
+                                    <div class="col-md-5 col-12 p-0 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
+                                            id="patientName"
                                             className="form-control w-100"  
                                             name="firstName"
                                             value={firstName}
@@ -184,9 +188,10 @@ const RegisterComplete = () => {
                                             autoFocus
                                         />
                                     </div>
-                                    <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="col-md-5 col-12 p-0 mb-3 mb-md-1">
                                         <input 
-                                            type="text" 
+                                            type="text"
+                                            id="patientName" 
                                             className="form-control w-100"  
                                             name="lastName"
                                             value={lastName}
@@ -198,10 +203,11 @@ const RegisterComplete = () => {
                                     </div>
                                 </div>
                                 <div class="form-group my-xl-5 my-3 row">
-                                    <label for="patientBirthDate" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Birth Date</label>
-                                    <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                                    <label htmlFor="patientBirthDate" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Birth Date</label>
+                                    <div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
                                         <input 
                                             type="date" 
+                                            id="patientBirthDate"
                                             className="form-control w-100"  
                                             name="patientBirthDate"
                                             value={dob}
@@ -213,9 +219,9 @@ const RegisterComplete = () => {
                                     </div>
                                 </div>
                                 <div class="form-group my-xl-5 my-3 row">
-                                    <label for="gender" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Gender</label>
-                                    <div class="col-12 mb-3 mb-md-0 col-xl-6">
-                                        <select class="w-100 h-100 form-select" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
+                                    <label htmlFor="gender" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
+                                    <div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
+                                        <select class="w-100 h-100 form-select" id="gender" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
                                             <option value="sg">Select Gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
@@ -224,10 +230,11 @@ const RegisterComplete = () => {
                                     </div>
                                 </div>
                                 <div class="form-group my-xl-5 my-3 row">
-                                    <label for="contactNumber" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
-                                    <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                                    <label htmlFor="contactNumber" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
+                                    <div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
                                         <input 
                                             type="tel" 
+                                            id="contactNumber"
                                             className="form-control w-100"  
                                             name="contactNumber"
                                             value={contact}
@@ -240,10 +247,11 @@ const RegisterComplete = () => {
                                 </div>
                             
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="address" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Address</label>
-                                    <div className="col-12 col-xl-8">
+                                    <label htmlFor="address" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                    <div className="col-md-9 col-12 p-0 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
+                                            id="address"
                                             className="form-control w-100"  
                                             value={address}
                                             placeholder="Street"
@@ -251,9 +259,9 @@ const RegisterComplete = () => {
                                         </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="state" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">State</label>
-                                    <div className="col-12 col-xl-8">
-                                        <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
+                                    <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
+                                    <div className="col-md-9 col-12 p-0 mb-3 mb-md-1">
+                                        <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
                                             <option value="ss">Select State</option>
                                             { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                             
@@ -261,18 +269,21 @@ const RegisterComplete = () => {
                                     </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="city" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">City</label>
-                                    <div className="col-12 col-xl-3 mb-3 mb-xl-0">
-                                        <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
+                                    <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
+                                    <div className="col-md-9 col-12 p-0 mb-3 mb-md-1">
+                                        <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
                                             <option value="sc">Select City</option>
                                             {citiesOptions}
                                         </select>
                                     </div>
-                                    
-                                    <label for="pinCode" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Pin Code</label>
-                                    <div className="col-12 col-md-6 col-xl-3">
+                                </div>
+
+                                <div className="form-group my-xl-5 my-3 row"> 
+                                    <label htmlFor="pinCode" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
+                                    <div className="col-md-9 col-12 p-0 mb-3 mb-md-1">
                                         <input 
                                             type="text"
+                                            id="pinCode"
                                             inputMode="numeric"
                                             className="form-control w-100"
                                             name={pinCode}  
@@ -283,8 +294,8 @@ const RegisterComplete = () => {
                                     </div>
                                 </div>                            
 
-                                <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
-                                    <div className="col-lg-5">
+                                <div className="form-group row">
+                                    <div className="col-md-4 col-6 offset-md-3 text-start p-0">
                                         <button type="submit" className="btn btn-raised btn-outline-primary">Register</button>
                                     </div>
                                 </div>

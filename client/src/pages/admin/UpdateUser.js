@@ -200,9 +200,9 @@ const UpdateUser = () =>{
                                             </div>
                                     </div>                            
 
-                                    <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
-                                        <div className="col-lg-5">
-                                            <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
+                                    <div className="form-group row justify-content-center">
+                                        <div className="col-lg-2 col-md-3 col-5">
+                                            <button type="submit" className="btn btn-raised btn-outline-info">Update</button>
                                         </div>
                                     </div>
                                 </form>

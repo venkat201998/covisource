@@ -184,13 +184,14 @@ const RegisterPatientFromHospital = () =>{
     return(
         <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                 <h3>Patient Registration Form</h3>
-                <form onSubmit={handleSubmit} onReset={handleReset}>
+                <form onSubmit={handleSubmit} onReset={handleReset} className="container-fluid">
         {/* ---------Personal details----------- */}    
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="patientName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Patient Name</label>
-                        <div class="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                        <label htmlFor="patientName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Patient Name</label>
+                        <div class="col-md-5 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text" 
+                                id="patientName"
                                 className="form-control w-100"  
                                 name="firstName"
                                 value={firstName}
@@ -200,9 +201,10 @@ const RegisterPatientFromHospital = () =>{
                                 autoFocus
                             />
                         </div>
-                        <div class="col-12 col-md-6 col-xl-4">
+                        <div class="col-md-4 col-12 mb-3 mb-md-1">
                             <input 
-                                type="text" 
+                                type="text"
+                                id="patientName" 
                                 className="form-control w-100"  
                                 name="lastName"
                                 value={lastName}
@@ -214,10 +216,11 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="patientBirthDate" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Birth Date</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                        <label htmlFor="patientBirthDate" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Birth Date</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
-                                type="date" 
+                                type="date"
+                                id="patientBirthDate" 
                                 className="form-control w-100"  
                                 name="patientBirthDate"
                                 value={dob}
@@ -229,9 +232,9 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="gender" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Gender</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
-                            <select class="w-100 h-100 form-select" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
+                        <label htmlFor="gender" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                            <select class="w-100 h-100 form-select" id="gender" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
                                 <option value="sg">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -240,25 +243,27 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="contactNumber" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                        <label htmlFor="contactNumber" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
                                 type="tel" 
+                                id="contactNumber"
                                 className="form-control w-100"  
                                 name="contactNumber"
                                 value={contact}
                                 required
-                                placeholder="Contact"
+                                placeholder="Contact Number"
                                 onChange={(e)=> setContact(e.target.value)}
                                 autoFocus
                             />
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="email" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">E-mail</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                        <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">E-mail</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
-                                type="email" 
+                                type="email"
+                                id="email" 
                                 className="form-control w-100"  
                                 name="email"
                                 value={email}
@@ -270,10 +275,11 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="streetAddress" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Address</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-8">
+                        <label htmlFor="streetAddress" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
-                                type="text" 
+                                type="text"
+                                id="streetAddress"
                                 className="form-control w-100 mb-3 mb-xl-0"  
                                 name="streetAddress"
                                 value={address}
@@ -282,38 +288,48 @@ const RegisterPatientFromHospital = () =>{
                                 onChange={(e)=> setAddress(e.target.value)}
                                 autoFocus
                             />
-                            <div className="row my-xl-3 my-2">
-                                <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                    <select class="w-100 h-100 form-select" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
-                                        <option value="ss">Select State</option>
-                                        { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
-                                    </select>
-                                </div>
-                                <div class="col-12 col-xl-6 mb-3 mb-xl-0">
-                                    <select class="w-100 h-100 form-select" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
-                                        <option value="sc">Select City</option>
-                                            {citiesOptions}
-                                    </select>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group my-xl-5 my-3 row">
+                        <label htmlFor="state" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                                <select class="w-100 h-100 form-select" id="state" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
+                                    <option value="ss">Select State</option>
+                                    { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
+                                </select>
+                        </div>
+                    </div>
+                    <div class="form-group my-xl-5 my-3 row">
+                        <label htmlFor="city" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                                <select class="w-100 h-100 form-select" id="city" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
+                                    <option value="sc">Select City</option>
+                                    {citiesOptions}
+                                </select>
+                        </div>
+                    </div>
+                    <div class="form-group my-xl-5 my-3 row">
+                        <label htmlFor="pincode" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
+                                id="pincode"
                                 inputMode="numeric"
                                 className="form-control col-12 col-xl-8"  
                                 value={pinCode}
                                 required
                                 pattern="[0-9]{6}" 
                                 maxLength="6"
-                                placeholder="pin code"
+                                placeholder="Pin Code"
                                 onChange={(e) => setPinCode(e.target.value)}
                                 autoFocus
                             />
                         </div>
                     </div>
                     <div className="form-group my-xl-5 my-3 row">
-                        <label for="maritalStatus" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Marital Status</label>
-                        <div class="col-12 col-xl-6">
-                            <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setMaritalStatus(e.target.value) }>
+                        <label htmlFor="maritalStatus" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Marital Status</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                            <select class="w-100 h-100 form-select" id="maritalStatus" aria-label="Default select example" onChange={(e)=> setMaritalStatus(e.target.value) }>
                                 <option value="ss">Select status</option>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
@@ -330,10 +346,11 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="emergencyCName" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Emergency Contact</label>
-                        <div class="col-12 mb-3 mb-md-0 col-md-6 col-xl-4">
+                        <label htmlFor="emergencyCName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Emergency Contact</label>
+                        <div class="col-md-5 col-12 mb-3 mb-md-1">
                             <input 
-                                type="text" 
+                                type="text"
+                                id="emergencyCName" 
                                 className="form-control w-100"  
                                 name="EcfirstName"
                                 value={eFirstName}
@@ -343,9 +360,10 @@ const RegisterPatientFromHospital = () =>{
                                 autoFocus
                             />
                         </div>
-                        <div class="col-12 col-md-6 col-xl-4">
+                        <div class="col-md-4 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text" 
+                                id="emergencyCName"
                                 className="form-control w-100"  
                                 name="EclastName"
                                 value={eLastName}
@@ -357,30 +375,32 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="relationship" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Relationship</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                        <label htmlFor="relationship" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Relationship</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
-                                type="text" 
+                                type="text"
+                                id="relationship" 
                                 className="form-control w-100"  
                                 name="relationship"
                                 value={relationship}
                                 required
-                                placeholder="relationship"
+                                placeholder="Relationship"
                                 onChange={(e)=> setRelationship(e.target.value)}
                                 required
                             />
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="EContactNumber" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact Number</label>
-                        <div class="col-12 mb-3 mb-md-0 col-xl-6">
+                        <label htmlFor="EContactNumber" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
-                                type="tel" 
+                                type="tel"
+                                id="EContactNumber"
                                 className="form-control w-100"  
                                 name="EContactNumber"
                                 value={eContact}
                                 required
-                                placeholder="Contact"
+                                placeholder="Contact Number"
                                 onChange={(e)=> setEContact(e.target.value)}
                                 autoFocus
                             />
@@ -393,95 +413,101 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="weight" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Weight</label>
-                        <div class="col-12 col-md-6 col-xl-3 mb-3 mb-xl-0">
+                        <label htmlFor="weight" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Weight</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
-                                type="text" 
+                                type="text"
+                                id="weight"
                                 className="form-control w-100"  
                                 name="weight"
                                 value={weight}
                                 required
-                                placeholder="kg"
+                                placeholder="Weight (KG)"
                                 onChange={(e)=> setWeight(e.target.value)}
                                 
                             />
-                        </div>     
-                        <label for="height" class="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Height</label>
-                        <div class="col-12 col-md-6 col-xl-3">
+                        </div>
+                    </div>
+                    <div class="form-group my-xl-5 my-3 row">  
+                        <label htmlFor="height" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Height</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
+                                id="height"
                                 inputMode="numeric"
                                 className="form-control w-100"
                                 name="height"
                                 value={height}
                                 required  
-                                placeholder="cm"
+                                placeholder="Height (CM)"
                                 onChange={(e)=> setHeight(e.target.value)}
                                 autoFocus
                             />
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="medication" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                        <label htmlFor="medication" className="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Are you currently taking any medication?
                         </label>
-                        <div class="col-6 col-xl-3 mt-0 mt-xl-4">
-                            <input type="radio" name="medication" className="col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationStatus(e.target.value)}/>
-                            <label htmlFor="Yes"  className="col-4">Yes</label>
+                        <div class="col-md-9 col-12 mt-0 mt-xl-3 text-start" id="medication">
+                            <input type="radio" name="medication" className="col-md-1 col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                            <label htmlFor="Yes" className="col-md-2 col-10">Yes</label>
 
-                            <input type="radio" name="medication" className="col-2" id="No" value="No" onChange={(e)=> setMedicationStatus(e.target.value)}/>
-                            <label htmlFor="No" className="col-4">No</label>
+                            <input type="radio" name="medication" className="col-md-1 col-2" id="No" value="No" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                            <label htmlFor="No" className="col-md-2 col-10">No</label>
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">     
-                        <label for="medicationList" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                        <label htmlFor="medicationList" class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             If yes, please list it here...
                         </label>
-                        <div class="col-12 col-xl-6">
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <textarea 
                                 className="form-control"
+                                id="medicationList"
                                 value={medicationList}
                                 onChange={(e)=> setMedicationList(e.target.value)}
                             />
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
-                        <label for="allergies" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                        <label htmlFor="allergies" className="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Do you have any medication allergies
                         </label>
-                        <div class="col-12 col-lg-8 col-xl-6 mt-0 mt-xl-3">
-                            <input type="radio" name="allergies" className="col-1" id="Yes" value="Yes" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
-                            <label htmlFor="Yes" className="col-2">Yes</label>
+                        <div class="col-md-9 col-12 mt-0 mt-xl-3 text-start" id="allergies">
+                            <input type="radio" name="allergies" className="col-md-1 col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <label htmlFor="Yes" className="col-md-2 col-10">Yes</label>
 
-                            <input type="radio" name="allergies" className="col-1" id="No" value="No" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
-                            <label htmlFor="No" className="col-2">No</label>
+                            <input type="radio" name="allergies" className="col-md-1 col-2" id="No" value="No" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <label htmlFor="No" className="col-md-2 col-10">No</label>
 
-                            <input type="radio" name="allergies" className="col-1" id="Not Sure" value="Not Sure" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
-                            <label htmlFor="Not Sure" className="col-3">Not sure</label>
+                            <input type="radio" name="allergies" className="col-md-1 col-2" id="Not Sure" value="Not Sure" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <label htmlFor="Not Sure" className="col-md-3 col-10">Not sure</label>
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">     
-                        <label for="operations" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                        <label htmlFor="operations" class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Please list any operations and dates of each
                         </label>
-                        <div class="col-12 col-xl-6">
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
                             <textarea 
                                 className="form-control"
+                                id="operations"
                                 value={operationsList}
                                 onChange={(e)=> setOperationsList(e.target.value)}
                             />
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">     
-                        <label for="healthIssues" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                        <label htmlFor="healthIssues" class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Have you ever had <br/>
                             ( Please check all that apply...)
                         </label>
-                        <div className="col-12 col-xl-8">
+                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                             <div className="row my-2">
                                 { healthList.map((item, i)=>{
                                     return(
-                                        <div className="col-6 col-lg-4 mb-2">
+                                        <div className="col-12 col-lg-4 col-md-6 mb-2">
                                             <input className="col-2 m-auto" type="checkbox" id="healthIssues" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler} />
                                             <label className="col-10 m-auto text-start">{item}</label>
                                         </div>)
@@ -496,14 +522,14 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">     
-                        <label for="covidSymptoms" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">
+                        <label htmlFor="covidSymptoms" class="col-md-3 d-none d-md-block col-form-label text-md-end text-start fw-bold fs-6">
                             Please check the symptoms that apply...
                         </label>
-                        <div className="col-12 col-xl-8">
+                        <div className="col-md-9 col-12 mb-3 mb-md-1">
                             <div className="row my-2">
                                 { covidSymptomsList.map((item, i)=>{
                                     return(
-                                        <div className="col-6 mb-2">
+                                        <div className="col-12 col-md-6 mb-2">
                                             <input className="col-2 m-auto" type="checkbox" id="covidSymptoms" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler}/>
                                             <label className="col-10 m-auto text-start">{item}</label>
                                         </div>)
@@ -512,9 +538,9 @@ const RegisterPatientFromHospital = () =>{
                         </div>
                     </div>
                     <div className="form-group my-xl-5 my-3 row">
-                        <label for="bedType" class="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Available Beds</label>
-                        <div class="col-12 col-xl-6">
-                            <select class="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setBedType(e.target.value) }>
+                        <label htmlFor="bedType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Available Beds</label>
+                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                            <select class="w-100 h-100 form-select" id="bedType" aria-label="Default select example" onChange={(e)=> setBedType(e.target.value) }>
                                 <option value="ss">Select Bed</option>
                                 {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Beds: {hospital.generalBeds}</option> : ""}
                                 {hospital && hospital.icuBeds > 0 ? <option value="icuBeds">ICU Beds: {hospital.icuBeds}</option> : ""}
@@ -523,12 +549,12 @@ const RegisterPatientFromHospital = () =>{
                             </select>
                         </div>
                     </div>
-                    <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
-                            <div className="col-lg-5">
-                                <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">{user && user.type==="User" ? "Book Slot" : "Submit" }</button>
+                    <div className="form-group row justify-content-center">
+                            <div className="col-lg-2 col-md-3 col-5">
+                                <button type="submit" className="btn btn-raised btn-outline-info">{user && user.type==="User" ? "Book Slot" : "Submit" }</button>
                             </div>
-                            <div className="col-lg-5 offset-1">
-                                <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">{user && user.type==="User" ? "Cancel" : "Reset" }</button>
+                            <div className="col-lg-2 col-md-3 col-5">
+                                <button type="reset" className="btn btn-raised btn-outline-danger">{user && user.type==="User" ? "Cancel" : "Reset" }</button>
                             </div>
                     </div>
                 </form>
