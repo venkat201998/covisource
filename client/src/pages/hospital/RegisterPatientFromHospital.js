@@ -551,10 +551,10 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div className="form-group row justify-content-center">
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="submit" className="btn btn-raised btn-outline-info">{user && user.type==="User" ? "Book Slot" : "Submit" }</button>
+                                <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold">{user && user.type==="User" ? "Book Slot" : "Submit" }</button>
                             </div>
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="reset" className="btn btn-raised btn-outline-danger">{user && user.type==="User" ? "Cancel" : "Reset" }</button>
+                                <button type="reset" className="btn btn-raised btn-outline-danger fw-bold">{user && user.type==="User" ? "Cancel" : "Reset" }</button>
                             </div>
                     </div>
                 </form>

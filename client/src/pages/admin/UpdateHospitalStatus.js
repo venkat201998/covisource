@@ -85,12 +85,12 @@ const UpdateHospitalStatus = ({hospital}) =>{
                         <div className="card-footer bg-dark">
                             <ul className="list-group flex-row justify-content-center">
                                 <li className="list-group-item border-0 bg-transparent">
-                                    <button className="btn btn-outline-success">
+                                    <button className="btn btn-outline-warning text-dark fw-bold">
                                         Accept
                                     </button>
                                 </li>
                                 <li className="list-group-item border-0 bg-transparent">
-                                    <button className="btn btn-outline-danger">
+                                    <button className="btn btn-outline-danger fw-bold">
                                         Delete
                                     </button>
                                 </li>

@@ -226,7 +226,7 @@ const ManageHospital = () =>{
 
                         <div className="form-group row justify-content-center">
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="submit" className="btn btn-raised btn-outline-info">Update</button>
+                                <button type="submit" className="btn btn-raised btn-outline-warning">Update</button>
                             </div>
                         </div>
                     </form>) : (<h3>Hospital Not Registered</h3>)}

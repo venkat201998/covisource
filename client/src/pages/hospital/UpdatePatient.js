@@ -1,46 +1,70 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import HospitalCities from './Json/HospitalCities.json';
-import HospitalStates from './Json/HospitalStates.json';
 import { toast } from 'react-toastify';
 import SideNav from '../../components/sideNav/SideNav';
 import { useParams, useHistory } from 'react-router-dom';
-import { updatePatientStatus } from '../../functions/auth';
+import { checkHospital, updatePatientStatus } from '../../functions/auth';
 
 const UpdatePatient = () =>{
-    const { user, hospital } = useSelector((state) => ({ ...state }))
+    const { user } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
     const { slug } = useParams();
     const history = useHistory();
 
-    const patients =hospital && hospital.patients;
+    const [Hospital, setHospital] = useState();
+
+    // const patients =Hospital && Hospital.patients;
     
-    const patientDetails = patients && patients.find((patient)=> patient._id===slug);
+    let patientDetails={};
 
-    const [firstName, setFirstName] = useState( patientDetails && patientDetails.firstName);
-    const [lastName, setLastName] = useState( patientDetails && patientDetails.lastName);
-    const [dob, setDob] = useState( patientDetails && patientDetails.dob);
-    const [gender, setGender] = useState( patientDetails && patientDetails.gender);
-    const [email, setEmail] = useState( patientDetails && patientDetails.email);
-    const [contact, setContact] = useState( patientDetails && patientDetails.contact);
-    const [address, setAddress] = useState( patientDetails && patientDetails.address);
-    const [state, setState] = useState( patientDetails && patientDetails.state);
-    const [city, setCity] = useState( patientDetails && patientDetails.city);
-    const [pinCode, setPinCode] = useState( patientDetails && patientDetails.pinCode);
-    const [maritalStatus, setMaritalStatus] = useState( patientDetails && patientDetails.maritalStatus);
-    const [eFirstName, setEFirstName] = useState( patientDetails && patientDetails.eFirstName);
-    const [eLastName, setELastName] = useState( patientDetails && patientDetails.eLastName);
-    const [relationship, setRelationship] = useState( patientDetails && patientDetails.relationship);
-    const [eContact, setEContact] = useState( patientDetails && patientDetails.eContact);
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [dob, setDob] = useState();
+    const [gender, setGender] = useState();
+    const [email, setEmail] = useState();
+    const [contact, setContact] = useState();
+    const [address, setAddress] = useState();
+    const [state, setState] = useState();
+    const [city, setCity] = useState();
+    const [pinCode, setPinCode] = useState();
+    const [maritalStatus, setMaritalStatus] = useState();
+    const [eFirstName, setEFirstName] = useState();
+    const [eLastName, setELastName] = useState();
+    const [relationship, setRelationship] = useState();
+    const [eContact, setEContact] = useState();
 
-    const [status, setStatus] = useState(patientDetails && patientDetails.status);
+    const [status, setStatus] = useState();
     const [comments, setComments] = useState("");
-    let citiesOptions = null;
 
-    HospitalCities.map((item)=>{
-        if(item.state===state)
-        citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
-    })
+    useEffect(()=>{
+
+        checkHospital(user.email)
+        .then((res)=>{
+            if(res.data!=="Hospital not registered"){
+                setHospital(res.data);
+                patientDetails = res.data.patients.find((patient)=> patient._id===slug);
+                setFirstName(patientDetails.firstName);
+                setLastName(patientDetails.lastName);
+                setDob(patientDetails.dob);
+                setGender(patientDetails.gender)
+                setEmail(patientDetails.email)
+                setContact(patientDetails.contact)
+                setAddress(patientDetails.address)
+                setState(patientDetails.state)
+                setCity(patientDetails.city)
+                setPinCode(patientDetails.pinCode)
+                setMaritalStatus(patientDetails.maritalStatus)
+                setEFirstName(patientDetails.eFirstName)
+                setELastName(patientDetails.eLastName)
+                setRelationship(patientDetails.relationship)
+                setEContact(patientDetails.eContact)
+                setStatus(patientDetails.status)
+            }
+            else toast.error(res.data);
+        })
+        .catch((e)=> console.log(e))
+    },[user])
+   
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -177,25 +201,23 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                                         <div className="col-md-8 col-12 mb-3 mb-md-1">
                                                     <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setState(e.target.value) }>
                                                         <option value="ss">{state}</option>
-                                                        { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                                     </select>
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                                         <div className="col-md-8 col-12 mb-3 mb-md-1">
                                                     <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setCity(e.target.value) }>
                                                         <option value="sc">{city}</option>
-                                                            {citiesOptions}
                                                     </select>
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
                                         <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 type="text"
@@ -305,7 +327,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group row justify-content-center">
                                         <div className="col-lg-2 col-md-3 col-5">
-                                            <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
+                                            <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold w-100 mx-auto">Update</button>
                                         </div>
                                     </div>
                         

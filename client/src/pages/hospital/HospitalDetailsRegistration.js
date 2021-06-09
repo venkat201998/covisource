@@ -251,10 +251,10 @@ const HospitalDetailsRegistration = () =>{
 
                         <div className="form-group row justify-content-center">
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="submit" className="btn btn-raised btn-outline-info">Submit</button>
+                                <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold">Submit</button>
                             </div>
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="reset" className="btn btn-raised btn-outline-danger">Reset</button>
+                                <button type="reset" className="btn btn-raised btn-outline-danger fw-bold">Reset</button>
                             </div>
                         </div>
                     </form>

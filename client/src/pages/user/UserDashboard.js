@@ -221,7 +221,7 @@ const UserDashboard = () => {
                     <div className="form-group my-xl-4 my-3 row">
                         <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                         <div className="col-md-8 col-12 mb-3 mb-md-1">
-                            <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
+                            <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
                                 <option value="ss">Select State</option>
                                 { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
 
@@ -231,7 +231,7 @@ const UserDashboard = () => {
                     <div className="form-group my-xl-4 my-3 row">
                         <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                         <div className="col-md-8 col-12 mb-3 mb-md-1">
-                            <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
+                            <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
                                 <option value="sc">Select City</option>
                                 {citiesOptions}
                             </select>
@@ -256,7 +256,7 @@ const UserDashboard = () => {
 
                     <div className="form-group row justify-content-center">
                         <div className="col-md-4 col-9 text-center">
-                            <button type="submit" className="btn btn-raised btn-outline-primary">Save Changes</button>
+                            <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold">Save Changes</button>
                         </div>
                     </div>
                 </form>

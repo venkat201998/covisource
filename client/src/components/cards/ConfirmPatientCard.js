@@ -72,10 +72,10 @@ const ConfirmPatientCard = ( {patient} ) =>{
                 <div className="card-footer bg-dark">
                     <ul className="list-group flex-row justify-content-center">
                         <li className="list-group-item border-0 bg-transparent">
-                            <button className="btn btn-outline-warning" type="submit">Confirm</button>
+                            <button className="btn btn-outline-warning text-dark fw-bold" type="submit">Confirm</button>
                         </li>
                         <li className="list-group-item border-0 bg-transparent">
-                            <button className="btn btn-outline-danger" type="reset">Delete</button>
+                            <button className="btn btn-outline-danger fw-bold" type="reset">Delete</button>
                         </li>
                     </ul>
                 </div>
