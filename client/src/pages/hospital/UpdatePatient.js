@@ -79,7 +79,7 @@ const UpdatePatient = () =>{
                         {/* ---------Personal details----------- */}    
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="patientName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Patient Name</label>
-                                        <div className="col-md-5 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="patientName"
                                                 type="text" 
@@ -106,7 +106,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="patientBirthDate" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Birth Date</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="patientBirthDate"
                                                 type="date" 
@@ -121,7 +121,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="gender" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <select className="w-100 h-100 form-select" id="gender" value={gender} disabled aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
                                                 <option value="sg">Select Gender</option>
                                                 <option value="male">Male</option>
@@ -132,7 +132,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="contactNumber" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="contactNumber"
                                                 type="tel" 
@@ -147,7 +147,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="email" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">E-mail</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="email"
                                                 type="email" 
@@ -163,7 +163,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="streetAddress"
                                                 type="text" 
@@ -178,7 +178,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                                     <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setState(e.target.value) }>
                                                         <option value="ss">{state}</option>
                                                         { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
@@ -187,7 +187,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                                     <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setCity(e.target.value) }>
                                                         <option value="sc">{city}</option>
                                                             {citiesOptions}
@@ -196,7 +196,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 type="text"
                                                 inputMode="numeric"
@@ -212,7 +212,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="maritalStatus" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Marital Status</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <select id="maritalStatus" className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setMaritalStatus(e.target.value) }>
                                                 <option value="ss">{maritalStatus}</option>
                                                 <option value="single">Single</option>
@@ -231,7 +231,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="emergencyCName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Emergency Contact</label>
-                                        <div className="col-md-5 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="emergencyCName"
                                                 type="text" 
@@ -256,7 +256,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="relationship" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Relationship</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="relationship"
                                                 type="text" 
@@ -269,7 +269,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="EContactNumber" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <input 
                                                 id="EContactNumber"
                                                 type="tel" 
@@ -288,7 +288,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="patientStatus" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Update Status</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <select id="patientStatus" className="w-100 form-select" aria-label="Default select example" onChange={(e)=> setStatus(e.target.value)}>
                                                 <option value="ss">Select status</option>
                                                 {patientDetails && patientDetails.status==="Admitted" ? 
@@ -299,7 +299,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="comments" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Status Message</label>
-                                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <textarea className="form-control" id="comments" placeholder="Comments" required value={comments} onChange={(e)=> setComments(e.target.value)}></textarea>
                                         </div>
                                     </div>

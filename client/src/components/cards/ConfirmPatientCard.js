@@ -30,7 +30,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
     }
 
     return(
-        <div key={patient._id} className="col-6 p-4">
+        <div className="col-12">
         <form onSubmit={handleConfirmPatient} onReset={handleRejectPatient}>
             <div className="card shadow w-100">
             {/* <img src="" className="card-img-top" alt="..."/> */}
@@ -38,52 +38,34 @@ const ConfirmPatientCard = ( {patient} ) =>{
                     <div className="col-12">
                         <h4 className="text-center">Confirm Patient</h4>
                         <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Name:</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.firstName} {patient.lastName}
-                            </li>
-                        </div>
-                        <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Booked By:</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.bookedBy}
-                            </li>
-                        </div>
-                        <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Contact:</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.contact}
-                            </li>
-                        </div>
-                        <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Email:</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.email}
-                            </li>
-                        </div>
-                        <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Emergency Contact:</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.eContact}
-                            </li>
-                        </div>
-                        <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Date of Birth:</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.dob}
-                            </li>
-                        </div>
-                        <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Address</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.address}, {patient.city}, {patient.state}, {patient.pinCode}
-                            </li>
-                        </div>
-                        <div className="row">
-                            <li className="col-5 list-group-item border-0 bg-transparent fs-6 fw-bold text-end">Bed Type</li>
-                            <li className="col-6 list-group-item border-0 bg-transparent text-start fs-6">
-                                {patient.bedType}
-                            </li>
+                            <div className="col-md-6">
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Name:</span> {patient.firstName} {patient.lastName}
+                                </li>
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Booked By:</span> {patient.bookedBy}
+                                </li>
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Contact:</span> {patient.contact}
+                                </li>
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Email:</span> {patient.email}
+                                </li>
+                            </div>
+                            <div className="col-md-6">
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Emergency Contact:</span> {patient.eContact}
+                                </li>
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Date of Birth:</span> {patient.dob}
+                                </li>
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Address:</span> {patient.address}, {patient.city}, {patient.state}, {patient.pinCode}
+                                </li>
+                                <li className="list-group-item border-0 bg-transparent fs-6">
+                                    <span className="fw-bold">Bed Type:</span> {patient.bedType}
+                                </li>
+                            </div>
                         </div>
                     </div>
                 </div>

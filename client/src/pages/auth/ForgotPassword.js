@@ -42,7 +42,7 @@ const ForgotPassword = ({ history }) => {
             </div>
             <div className="form-group my-xl-5 my-3 row">
               <label htmlFor="Email" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-                <div class="col-md-9 col-12 mb-3 mb-md-1">
+                <div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
                   <input
                     type="email"
                     id="email"
@@ -56,7 +56,7 @@ const ForgotPassword = ({ history }) => {
             </div>
 
             <div className="form-group row">
-              <div className="col-md-4 col-6 offset-md-3 text-start p-0">
+              <div className="col-md-5 col-6 offset-md-3 text-start p-0">
                 <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email}>
                   Reset Password
                 </button>

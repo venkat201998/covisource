@@ -99,7 +99,7 @@ const Login = ({ history }) => {
             </div>
             <div class="form-group my-3 row ">
               <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-              <div class="col-md-9 col-12 mb-3 mb-md-1 ">
+              <div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
                 <input
                   id="email"
                   type="email"
@@ -113,7 +113,7 @@ const Login = ({ history }) => {
             </div>
             <div class="form-group my-3 row">
               <label htmlFor="password" class="col-md-3 d-none d-md-block col-form-label text-xl-end fw-bold fs-6">Password</label>
-              <div class="col-md-9 col-12 mb-3 mb-md-1 ">
+              <div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
                 <input
                   id="password"
                   type="password"
@@ -127,14 +127,14 @@ const Login = ({ history }) => {
           
 
             <div className="form-group row">
-              <div className="col-md-4 col-6 offset-md-3 text-start ">
+              <div className="col-md-4 col-6 offset-md-3 text-start p-0">
                 <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email || password.length < 6}>
                   Login
                 </button>
               </div>
             </div>
             <div className="form-group row justify-content-end">
-              <div className="col-md-4 col-6 text-end p-0">
+              <div className="col-md-4 col-6">
                 <Link to="/forgot/password" className="text-danger">
                   Forgot Password
                 </Link>

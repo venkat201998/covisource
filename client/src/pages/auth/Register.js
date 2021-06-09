@@ -55,11 +55,11 @@ const Register = ({history}) => {
             </div>
             <div class="form-group my-3 row">
 						<label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-						<div class="col-md-9 col-12 mb-3 mb-md-1">
+						<div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
 							<input
 								id="email"
 								type="email"
-								className="form-control w-100 w-md-50"
+								className="form-control w-100"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 								placeholder="abc@example.com"
@@ -69,7 +69,7 @@ const Register = ({history}) => {
 					</div>
           <div class="form-group my-3 row">
 						<label htmlFor="userType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Type</label>
-						<div class="col-md-9 col-12 mb-3 mb-md-1">
+						<div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
 							<select className="form-select w-50" id="userType" onChange={(e)=> setType(e.target.value)}>
                 <option value="select">Select Type</option>
                 <option value="User">User</option>

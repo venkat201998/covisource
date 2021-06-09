@@ -188,7 +188,7 @@ const RegisterPatientFromHospital = () =>{
         {/* ---------Personal details----------- */}    
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="patientName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Patient Name</label>
-                        <div class="col-md-5 col-12 mb-3 mb-md-1">
+                        <div class="col-md-4 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text" 
                                 id="patientName"
@@ -217,7 +217,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="patientBirthDate" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Birth Date</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="date"
                                 id="patientBirthDate" 
@@ -233,7 +233,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="gender" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <select class="w-100 h-100 form-select" id="gender" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
                                 <option value="sg">Select Gender</option>
                                 <option value="male">Male</option>
@@ -244,7 +244,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="contactNumber" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="tel" 
                                 id="contactNumber"
@@ -260,7 +260,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">E-mail</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="email"
                                 id="email" 
@@ -276,7 +276,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="streetAddress" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
                                 id="streetAddress"
@@ -292,7 +292,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="state" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                                 <select class="w-100 h-100 form-select" id="state" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
                                     <option value="ss">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
@@ -301,7 +301,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="city" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                                 <select class="w-100 h-100 form-select" id="city" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
                                     <option value="sc">Select City</option>
                                     {citiesOptions}
@@ -310,7 +310,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="pincode" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
                                 id="pincode"
@@ -328,7 +328,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div className="form-group my-xl-5 my-3 row">
                         <label htmlFor="maritalStatus" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Marital Status</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <select class="w-100 h-100 form-select" id="maritalStatus" aria-label="Default select example" onChange={(e)=> setMaritalStatus(e.target.value) }>
                                 <option value="ss">Select status</option>
                                 <option value="single">Single</option>
@@ -347,7 +347,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="emergencyCName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Emergency Contact</label>
-                        <div class="col-md-5 col-12 mb-3 mb-md-1">
+                        <div class="col-md-4 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
                                 id="emergencyCName" 
@@ -376,7 +376,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="relationship" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Relationship</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
                                 id="relationship" 
@@ -392,7 +392,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="EContactNumber" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="tel"
                                 id="EContactNumber"
@@ -414,7 +414,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="weight" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Weight</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
                                 id="weight"
@@ -430,7 +430,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div class="form-group my-xl-5 my-3 row">  
                         <label htmlFor="height" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Height</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <input 
                                 type="text"
                                 id="height"
@@ -449,7 +449,7 @@ const RegisterPatientFromHospital = () =>{
                         <label htmlFor="medication" className="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Are you currently taking any medication?
                         </label>
-                        <div class="col-md-9 col-12 mt-0 mt-xl-3 text-start" id="medication">
+                        <div class="col-md-8 col-12 mt-0 mt-xl-3 text-start" id="medication">
                             <input type="radio" name="medication" className="col-md-1 col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationStatus(e.target.value)}/>
                             <label htmlFor="Yes" className="col-md-2 col-10">Yes</label>
 
@@ -461,7 +461,7 @@ const RegisterPatientFromHospital = () =>{
                         <label htmlFor="medicationList" class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             If yes, please list it here...
                         </label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <textarea 
                                 className="form-control"
                                 id="medicationList"
@@ -474,7 +474,7 @@ const RegisterPatientFromHospital = () =>{
                         <label htmlFor="allergies" className="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Do you have any medication allergies
                         </label>
-                        <div class="col-md-9 col-12 mt-0 mt-xl-3 text-start" id="allergies">
+                        <div class="col-md-8 col-12 mt-0 mt-xl-3 text-start" id="allergies">
                             <input type="radio" name="allergies" className="col-md-1 col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
                             <label htmlFor="Yes" className="col-md-2 col-10">Yes</label>
 
@@ -489,7 +489,7 @@ const RegisterPatientFromHospital = () =>{
                         <label htmlFor="operations" class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Please list any operations and dates of each
                         </label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <textarea 
                                 className="form-control"
                                 id="operations"
@@ -503,11 +503,11 @@ const RegisterPatientFromHospital = () =>{
                             Have you ever had <br/>
                             ( Please check all that apply...)
                         </label>
-                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                             <div className="row my-2">
                                 { healthList.map((item, i)=>{
                                     return(
-                                        <div className="col-12 col-lg-4 col-md-6 mb-2">
+                                        <div className="col-12 col-md-6 mb-2">
                                             <input className="col-2 m-auto" type="checkbox" id="healthIssues" key={item} defaultChecked={inputChecked} value={item} onClick={checkListHandler} />
                                             <label className="col-10 m-auto text-start">{item}</label>
                                         </div>)
@@ -525,7 +525,7 @@ const RegisterPatientFromHospital = () =>{
                         <label htmlFor="covidSymptoms" class="col-md-3 d-none d-md-block col-form-label text-md-end text-start fw-bold fs-6">
                             Please check the symptoms that apply...
                         </label>
-                        <div className="col-md-9 col-12 mb-3 mb-md-1">
+                        <div className="col-md-8 col-12 mb-3 mb-md-1">
                             <div className="row my-2">
                                 { covidSymptomsList.map((item, i)=>{
                                     return(
@@ -539,7 +539,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div className="form-group my-xl-5 my-3 row">
                         <label htmlFor="bedType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Available Beds</label>
-                        <div class="col-md-9 col-12 mb-3 mb-md-1">
+                        <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <select class="w-100 h-100 form-select" id="bedType" aria-label="Default select example" onChange={(e)=> setBedType(e.target.value) }>
                                 <option value="ss">Select Bed</option>
                                 {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Beds: {hospital.generalBeds}</option> : ""}
