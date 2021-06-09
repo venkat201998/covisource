@@ -20,7 +20,11 @@ const Home = () => {
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
+    
     let citiesOptions = null;
+
+    const [spincode, setSpincode] = useState("");
+    const [scity, setScity] = useState("");
 
     HospitalCities.map((item)=>{
         if(item.state===state)
@@ -39,14 +43,28 @@ const Home = () => {
         .catch((err) => toast.error(err));
     }, [user])
 
-    const handleSearch = (e) =>{
-        if(e.target.value==="pin"){
-            setSearchHospitals(hospitals.filter((hospital)=> hospital.pinCode===pinCode));
-        }
-        else if(e.target.value==="city"){
-            setSearchHospitals(hospitals.filter((hospital)=> (hospital.city===city && hospital.state===state)));
-        }
+    // const handleSearch = (e) =>{
+    //     if(e.target.value==="pin"){
+    //         setSearchHospitals(hospitals.filter((hospital)=> hospital.pinCode===pinCode));
+    //     }
+    //     else if(e.target.value==="city"){
+    //         setSearchHospitals(hospitals.filter((hospital)=> (hospital.city===city && hospital.state===state)));
+    //     }
+    // }
+
+    const handleSearchPincode = (e) => {
+        e.preventDefault();
+        setSpincode(e.target.value);
     }
+
+    const handleSearchCity = (e) => {
+        e.preventDefault();
+        setScity(e.target.value);
+    }
+
+    const searchPincode = (spincode) => (c) => c && c.pinCode.includes(spincode);
+
+    const searchCity = (scity) => (c) => c && c.city.includes(scity);
 
     return(
             <div className="container-fluid p-0 overflow">
@@ -122,17 +140,24 @@ const Home = () => {
                     {
                         pinOption && (
                             <div className="col-3">
-                                <input 
+                                {/* <input 
                                         id="pinCode"
                                         type="text"
                                         className="form-control w-100"  
                                         value={pinCode}
-                                        pattern="[0-9]{6}" 
-                                        maxLength="6"
                                         placeholder="Pin Code"
                                         onChange={(e) => setPinCode(e.target.value)}
-                                />  
+                                />   */}
+                                <input 
+                                    type="search"
+                                    placeholder="Filter"
+                                    value={spincode}
+                                    onChange={handleSearchPincode}
+                                    className="form-control"
+                                />
+                                
                             </div>
+                            
                         )
                     }
                     {
@@ -145,7 +170,7 @@ const Home = () => {
                                     </select>
                                 </div>
                                 <div className="col-3">
-                                    <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
+                                    <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setScity(e.target.value) }>
                                         <option value="">Select City</option>
                                         {citiesOptions}
                                     </select>
@@ -153,18 +178,21 @@ const Home = () => {
                             </>
                         )
                     }
-                    <div className="col-2">
+                    {/* <div className="col-2">
                         <button type="button" className="btn btn-raised btn-outline-info w-100 mx-auto" value={(pinOption && "pin") || (cityOption && "city") } 
                                 disabled={!pinCode && (!state || !city)} onClick={handleSearch}>
                             Search
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <Trigger/>
                 <div className="container px-md-5">
                     <div className="row m-md-2">
+                        {/* {
+                            hospitals && hospitals.filter(searchPincode(spincode)).map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
+                        } */}
                         {
-                            searchHospitals && searchHospitals.map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
+                            hospitals && hospitals.filter(searchCity(scity)).map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
                         }
                     </div>
                 </div>
