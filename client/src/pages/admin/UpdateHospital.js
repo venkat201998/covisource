@@ -100,10 +100,11 @@ const UpdateHospital = () =>{
                             <h3>Hospital Info</h3>
                             <form onSubmit={handleSubmit} onReset={handleDelete} className="container-fluid">
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="hospitalName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
+                                    <label htmlFor="hospitalName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
                                     <div className="col-md-9 col-12 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
+                                            id="hospitalName"
                                             required
                                             className="form-control w-100"  
                                             value={hospitalName}
@@ -114,10 +115,11 @@ const UpdateHospital = () =>{
                                     </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="address" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                                    <label htmlFor="address" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
                                     <div className="col-md-9 col-12 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
+                                            id="address"
                                             className="form-control w-100"  
                                             value={address}
                                             placeholder="Street"
@@ -125,9 +127,9 @@ const UpdateHospital = () =>{
                                         </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
+                                    <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                                     <div className="col-md-9 col-12 mb-3 mb-md-1">
-                                        <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
+                                        <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
                                             <option value="ss">Select State</option>
                                             { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                             
@@ -135,9 +137,9 @@ const UpdateHospital = () =>{
                                     </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                        <label for="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
+                                        <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                                         <div className="col-md-9 col-12 mb-3 mb-md-1">
-                                            <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
+                                            <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
                                                 <option value="sc">Select City</option>
                                                 {citiesOptions}
                                             </select>
@@ -145,10 +147,11 @@ const UpdateHospital = () =>{
                                 
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                        <label for="pinCode" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
+                                        <label htmlFor="pinCode" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
                                         <div className="col-md-9 col-12 mb-3 mb-md-1">
                                             <input 
                                                 type="text"
+                                                id="pinCode"
                                                 inputMode="numeric"
                                                 className="form-control w-100"
                                                 name={pinCode}  
@@ -159,10 +162,11 @@ const UpdateHospital = () =>{
                                         </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="hospitalContact" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact</label>
+                                    <label htmlFor="hospitalContact" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact</label>
                                     <div className="col-md-9 col-12 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
+                                            id="hospitalContact"
                                             className="form-control w-100"
                                             name="hospitalContact"
                                             value={contact}  
@@ -172,14 +176,15 @@ const UpdateHospital = () =>{
                                     </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                    <label for="hospitalContact" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
+                                    <label htmlFor="hospitalEmail" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
                                     <div className="col-md-9 col-12 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
+                                            id="hospitalEmail"
                                             className="form-control w-100"
-                                            name="hospitalContact"
+                                            name="hospitalEmail"
                                             value= {email}  
-                                            placeholder="Number"
+                                            placeholder="Email"
                                             onChange={(e)=> setEmail(e.target.value)}
                                             disabled
                                             />
@@ -188,10 +193,11 @@ const UpdateHospital = () =>{
                                 <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</div>
                                 
                                 <div className="form-group my-xl-5 my-3 row">
-                                        <label for="generalBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">General</label>
+                                        <label htmlFor="generalBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">General</label>
                                         <div className="col-md-3 col-12 mb-3 mb-md-1">
                                             <input 
                                                 type="text" 
+                                                id="generalBeds"
                                                 className="form-control w-100"  
                                                 name="generalBeds"
                                                 value={generalBeds}
@@ -199,10 +205,11 @@ const UpdateHospital = () =>{
                                                 onChange={(e)=> setGeneralBeds(e.target.value)} />
                                         </div>
 
-                                        <label for="icuBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">ICU</label>
+                                        <label htmlFor="icuBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">ICU</label>
                                         <div className="col-md-3 col-12 mb-3 mb-md-1">
                                             <input 
                                                 type="text"
+                                                id="icuBeds"
                                                 className="form-control w-100"  
                                                 name="icuBeds"
                                                 value={icuBeds}
@@ -211,10 +218,11 @@ const UpdateHospital = () =>{
                                         </div>
                                 </div>
                                 <div className="form-group my-xl-5 my-3 row">
-                                        <label for="ventilatorBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Ventilator</label>
+                                        <label htmlFor="ventilatorBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Ventilator</label>
                                         <div className="col-md-3 col-12 mb-3 mb-md-1 mb-3 mb-xl-0">
                                             <input 
                                                 type="text" 
+                                                id="ventilatorBeds"
                                                 className="form-control w-100"  
                                                 name="ventilatorBeds"
                                                 value={ventilatorBeds}
@@ -222,10 +230,11 @@ const UpdateHospital = () =>{
                                                 onChange={(e)=> setVentilatorBeds(e.target.value)} />
                                         </div>
 
-                                        <label for="oxygenBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Oxygen</label>
+                                        <label htmlFor="oxygenBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Oxygen</label>
                                         <div className="col-md-3 col-12 mb-3 mb-md-1">
                                             <input 
                                                 type="text"
+                                                id="oxygenBeds"
                                                 className="form-control w-100"  
                                                 name="oxygenBeds"
                                                 value={oxygenBeds}
@@ -234,12 +243,12 @@ const UpdateHospital = () =>{
                                         </div>
                                 </div>
 
-                                <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
-                                    <div className="col-lg-5">
-                                        <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
+                                <div className="form-group row justify-content-center">
+                                    <div className="col-lg-2 col-md-3 col-5">
+                                        <button type="submit" className="btn btn-raised btn-outline-info">Update</button>
                                     </div>
-                                    <div className="col-lg-5 offset-1">
-                                        <button type="reset" className="btn btn-raised btn-outline-danger w-100 mx-auto">Delete</button>
+                                    <div className="col-lg-2 col-md-3 col-5">
+                                        <button type="reset" className="btn btn-raised btn-outline-danger">Delete</button>
                                     </div>
                                 </div>
                             </form>

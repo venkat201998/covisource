@@ -95,7 +95,7 @@ const Login = ({ history }) => {
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
           <form onSubmit={handleSubmit} className="container-fluid">
             <div className="form-group mb-4 text-center">
-              {loading ? <h4>Loading..</h4> :  <h4>Login</h4>}
+              {loading ? <h3>Loading..</h3> :  <h3>Login</h3>}
             </div>
             <div class="form-group my-3 row p-0">
               <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
@@ -134,7 +134,7 @@ const Login = ({ history }) => {
               </div>
             </div>
             <div className="form-group row justify-content-end">
-              <div className="col-md-4 col-6 p-0">
+              <div className="col-md-4 col-6 text-end p-0">
                 <Link to="/forgot/password" className="text-danger">
                   Forgot Password
                 </Link>

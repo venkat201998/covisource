@@ -51,7 +51,7 @@ const Register = ({history}) => {
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
           <form onSubmit={handleSubmit} className="container-fluid">
             <div className="form-group mb-4 text-center">
-                {loading ? <h4>Loading..</h4> :  <h4>Registration</h4>}
+                {loading ? <h3>Loading..</h3> :  <h3>Registration</h3>}
             </div>
             <div class="form-group my-3 row p-0">
 						<label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
@@ -70,7 +70,7 @@ const Register = ({history}) => {
           <div class="form-group my-3 row p-0">
 						<label htmlFor="userType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Type</label>
 						<div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
-							<select className="form-select w-50" onChange={(e)=> setType(e.target.value)}>
+							<select className="form-select w-50" id="userType" onChange={(e)=> setType(e.target.value)}>
                 <option value="select">Select Type</option>
                 <option value="User">User</option>
                 <option value="Hospital">Hospital</option>

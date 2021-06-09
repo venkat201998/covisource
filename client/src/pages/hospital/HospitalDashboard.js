@@ -25,108 +25,106 @@ const HospitalDashboard = () => {
 
     return(
         <>
-            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
+        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
+                <h3 className="fw-bold text-center">{hospital.hospitalName}</h3>
                 <form className="container-fluid p-0">
-                    <div className="card border-0 w-100">
+                    <div className="card border-0">
                     {/* <img src="" className="card-img-top" alt="..."/> */}
-                    <div className="card-body row">
-                        <div className="form-group mb-3 text-center">
-                            <h3 className="fw-bold">{hospital.hospitalName}</h3>
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-lg-6 col-12">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label className="col-form-label text-start fw-bold fs-6">Contact:</label>
+                                        <span className="ps-2">
+                                            {hospital.contact}
+                                        </span>
+                                    </li>
+                                </div>
+                                <div className="col-lg-6 col-12">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label className="col-form-label text-start fw-bold fs-6">Email:</label>
+                                        <span className="ps-2">
+                                            {hospital.email}
+                                        </span>
+                                    </li>
+                                </div>
+                                <div className="col-12">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                    <label className="col-form-label text-start fw-bold fs-6">Address:</label>
+                                        <span className="ps-2">
+                                            {hospital.streetAddress}, {hospital.city}, {hospital.state}, {hospital.pinCode}
+                                        </span>
+                                    </li>
+                                </div>
+                            
+                            
+                            
+
+                                <div className="col-12 border-top border-3 text-center my-3 pt-3">
+                                    <h4 style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</h4>
+                                </div>
+
+                                <div className="col-md-6">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label for="generalBeds" className="col-form-label text-start fw-bold fs-6">General:</label>
+                                        <span className="ps-2">
+                                            {hospital.generalBeds}
+                                        </span>
+                                    </li>
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label for="icuBeds" className="col-form-label text-start fw-bold fs-6">ICU:</label>
+                                        <span className="ps-2">
+                                            {hospital.icuBeds}
+                                        </span>
+                                    </li>
+                                </div>
+                                <div className="col-md-6">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Ventilator:</label>
+                                        <span className="ps-2">
+                                            {hospital.ventilatorBeds}
+                                        </span>
+                                    </li>
+                                    <li className="list-group-item border-0 bg-transparent">    
+                                        <label for="oxygenBeds" className="col-form-label text-start fw-bold fs-6">Oxygen:</label>
+                                        <span className="ps-2">
+                                            {hospital.oxygenBeds}
+                                        </span>
+                                    </li>
+                                </div>
+                                <div className="col-12 border-top border-3 text-center my-3 pt-3">
+                                    <h4 style={{color: "gray", borderColor: "gray"}}>Patients</h4>
+                                </div>
+
+                                <div className="col-lg-4 col-md-6 col-12">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Admitted:</label>
+                                        <span className="ps-2">
+                                            {admittedCount}
+                                        </span>
+                                    </li>
+                                </div>
+                                <div className="col-lg-4 col-md-6 col-12">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Discharged:</label>
+                                        <span className="ps-2">
+                                            {dischargedCount}
+                                        </span>
+                                    </li>
+                                </div>
+                                <div className="col-lg-4 col-md-6 col-12">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Deceased:</label>
+                                        <span className="ps-2">
+                                            {deceasedCount}
+                                        </span>
+                                    </li>
+                                </div>
+
+                            </div>
+
+
                         </div>
-                        <div className="row">
-                            <div className="col-lg-6 col-12">
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label className="col-form-label text-start fw-bold fs-6">Contact:</label>
-                                    <span className="ps-2">
-                                        {hospital.contact}
-                                    </span>
-                                </li>
-                            </div>
-                            <div className="col-lg-6 col-12">
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label className="col-form-label text-start fw-bold fs-6">Email:</label>
-                                    <span className="ps-2">
-                                        {hospital.email}
-                                    </span>
-                                </li>
-                            </div>
-                            <div className="col-12">
-                                <li className="list-group-item border-0 bg-transparent">
-                                <label className="col-form-label text-start fw-bold fs-6">Address:</label>
-                                    <span className="ps-2">
-                                        {hospital.streetAddress}, {hospital.city}, {hospital.state}, {hospital.pinCode}
-                                    </span>
-                                </li>
-                            </div>
-                        
-                        
-                        
-
-                            <div className="col-12 border-top border-3 text-center my-3 pt-3">
-                                <h4 style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</h4>
-                            </div>
-
-                            <div className="col-md-6">
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label for="generalBeds" className="col-form-label text-start fw-bold fs-6">General:</label>
-                                    <span className="ps-2">
-                                        {hospital.generalBeds}
-                                    </span>
-                                </li>
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label for="icuBeds" className="col-form-label text-start fw-bold fs-6">ICU:</label>
-                                    <span className="ps-2">
-                                        {hospital.icuBeds}
-                                    </span>
-                                </li>
-                            </div>
-                            <div className="col-md-6">
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Ventilator:</label>
-                                    <span className="ps-2">
-                                        {hospital.ventilatorBeds}
-                                    </span>
-                                </li>
-                                <li className="list-group-item border-0 bg-transparent">    
-                                    <label for="oxygenBeds" className="col-form-label text-start fw-bold fs-6">Oxygen:</label>
-                                    <span className="ps-2">
-                                        {hospital.oxygenBeds}
-                                    </span>
-                                </li>
-                            </div>
-                            <div className="col-12 border-top border-3 text-center my-3 pt-3">
-                                <h4 style={{color: "gray", borderColor: "gray"}}>Patients</h4>
-                            </div>
-
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Admitted:</label>
-                                    <span className="ps-2">
-                                        {admittedCount}
-                                    </span>
-                                </li>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Discharged:</label>
-                                    <span className="ps-2">
-                                        {dischargedCount}
-                                    </span>
-                                </li>
-                            </div>
-                            <div className="col-lg-4 col-md-6 col-12">
-                                <li className="list-group-item border-0 bg-transparent">
-                                    <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Deceased:</label>
-                                    <span className="ps-2">
-                                        {deceasedCount}
-                                    </span>
-                                </li>
-                            </div>
-
-                        </div>
-
-
-                    </div>
                     </div>
                 </form>
             </div>
@@ -135,7 +133,7 @@ const HospitalDashboard = () => {
                     {confirmPatients && confirmPatients.map((patient)=> <ConfirmPatientCard patient={patient}/>)}
                 </div>
             </div>
-        </>
+        </>    
     )
 }
 

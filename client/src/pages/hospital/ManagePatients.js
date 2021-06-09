@@ -14,10 +14,11 @@ const ManagePatients = () => {
     const type = slug==="ManagePatients" ? "ManagePatients" : "PatientsHistory";
 
     return(
-        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center">
+        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
+            {type && type === "ManagePatients" ? <h3 className="text-center">Manage Patients</h3> : <h3 className="text-center">Patients History</h3>}
             {patients && patients.length > 0 ? (patients.map((patient) => <PatientCard key={patient._id} patient={patient} type={type}/>)) 
-                                    : type === "ManagePatients" ? <h3>No Active Patients</h3> 
-                                                                    : <h3>No Patients History</h3>}
+                                    : type === "ManagePatients" ? <h5 className="text-center m-5">No Active Patients</h5> 
+                                                                    : <h5 className="text-center m-5">No Patients History</h5>}
         </div>
 
     )

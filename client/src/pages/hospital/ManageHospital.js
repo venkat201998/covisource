@@ -93,10 +93,11 @@ const ManageHospital = () =>{
                     (<form onSubmit={handleSubmit} className="container-fluid">
                         <h3>Hospital Info</h3>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="hospitalName" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Hospital</label>
-                            <div className="col-12 col-xl-8">
+                            <label htmlFor="hospitalName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
+                            <div className="col-md-9 col-12 mb-3 mb-md-1">
                                 <input 
                                     type="text" 
+                                    id="hospitalName"
                                     required
                                     className="form-control w-100"  
                                     value={hospitalName}
@@ -108,10 +109,11 @@ const ManageHospital = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="address" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Address</label>
-                            <div className="col-12 col-xl-8">
+                            <label htmlFor="address" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                            <div className="col-md-9 col-12 mb-3 mb-md-1">
                                 <input 
                                     type="text" 
+                                    id="address"
                                     className="form-control w-100"  
                                     value={address}
                                     placeholder="Street"
@@ -119,9 +121,9 @@ const ManageHospital = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="state" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">State</label>
-                            <div className="col-12 col-xl-8">
-                                <select className="w-100 h-100 form-select" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
+                            <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
+                            <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
                                     <option value="ss">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                     
@@ -129,18 +131,20 @@ const ManageHospital = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label for="city" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">City</label>
-                                <div className="col-12 col-xl-3 mb-3 mb-xl-0">
-                                    <select className="w-100 h-100 form-select" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
+                                <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
+                                <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                    <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
                                         <option value="sc">Select City</option>
                                         {citiesOptions}
                                     </select>
                                 </div>
-                                
-                                <label for="pinCode" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Pin Code</label>
-                                <div className="col-12 col-md-6 col-xl-3">
+                        </div>
+                        <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="pinCode" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
+                                <div className="col-md-9 col-12 mb-3 mb-md-1">
                                     <input 
                                         type="text"
+                                        id="pinCode"
                                         inputMode="numeric"
                                         className="form-control w-100"
                                         name={pinCode}  
@@ -151,10 +155,11 @@ const ManageHospital = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label for="hospitalContact" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Contact</label>
-                            <div className="col-12 col-xl-8">
+                            <label htmlFor="hospitalContact" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact</label>
+                            <div className="col-md-9 col-12 mb-3 mb-md-1">
                                 <input 
                                     type="text" 
+                                    id="hospitalContact"
                                     className="form-control w-100"
                                     name="hospitalContact"
                                     value={contact}  
@@ -169,10 +174,11 @@ const ManageHospital = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label for="generalBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">General</label>
-                                <div className="col-12 col-md-8 col-xl-3 mb-3 mb-xl-0">
+                                <label htmlFor="generalBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">General</label>
+                                <div className="col-md-3 col-12 mb-3 mb-md-1">
                                     <input 
                                         type="text" 
+                                        id="generalBeds"
                                         className="form-control w-100"  
                                         name="generalBeds"
                                         value={generalBeds}
@@ -180,10 +186,11 @@ const ManageHospital = () =>{
                                         onChange={(e)=> setGeneralBeds(e.target.value)} />
                                 </div>
                                 
-                                <label for="icuBeds" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">ICU</label>
-                                <div className="col-12 col-md-8 col-xl-3">
+                                <label htmlFor="icuBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">ICU</label>
+                                <div className="col-md-3 col-12 mb-3 mb-md-1">
                                     <input 
                                         type="text"
+                                        id="icuBeds"
                                         className="form-control w-100"  
                                         name="icuBeds"
                                         value={icuBeds}
@@ -192,10 +199,11 @@ const ManageHospital = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label for="ventilatorBeds" className="col-12 col-xl-3 col-form-label text-start text-xl-end fw-bold fs-6">Ventilator</label>
-                                <div className="col-12 col-md-8 col-xl-3 mb-3 mb-xl-0">
+                                <label htmlFor="ventilatorBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Ventilator</label>
+                                <div className="col-md-3 col-12 mb-3 mb-md-1">
                                     <input 
-                                        type="text" 
+                                        type="text"
+                                        id="ventilatorBeds" 
                                         className="form-control w-100"  
                                         name="ventilatorBeds"
                                         value={ventilatorBeds}
@@ -203,10 +211,11 @@ const ManageHospital = () =>{
                                         onChange={(e)=> setVentilatorBeds(e.target.value)} />
                                 </div>
                                 
-                                <label for="oxygenBeds" className="col-12 col-xl-2 col-form-label text-start text-xl-end fw-bold fs-6">Oxygen</label>
-                                <div className="col-12 col-md-8 col-xl-3">
+                                <label htmlFor="oxygenBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Oxygen</label>
+                                <div className="col-md-3 col-12 mb-3 mb-md-1">
                                     <input 
                                         type="text"
+                                        id="oxygenBeds"
                                         className="form-control w-100"  
                                         name="oxygenBeds"
                                         value={oxygenBeds}
@@ -215,9 +224,9 @@ const ManageHospital = () =>{
                                 </div>
                         </div>
 
-                        <div className="form-group w-50 mx-auto my-md-5 my-3 d-flex flex-col px-lg-2">
-                            <div className="col-lg-5">
-                                <button type="submit" className="btn btn-raised btn-outline-info w-100 mx-auto">Update</button>
+                        <div className="form-group row justify-content-center">
+                            <div className="col-lg-2 col-md-3 col-5">
+                                <button type="submit" className="btn btn-raised btn-outline-info">Update</button>
                             </div>
                         </div>
                     </form>) : (<h3>Hospital Not Registered</h3>)}
