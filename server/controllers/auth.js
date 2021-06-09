@@ -340,3 +340,48 @@ exports.updateUser = async (req, res) => {
         res.json(error)
     }
 }
+
+exports.confirmPatient = async (req, res) => {
+    try{
+        const {email, patientId, bookedByEmail} = req.body;
+        const hospital = await Hospital.findOne( {email} );
+        const patients = hospital.patients;
+
+        const patientIndex = patients.findIndex((patient)=> patient._id == patientId);
+        patients[patientIndex].status = "Admitted";
+        patients[patientIndex].confirmedDate= Date.now();
+
+        const updateHospital = await Hospital.findOneAndUpdate( {email}, {patients}, {new: true} );
+        
+        const user = await User.findOne({email: bookedByEmail});
+        const bookedSlots = user.bookedSlots;
+        const currentSlot = user.currentSlot;
+
+        bookedSlots.push({
+            hospitalId: hospital._id,
+            hospitalEmail: email,
+            patientId: patients[patientIndex]._id,
+            patientEmail: patients[patientIndex].email
+        });
+        console.log("bookedSlots:", bookedSlots);
+
+        currentSlot.hospitalId = hospital._id;
+        currentSlot.hospitalEmail = email;
+        currentSlot.patientId = patients[patientIndex]._id;
+        currentSlot.patientEmail = patients[patientIndex].email;
+        
+        console.log("currentSlot:", currentSlot);
+
+
+        const updateUser = await User.findOneAndUpdate({email: bookedByEmail}, { currentSlot, bookedSlots: bookedSlots }, {new: true});
+
+        if(updateHospital && updateUser){
+            res.json("Patient Confirmed");
+        }else{
+            res.json("Failed to confirm Patient");
+        }
+
+    }catch(error){
+        res.json(error)
+    }
+}

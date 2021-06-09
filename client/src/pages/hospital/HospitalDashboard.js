@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import ConfirmPatientCard from '../../components/cards/ConfirmPatientCard';
 
 const HospitalDashboard = () => {
 
     const { user, hospital } = useSelector((state) => ({...state}));
     const patients = hospital && hospital.patients;
+    const confirmPatients = patients && patients.filter((patient)=> patient.status==="OnHold");
     const [ admittedCount, setAdmittedCount ] = useState(0);
     const [ dischargedCount, setDischargedCount ] = useState(0);
     const [ deceasedCount, setDeceasedCount ] = useState(0);
@@ -15,13 +17,15 @@ const HospitalDashboard = () => {
                 setAdmittedCount(admittedCount+1);
             else if(patient.status==="Discharged")
                 setDischargedCount(dischargedCount+1);
-            else setDeceasedCount(deceasedCount+1);
+            else if(patient.status==="Deceased") 
+                setDeceasedCount(deceasedCount+1);
         })
     }, [])
     
 
     return(
-        <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
+        <>
+            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
                 <form className="container-fluid p-0">
                     <div className="card border-0 w-100">
                     {/* <img src="" className="card-img-top" alt="..."/> */}
@@ -126,6 +130,12 @@ const HospitalDashboard = () => {
                     </div>
                 </form>
             </div>
+            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
+                <div className="row">
+                    {confirmPatients && confirmPatients.map((patient)=> <ConfirmPatientCard patient={patient}/>)}
+                </div>
+            </div>
+        </>
     )
 }
 
