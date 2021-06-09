@@ -13,6 +13,7 @@ const UserSlotCard = ({hospital, patient}) =>{
                             <i className="fa fa-star fa-2x" aria-hidden="true"></i>
                         </div>
                     </div> */}
+                    <h5>Slots</h5>
                     <div className="row border-bottom border-3 mx-auto py-3">
                         <h4 className="text-center" style={{color: "gray", borderColor: "gray"}}>Hospital</h4>
                         <div className="col-6 text-center">
