@@ -88,8 +88,8 @@ const HospitalDetailsRegistration = () =>{
                     <h3>Registration Form</h3>
                     <form onSubmit={handleSubmit} className="container-fluid">
                         <div className="form-group my-xl-5 my-3 row">
-                            <label htmlFor="hospitalName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
-                            <div className="col-md-9 col-12 mb-3 mb-md-1">
+                            <label htmlFor="hospitalName" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
+                            <div className="col-md-10 col-12 mb-3 mb-md-1">
                                 <input 
                                     id="hospitalName"
                                     type="text" 
@@ -103,8 +103,8 @@ const HospitalDetailsRegistration = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label htmlFor="address" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                            <div className="col-md-9 col-12 mb-3 mb-md-1">
+                            <label htmlFor="address" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
+                            <div className="col-md-10 col-12 mb-3 mb-md-1">
                                 <input 
                                     id="address"
                                     type="text" 
@@ -115,8 +115,8 @@ const HospitalDetailsRegistration = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
-                            <div className="col-md-9 col-12 mb-3 mb-md-1">
+                            <label htmlFor="state" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
+                            <div className="col-md-10 col-12 mb-3 mb-md-1">
                                 <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
                                     <option value="ss">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
@@ -125,8 +125,8 @@ const HospitalDetailsRegistration = () =>{
                             </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
-                                <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                <label htmlFor="city" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
+                                <div className="col-md-10 col-12 mb-3 mb-md-1">
                                     <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
                                         <option value="sc">Select City</option>
                                         {citiesOptions}
@@ -135,8 +135,8 @@ const HospitalDetailsRegistration = () =>{
                         
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                                <label htmlFor="pinCode" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
-                                <div className="col-md-9 col-12 mb-3 mb-md-1">
+                                <label htmlFor="pinCode" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
+                                <div className="col-md-10 col-12 mb-3 mb-md-1">
                                     <input 
                                         id="pinCode"
                                         type="text"
@@ -151,8 +151,8 @@ const HospitalDetailsRegistration = () =>{
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
-                            <label htmlFor="hospitalContact" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact</label>
-                            <div className="col-md-9 col-12 mb-3 mb-md-1">
+                            <label htmlFor="hospitalContact" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact</label>
+                            <div className="col-md-10 col-12 mb-3 mb-md-1">
                                 <input 
                                     id="hospitalContact"
                                     type="tel" 
@@ -166,8 +166,8 @@ const HospitalDetailsRegistration = () =>{
                         </div>
                         {user && user.type === "Admin" 
                         ? <div className="form-group my-xl-5 my-3 row">
-                            <label htmlFor="hospitalEmail" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-                            <div className="col-md-9 col-12 mb-3 mb-md-1">
+                            <label htmlFor="hospitalEmail" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
+                            <div className="col-md-10 col-12 mb-3 mb-md-1">
                                 <input 
                                     id="hospitalEmail"
                                     type="email" 
@@ -180,8 +180,8 @@ const HospitalDetailsRegistration = () =>{
                             </div>
                         </div>
                         :<div className="form-group my-xl-5 my-3 row">
-                            <label htmlFor="hospitalEmail" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-                            <div className="col-md-9 col-12 mb-3 mb-md-1">
+                            <label htmlFor="hospitalEmail" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
+                            <div className="col-md-10 col-12 mb-3 mb-md-1">
                                 <input 
                                     id="hospitalEmail"
                                     type="email" 

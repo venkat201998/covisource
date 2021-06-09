@@ -53,9 +53,9 @@ const Register = ({history}) => {
             <div className="form-group mb-4 text-center">
                 {loading ? <h3>Loading..</h3> :  <h3>Registration</h3>}
             </div>
-            <div class="form-group my-3 row p-0">
+            <div class="form-group my-3 row">
 						<label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-						<div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
+						<div class="col-md-9 col-12 mb-3 mb-md-1">
 							<input
 								id="email"
 								type="email"
@@ -67,9 +67,9 @@ const Register = ({history}) => {
 							/>
 						</div>
 					</div>
-          <div class="form-group my-3 row p-0">
+          <div class="form-group my-3 row">
 						<label htmlFor="userType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Type</label>
-						<div class="col-md-9 col-12 p-0 mb-3 mb-md-1">
+						<div class="col-md-9 col-12 mb-3 mb-md-1">
 							<select className="form-select w-50" id="userType" onChange={(e)=> setType(e.target.value)}>
                 <option value="select">Select Type</option>
                 <option value="User">User</option>
