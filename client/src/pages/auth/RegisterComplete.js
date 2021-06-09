@@ -175,7 +175,7 @@ const RegisterComplete = () => {
 
                                 <div class="form-group my-xl-5 my-3 row">
                                     <label htmlFor="patientName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Name</label>
-                                    <div class="col-md-5 col-12 p-0 mb-3 mb-md-1">
+                                    <div class="col-md-5 col-12 mb-3 mb-md-1">
                                         <input 
                                             type="text" 
                                             id="patientName"
@@ -188,7 +188,7 @@ const RegisterComplete = () => {
                                             autoFocus
                                         />
                                     </div>
-                                    <div class="col-md-5 col-12 p-0 mb-3 mb-md-1">
+                                    <div class="col-md-4 col-12 mb-3 mb-md-1">
                                         <input 
                                             type="text"
                                             id="patientName" 
