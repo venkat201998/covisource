@@ -5,13 +5,17 @@ exports.createOrUpdateUser = async(req, res) => {
     try {
         const { email } = req.user;
         const {firstName, lastName, dob, gender, contact, address, state, city, pinCode, type} = req.body.userDetails;
-        const newUser = await new User({ firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, type}).save();
-        if(newUser)
-        {
-            res.json(newUser);
-        }
-        else{
-            res.json("Failed To Register");
+        const user = await User.findOneAndUpdate({email}, {firstName, lastName, dob, gender, contact, address, state, city, pinCode, type}, {new: true});
+        if(user){
+            res.json(user);
+        }else{
+            const newUser = await new User({ firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, type}).save();
+            if(newUser){
+                res.json(newUser);
+            }
+            else{
+                res.json("Failed To Register");
+            }
         }
     } catch (error) {
         res.json(error);
