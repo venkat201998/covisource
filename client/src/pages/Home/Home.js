@@ -39,15 +39,23 @@ const Home = () => {
         .catch((err) => toast.error(err));
     }, [user])
 
+    
+
 
     const handleSearchPincode = (e) => {
         e.preventDefault();
         setPinCode(e.target.value);
     }
 
-    const handleSearchCity = (e) => {
-        e.preventDefault();
-        setCity(e.target.value);
+    const active = (id) => {
+        if(id === "pin"){
+            document.getElementById("pin").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6 activeSearch";
+            document.getElementById("city").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6";
+        }else{
+            document.getElementById("pin").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6";
+            document.getElementById("city").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6 activeSearch";
+        }
+
     }
 
     const searchPincode = (pinCode) => (c) => c && c.pinCode.includes(pinCode);
@@ -115,10 +123,10 @@ const Home = () => {
                 <div class="row my-3 mx-md-2 justify-content-center">
                     <div className="col-3">
                         <div className="border border-dark rounded-pill d-flex flex-row h-100">
-                            <button type="button" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-5" onClick={()=>{ setState(""); setCity(""); setPinOption(true); setCityOption(false); }}>
+                            <button type="button" id="pin" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6" onClick={(e)=>{ setState(""); setCity(""); setPinOption(true); setCityOption(false); active(e.target.id) }}>
                                 Search by PIN
                             </button>
-                            <button type="button" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-5" onClick={()=>{ setPinCode(""); setPinOption(false); setCityOption(true); }}>
+                            <button type="button" id="city" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6" onClick={(e)=>{ setPinCode(""); setPinOption(false); setCityOption(true); active(e.target.id)}}>
                                 Search by City
                             </button>
                         </div>

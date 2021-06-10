@@ -1,10 +1,9 @@
 import React from 'react';
-// import '../../pages/user/UserSlot.css';
 
 const UserSlotCard = ({hospital, patient}) =>{
 
     return(
-        <div className="col-8 mx-auto shadow userSlot p-5">
+        <div className="col-8 mx-auto shadow userSlot px-5 my-4">
                     {/* <div className="row justify-content-between border-bottom border-3 mx-auto py-2">
                         <div className="col-8">
                             <span className="fw-bold logo">CoviSource</span>
@@ -14,6 +13,7 @@ const UserSlotCard = ({hospital, patient}) =>{
                         </div>
                     </div> */}
                     <div className="row border-bottom border-3 mx-auto py-3">
+                        <h6>Status: {patient && patient.status}</h6>
                         <h4 className="text-center" style={{color: "gray", borderColor: "gray"}}>Hospital</h4>
                         <div className="col-6 text-center">
                             <div><span className="fw-bold fs-6">Name</span></div>
@@ -79,7 +79,7 @@ const UserSlotCard = ({hospital, patient}) =>{
                             <div><i class="fa fa-clock"></i> <span>{patient && patient.confirmedDate}</span></div>
                         </div>
                     </div>
-                    <div className="row border-bottom border-3 mx-auto py-3">
+                    <div className="row mx-auto py-3">
                         <div className="col-6 text-center">
                             <div><span className="fw-bold fs-6">Created Date</span></div>
                             <div><i class="fa fa-clock"></i> <span>{patient && patient.createdDate}</span></div>

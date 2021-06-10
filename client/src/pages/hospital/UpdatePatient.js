@@ -32,9 +32,10 @@ const UpdatePatient = () =>{
     const [eLastName, setELastName] = useState();
     const [relationship, setRelationship] = useState();
     const [eContact, setEContact] = useState();
-
     const [status, setStatus] = useState();
-    const [comments, setComments] = useState("");
+    const [comments, setComments] = useState();
+    const [patientStatus, setPatientStatus] = useState();
+
 
     useEffect(()=>{
 
@@ -46,19 +47,19 @@ const UpdatePatient = () =>{
                 setFirstName(patientDetails.firstName);
                 setLastName(patientDetails.lastName);
                 setDob(patientDetails.dob);
-                setGender(patientDetails.gender)
-                setEmail(patientDetails.email)
-                setContact(patientDetails.contact)
-                setAddress(patientDetails.address)
-                setState(patientDetails.state)
-                setCity(patientDetails.city)
-                setPinCode(patientDetails.pinCode)
-                setMaritalStatus(patientDetails.maritalStatus)
-                setEFirstName(patientDetails.eFirstName)
-                setELastName(patientDetails.eLastName)
-                setRelationship(patientDetails.relationship)
-                setEContact(patientDetails.eContact)
-                setStatus(patientDetails.status)
+                setGender(patientDetails.gender);
+                setEmail(patientDetails.email);
+                setContact(patientDetails.contact);
+                setAddress(patientDetails.address);
+                setState(patientDetails.state);
+                setCity(patientDetails.city);
+                setPinCode(patientDetails.pinCode);
+                setMaritalStatus(patientDetails.maritalStatus);
+                setEFirstName(patientDetails.eFirstName);
+                setELastName(patientDetails.eLastName);
+                setRelationship(patientDetails.relationship);
+                setEContact(patientDetails.eContact);
+                setPatientStatus(patientDetails.status);
             }
             else toast.error(res.data);
         })
@@ -313,7 +314,7 @@ const UpdatePatient = () =>{
                                         <div className="col-md-8 col-12 mb-3 mb-md-1">
                                             <select id="patientStatus" className="w-100 form-select" aria-label="Default select example" onChange={(e)=> setStatus(e.target.value)}>
                                                 <option value="ss">Select status</option>
-                                                {patientDetails && patientDetails.status==="Admitted" ? 
+                                                {patientStatus && patientStatus==="Admitted" ? 
                                                 <><option value="Discharged">Discharged</option>
                                                 <option value="Deceased">Deceased</option></> : <option value="Admitted">Admit</option>}
                                             </select>

@@ -29,7 +29,6 @@ const UserHome = ({history}) => {
                         { (path==='/User/Slot') && <UserSlot/> }
                         { (path==='/User/SlotsHistory') && <SlotsHistory/> }
                         { (path==='/User/UpdatePassword') && <UpdatePassword/> }
-                        {/* { (path===`/User/SlotRegistration/Apollo`) && <RegisterPatientFromUser/>} */}
                         <UserRoute exact path="/User/SlotRegistration/:slug" component={ RegisterPatientFromUser}/>
                         </div>
                     </div>

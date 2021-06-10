@@ -18,7 +18,7 @@ const AdminDashboard = () => {
                 setHospitalCount(hospitalCount+1);
             else setUserCount(userCount+1);
         })
-    },[user])
+    },[user, registeredHospital])
 
 
     return(

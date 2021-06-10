@@ -123,7 +123,36 @@ const RegisterPatientFromUser = () =>{
                     toast.error(res.data);
                 }
                 else{
-                    console.log(res);
+                    dispatch({
+                        type: "LOGGED_IN_USER",
+                        payload: {
+                            firstName: res.data.firstName,
+                            lastName: res.data.lastName,
+                            dob: res.data.dob,
+                            gender:res.data.gender,
+                            email:res.data.email,
+                            contact: res.data.contact,
+                            address: res.data.address,
+                            state: res.data.state,
+                            city:res.data.city,
+                            pinCode: res.data.pinCode,      
+                            type: res.data.type,
+                            _id: res.data._id,
+                            options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
+                            slots: res.data.slots,
+                            token: res.config.headers.idToken
+                        }
+                    });
+                    dispatch({
+                        type: "LOGIN",
+                        payload: res.data.hospital
+                    });
+                    dispatch({
+                        type: "ACTIVE_HOSPITALS",
+                        payload: res.data.hospitals
+                    })
+                    toast.success("Patient Registered");
+                    history.push("/User/Dashboard");
                 }
             })
             .catch((e)=> toast.error(e));

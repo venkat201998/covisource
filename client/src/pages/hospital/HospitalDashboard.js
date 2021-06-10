@@ -10,29 +10,26 @@ const HospitalDashboard = () => {
     const [ admittedCount, setAdmittedCount ] = useState(0);
     const [ dischargedCount, setDischargedCount ] = useState(0);
     const [ deceasedCount, setDeceasedCount ] = useState(0);
-    // let aCount = 0;
-    // let dCount = 0;
-    // let deCount = 0; 
+    let aCount = 0;
+    let dCount = 0;
+    let deCount = 0; 
 
     useEffect(()=>{
         patients && patients.map((patient)=> {
             if(patient.status==="Admitted"){
-                // aCount = aCount + 1;
-                // setAdmittedCount(aCount);
-                setAdmittedCount(admittedCount + 1);
+                aCount = aCount + 1;
+                setAdmittedCount(aCount);
             }
             else if(patient.status==="Discharged"){
-                // dCount = dCount + 1;
-                // setDischargedCount(dCount);
-                setDischargedCount(dischargedCount + 1);
+                dCount = dCount + 1;
+                setDischargedCount(dCount);
             }
             else if(patient.status==="Deceased") {
-                // deCount = deCount + 1;
-                // setDeceasedCount(deCount);
-                setDeceasedCount(deceasedCount + 1);
+                deCount = deCount + 1;
+                setDeceasedCount(deCount);
             }
         })
-    },[])
+    },[hospital])
     
 
     return(

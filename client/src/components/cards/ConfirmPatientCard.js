@@ -1,11 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { confirmPatient } from '../../functions/auth';
 
 const ConfirmPatientCard = ( {patient} ) =>{
 
     const { user } = useSelector((state) => ({...state}));
+    const dispatch = useDispatch();
 
     const handleConfirmPatient = (e) =>{
         e.preventDefault();
@@ -13,7 +14,11 @@ const ConfirmPatientCard = ( {patient} ) =>{
         if(answer){
             confirmPatient(patient.email, user.token)
             .then((res)=>{
-                if(res.data==="Patient Confirmed"){
+                if(res.data!=="Failed to confirm Patient"){
+                    dispatch({
+                        type: "LOGIN",
+                        payload: res.data
+                    })
                     toast.success(res.data);
                 }
                 else toast.error(res.data);

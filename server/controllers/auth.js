@@ -158,7 +158,7 @@ exports.registerPatientFromHospital = async(req, res) => {
                 patients.push(req.body.patientDetails);
 
                 const bedType = req.body.patientDetails.bedType;
-                const updateHospital=[];
+                let updateHospital=[];
                 if(bedType==="generalBeds"){
                     const bedTypeCount = parseInt(hospital.generalBeds)-1;
                     updateHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} )
@@ -211,29 +211,35 @@ exports.registerPatientFromUser = async(req, res) =>{
             else{
                 patients.push(patientDetails);
                 const bedType = patientDetails.bedType;
-                const updateHospital=[];
+                let updateHospital=[];
+                console.log("-----------------------------------------");
                 if(bedType==="generalBeds"){
                     const bedTypeCount = parseInt(hospital.generalBeds)-1;
-                    updateHospital = await Hospital.findOneAndUpdate({_id: slug},{generalBeds: bedTypeCount, patients }, {new: true} )
+                    console.log("generalBeds", bedTypeCount);
+                    updateHospital = await Hospital.findOneAndUpdate({_id: slug},{generalBeds: bedTypeCount, patients }, {new: true} );
+                    console.log("updateHospital",updateHospital);
                 }
                 else if(bedType==="icuBeds"){
                     const bedTypeCount = parseInt(hospital.icuBeds)-1;
+                    console.log("icuBeds", bedTypeCount);
                     updateHospital = await Hospital.findOneAndUpdate({_id: slug},{icuBeds: bedTypeCount, patients }, {new: true} )
                 }
 
                 else if(bedType==="ventilatorBeds"){
                     const bedTypeCount = parseInt(hospital.ventilatorBeds)-1;
+                    console.log("ventilatorBeds", bedTypeCount);
                     updateHospital = await Hospital.findOneAndUpdate({_id: slug},{ventilatorBeds: bedTypeCount, patients }, {new: true} )
                 }
 
                 else if(bedType==="oxygenBeds"){
                     const bedTypeCount = parseInt(hospital.oxygenBeds)-1;
+                    console.log("oxygenBeds", bedTypeCount);
                     updateHospital = await Hospital.findOneAndUpdate({_id: slug},{oxygenBeds: bedTypeCount, patients }, {new: true} )
                 }
-                console.log("-----------------------------------------");
-                    console.log("hospital:", updateHospital);
+                console.log("after elseif");
+                console.log("hospital:", updateHospital);
                 if(updateHospital){
-                    
+                    console.log("if--->");
                     const user = await User.findOne({email});
                     console.log("user", user);
                     if(user){
@@ -476,7 +482,7 @@ exports.confirmPatient = async (req, res) => {
         const updateHospital = await Hospital.findOneAndUpdate( {email}, {patients}, {new: true} );
     
         if(updateHospital){
-            res.json("Patient Confirmed");
+            res.json(updateHospital);
         }else{
             res.json("Failed to confirm Patient");
         }

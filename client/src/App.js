@@ -65,6 +65,7 @@ const App = () => {
                   _id: res.data._id,
                   options: options,
                   uaoptions: uaoptions,
+                  slots: res.data.slots,
                   token: res.config.headers.idToken
               },
             });

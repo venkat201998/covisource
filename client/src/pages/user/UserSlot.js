@@ -1,17 +1,30 @@
-import { React, useEffect, useState } from "react";
+import { React } from "react";
 import { useSelector } from "react-redux";
-import { checkHospital, getUser } from "../../functions/auth";
 import UserSlotCard from '../../components/cards/UserSlotCard';
 
 const UserSlot = () => {
 
-    const { user } = useSelector((state) => ({...state}));
+    let detailsArr = [];
+    let hospitalDetails;
+    let patientDetails;
+    const { user, hospitals } = useSelector((state) => ({...state}));
+    const slots = user && user.slots;
+    slots && slots.map((slot) => {
+        hospitalDetails = hospitals && hospitals.find((h) => h.email === slot.hospitalEmail);
+        patientDetails = hospitalDetails && hospitalDetails.patients.find((p) => p.email === slot.patientEmail);
+        detailsArr.push({
+            hospital: hospitalDetails,
+            patient: patientDetails
+        })
+    })
+
+    const ActiveSlots = detailsArr && detailsArr.filter((d) => d.patient.status === "OnHold" || d.patient.status === "Admitted");
+
 
 
     return (
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
-                {/* <UserSlotCard hospital={hospital} patient={patient}/> */}
-
+                { ActiveSlots.length > 0 ? ActiveSlots.map((d) => <UserSlotCard hospital={d.hospital} patient={d.patient}/>) : <h3 className="text-center">No Active Slots</h3> }
             </div>
     );
 };

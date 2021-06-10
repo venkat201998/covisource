@@ -53,7 +53,8 @@ const UserDashboard = () => {
                         type: res.data.type,
                         _id: res.data._id,
                         options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
-                        token: res.config.headers.idToken
+                        slots: res.data.slots,
+                        token: res.config.headers.idToken    
                     },
                 });
         })
