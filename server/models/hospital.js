@@ -23,7 +23,6 @@ const HospitalSchema = new mongoose.Schema(
         
         patients:[
             {
-                bookedBy: String,
                 firstName: String,
                 lastName: String,
                 dob: String,

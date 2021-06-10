@@ -21,19 +21,9 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        currentSlot: 
+        slots: [
             {
-                hospitalId: String,
                 hospitalEmail: String,
-                patientId: String,
-                patientEmail: String
-            }
-        ,
-        bookedSlots: [
-            {
-                hospitalId: String,
-                hospitalEmail: String,
-                patientId: String,
                 patientEmail: String
             }
         ]

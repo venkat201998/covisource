@@ -103,6 +103,7 @@ const App = () => {
         <HospitalRoute exact path="/Hospital/ManagePatients/:slug" component={ UpdatePatient } />
         <HospitalRoute exact path="/Hospital/PatientsHistory/:slug" component={ UpdatePatient } />
         <UserRoute exact path="/User/:slug" component={ UserHome}/>
+        <UserRoute exact path="/User/SlotRegistration/:slug" component={ UserHome}/>
       </Switch>
     </>
   )

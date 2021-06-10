@@ -11,7 +11,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
         e.preventDefault();
         let answer = window.confirm("Confirm?");
         if(answer){
-            confirmPatient(user.email, patient._id, patient.bookedBy, user.token)
+            confirmPatient(patient.email, user.token)
             .then((res)=>{
                 if(res.data==="Patient Confirmed"){
                     toast.success(res.data);

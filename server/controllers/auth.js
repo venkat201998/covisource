@@ -140,53 +140,170 @@ exports.updateHospital = async(req, res) => {
     }
 }
 
-exports.registerPatient = async(req, res) => {
+exports.registerPatientFromHospital = async(req, res) => {
     try{
-        const email = req.body.hospitalEmail;
-        const hospital = await Hospital.findOne({email});
-        const patients = hospital.patients;
-        const checkPatient = patients.findIndex((patient)=> patient.email===(req.body.patientDetails.email));
-        console.log(checkPatient);
-        if(checkPatient>=0){
-            res.json("Patient Already registered with these details");
-        }
-        else{
-
-            patients.push(req.body.patientDetails);
-            console.log("Data from forntend:", req.body.patientDetails)
-
-            const bedType = req.body.patientDetails.bedType;
-            const updateHospital=[];
-            if(bedType==="generalBeds"){
-                const bedTypeCount = parseInt(hospital.generalBeds)-1;
-                updateHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} )
-            }
-            else if(bedType==="icuBeds"){
-                const bedTypeCount = parseInt(hospital.icuBeds)-1;
-                updateHospital = await Hospital.findOneAndUpdate({email},{icuBeds: bedTypeCount, patients }, {new: true} )
-            }
-
-            else if(bedType==="ventilatorBeds"){
-                const bedTypeCount = parseInt(hospital.ventilatorBeds)-1;
-                updateHospital = await Hospital.findOneAndUpdate({email},{ventilatorBeds: bedTypeCount, patients }, {new: true} )
-            }
-
-            else if(bedType==="oxygenBeds"){
-                const bedTypeCount = parseInt(hospital.oxygenBeds)-1;
-                updateHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} )
-            }
-
-            if(updateHospital){
-                res.json(updateHospital);
+        const patientEmail = req.body.patientDetails.email;
+        const user = await User.findOne({email: patientEmail});
+        
+        if(user){
+            const { email } = req.user;
+            const hospital = await Hospital.findOne({email});
+            const patients = hospital.patients;
+            const checkPatient = patients.findIndex((patient)=> patient.email===(patientEmail));
+            if(checkPatient>=0){
+                res.json("Patient Already registered with these details");
             }
             else{
-                res.json("Update Failed");
+
+                patients.push(req.body.patientDetails);
+
+                const bedType = req.body.patientDetails.bedType;
+                const updateHospital=[];
+                if(bedType==="generalBeds"){
+                    const bedTypeCount = parseInt(hospital.generalBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({email},{generalBeds: bedTypeCount, patients }, {new: true} )
+                }
+                else if(bedType==="icuBeds"){
+                    const bedTypeCount = parseInt(hospital.icuBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({email},{icuBeds: bedTypeCount, patients }, {new: true} )
+                }
+
+                else if(bedType==="ventilatorBeds"){
+                    const bedTypeCount = parseInt(hospital.ventilatorBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({email},{ventilatorBeds: bedTypeCount, patients }, {new: true} )
+                }
+
+                else if(bedType==="oxygenBeds"){
+                    const bedTypeCount = parseInt(hospital.oxygenBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({email},{oxygenBeds: bedTypeCount, patients }, {new: true} )
+                }
+
+                if(updateHospital){
+                    res.json(updateHospital);
+                }
+                else{
+                    res.json("Update Failed");
+                }
             }
+        }
+        else{
+            res.json("User Not Registered");
         }
 
     }
     catch(error){
         res.json(error);
+    }
+}
+
+exports.registerPatientFromUser = async(req, res) =>{
+    try{
+        const { patientDetails, slug } = req.body;
+        const { email } = req.user;
+
+        const hospital = await Hospital.findOne({_id: slug});
+        if(hospital){
+            const patients = hospital.patients;
+            const checkPatient = patients.findIndex((patient)=> patient.email===(patientDetails.email));
+            if(checkPatient>=0){
+                res.json("Patient Already registered with these details");
+            }
+            else{
+                patients.push(patientDetails);
+                const bedType = patientDetails.bedType;
+                const updateHospital=[];
+                if(bedType==="generalBeds"){
+                    const bedTypeCount = parseInt(hospital.generalBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({_id: slug},{generalBeds: bedTypeCount, patients }, {new: true} )
+                }
+                else if(bedType==="icuBeds"){
+                    const bedTypeCount = parseInt(hospital.icuBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({_id: slug},{icuBeds: bedTypeCount, patients }, {new: true} )
+                }
+
+                else if(bedType==="ventilatorBeds"){
+                    const bedTypeCount = parseInt(hospital.ventilatorBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({_id: slug},{ventilatorBeds: bedTypeCount, patients }, {new: true} )
+                }
+
+                else if(bedType==="oxygenBeds"){
+                    const bedTypeCount = parseInt(hospital.oxygenBeds)-1;
+                    updateHospital = await Hospital.findOneAndUpdate({_id: slug},{oxygenBeds: bedTypeCount, patients }, {new: true} )
+                }
+                console.log("-----------------------------------------");
+                    console.log("hospital:", updateHospital);
+                if(updateHospital){
+                    
+                    const user = await User.findOne({email});
+                    console.log("user", user);
+                    if(user){
+                        const slots = user.slots;
+                        console.log("Slots", slots);
+                        slots.push({
+                            hospitalEmail: updateHospital.email,
+                            patientEmail: patientDetails.email
+                        })
+                        console.log("updatedSlots", slots);
+                        const updateUser = await User.findOneAndUpdate({email}, {slots}, {new: true});
+                        console.log("updatedUser", updateUser);
+                        const updateHospitals = await Hospital.find();
+                        console.log("hospitals:", updateHospitals);
+                        console.log("-----------------------------------------");
+                        if(updateUser){
+                            res.json({
+                                user: updateUser,
+                                hospital: updateHospital,
+                                hospitals: updateHospitals
+                            })
+                        }
+                        else{
+                            res.json("Failed To Update User");
+                        }
+                    }
+                    else{
+                        res.json("User Not Registered");
+                    }
+                    
+                }
+                else{
+                    res.json("Failed To Update Hospital");
+                }
+            }
+        }
+        else{
+            res.json("Hospital Not Registered");
+        }
+    }
+    catch(error){
+        res.json(error)
+    }
+}
+
+exports.addSlotFromHospital = async(req, res) => {
+    try{
+        const { email } = req.user;
+        const { patientEmail } = req.body;
+
+        const user = await User.findOne({email: patientEmail});
+        if(user){
+            const slots = user.slots;
+            slots.push({
+                hospitalEmail: email,
+                patientEmail: patientEmail
+            })
+            const updatedUser = await User.findOneAndUpdate({email: patientEmail}, { slots }, {new: true});
+            if(updatedUser){
+                res.json(updatedUser);
+            }
+            else res.json("Failed to update");
+        }
+        else{
+            res.json("User Not Registered");
+        }
+
+
+    }catch(error){
+        res.json(error)
     }
 }
 
@@ -347,39 +464,18 @@ exports.updateUser = async (req, res) => {
 
 exports.confirmPatient = async (req, res) => {
     try{
-        const {email, patientId, bookedByEmail} = req.body;
+        const { patientEmail } = req.body;
+        const { email } = req.user;
         const hospital = await Hospital.findOne( {email} );
         const patients = hospital.patients;
 
-        const patientIndex = patients.findIndex((patient)=> patient._id == patientId);
+        const patientIndex = patients.findIndex((patient)=> patient.email === patientEmail);
         patients[patientIndex].status = "Admitted";
         patients[patientIndex].confirmedDate= Date.now();
 
         const updateHospital = await Hospital.findOneAndUpdate( {email}, {patients}, {new: true} );
-        
-        const user = await User.findOne({email: bookedByEmail});
-        const bookedSlots = user.bookedSlots;
-        const currentSlot = user.currentSlot;
-
-        bookedSlots.push({
-            hospitalId: hospital._id,
-            hospitalEmail: email,
-            patientId: patients[patientIndex]._id,
-            patientEmail: patients[patientIndex].email
-        });
-        console.log("bookedSlots:", bookedSlots);
-
-        currentSlot.hospitalId = hospital._id;
-        currentSlot.hospitalEmail = email;
-        currentSlot.patientId = patients[patientIndex]._id;
-        currentSlot.patientEmail = patients[patientIndex].email;
-        
-        console.log("currentSlot:", currentSlot);
-
-
-        const updateUser = await User.findOneAndUpdate({email: bookedByEmail}, { currentSlot, bookedSlots: bookedSlots }, {new: true});
-
-        if(updateHospital && updateUser){
+    
+        if(updateHospital){
             res.json("Patient Confirmed");
         }else{
             res.json("Failed to confirm Patient");

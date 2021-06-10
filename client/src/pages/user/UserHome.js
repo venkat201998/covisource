@@ -5,14 +5,15 @@ import UpdatePassword from '../../components/UpdatePassword';
 import UserSlot from './UserSlot';
 import SlotsHistory from './SlotsHistory';
 import UserDashboard from './UserDashboard';
-import RegisterPatientFromHospital from '../hospital/RegisterPatientFromHospital';
-
+import RegisterPatientFromUser from './RegisterPatientFromUser';
+import UserRoute from '../../components/routes/UserRoute';
 
 const UserHome = ({history}) => {
     const { user } = useSelector((state) => ({ ...state }));
     const [path, setPath] = useState("");
     
     useEffect(()=>{
+        console.log(history.location.pathname);
         setPath(history.location.pathname);
     },[history.location.pathname]);
 
@@ -28,8 +29,8 @@ const UserHome = ({history}) => {
                         { (path==='/User/Slot') && <UserSlot/> }
                         { (path==='/User/SlotsHistory') && <SlotsHistory/> }
                         { (path==='/User/UpdatePassword') && <UpdatePassword/> }
-                        { (path==='/User/SlotRegistration') && <RegisterPatientFromHospital/>}
-                        
+                        {/* { (path===`/User/SlotRegistration/Apollo`) && <RegisterPatientFromUser/>} */}
+                        <UserRoute exact path="/User/SlotRegistration/:slug" component={ RegisterPatientFromUser}/>
                         </div>
                     </div>
                 </div>

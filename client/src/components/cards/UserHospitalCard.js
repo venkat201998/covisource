@@ -3,14 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../modals/Modal';
 import { useHistory } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { checkHospital } from '../../functions/auth';
 
 
 const UserHospitalCard = ({ hospital }) => {
 
-    const { user, hospitals } = useSelector((state) => ({ ...state }));
+    const { user } = useSelector((state) => ({ ...state }));
     const history = useHistory();
-    const dispatch = useDispatch();
 
     const handleBookSlot = (e) =>{
         if(!user){
@@ -21,20 +19,7 @@ const UserHospitalCard = ({ hospital }) => {
             else toast.error("Failed to login");
         }
         else{
-            console.log(e.target.id);
-            checkHospital(e.target.id)
-            .then((res)=>{
-                if(res.data!=="Hospital not registered"){
-                    dispatch({
-                        type:'LOGIN',
-                        payload: res.data 
-                    })
-                }
-                else toast.error(res.data);
-            })
-            .catch((e) => console.log(e));
-            
-            history.push("/User/SlotRegistration");
+            history.push(`/User/SlotRegistration/${hospital._id}`);
 
         }
     }

@@ -73,12 +73,39 @@ export const updateHospital = async (hospitalDetails, idToken) => {
     )
 }
 
-export const registerPatient = async (patientDetails, hospitalEmail, idToken) => {
+export const registerPatientFromHospital = async (patientDetails, idToken) => {
     return axios.post(
-        `${process.env.REACT_APP_API}/register-patient`,
+        `${process.env.REACT_APP_API}/register-patient-from-hospital`,
+        {
+            patientDetails
+        },
+        {
+            headers:{
+                idToken
+            }
+        } 
+    )
+}
+export const registerPatientFromUser = async (patientDetails, slug, idToken) => {
+    return axios.post(
+        `${process.env.REACT_APP_API}/register-patient-from-user`,
         {
             patientDetails,
-            hospitalEmail
+            slug
+        },
+        {
+            headers:{
+                idToken
+            }
+        } 
+    )
+}
+
+export const addSlotFromHospital = async (patientEmail, idToken) =>{
+    return axios.post(
+        `${process.env.REACT_APP_API}/add-slot`,
+        {
+            patientEmail
         },
         {
             headers:{
@@ -179,14 +206,12 @@ export const updateUser = async (userDetails, idToken) => {
     )
 }
 
-export const confirmPatient = async (email, patientId, bookedByEmail, idToken) => {
+export const confirmPatient = async (patientEmail, idToken) => {
 
     return axios.post(
         `${process.env.REACT_APP_API}/confirm-patient`,
         {
-            email,
-            patientId,
-            bookedByEmail
+            patientEmail
         },
         {
             headers:{

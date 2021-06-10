@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import HospitalCities from './Json/HospitalCities.json';
-import HospitalStates from './Json/HospitalStates.json';
-import { registerPatientFromHospital, addSlotFromHospital } from '../../functions/auth';
+import HospitalCities from '../hospital/Json/HospitalCities.json';
+import HospitalStates from '../hospital/Json/HospitalStates.json';
+import { registerPatientFromUser, getHospitals } from '../../functions/auth';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-const RegisterPatientFromHospital = () =>{
+const RegisterPatientFromUser = () =>{
 
-    const { user, hospital } = useSelector((state) => ({ ...state }))
+    const { user } = useSelector((state) => ({ ...state }))
+    const { slug }  = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const [hospital, setHospital] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [dob, setDob] = useState("");
@@ -33,18 +35,22 @@ const RegisterPatientFromHospital = () =>{
     const [medicationList, setMedicationList] = useState("");
     const [medicationAllergies, setMedicationAllergies] = useState("");
     const [operationsList, setOperationsList] = useState("");
-    const [status, setStatus] = useState("Admitted");
+    const [status, setStatus] = useState("OnHold");
     const [bedType, setBedType] = useState("");
     let [healthIssuesChecked, setHealthIssuesChecked] = useState([]);
     let [covidSymptomsChecked, setCovidSymptomsChecked] = useState([]);
 
+    useEffect(()=>{
+        getHospitals()
+        .then((res)=>{
+            setHospital(res.data.find((r)=> r._id===slug));
+        })
+    },[user])
+
 
     const inputChecked= false;
     let healthIssues=[];
-    // let healthIssuesChecked=[];
     let covidSymptoms=[];
-    // let covidSymptomsChecked=[];
-    
     let citiesOptions = null;
 
     const healthList = [ "Anemia", "Asthma", "Arthritis", "Cancer", "Diabetes", "Epilepsy Seizures", "Gallstones", "Heart Disease", "Heart Attack", "Rheumatic Fever",
@@ -76,10 +82,6 @@ const RegisterPatientFromHospital = () =>{
                 healthIssuesChecked.push(e.target.value);
                 setHealthIssuesChecked(healthIssuesChecked);
             }
-            
-            // console.log(healthIssues);
-            // console.log(healthIssuesChecked);
-            // setHealthIssuesC(healthIssuesChecked);
         }
         else{
             if(covidSymptoms[e.target.value]===true){
@@ -97,10 +99,6 @@ const RegisterPatientFromHospital = () =>{
                 covidSymptomsChecked.push(e.target.value);
                 setCovidSymptomsChecked(covidSymptomsChecked);
             }
-            
-            // console.log(covidSymptoms);
-            // console.log(covidSymptomsChecked);
-            // setCovidSymptomsC(covidSymptomsChecked);
         }
     }
      
@@ -119,30 +117,14 @@ const RegisterPatientFromHospital = () =>{
                                 medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, status};
         let answer = window.confirm("Confirm Registration?");
         if(answer){
-            registerPatientFromHospital(patientDetails, user.token)
+            registerPatientFromUser(patientDetails, slug, user.token)
             .then((res)=> {
-                if(res.data!=="User Not Registered"){
-                    if(res.data!=="Patient Already registered with these details"){
-                        dispatch({
-                            type:'LOGIN',
-                            payload: res.data 
-                        })
-
-                        addSlotFromHospital(email, user.token)
-                        .then((res)=>{
-
-                        })
-                        .catch((e)=> console.log(e))
-                        toast.success("Patient Registered");
-                        resetData();
-                        history.push('Dashboard');
-                    }
-                    else{
-                        toast.error(res.data);
-                        history.push('ManagePatients');
-                    }
+                if(res.data==="Hospital Not Registered" || res.data==="Failed To Update Hospital" || res.data==="User Not Registered" || res.data==="Failed To Update User"){
+                    toast.error(res.data);
                 }
-                else toast.error(res.data);
+                else{
+                    console.log(res);
+                }
             })
             .catch((e)=> toast.error(e));
         }else{
@@ -540,4 +522,4 @@ const RegisterPatientFromHospital = () =>{
         </div>   
     )
 }
-export default RegisterPatientFromHospital;
+export default RegisterPatientFromUser;
