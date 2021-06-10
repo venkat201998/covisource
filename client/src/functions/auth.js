@@ -220,12 +220,13 @@ export const confirmPatient = async (patientEmail, idToken) => {
         }
     )
 }
-//used in UserSlot.js
-export const getUser = async (email, idToken) =>{
+
+export const rejectPatient = async (patientEmail, idToken) => {
+
     return axios.post(
-        `${process.env.REACT_APP_API}/get-user`,
+        `${process.env.REACT_APP_API}/reject-patient`,
         {
-            email
+            patientEmail
         },
         {
             headers:{

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import HospitalCities from '../hospital/Json/HospitalCities.json';
 import HospitalStates from '../hospital/Json/HospitalStates.json';
-import { registerPatientFromUser, getHospitals } from '../../functions/auth';
+import { registerPatientFromUser, getHospitals, currentUser } from '../../functions/auth';
 import { toast } from 'react-toastify';
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -41,10 +41,28 @@ const RegisterPatientFromUser = () =>{
     let [covidSymptomsChecked, setCovidSymptomsChecked] = useState([]);
 
     useEffect(()=>{
+
+        currentUser(user.token)
+        .then((res) => {
+            if(res.data!=="User not found"){
+                setFirstName(res.data.firstName);
+                setLastName(res.data.lastName);
+                setDob(res.data.dob);
+                setGender(res.data.gender);
+                setEmail(res.data.email);
+                setContact(res.data.contact);
+                setAddress(res.data.address);
+                setState(res.data.state);
+                setCity(res.data.city);
+                setPinCode(res.data.pinCode);
+            }
+        })
+
         getHospitals()
         .then((res)=>{
             setHospital(res.data.find((r)=> r._id===slug));
         })
+
     },[user])
 
 
@@ -111,15 +129,16 @@ const RegisterPatientFromUser = () =>{
     }
 
     const handleSubmit = (e) => {
+        const bookedBy = user.email;
         e.preventDefault();
-        const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
+        const patientDetails = { bookedBy, firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
                                 eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
                                 medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, status};
         let answer = window.confirm("Confirm Registration?");
         if(answer){
             registerPatientFromUser(patientDetails, slug, user.token)
             .then((res)=> {
-                if(res.data==="Hospital Not Registered" || res.data==="Failed To Update Hospital" || res.data==="User Not Registered" || res.data==="Failed To Update User"){
+                if(res.data==="Patient Already registered with these details" || res.data==="Hospital Not Registered" || res.data==="Failed To Update Hospital" || res.data==="User Not Registered" || res.data==="Failed To Update User"){
                     toast.error(res.data);
                 }
                 else{
@@ -187,7 +206,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="First Name"
                                 onChange={(e)=> setFirstName(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                         <div class="col-md-4 col-12 mb-3 mb-md-1">
@@ -200,7 +219,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="Last Name"
                                 onChange={(e)=> setLastName(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -216,7 +235,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="Date of Birth"
                                 onChange={(e)=> setDob(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -243,7 +262,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="Contact Number"
                                 onChange={(e)=> setContact(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -259,7 +278,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="example@example.com"
                                 onChange={(e)=> setEmail(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -275,7 +294,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="Street address"
                                 onChange={(e)=> setAddress(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -311,7 +330,7 @@ const RegisterPatientFromUser = () =>{
                                 maxLength="6"
                                 placeholder="Pin Code"
                                 onChange={(e) => setPinCode(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -346,7 +365,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="First Name"
                                 onChange={(e)=> setEFirstName(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                         <div class="col-md-4 col-12 mb-3 mb-md-1">
@@ -359,7 +378,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="Last Name"
                                 onChange={(e)=> setELastName(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -391,7 +410,7 @@ const RegisterPatientFromUser = () =>{
                                 required
                                 placeholder="Contact Number"
                                 onChange={(e)=> setEContact(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -430,7 +449,7 @@ const RegisterPatientFromUser = () =>{
                                 required  
                                 placeholder="Height (CM)"
                                 onChange={(e)=> setHeight(e.target.value)}
-                                autoFocus
+                                
                             />
                         </div>
                     </div>
@@ -540,7 +559,7 @@ const RegisterPatientFromUser = () =>{
                     </div>
                     <div className="form-group row justify-content-center">
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold">Submit</button>
+                                <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Submit</button>
                             </div>
                             <div className="col-lg-2 col-md-3 col-5">
                                 <button type="reset" className="btn btn-raised btn-outline-danger fw-bold">Reset</button>

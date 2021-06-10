@@ -62,8 +62,7 @@ const Register = ({history}) => {
 								className="form-control w-100"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								placeholder="abc@example.com"
-								autoFocus	
+								placeholder="abc@example.com"	
 							/>
 						</div>
 					</div>
@@ -71,7 +70,7 @@ const Register = ({history}) => {
 						<label htmlFor="userType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Type</label>
 						<div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
 							<select className="form-select w-50" id="userType" onChange={(e)=> setType(e.target.value)}>
-                <option value="select">Select Type</option>
+                <option value="">Select Type</option>
                 <option value="User">User</option>
                 <option value="Hospital">Hospital</option>
                 
@@ -80,7 +79,7 @@ const Register = ({history}) => {
 					</div>
           <div className="form-group row">
 						<div className="col-md-4 col-6 offset-md-3 text-start p-0">
-							<button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email || !type}>
+							<button className="btn btn-raised btn-outline-success fw-bold" type="submit" disabled={!email || !type}>
 								Register
 							</button>
 						</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { confirmPatient } from '../../functions/auth';
+import { confirmPatient, rejectPatient } from '../../functions/auth';
 
 const ConfirmPatientCard = ( {patient} ) =>{
 
@@ -14,24 +14,41 @@ const ConfirmPatientCard = ( {patient} ) =>{
         if(answer){
             confirmPatient(patient.email, user.token)
             .then((res)=>{
-                if(res.data!=="Failed to confirm Patient"){
+                if(res.data!=="Failed To Confirm Patient"){
                     dispatch({
                         type: "LOGIN",
                         payload: res.data
                     })
-                    toast.success(res.data);
+                    toast.success("Patient Admitted");
                 }
                 else toast.error(res.data);
             })
             .catch((e)=> console.log(e))
         }
         else{
-            toast.error("Failed To confirm");
+            toast.error("Failed To Confirm");
         }
     }
     
     const handleRejectPatient = (e) => {
-
+        e.preventDefault();
+        let answer = window.confirm("Confirm?");
+        if(answer){
+            rejectPatient(patient.email, user.token)
+            .then((res)=>{
+                if(res.data!=="Failed To Reject Patient"){
+                    dispatch({
+                        type: "LOGIN",
+                        payload: res.data
+                    })
+                    toast.success("Patient Rejected");
+                }
+                else toast.error(res.data);
+            })
+            .catch((e)=> console.log(e))
+        }else{
+            toast.error("Failed To Reject");
+        }
     }
 
     return(
@@ -77,7 +94,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
                 <div className="card-footer bg-dark">
                     <ul className="list-group flex-row justify-content-center">
                         <li className="list-group-item border-0 bg-transparent">
-                            <button className="btn btn-outline-warning text-dark fw-bold" type="submit">Confirm</button>
+                            <button className="btn btn-outline-success fw-bold" type="submit">Confirm</button>
                         </li>
                         <li className="list-group-item border-0 bg-transparent">
                             <button className="btn btn-outline-danger fw-bold" type="reset">Delete</button>

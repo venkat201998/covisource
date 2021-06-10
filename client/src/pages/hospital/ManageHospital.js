@@ -117,14 +117,16 @@ const ManageHospital = () =>{
                                     className="form-control w-100"  
                                     value={address}
                                     placeholder="Street"
+                                    required
+                                    autoFocus
                                     onChange={(e) => setAddress(e.target.value)}/>
                                 </div>
                         </div>
                         <div className="form-group my-xl-5 my-3 row">
                             <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                             <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
-                                    <option value="ss">Select State</option>
+                                <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" required autoFocus value={state} onChange={(e)=> setState(e.target.value) }>
+                                    <option value="">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                     
                                 </select>
@@ -133,8 +135,8 @@ const ManageHospital = () =>{
                         <div className="form-group my-xl-5 my-3 row">
                                 <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                                 <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                    <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
-                                        <option value="sc">Select City</option>
+                                    <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" required autoFocus value={city} onChange={(e)=> setCity(e.target.value) }>
+                                        <option value="">Select City</option>
                                         {citiesOptions}
                                     </select>
                                 </div>
@@ -149,6 +151,8 @@ const ManageHospital = () =>{
                                         className="form-control w-100"
                                         name={pinCode}  
                                         value={pinCode}
+                                        required
+                                        autoFocus
                                         pattern="[0-9]{6}" 
                                         maxLength="6"
                                         onChange={(e) => setPinCode(e.target.value)}/>
@@ -162,7 +166,9 @@ const ManageHospital = () =>{
                                     id="hospitalContact"
                                     className="form-control w-100"
                                     name="hospitalContact"
-                                    value={contact}  
+                                    value={contact} 
+                                    required
+                                    autoFocus 
                                     placeholder="Number"
                                     onChange={(e)=> setContact(e.target.value)}
                                     />
@@ -182,6 +188,8 @@ const ManageHospital = () =>{
                                         className="form-control w-100"  
                                         name="generalBeds"
                                         value={generalBeds}
+                                        required
+                                        autoFocus
                                         placeholder="No. of beds"
                                         onChange={(e)=> setGeneralBeds(e.target.value)} />
                                 </div>
@@ -194,6 +202,8 @@ const ManageHospital = () =>{
                                         className="form-control w-100"  
                                         name="icuBeds"
                                         value={icuBeds}
+                                        required
+                                        autoFocus
                                         placeholder="No. of beds"
                                         onChange={(e)=> setIcuBeds(e.target.value)} />
                                 </div>
@@ -207,6 +217,8 @@ const ManageHospital = () =>{
                                         className="form-control w-100"  
                                         name="ventilatorBeds"
                                         value={ventilatorBeds}
+                                        required
+                                        autoFocus
                                         placeholder="No. of beds"
                                         onChange={(e)=> setVentilatorBeds(e.target.value)} />
                                 </div>
@@ -219,6 +231,8 @@ const ManageHospital = () =>{
                                         className="form-control w-100"  
                                         name="oxygenBeds"
                                         value={oxygenBeds}
+                                        required
+                                        autoFocus
                                         placeholder="No. of beds"
                                         onChange={(e)=> setOxygenBeds(e.target.value)} />
                                 </div>
@@ -226,7 +240,7 @@ const ManageHospital = () =>{
 
                         <div className="form-group row justify-content-center">
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="submit" className="btn btn-raised btn-outline-warning">Update</button>
+                                <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Update</button>
                             </div>
                         </div>
                     </form>) : (<h3>Hospital Not Registered</h3>)}

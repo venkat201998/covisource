@@ -82,7 +82,7 @@ const UserHospitalCard = ({ hospital }) => {
             <div className="card-footer text-center bg-dark">
                 <ul className="list-group">
                     <li className="list-group-item border-0 bg-transparent">
-                    <button type="button" className="btn btn-outline-warning" id={hospital.email}
+                    <button type="button" className="btn btn-outline-success fw-bold" id={hospital.email}
                     // data-bs-toggle={user ? "modal" : ""} data-bs-target={user ? "#staticBackdrop" : ""} 
                     onClick={handleBookSlot}>
                         Book Slot

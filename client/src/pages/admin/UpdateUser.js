@@ -83,7 +83,6 @@ const UpdateUser = () =>{
                                                 required
                                                 placeholder="First Name"
                                                 onChange={(e)=> setFirstName(e.target.value)}
-                                                autoFocus
                                             />
                                         </div>
                                         <div class="col-md-4 col-12 mb-3 mb-md-1">
@@ -95,7 +94,6 @@ const UpdateUser = () =>{
                                                 required
                                                 placeholder="Last Name"
                                                 onChange={(e)=> setLastName(e.target.value)}
-                                                autoFocus
                                             />
                                         </div>
                                     </div>
@@ -110,15 +108,14 @@ const UpdateUser = () =>{
                                                 required
                                                 placeholder="Date of Birth"
                                                 onChange={(e)=> setDob(e.target.value)}
-                                                autoFocus
                                             />
                                         </div>
                                     </div>
                                     <div class="form-group my-xl-5 my-3 row">
                                         <label for="gender" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
                                         <div class="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select class="w-100 h-100 form-select" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
-                                                <option value="sg">Select Gender</option>
+                                            <select class="w-100 h-100 form-select" value={gender} aria-label="Default select example" required onChange={(e)=> setGender(e.target.value)}>
+                                                <option value="">Select Gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="NA">N/A</option>
@@ -136,7 +133,7 @@ const UpdateUser = () =>{
                                                 required
                                                 placeholder="Contact Number"
                                                 onChange={(e)=> setContact(e.target.value)}
-                                                autoFocus
+                                                
                                             />
                                         </div>
                                     </div>
@@ -161,6 +158,7 @@ const UpdateUser = () =>{
                                                 type="text" 
                                                 className="form-control w-100"  
                                                 value={address}
+                                                required 
                                                 placeholder="Street Address"
                                                 onChange={(e) => setAddress(e.target.value)}/>
                                             </div>
@@ -168,8 +166,8 @@ const UpdateUser = () =>{
                                     <div className="form-group my-xl-5 my-3 row">
                                         <label for="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                                         <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
-                                                <option value="ss">Select State</option>
+                                            <select className="w-100 h-100 form-select" aria-label="Default select example" value={state} required onChange={(e)=> setState(e.target.value) }>
+                                                <option value="">Select State</option>
                                                 { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                                 
                                             </select>
@@ -178,8 +176,8 @@ const UpdateUser = () =>{
                                     <div className="form-group my-xl-5 my-3 row">
                                             <label for="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                                             <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                                <select className="w-100 h-100 form-select" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
-                                                    <option value="sc">Select City</option>
+                                                <select className="w-100 h-100 form-select" aria-label="Default select example" value={city} required onChange={(e)=> setCity(e.target.value) }>
+                                                    <option value="">Select City</option>
                                                     {citiesOptions}
                                                 </select>
                                             </div>
@@ -193,6 +191,7 @@ const UpdateUser = () =>{
                                                     className="form-control w-100"
                                                     name={pinCode}  
                                                     value={pinCode}
+                                                    required
                                                     pattern="[0-9]{6}" 
                                                     maxLength="6"
                                                     placeholder="Pin Code"
@@ -202,7 +201,7 @@ const UpdateUser = () =>{
 
                                     <div className="form-group row justify-content-center">
                                         <div className="col-lg-2 col-md-3 col-5">
-                                            <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold">Update</button>
+                                            <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Update</button>
                                         </div>
                                     </div>
                                 </form>

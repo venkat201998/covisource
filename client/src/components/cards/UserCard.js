@@ -36,7 +36,7 @@ const UserCard = ({ user }) => {
             <div className="col-lg-2 col-12">
                 <ul className="list-group d-flex flex-row justify-content-center">
                     <li className="list-group-item border-0 bg-transparent">
-                        <button className="btn btn-outline-warning" type="submit">
+                        <button className="btn btn-outline-success" type="submit">
                           <Link className="text-dark fw-bold" to={`ManageUsers/${user._id}`}>View</Link>
                         </button>
                     </li>

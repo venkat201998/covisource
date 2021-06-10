@@ -113,8 +113,9 @@ const RegisterPatientFromHospital = () =>{
     }
 
     const handleSubmit = (e) => {
+        const bookedBy = user.email;
         e.preventDefault();
-        const patientDetails = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
+        const patientDetails = { bookedBy, firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
                                 eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
                                 medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, status};
         let answer = window.confirm("Confirm Registration?");
@@ -176,7 +177,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="First Name"
                                 onChange={(e)=> setFirstName(e.target.value)}
-                                autoFocus
                             />
                         </div>
                         <div class="col-md-4 col-12 mb-3 mb-md-1">
@@ -189,7 +189,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="Last Name"
                                 onChange={(e)=> setLastName(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
@@ -205,15 +204,14 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="Date of Birth"
                                 onChange={(e)=> setDob(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="gender" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
-                            <select class="w-100 h-100 form-select" id="gender" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
-                                <option value="sg">Select Gender</option>
+                            <select class="w-100 h-100 form-select" id="gender" value={gender} aria-label="Default select example" required onChange={(e)=> setGender(e.target.value)}>
+                                <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="NA">N/A</option>
@@ -232,7 +230,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="Contact Number"
                                 onChange={(e)=> setContact(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
@@ -248,7 +245,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="example@example.com"
                                 onChange={(e)=> setEmail(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
@@ -264,15 +260,14 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="Street address"
                                 onChange={(e)=> setAddress(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="state" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
-                                <select class="w-100 h-100 form-select" id="state" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
-                                    <option value="ss">Select State</option>
+                                <select class="w-100 h-100 form-select" id="state" aria-label="Default select example" required value={state} onChange={(e)=> setState(e.target.value) }>
+                                    <option value="">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                 </select>
                         </div>
@@ -280,8 +275,8 @@ const RegisterPatientFromHospital = () =>{
                     <div class="form-group my-xl-5 my-3 row">
                         <label htmlFor="city" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
-                                <select class="w-100 h-100 form-select" id="city" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
-                                    <option value="sc">Select City</option>
+                                <select class="w-100 h-100 form-select" id="city" aria-label="Default select example" required value={city} onChange={(e)=> setCity(e.target.value) }>
+                                    <option value="">Select City</option>
                                     {citiesOptions}
                                 </select>
                         </div>
@@ -300,15 +295,14 @@ const RegisterPatientFromHospital = () =>{
                                 maxLength="6"
                                 placeholder="Pin Code"
                                 onChange={(e) => setPinCode(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
                     <div className="form-group my-xl-5 my-3 row">
                         <label htmlFor="maritalStatus" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Marital Status</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
-                            <select class="w-100 h-100 form-select" id="maritalStatus" aria-label="Default select example" onChange={(e)=> setMaritalStatus(e.target.value) }>
-                                <option value="ss">Select status</option>
+                            <select class="w-100 h-100 form-select" id="maritalStatus" aria-label="Default select example" required onChange={(e)=> setMaritalStatus(e.target.value) }>
+                                <option value="">Select status</option>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
                                 <option value="divorced">Divorced</option>
@@ -335,7 +329,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="First Name"
                                 onChange={(e)=> setEFirstName(e.target.value)}
-                                autoFocus
                             />
                         </div>
                         <div class="col-md-4 col-12 mb-3 mb-md-1">
@@ -348,7 +341,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="Last Name"
                                 onChange={(e)=> setELastName(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
@@ -364,7 +356,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="Relationship"
                                 onChange={(e)=> setRelationship(e.target.value)}
-                                required
                             />
                         </div>
                     </div>
@@ -380,7 +371,6 @@ const RegisterPatientFromHospital = () =>{
                                 required
                                 placeholder="Contact Number"
                                 onChange={(e)=> setEContact(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
@@ -419,7 +409,6 @@ const RegisterPatientFromHospital = () =>{
                                 required  
                                 placeholder="Height (CM)"
                                 onChange={(e)=> setHeight(e.target.value)}
-                                autoFocus
                             />
                         </div>
                     </div>
@@ -428,10 +417,10 @@ const RegisterPatientFromHospital = () =>{
                             Are you currently taking any medication?
                         </label>
                         <div class="col-md-8 col-12 mt-0 mt-xl-3 text-start" id="medication">
-                            <input type="radio" name="medication" className="col-md-1 col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                            <input type="radio" name="medication" className="col-md-1 col-2" id="Yes" value="Yes" required onChange={(e)=> setMedicationStatus(e.target.value)}/>
                             <label htmlFor="Yes" className="col-md-2 col-10">Yes</label>
 
-                            <input type="radio" name="medication" className="col-md-1 col-2" id="No" value="No" onChange={(e)=> setMedicationStatus(e.target.value)}/>
+                            <input type="radio" name="medication" className="col-md-1 col-2" id="No" value="No" required onChange={(e)=> setMedicationStatus(e.target.value)}/>
                             <label htmlFor="No" className="col-md-2 col-10">No</label>
                         </div>
                     </div>
@@ -453,13 +442,13 @@ const RegisterPatientFromHospital = () =>{
                             Do you have any medication allergies
                         </label>
                         <div class="col-md-8 col-12 mt-0 mt-xl-3 text-start" id="allergies">
-                            <input type="radio" name="allergies" className="col-md-1 col-2" id="Yes" value="Yes" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <input type="radio" name="allergies" className="col-md-1 col-2" id="Yes" value="Yes" required onChange={(e)=> setMedicationAllergies(e.target.value)}/>
                             <label htmlFor="Yes" className="col-md-2 col-10">Yes</label>
 
-                            <input type="radio" name="allergies" className="col-md-1 col-2" id="No" value="No" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <input type="radio" name="allergies" className="col-md-1 col-2" id="No" value="No" required onChange={(e)=> setMedicationAllergies(e.target.value)}/>
                             <label htmlFor="No" className="col-md-2 col-10">No</label>
 
-                            <input type="radio" name="allergies" className="col-md-1 col-2" id="Not Sure" value="Not Sure" onChange={(e)=> setMedicationAllergies(e.target.value)}/>
+                            <input type="radio" name="allergies" className="col-md-1 col-2" id="Not Sure" value="Not Sure" required onChange={(e)=> setMedicationAllergies(e.target.value)}/>
                             <label htmlFor="Not Sure" className="col-md-3 col-10">Not sure</label>
                         </div>
                     </div>
@@ -518,8 +507,8 @@ const RegisterPatientFromHospital = () =>{
                     <div className="form-group my-xl-5 my-3 row">
                         <label htmlFor="bedType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Available Beds</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
-                            <select class="w-100 h-100 form-select" id="bedType" aria-label="Default select example" onChange={(e)=> setBedType(e.target.value) }>
-                                <option value="ss">Select Bed</option>
+                            <select class="w-100 h-100 form-select" id="bedType" aria-label="Default select example" required onChange={(e)=> setBedType(e.target.value) }>
+                                <option value="">Select Bed</option>
                                 {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Beds: {hospital.generalBeds}</option> : ""}
                                 {hospital && hospital.icuBeds > 0 ? <option value="icuBeds">ICU Beds: {hospital.icuBeds}</option> : ""}
                                 {hospital && hospital.ventilatorBeds > 0 ? <option value="ventilatorBeds">Ventilator Beds: {hospital.ventilatorBeds}</option> : ""}
@@ -529,7 +518,7 @@ const RegisterPatientFromHospital = () =>{
                     </div>
                     <div className="form-group row justify-content-center">
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold">Submit</button>
+                                <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Submit</button>
                             </div>
                             <div className="col-lg-2 col-md-3 col-5">
                                 <button type="reset" className="btn btn-raised btn-outline-danger fw-bold">Reset</button>

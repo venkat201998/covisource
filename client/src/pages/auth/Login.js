@@ -106,9 +106,9 @@ const Login = ({ history }) => {
                   type="email"
                   className="form-control w-100"
                   value={email}
+                  required
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="abc@example.com"
-                  autoFocus	
+                  placeholder="abc@example.com"	
                 />
               </div>
             </div>
@@ -120,6 +120,7 @@ const Login = ({ history }) => {
                   type="password"
                   className="form-control w-100"
                   value={password}
+                  required
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"	
                 />
@@ -129,7 +130,7 @@ const Login = ({ history }) => {
 
             <div className="form-group row">
               <div className="col-md-4 col-6 offset-md-3 text-start p-0">
-                <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email || password.length < 6}>
+                <button className="btn btn-raised btn-outline-success fw-bold" type="submit" disabled={!email || password.length < 6}>
                   Login
                 </button>
               </div>
