@@ -49,11 +49,11 @@ const Home = () => {
 
     const active = (id) => {
         if(id === "pin"){
-            document.getElementById("pin").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6 activeSearch";
-            document.getElementById("city").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6";
+            document.getElementById("pin").className = "btn btn-raised rounded-pill w-100 searchOption fs-6 activeSearch";
+            document.getElementById("city").className = "btn btn-raised rounded-pill w-100 searchOption fs-6";
         }else{
-            document.getElementById("pin").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6";
-            document.getElementById("city").className = "btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6 activeSearch";
+            document.getElementById("pin").className = "btn btn-raised rounded-pill w-100 searchOption fs-6";
+            document.getElementById("city").className = "btn btn-raised rounded-pill w-100 searchOption fs-6 activeSearch";
         }
 
     }
@@ -121,12 +121,12 @@ const Home = () => {
                     <img src={banner} className="banner" alt=""/>
                 </div>
                 <div class="row my-3 mx-md-2 justify-content-center">
-                    <div className="col-3">
-                        <div className="border border-dark rounded-pill d-flex flex-row h-100">
-                            <button type="button" id="pin" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6" onClick={(e)=>{ setState(""); setCity(""); setPinOption(true); setCityOption(false); active(e.target.id) }}>
+                    <div className="col-lg-3 col-md-5 col-8 p-0">
+                        <div className="border border-dark rounded-pill d-flex flex-row">
+                            <button type="button" id="pin" className="btn btn-raised rounded-pill w-100 searchOption fs-6" onClick={(e)=>{ setState(""); setCity(""); setPinOption(true); setCityOption(false); active(e.target.id) }}>
                                 Search by PIN
                             </button>
-                            <button type="button" id="city" className="btn btn-raised rounded-pill w-100 mx-auto searchOption fs-6" onClick={(e)=>{ setPinCode(""); setPinOption(false); setCityOption(true); active(e.target.id)}}>
+                            <button type="button" id="city" className="btn btn-raised rounded-pill w-100 searchOption fs-6" onClick={(e)=>{ setPinCode(""); setPinOption(false); setCityOption(true); active(e.target.id)}}>
                                 Search by City
                             </button>
                         </div>
@@ -135,7 +135,7 @@ const Home = () => {
                 <div className="row my-3 mx-md-2 justify-content-center">
                     {
                         pinOption && (
-                            <div className="col-3">
+                            <div className="col-md-3 col-8">
                                 <input 
                                     type="search"
                                     placeholder="pincode"
@@ -150,13 +150,13 @@ const Home = () => {
                     {
                         cityOption && (
                             <>
-                                <div className="col-3">
+                                <div className="col-md-3 col-8 my-1 my-lg-0">
                                     <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
                                         <option value="">Select State</option>
                                         { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                     </select>
                                 </div>
-                                <div className="col-3">
+                                <div className="col-md-3 col-8 my-1 my-lg-0">
                                     <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
                                         <option value="">Select City</option>
                                         {citiesOptions}

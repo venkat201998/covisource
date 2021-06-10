@@ -26,8 +26,8 @@ const UserHospitalCard = ({ hospital }) => {
 
   return (
       <div className="col-12 col-lg-6 p-4">
-        <form>
-          <div className="card shadow">
+        <form className="">
+          <div className="card container-fluid p-0 shadow">
             {/* <img src="" className="card-img-top" alt="..."/> */}
             <div className="card-body">
                 <ul className="list-group flex-row p-1">
@@ -63,18 +63,18 @@ const UserHospitalCard = ({ hospital }) => {
                     </li>
                 </ul>
                 <div className="row px-3 py-2">
-                    <div className="col-6 p-1 fs-6">
+                    <div className="col-md-6 col-12 p-1 fs-6">
                         <span className="fw-bold fs-6">General Beds:</span> {hospital.generalBeds}
                     </div>
-                    <div className="col-6 p-1 fs-6">
+                    <div className="col-md-6 col-12 p-1 fs-6">
                         <span className="fw-bold fs-6">ICU Beds:</span> {hospital.icuBeds}
                     </div>
                 </div>
                 <div className="row px-3">
-                    <div className="col-6 p-1 fs-6">
+                    <div className="col-md-6 col-12 p-1 fs-6">
                         <span className="fw-bold fs-6">Ventilator Beds:</span> {hospital.ventilatorBeds}
                     </div>
-                    <div className="col-6 p-1 fs-6">
+                    <div className="col-md-6 col-12 p-1 fs-6">
                         <span className="fw-bold fs-6">Oxygen Beds:</span> {hospital.oxygenBeds}
                     </div>
                 </div>

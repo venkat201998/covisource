@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import SideNav from '../../components/sideNav/SideNav';
+import Trigger from '../../components/triggger/Trigger';
 import UpdatePassword from '../../components/UpdatePassword';
 import UserSlot from './UserSlot';
 import SlotsHistory from './SlotsHistory';
@@ -18,6 +19,8 @@ const UserHome = ({history}) => {
     },[history.location.pathname]);
 
     return(
+        <>
+        <Trigger/>
         <div className="container-fluid mt-5 px-md-5">
                 <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
@@ -34,6 +37,7 @@ const UserHome = ({history}) => {
                     </div>
                 </div>
         </div>
+        </>
     )
 }
 
