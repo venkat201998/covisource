@@ -8,14 +8,25 @@ import SlotsHistory from './SlotsHistory';
 import UserDashboard from './UserDashboard';
 import RegisterPatientFromUser from './RegisterPatientFromUser';
 import UserRoute from '../../components/routes/UserRoute';
+import { useDispatch } from 'react-redux';
+import { getHospitals } from '../../functions/auth';
+import { toast } from 'react-toastify';
 
 const UserHome = ({history}) => {
     const { user } = useSelector((state) => ({ ...state }));
     const [path, setPath] = useState("");
+    const dispatch = useDispatch();
     
     useEffect(()=>{
-        console.log(history.location.pathname);
         setPath(history.location.pathname);
+        getHospitals()
+        .then((res) => {
+            dispatch({
+                type: "ACTIVE_HOSPITALS",
+                payload: res.data
+            })
+        })
+        .catch((err) => toast.error(err));
     },[history.location.pathname]);
 
     return(

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -12,22 +12,44 @@ const UpdateHospital = () =>{
     const { slug } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
-    let hospital = hospitals && hospitals.find((hospital) => hospital._id === slug);
+    // let hospital = hospitals && hospitals.find((hospital) => hospital._id === slug);
+    
     
     let citiesOptions = null;
 
-    const [hospitalName, setHospitalName] = useState(hospital && hospital.hospitalName);
-    const [address, setAddress] = useState(hospital && hospital.streetAddress);
-    const [state, setState] = useState(hospital && hospital.state);
-    const [city, setCity] = useState(hospital && hospital.city);
-    const [pinCode, setPinCode] = useState(hospital && hospital.pinCode);
-    const [contact, setContact] = useState(hospital && hospital.contact);
-    const [email, setEmail] = useState(hospital && hospital.email);
-    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.generalBeds);
-    const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
-    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
-    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
-    const [status, setStatus] = useState(hospital && hospital.status);
+    let hospital=[];
+    const [hospitalName, setHospitalName] = useState();
+    const [address, setAddress] = useState();
+    const [state, setState] = useState();
+    const [city, setCity] = useState();
+    const [pinCode, setPinCode] = useState();
+    const [contact, setContact] = useState();
+    const [email, setEmail] = useState();
+    const [generalBeds, setGeneralBeds] = useState();
+    const [icuBeds, setIcuBeds] = useState();
+    const [ventilatorBeds, setVentilatorBeds] = useState();
+    const [oxygenBeds, setOxygenBeds] = useState();
+    const [status, setStatus] = useState();
+
+    useEffect(() => {
+        getHospitals()
+        .then((res)=>{
+            hospital = res.data.find((r)=> r._id===slug);
+            setHospitalName(hospital && hospital.hospitalName);
+            setAddress(hospital && hospital.streetAddress);
+            setState(hospital && hospital.state);
+            setCity(hospital && hospital.city);
+            setPinCode(hospital && hospital.pinCode);
+            setContact(hospital && hospital.contact);
+            setEmail(hospital && hospital.email);
+            setGeneralBeds(hospital && hospital.generalBeds);
+            setIcuBeds(hospital && hospital.icuBeds);
+            setVentilatorBeds(hospital && hospital.ventilatorBeds);
+            setOxygenBeds(hospital && hospital.oxygenBeds);
+            setStatus(hospital && hospital.status);
+
+        })
+    })
     
     HospitalCities.map((item)=>{
             if(item.state===state)

@@ -1,32 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import HospitalCities from '../hospital/Json/HospitalCities.json';
 import HospitalStates from '../hospital/Json/HospitalStates.json';
 import SideNav from '../../components/sideNav/SideNav';
-import { updateUser } from '../../functions/auth';
+import { getUsers, updateUser } from '../../functions/auth';
 
 const UpdateUser = () =>{
     const { users, user } = useSelector((state) => ({...state}));
     const { slug } = useParams();
     const dispatch = useDispatch();
 
-    const u = users && users.find((u) => u._id === slug);
+    // const u = users && users.find((u) => u._id === slug);
 
     let citiesOptions = null;
 
-    const [firstName, setFirstName] = useState(u && u.firstName);
-    const [lastName, setLastName] = useState(u && u.lastName);
-    const [dob, setDob] = useState(u && u.dob);
-    const [gender, setGender] = useState(u && u.gender);
-    const [email, setEmail] = useState(u && u.email);
-    const [contact, setContact] = useState(u && u.contact);
-    const [address, setAddress] = useState(u && u.address);
-    const [state, setState] = useState(u && u.state);
-    const [city, setCity] = useState(u && u.city);
-    const [pinCode, setPinCode] = useState(u && u.pinCode);
-    const [userType, setUserType] = useState(u && u.type);
+    let User={};
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [dob, setDob] = useState();
+    const [gender, setGender] = useState();
+    const [email, setEmail] = useState();
+    const [contact, setContact] = useState();
+    const [address, setAddress] = useState();
+    const [state, setState] = useState();
+    const [city, setCity] = useState();
+    const [pinCode, setPinCode] = useState();
+    const [userType, setUserType] = useState();
+
+    const autoPopulate = () =>{
+        setFirstName(User && User.firstName);
+        setLastName(User && User.lastName);
+        setDob(User && User.dob);
+        setGender(User && User.gender);
+        setEmail(User && User.email);
+        setContact(User && User.contact);
+        setAddress(User && User.address);
+        setState(User && User.state);
+        setCity(User && User.city);
+        setPinCode(User && User.pinCode);
+        setUserType(User && User.type);
+    }
+
+    useEffect(() => {
+        getUsers(user.token)
+        .then((res) => {
+            if(res.data !== "No User Found"){
+                User = res.data.find((user) => user._id === slug);
+                autoPopulate();
+            }
+        })
+    },[user])
     
 
     

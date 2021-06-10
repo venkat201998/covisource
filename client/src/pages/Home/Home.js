@@ -77,7 +77,7 @@ const Home = () => {
                                     </div>
                                     <div className="col-8">
                                         <h6 className="fw-bold fs-6">Number</h6>
-                                        <h6 className="contacts">9700960964</h6>
+                                        <h6 className="contacts">8106105731</h6>
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@ const Home = () => {
                                     </div>
                                     <div className="col-8">
                                         <h6 className="fw-bold fs-6">Health Ministry</h6>
-                                        <h6 className="contacts">9700960964</h6>
+                                        <h6 className="contacts">1075</h6>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@ const Home = () => {
                                     </div>
                                     <div className="col-8">
                                         <h6 className="fw-bold fs-6">Child</h6>
-                                        <h6 className="contacts">9700960964</h6>
+                                        <h6 className="contacts">1098</h6>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@ const Home = () => {
                                     </div>
                                     <div className="col-8">
                                         <h6 className="fw-bold fs-6">Mental Health</h6>
-                                        <h6 className="contacts">9700960964</h6>
+                                        <h6 className="contacts">08046110007</h6>
                                     </div>
                                 </div>
                             </div>
