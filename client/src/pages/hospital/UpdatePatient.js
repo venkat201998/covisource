@@ -32,6 +32,7 @@ const UpdatePatient = () =>{
     const [eLastName, setELastName] = useState();
     const [relationship, setRelationship] = useState();
     const [eContact, setEContact] = useState();
+    const [bedType, setBedType] = useState();
     const [status, setStatus] = useState();
     const [comments, setComments] = useState();
     const [patientStatus, setPatientStatus] = useState();
@@ -59,6 +60,7 @@ const UpdatePatient = () =>{
                 setELastName(patientDetails.eLastName);
                 setRelationship(patientDetails.relationship);
                 setEContact(patientDetails.eContact);
+                setBedType(patientDetails.bedType);
                 setPatientStatus(patientDetails.status);
             }
             else toast.error(res.data);
@@ -261,6 +263,7 @@ const UpdatePatient = () =>{
                                                 className="form-control w-100"  
                                                 name="EcfirstName"
                                                 value={eFirstName}
+                                                required
                                                 placeholder="First Name"
                                                 onChange={(e)=> setEFirstName(e.target.value)}
                                             />
@@ -272,6 +275,7 @@ const UpdatePatient = () =>{
                                                 className="form-control w-100"  
                                                 name="EclastName"
                                                 value={eLastName}
+                                                required
                                                 placeholder="Last Name"
                                                 onChange={(e)=> setELastName(e.target.value)}
                                             />
@@ -286,6 +290,7 @@ const UpdatePatient = () =>{
                                                 className="form-control w-100"  
                                                 name="relationship"
                                                 value={relationship}
+                                                required
                                                 onChange={(e)=> setRelationship(e.target.value)}
                                             />
                                         </div>
@@ -299,6 +304,7 @@ const UpdatePatient = () =>{
                                                 className="form-control w-100"  
                                                 name="EContactNumber"
                                                 value={eContact}
+                                                required
                                                 placeholder="Contact"
                                                 onChange={(e)=> setEContact(e.target.value)}
                                             />
@@ -310,10 +316,25 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                                     <div className="form-group my-xl-5 my-3 row">
+                                        <label htmlFor="bedType" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Bed Type</label>
+                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
+                                            <input 
+                                                id="bedType"
+                                                type="text" 
+                                                className="form-control w-100"  
+                                                name="bedType"
+                                                value={bedType}
+                                                required
+                                                placeholder="Contact"
+                                                disabled
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="form-group my-xl-5 my-3 row">
                                         <label htmlFor="patientStatus" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Update Status</label>
                                         <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select id="patientStatus" className="w-100 form-select" aria-label="Default select example" onChange={(e)=> setStatus(e.target.value)}>
-                                                <option value="ss">Select status</option>
+                                            <select id="patientStatus" className="w-100 form-select" aria-label="Default select example" required onChange={(e)=> setStatus(e.target.value)}>
+                                                <option value="">Select status</option>
                                                 {patientStatus && patientStatus==="Admitted" ? 
                                                 <><option value="Discharged">Discharged</option>
                                                 <option value="Deceased">Deceased</option></> : <option value="Admitted">Admit</option>}
@@ -328,7 +349,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group row justify-content-center">
                                         <div className="col-lg-2 col-md-3 col-5">
-                                            <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold w-100 mx-auto">Update</button>
+                                            <button type="submit" className="btn btn-raised btn-outline-success fw-bold w-100 mx-auto">Update</button>
                                         </div>
                                     </div>
                         

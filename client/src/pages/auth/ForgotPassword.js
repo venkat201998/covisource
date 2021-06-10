@@ -57,7 +57,7 @@ const ForgotPassword = ({ history }) => {
 
             <div className="form-group row">
               <div className="col-md-5 col-6 offset-md-3 text-start p-0">
-                <button className="btn btn-raised btn-outline-primary" type="submit" disabled={!email}>
+                <button className="btn btn-raised btn-outline-success fw-bold" type="submit" disabled={!email}>
                   Reset Password
                 </button>
               </div>

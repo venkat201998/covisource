@@ -175,6 +175,9 @@ const Home = () => {
                         {
                             cityOption && hospitals && hospitals.filter(searchCity(city)).map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>)
                         }
+                        {
+                            (!pinOption && !cityOption) && (hospitals && hospitals.map((hospital)=> <UserHospitalCard key={hospital._id} hospital={hospital}/>))
+                        }
                     </div>
                 </div>
             </div>

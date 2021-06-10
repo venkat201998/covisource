@@ -11,7 +11,7 @@ const UserSlot = () => {
     const slots = user && user.slots;
     slots && slots.map((slot) => {
         hospitalDetails = hospitals && hospitals.find((h) => h.email === slot.hospitalEmail);
-        patientDetails = (hospitalDetails && hospitalDetails.patients) && hospitalDetails.patients.find((p) => p.email === slot.patientEmail);
+        patientDetails = (hospitalDetails && hospitalDetails.patients) && (hospitalDetails.patients.find((p) => p.email === slot.patientEmail));
         detailsArr.push({
             hospital: hospitalDetails,
             patient: patientDetails

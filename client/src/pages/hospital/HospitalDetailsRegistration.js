@@ -98,7 +98,6 @@ const HospitalDetailsRegistration = () =>{
                                     value={hospitalName}
                                     placeholder="Hospital Name"
                                     onChange={(e) => setHospitalName(e.target.value)}
-                                    autoFocus
                                 />
                             </div>
                         </div>
@@ -117,8 +116,8 @@ const HospitalDetailsRegistration = () =>{
                         <div className="form-group my-xl-5 my-3 row">
                             <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                             <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                <select className="h-100 form-select" id="state" aria-label="Default select example" onChange={(e)=> setState(e.target.value) }>
-                                    <option value="ss">Select State</option>
+                                <select className="h-100 form-select" id="state" aria-label="Default select example" required onChange={(e)=> setState(e.target.value) }>
+                                    <option value="">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                     
                                 </select>
@@ -127,8 +126,8 @@ const HospitalDetailsRegistration = () =>{
                         <div className="form-group my-xl-5 my-3 row">
                                 <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                                 <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                    <select className="h-100 form-select" id="city" aria-label="Default select example" onChange={(e)=> setCity(e.target.value) }>
-                                        <option value="sc">Select City</option>
+                                    <select className="h-100 form-select" id="city" aria-label="Default select example" required onChange={(e)=> setCity(e.target.value) }>
+                                        <option value="">Select City</option>
                                         {citiesOptions}
                                     </select>
                                 </div>
@@ -144,6 +143,7 @@ const HospitalDetailsRegistration = () =>{
                                         className="form-control"
                                         name={pinCode}  
                                         value={pinCode}
+                                        required
                                         pattern="[0-9]{6}" 
                                         maxLength="6"
                                         placeholder="Pin Code"
@@ -158,7 +158,8 @@ const HospitalDetailsRegistration = () =>{
                                     type="tel" 
                                     className="form-control"
                                     name="hospitalContact"
-                                    value={contact}  
+                                    value={contact}
+                                    required
                                     placeholder="Number"
                                     onChange={(e)=> setContact(e.target.value)}
                                     />
@@ -173,7 +174,8 @@ const HospitalDetailsRegistration = () =>{
                                     type="email" 
                                     className="form-control"
                                     name="hospitalEmail"
-                                    value= {email}  
+                                    value= {email}
+                                    required
                                     placeholder="Email"
                                     onChange={(e)=> setEmail(e.target.value)}
                                     />
@@ -207,6 +209,7 @@ const HospitalDetailsRegistration = () =>{
                                         className="form-control"  
                                         name="generalBeds"
                                         value={generalBeds}
+                                        required
                                         placeholder="General Beds"
                                         onChange={(e)=> setGeneralBeds(e.target.value)} />
                                 </div>
@@ -219,6 +222,7 @@ const HospitalDetailsRegistration = () =>{
                                         className="form-control"  
                                         name="icuBeds"
                                         value={icuBeds}
+                                        required
                                         placeholder="ICU Beds"
                                         onChange={(e)=> setIcuBeds(e.target.value)} />
                                 </div>
@@ -232,6 +236,7 @@ const HospitalDetailsRegistration = () =>{
                                         className="form-control"  
                                         name="ventilatorBeds"
                                         value={ventilatorBeds}
+                                        required
                                         placeholder="Ventilator Beds"
                                         onChange={(e)=> setVentilatorBeds(e.target.value)} />
                                 </div>
@@ -244,6 +249,7 @@ const HospitalDetailsRegistration = () =>{
                                         className="form-control"  
                                         name="oxygenBeds"
                                         value={oxygenBeds}
+                                        required
                                         placeholder="Oxygen Beds"
                                         onChange={(e)=> setOxygenBeds(e.target.value)} />
                                 </div>
@@ -251,7 +257,7 @@ const HospitalDetailsRegistration = () =>{
 
                         <div className="form-group row justify-content-center">
                             <div className="col-lg-2 col-md-3 col-5">
-                                <button type="submit" className="btn btn-raised btn-outline-warning text-dark fw-bold">Submit</button>
+                                <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Submit</button>
                             </div>
                             <div className="col-lg-2 col-md-3 col-5">
                                 <button type="reset" className="btn btn-raised btn-outline-danger fw-bold">Reset</button>

@@ -121,7 +121,7 @@ const UpdatePassword = () => {
                     </div>
                     <div className="form-group row p-0">
                         <div className="col-lg-4 col-10 offset-lg-3 text-start p-0">
-                            <button className="btn btn-raised btn-outline-warning text-dark fw-bold" type="submit" disabled={!email || password.length < 6}>
+                            <button className="btn btn-raised btn-outline-success fw-bold" type="submit" disabled={!email || password.length < 6}>
                                 Update Password
                             </button>
                         </div>
