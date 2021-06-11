@@ -101,11 +101,12 @@ export const registerPatientFromUser = async (patientDetails, slug, idToken) => 
     )
 }
 
-export const addSlotFromHospital = async (patientEmail, idToken) =>{
+export const addSlotFromHospital = async (patientEmail, patientStatus, idToken) =>{
     return axios.post(
         `${process.env.REACT_APP_API}/add-slot`,
         {
-            patientEmail
+            patientEmail,
+            patientStatus
         },
         {
             headers:{
@@ -206,12 +207,13 @@ export const updateUser = async (userDetails, idToken) => {
     )
 }
 
-export const confirmPatient = async (patientEmail, idToken) => {
+export const confirmPatient = async (patientEmail, bookedBy, idToken) => {
 
     return axios.post(
         `${process.env.REACT_APP_API}/confirm-patient`,
         {
-            patientEmail
+            patientEmail,
+            bookedBy
         },
         {
             headers:{
@@ -221,12 +223,30 @@ export const confirmPatient = async (patientEmail, idToken) => {
     )
 }
 
-export const rejectPatient = async (patientEmail, idToken) => {
+export const rejectPatient = async (patientEmail, bookedBy, idToken) => {
 
     return axios.post(
         `${process.env.REACT_APP_API}/reject-patient`,
         {
-            patientEmail
+            patientEmail,
+            bookedBy
+        },
+        {
+            headers:{
+                idToken
+            }
+        }
+    )
+}
+
+export const UpdateSlotStatus = async ( patientEmail,bedType, hospitalEmail, idToken) => {
+
+    return axios.post(
+        `${process.env.REACT_APP_API}/update-slot-status`,
+        {
+            patientEmail,
+            bedType,
+            hospitalEmail
         },
         {
             headers:{

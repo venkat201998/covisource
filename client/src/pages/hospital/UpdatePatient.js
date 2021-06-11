@@ -79,7 +79,7 @@ const UpdatePatient = () =>{
                 if(res.data!== "Update failed"){
                     dispatch({
                         type:'LOGIN',
-                        payload: res.data 
+                        payload: res.data.hospital 
                     })
                     toast.success("Patient updated");
                 }
@@ -349,7 +349,7 @@ const UpdatePatient = () =>{
                                     </div>
                                     <div className="form-group row justify-content-center">
                                         <div className="col-lg-2 col-md-3 col-5">
-                                            <button type="submit" className="btn btn-raised btn-outline-success fw-bold w-100 mx-auto">Update</button>
+                                            <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Update</button>
                                         </div>
                                     </div>
                         

@@ -26,9 +26,13 @@ const PatientCard = ({ patient, type }) => {
                     <span className="fw-bold">Admitted Date: </span> {patient.createdDate }
                 </li>
                 <li className="list-group-item border-0 bg-transparent">
+                    <span className="fw-bold">BookedBy: </span> {patient.bookedBy }
+                </li>
+                <li className="list-group-item border-0 bg-transparent">
                     {type && type!=="ManagePatients" ? (<p><span className="fw-bold"> {patient && patient.status} Date: </span> <span>{patient && patient.updatedDate}</span></p>)  : "" }
                 </li>
               </ul>
+              
             </div>
             <div className="col-lg-2 col-12">
                 <ul className="list-group d-flex flex-row justify-content-center">

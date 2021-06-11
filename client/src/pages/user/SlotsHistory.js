@@ -17,22 +17,22 @@ const SlotsHistory = () => {
         patientDetails = (hospitalDetails && hospitalDetails.patients) && (hospitalDetails.patients.find((p) => p.email === slot.patientEmail));
         detailsArr.push({
             hospital: hospitalDetails,
-            patient: patientDetails
+            patient: patientDetails,
+            status: slot.slotStatus
         })
         
     })
-        HistorySlots = detailsArr && detailsArr.filter((d) => (d && d.patient) && (d.patient.status === "Discharged" || d.patient.status === "Deceased" || d.patient.status === "Rejected"));
+        HistorySlots = detailsArr && detailsArr.filter((d) => d && (d.status === "Discharged" || d.status === "Deceased" || d.status === "Rejected"));
     }
     
     useEffect(() =>{
         data();
-    },[user])
+    },[user, hospitals])
     data();
     
 
     return (
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
-                {console.log(HistorySlots)}
                 { HistorySlots.length > 0 ? HistorySlots.map((d) => <UserSlotCard hospital={d.hospital} patient={d.patient}/>): <h3 className="text-center">No Slots History</h3> }
             </div>
     );

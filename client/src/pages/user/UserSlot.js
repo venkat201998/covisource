@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useEffect } from "react";
 import { useSelector } from "react-redux";
 import UserSlotCard from '../../components/cards/UserSlotCard';
 
@@ -7,19 +7,28 @@ const UserSlot = () => {
     let detailsArr = [];
     let hospitalDetails;
     let patientDetails;
+    let ActiveSlots =[];
     const { user, hospitals } = useSelector((state) => ({...state}));
-    const slots = user && user.slots;
-    slots && slots.map((slot) => {
-        hospitalDetails = hospitals && hospitals.find((h) => h.email === slot.hospitalEmail);
-        patientDetails = (hospitalDetails && hospitalDetails.patients) && (hospitalDetails.patients.find((p) => p.email === slot.patientEmail));
-        detailsArr.push({
-            hospital: hospitalDetails,
-            patient: patientDetails
+
+    const data = () =>{
+        const slots = user && user.slots;
+        slots && slots.map((slot) => {
+            hospitalDetails = hospitals && hospitals.find((h) => h.email === slot.hospitalEmail);
+            patientDetails = (hospitalDetails && hospitalDetails.patients) && (hospitalDetails.patients.find((p) => p.email === slot.patientEmail));
+            detailsArr.push({
+                hospital: hospitalDetails,
+                patient: patientDetails,
+                status: slot.slotStatus
+            })
         })
-    })
 
-    const ActiveSlots = detailsArr && detailsArr.filter((d) => (d && d.patient) && (d.patient.status === "OnHold" || d.patient.status === "Admitted"));
+        ActiveSlots = detailsArr && detailsArr.filter((d) => d && (d.status === "OnHold" || d.status === "Admitted"));
+    }
 
+    useEffect(() =>{
+        data();
+    },[user, hospitals])
+    data();
 
 
     return (

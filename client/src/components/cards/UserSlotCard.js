@@ -1,6 +1,56 @@
-import React from 'react';
+import { React, useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
+import { UpdateSlotStatus } from '../../functions/auth';
 
 const UserSlotCard = ({hospital, patient}) =>{
+
+    const { user } = useSelector((state) => ({...state}));
+    const dispatch = useDispatch();
+
+    const [bedType, setBedType] = useState("");
+
+    const submit = () =>{
+        let answer = window.confirm("Confirm Update?");
+        if(answer){
+            UpdateSlotStatus(patient.email, bedType, hospital.email, user.token)
+            .then((res)=>{
+                if(res.data!=="Failed To Update Slot"){
+                    console.log(res.data);
+                    dispatch({
+                        type: "LOGGED_IN_USER",
+                        payload: {
+                            firstName: res.data.user.firstName,
+                            lastName: res.data.user.lastName,
+                            dob: res.data.user.dob,
+                            gender:res.data.user.gender,
+                            email:res.data.user.email,
+                            contact: res.data.user.contact,
+                            address: res.data.user.address,
+                            state: res.data.user.state,
+                            city:res.data.user.city,
+                            pinCode: res.data.user.pinCode,      
+                            type: res.data.user.type,
+                            _id: res.data.user._id,
+                            options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
+                            slots: res.data.user.slots,
+                            token: res.config.headers.idToken
+                        }
+                    });
+                    dispatch({
+                        type: "ACTIVE_HOSPITALS",
+                        payload: res.data.hospitals
+                    })
+                    toast.success("Patient on hold to be admitted");
+                }
+                else toast.error(res.data);
+            })
+            .catch((e) => console.log(e));
+        }
+        else{
+            toast.error("Failed To Update Slot");
+        }
+    }
 
     return(
         <div className="col-12 p-lg-4 my-4 shadow">
@@ -90,6 +140,27 @@ const UserSlotCard = ({hospital, patient}) =>{
                             <div><i class="fa fa-clock"></i> <span>{patient && patient.updatedDate}</span></div>
                         </div>
                     </div>
+                    { (patient && (patient.status!=="OnHold" && patient.status!=="Admitted")) &&
+                        <>
+                            <div className="form-group my-xl-5 my-3 row">
+                                <label htmlFor="bedType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Available Beds</label>
+                                <div class="col-md-8 col-12 mb-3 mb-md-1">
+                                    <select class="w-100 h-100 form-select" id="bedType" aria-label="Default select example" required onChange={(e)=> setBedType(e.target.value) }>
+                                        <option value="">Select Bed</option>
+                                        {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Beds: {hospital.generalBeds}</option> : ""}
+                                        {hospital && hospital.icuBeds > 0 ? <option value="icuBeds">ICU Beds: {hospital.icuBeds}</option> : ""}
+                                        {hospital && hospital.ventilatorBeds > 0 ? <option value="ventilatorBeds">Ventilator Beds: {hospital.ventilatorBeds}</option> : ""}
+                                        {hospital && hospital.oxygenBeds > 0 ? <option value="oxygenBeds">Oxygen Beds: {hospital.oxygenBeds}</option> : ""}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="row mx-auto py-3 justify-content-center">
+                                <div className="col-lg-2 col-md-3 col-5">
+                                    <button type="button" className="btn btn-raised btn-outline-success fw-bold" disabled={!bedType} onClick={submit}>Admit Again</button>
+                                </div>
+                            </div>
+                        </>
+                    }
                 </div>
         </div>
 

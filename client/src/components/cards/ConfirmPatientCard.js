@@ -12,12 +12,12 @@ const ConfirmPatientCard = ( {patient} ) =>{
         e.preventDefault();
         let answer = window.confirm("Confirm?");
         if(answer){
-            confirmPatient(patient.email, user.token)
+            confirmPatient(patient.email, patient.bookedBy, user.token)
             .then((res)=>{
                 if(res.data!=="Failed To Confirm Patient"){
                     dispatch({
                         type: "LOGIN",
-                        payload: res.data
+                        payload: res.data.hospital
                     })
                     toast.success("Patient Admitted");
                 }
@@ -34,12 +34,12 @@ const ConfirmPatientCard = ( {patient} ) =>{
         e.preventDefault();
         let answer = window.confirm("Confirm?");
         if(answer){
-            rejectPatient(patient.email, user.token)
+            rejectPatient(patient.email, patient.bookedBy, user.token)
             .then((res)=>{
                 if(res.data!=="Failed To Reject Patient"){
                     dispatch({
                         type: "LOGIN",
-                        payload: res.data
+                        payload: res.data.hospital
                     })
                     toast.success("Patient Rejected");
                 }

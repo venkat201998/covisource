@@ -129,7 +129,7 @@ const RegisterPatientFromHospital = () =>{
                             payload: res.data 
                         })
 
-                        addSlotFromHospital(email, user.token)
+                        addSlotFromHospital(email, status, user.token)
                         .then((res)=>{
 
                         })

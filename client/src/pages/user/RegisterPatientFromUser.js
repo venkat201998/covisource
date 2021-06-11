@@ -138,7 +138,8 @@ const RegisterPatientFromUser = () =>{
         if(answer){
             registerPatientFromUser(patientDetails, slug, user.token)
             .then((res)=> {
-                if(res.data==="Patient Already registered with these details" || res.data==="Hospital Not Registered" || res.data==="Failed To Update Hospital" || res.data==="User Not Registered" || res.data==="Failed To Update User"){
+                if(res.data==="Patient Already registered with these details" || res.data==="Hospital Not Registered" || res.data==="Patient either admitted or onhold by another user"
+                || res.data==="Failed To Update Hospital" || res.data==="User Not Registered" || res.data==="Failed To Update User"){
                     toast.error(res.data);
                 }
                 else{
@@ -243,7 +244,7 @@ const RegisterPatientFromUser = () =>{
                         <label htmlFor="gender" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <select class="w-100 h-100 form-select" id="gender" value={gender} aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
-                                <option value="sg">Select Gender</option>
+                                <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="NA">N/A</option>
@@ -302,7 +303,7 @@ const RegisterPatientFromUser = () =>{
                         <label htmlFor="state" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
                                 <select class="w-100 h-100 form-select" id="state" aria-label="Default select example" value={state} onChange={(e)=> setState(e.target.value) }>
-                                    <option value="ss">Select State</option>
+                                    <option value="">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
                                 </select>
                         </div>
@@ -311,7 +312,7 @@ const RegisterPatientFromUser = () =>{
                         <label htmlFor="city" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
                                 <select class="w-100 h-100 form-select" id="city" aria-label="Default select example" value={city} onChange={(e)=> setCity(e.target.value) }>
-                                    <option value="sc">Select City</option>
+                                    <option value="">Select City</option>
                                     {citiesOptions}
                                 </select>
                         </div>
@@ -338,7 +339,7 @@ const RegisterPatientFromUser = () =>{
                         <label htmlFor="maritalStatus" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Marital Status</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <select class="w-100 h-100 form-select" id="maritalStatus" aria-label="Default select example" onChange={(e)=> setMaritalStatus(e.target.value) }>
-                                <option value="ss">Select status</option>
+                                <option value="">Select status</option>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
                                 <option value="divorced">Divorced</option>
@@ -549,7 +550,7 @@ const RegisterPatientFromUser = () =>{
                         <label htmlFor="bedType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Available Beds</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
                             <select class="w-100 h-100 form-select" id="bedType" aria-label="Default select example" onChange={(e)=> setBedType(e.target.value) }>
-                                <option value="ss">Select Bed</option>
+                                <option value="">Select Bed</option>
                                 {hospital && hospital.generalBeds > 0 ? <option value="generalBeds">General Beds: {hospital.generalBeds}</option> : ""}
                                 {hospital && hospital.icuBeds > 0 ? <option value="icuBeds">ICU Beds: {hospital.icuBeds}</option> : ""}
                                 {hospital && hospital.ventilatorBeds > 0 ? <option value="ventilatorBeds">Ventilator Beds: {hospital.ventilatorBeds}</option> : ""}
