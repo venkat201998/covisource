@@ -360,6 +360,22 @@ exports.getHospitals = async(req, res) => {
     }
 }
 
+exports.hospitalsList = async(req, res) => {
+    try{
+        const { page } = req.body;
+        const currentPage = page || 1;
+        const perPage = 2; // 3
+        const status = "Active";
+        const activeHospitals = await Hospital.find({status})
+        .skip((currentPage - 1) * perPage)
+        .limit(perPage)
+        .exec();
+        res.json(activeHospitals);
+    }catch(error){
+        res.json(error)
+    }
+}
+
 exports.updatePatientStatus = async (req, res) => {
     
     try{

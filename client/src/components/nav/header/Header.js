@@ -22,17 +22,17 @@ const Header = () => {
       <div className="container-fluid mx-md-2">
         <Link to={user ? (user.type!=="Hospital" ? `/` : `/Hospital/Dashboard`) : `/`} className="navbar-brand"><img src="https://prod-cdn.preprod.co-vin.in/assets/images/covid19logo.jpg" width="140px;" /></Link>
             
-            {!user && <div class="dropdown nav-item my-auto mx-lg-5">
+            {!user && <div class="dropstart nav-item my-auto">
               <button class="btn btn-yellow dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-sign-in-alt fs-5"></i>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <ul class="dropdown-menu border-dark" aria-labelledby="dropdownMenuButton1">
                 <li><Link className="dropdown-item" to="/login">Login</Link></li>
                 <li><Link className="dropdown-item" to="/register">Register</Link></li>
               </ul>
             </div>}
 
-            {user && <div class="dropdown nav-item my-auto mx-lg-5">
+            {user && <div class="dropstart nav-item my-auto">
               <button class="btn btn-yellow dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user fs-5"></i>
               </button>

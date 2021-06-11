@@ -127,8 +127,8 @@ const UpdatePassword = () => {
                         </div>
                     </div>
                     <div className="form-group row p-0 justify-content-end">
-                        <div className="col-lg-4 col-10">
-                            <button className="btn btn-outline-none text-danger" type="reset">
+                        <div className="col-lg-4 col-10 p-0 text-lg-center text-end">
+                            <button className="btn btn-outline-none text-danger px-0" type="reset">
                                 Forgot Password
                             </button>
                         </div>

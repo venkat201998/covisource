@@ -5,7 +5,7 @@ const router = express.Router();
 const { authCheck, adminCheck } = require("../middlewares/auth");
 
 // controller
-const { createOrUpdateUser, currentUser, checkUser, createHospital, checkHospital, updateHospital, registerPatientFromHospital, registerPatientFromUser, addSlotFromHospital, getInactiveHospitals, updateHospitalStatus, removeHospital, getHospitals, updatePatientStatus, getUsers, updateUser, confirmPatient, rejectPatient, UpdateSlotStatus} = require("../controllers/auth");
+const { createOrUpdateUser, currentUser, checkUser, createHospital, checkHospital, updateHospital, registerPatientFromHospital, registerPatientFromUser, addSlotFromHospital, getInactiveHospitals, updateHospitalStatus, removeHospital, getHospitals, hospitalsList, updatePatientStatus, getUsers, updateUser, confirmPatient, rejectPatient, UpdateSlotStatus} = require("../controllers/auth");
 
 router.post("/create-or-update-user", authCheck, createOrUpdateUser);
 router.post("/check-user", checkUser);
@@ -20,6 +20,7 @@ router.get("/get-inactive-hospitals", authCheck, adminCheck, getInactiveHospital
 router.post("/update-hospital-status", authCheck, adminCheck, updateHospitalStatus);
 router.post("/remove-hospital", authCheck, adminCheck, removeHospital);
 router.get("/get-hospitals", getHospitals);
+router.post("/hospitals-list", hospitalsList);
 router.post("/update-patient-status", authCheck, updatePatientStatus);
 router.get("/get-users", authCheck, adminCheck, getUsers);
 router.post("/update-user", authCheck, adminCheck, updateUser);

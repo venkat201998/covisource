@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SideNav from '../../components/sideNav/SideNav';
+import Trigger from '../../components/triggger/Trigger';
 import HospitalDetailsRegistration from '../hospital/HospitalDetailsRegistration';
 import ManageHospitals from '../admin/ManageHospitals';
 import ManageUsers from '../admin/ManageUsers';
@@ -48,7 +49,9 @@ const AdminHome = ({history}) => {
     },[history.location.pathname, user]);
 
     return(
-        <div className="container-fluid mt-5 px-md-5">
+        <>
+            <Trigger/>
+            <div className="container-fluid mt-5 px-md-5">
                 <div className="row mt-5 pt-5 mx-md-2">
                     <SideNav/>
                     
@@ -64,7 +67,8 @@ const AdminHome = ({history}) => {
                         
                     
                 </div>
-        </div>
+            </div>
+        </>
     )
 }
 

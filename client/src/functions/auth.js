@@ -166,6 +166,20 @@ export const getHospitals = async () => {
     )
 } 
 
+export const hospitalsList = async (page) => {
+    return axios.post(
+        `${process.env.REACT_APP_API}/hospitals-list`,
+        {
+            page
+        },
+        {
+            headers:{
+                
+            }
+        }
+    )
+}
+
 export const updatePatientStatus = async (patientUpdatedDetails, id, idToken) => {
     return axios.post(
         `${process.env.REACT_APP_API}/update-patient-status`,

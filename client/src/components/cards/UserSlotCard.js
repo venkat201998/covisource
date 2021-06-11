@@ -155,7 +155,7 @@ const UserSlotCard = ({hospital, patient}) =>{
                                 </div>
                             </div>
                             <div className="row mx-auto py-3 justify-content-center">
-                                <div className="col-lg-2 col-md-3 col-5">
+                                <div className="col-lg-3 col-md-3 col-5">
                                     <button type="button" className="btn btn-raised btn-outline-success fw-bold" disabled={!bedType} onClick={submit}>Admit Again</button>
                                 </div>
                             </div>

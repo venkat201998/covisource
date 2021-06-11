@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
 import SideNav from '../../components/sideNav/SideNav';
+import Trigger from '../../components/triggger/Trigger';
 import HospitalDetailsRegistration from './HospitalDetailsRegistration';
 import HospitalDashboard from './HospitalDashboard';
 import RegisterPatientFromHospital from './RegisterPatientFromHospital';
@@ -34,24 +35,27 @@ const HospitalHome = ({history}) =>{
     },[history.location.pathname]);
 
     return(
-        <div className="container-fluid mt-5 px-md-5">
-                <div className="row mt-5 pt-5 mx-md-2">
-                    <SideNav/>
-                    
-                    <div className="col">
-                        <div className="row justify-content-center">
-                            { (path==='/Hospital/Dashboard') && (hospitalStatus ? <HospitalDashboard/> : <HospitalDetailsRegistration/>) }
-                            { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
-                            { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }
-                            { (path==='/Hospital/ManagePatients') && <ManagePatients/> }
-                            { (path==='/Hospital/PatientsHistory') && <ManagePatients/> }
-                            { (path==='/Hospital/UpdatePassword') && <UpdatePassword/> }
-                        </div>
-                    </div>
-
+        <>
+            <Trigger/>
+            <div className="container-fluid mt-5 px-md-5">
+                    <div className="row mt-5 pt-5 mx-md-2">
+                        <SideNav/>
                         
-                </div>
-        </div>
+                        <div className="col">
+                            <div className="row justify-content-center">
+                                { (path==='/Hospital/Dashboard') && (hospitalStatus ? <HospitalDashboard/> : <HospitalDetailsRegistration/>) }
+                                { (path==='/Hospital/ManageHospital') && <ManageHospital/> }
+                                { (path==='/Hospital/RegisterPatient') && <RegisterPatientFromHospital/> }
+                                { (path==='/Hospital/ManagePatients') && <ManagePatients/> }
+                                { (path==='/Hospital/PatientsHistory') && <ManagePatients/> }
+                                { (path==='/Hospital/UpdatePassword') && <UpdatePassword/> }
+                            </div>
+                        </div>
+
+                            
+                    </div>
+            </div>
+        </>
     )
 }
 

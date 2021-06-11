@@ -98,7 +98,7 @@ const Login = ({ history }) => {
             <div className="form-group mb-4 text-center">
               {loading ? <h3>Loading..</h3> :  <h3>Login</h3>}
             </div>
-            <div class="form-group my-3 row ">
+            <div class="form-group my-3 row p-0">
               <label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
               <div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
                 <input
@@ -112,7 +112,7 @@ const Login = ({ history }) => {
                 />
               </div>
             </div>
-            <div class="form-group my-3 row">
+            <div class="form-group my-3 row p-0">
               <label htmlFor="password" class="col-md-3 d-none d-md-block col-form-label text-xl-end fw-bold fs-6">Password</label>
               <div class="col-md-8 col-12 mb-3 mb-md-1 p-0">
                 <input
@@ -128,19 +128,19 @@ const Login = ({ history }) => {
             </div>
           
 
-            <div className="form-group row">
+            <div className="form-group row p-0">
               <div className="col-md-4 col-6 offset-md-3 text-start p-0">
                 <button className="btn btn-raised btn-outline-success fw-bold" type="submit" disabled={!email || password.length < 6}>
                   Login
                 </button>
               </div>
             </div>
-            <div className="form-group row justify-content-end">
-              <div className="col-md-4 col-6">
-                <Link to="/forgot/password" className="text-danger">
-                  Forgot Password
-                </Link>
-              </div>
+            <div className="form-group row p-0 justify-content-end">
+                <div className="col-md-4 col-10 text-md-start text-end">
+                    <Link to="/forgot/password" className="text-danger">
+                      Forgot Password
+                    </Link>
+                </div>
             </div>            
           </form>
         
