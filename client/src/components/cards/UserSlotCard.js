@@ -84,7 +84,7 @@ const UserSlotCard = ({hospital, patient}) =>{
                     <div className="row border-bottom border-3 mx-auto py-3">
                         <div className="col text-center">
                             <div><span className="fw-bold fs-6">Email</span></div>
-                            <div><span>{hospital && hospital.contact}</span></div>
+                            <div><span>{hospital && hospital.email}</span></div>
                         </div>
                     </div>
                     <div className="row border-bottom border-3 mx-auto py-3">
