@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import HospitalCities from '../../pages/hospital/Json/HospitalCities.json';
 import HospitalStates from '../../pages/hospital/Json/HospitalStates.json';
 
-const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, status, email, user) =>{
+const Form = ({hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, email, onChange, handleSubmit, handleReset}) =>{
 
-    let citiesOptions = null;
-    HospitalCities.map((item)=>{
-        if(item.state===state)
-        citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
-    })
-    console.log(hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds)
+    const { user } = useSelector((state) => ({...state}));
+    const [citiesOptions, setCitiesOptions] = useState([]);
+
+    const handleChange = (e, id, value) => {
+        onChange(e, id, value);
+        if(id === "state"){
+            HospitalCities.map((item)=>{
+                if(item.state === value){
+                    let cities = item.cities.map((item, i)=> item)
+                    setCitiesOptions(cities);
+                }
+            })
+        }
+    }
+
     return(
-                    <form className="container-fluid">
+                    <form className="container-fluid" onSubmit={handleSubmit} onReset={handleReset}>
                         <div className="form-group my-xl-5 my-3 row">
                             <label htmlFor="hospitalName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
                             <div className="col-md-8 col-12 mb-3 mb-md-1">
@@ -22,7 +32,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                     className="form-control"  
                                     value={hospitalName}
                                     placeholder="Hospital Name"
-                                    // onChange={(e) => setHospitalName(e.target.value)}
+                                    onChange={(e) => handleChange(e, e.target.id, e.target.value)}
                                 />
                             </div>
                         </div>
@@ -35,7 +45,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                     className="form-control"  
                                     value={address}
                                     placeholder="Street Address"
-                                    // onChange={(e) => setAddress(e.target.value)}
+                                    onChange={(e) => handleChange(e, e.target.id, e.target.value)}
                                     />
                                 </div>
                         </div>
@@ -43,7 +53,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                             <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
                             <div className="col-md-8 col-12 mb-3 mb-md-1">
                                 <select className="h-100 form-select" id="state" aria-label="Default select example" value={state} required 
-                                // onChange={(e)=> setState(e.target.value) }
+                                onChange={(e)=> handleChange(e, e.target.id, e.target.value)}
                                 >
                                     <option value="">Select State</option>
                                     { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
@@ -55,10 +65,11 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                 <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
                                 <div className="col-md-8 col-12 mb-3 mb-md-1">
                                     <select className="h-100 form-select" id="city" aria-label="Default select example" value={city} required 
-                                    // onChange={(e)=> setCity(e.target.value) }
+                                    onChange={(e)=> handleChange(e, e.target.id, e.target.value)}
                                     >
                                         <option value="">Select City</option>
-                                        {citiesOptions}
+                                        
+                                        {citiesOptions.map((item, i) => <option key={i} value={item}>{item}</option>)}
                                     </select>
                                 </div>
                         
@@ -70,14 +81,13 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                         id="pinCode"
                                         type="text"
                                         inputMode="numeric"
-                                        className="form-control"
-                                        name={pinCode}  
+                                        className="form-control" 
                                         value={pinCode}
                                         required
                                         pattern="[0-9]{6}" 
                                         maxLength="6"
                                         placeholder="Pin Code"
-                                        // onChange={(e) => setPinCode(e.target.value)}
+                                        onChange={(e) => handleChange(e, e.target.id, e.target.value)}
                                         />
                                 </div>
                         </div>
@@ -92,7 +102,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                     value={contact}
                                     required
                                     placeholder="Number"
-                                    // onChange={(e)=> setContact(e.target.value)}
+                                    onChange={(e)=> handleChange(e, e.target.id, e.target.value)}
                                     />
                             </div>
                         </div>
@@ -108,7 +118,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                     value= {email}
                                     required
                                     placeholder="Email"
-                                    // onChange={(e)=> setEmail(e.target.value)}
+                                    onChange={(e)=> handleChange(e, e.target.id, e.target.value)}
                                     />
                             </div>
                         </div>
@@ -142,7 +152,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                         value={generalBeds}
                                         required
                                         placeholder="General Beds"
-                                        // onChange={(e)=> setGeneralBeds(e.target.value)} 
+                                        onChange={(e)=> handleChange(e, e.target.id, e.target.value)} 
                                         />
                                 </div>
 
@@ -156,7 +166,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                         value={icuBeds}
                                         required
                                         placeholder="ICU Beds"
-                                        // onChange={(e)=> setIcuBeds(e.target.value)} 
+                                        onChange={(e)=> handleChange(e, e.target.id, e.target.value)} 
                                         />
                                 </div>
                         </div>
@@ -171,7 +181,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                         value={ventilatorBeds}
                                         required
                                         placeholder="Ventilator Beds"
-                                        // onChange={(e)=> setVentilatorBeds(e.target.value)} 
+                                        onChange={(e)=> handleChange(e, e.target.id, e.target.value)} 
                                         />
                                 </div>
 
@@ -185,7 +195,7 @@ const Form = (hospitalName, address, state, city, pinCode, contact, generalBeds,
                                         value={oxygenBeds}
                                         required
                                         placeholder="Oxygen Beds"
-                                        // onChange={(e)=> setOxygenBeds(e.target.value)} 
+                                        onChange={(e)=> handleChange(e, e.target.id, e.target.value)} 
                                         />
                                 </div>
                         </div>
