@@ -75,13 +75,13 @@ const HospitalDashboard = () => {
 
                                 <div className="col-md-6">
                                     <li className="list-group-item border-0 bg-transparent">
-                                        <label for="generalBeds" className="col-form-label text-start fw-bold fs-6">General:</label>
+                                        <label className="col-form-label text-start fw-bold fs-6">General:</label>
                                         <span className="ps-2">
                                             {hospital.generalBeds}
                                         </span>
                                     </li>
                                     <li className="list-group-item border-0 bg-transparent">
-                                        <label for="icuBeds" className="col-form-label text-start fw-bold fs-6">ICU:</label>
+                                        <label className="col-form-label text-start fw-bold fs-6">ICU:</label>
                                         <span className="ps-2">
                                             {hospital.icuBeds}
                                         </span>
@@ -89,13 +89,13 @@ const HospitalDashboard = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <li className="list-group-item border-0 bg-transparent">
-                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Ventilator:</label>
+                                        <label className="col-form-label text-start fw-bold fs-6">Ventilator:</label>
                                         <span className="ps-2">
                                             {hospital.ventilatorBeds}
                                         </span>
                                     </li>
                                     <li className="list-group-item border-0 bg-transparent">    
-                                        <label for="oxygenBeds" className="col-form-label text-start fw-bold fs-6">Oxygen:</label>
+                                        <label className="col-form-label text-start fw-bold fs-6">Oxygen:</label>
                                         <span className="ps-2">
                                             {hospital.oxygenBeds}
                                         </span>
@@ -107,7 +107,7 @@ const HospitalDashboard = () => {
 
                                 <div className="col-lg-4 col-md-6 col-12">
                                     <li className="list-group-item border-0 bg-transparent">
-                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Admitted:</label>
+                                        <label className="col-form-label text-start fw-bold fs-6">Admitted:</label>
                                         <span className="ps-2">
                                             {admittedCount}
                                         </span>
@@ -115,7 +115,7 @@ const HospitalDashboard = () => {
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-12">
                                     <li className="list-group-item border-0 bg-transparent">
-                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Discharged:</label>
+                                        <label className="col-form-label text-start fw-bold fs-6">Discharged:</label>
                                         <span className="ps-2">
                                             {dischargedCount}
                                         </span>
@@ -123,7 +123,7 @@ const HospitalDashboard = () => {
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-12">
                                     <li className="list-group-item border-0 bg-transparent">
-                                        <label for="ventilatorBeds" className="col-form-label text-start fw-bold fs-6">Deceased:</label>
+                                        <label className="col-form-label text-start fw-bold fs-6">Deceased:</label>
                                         <span className="ps-2">
                                             {deceasedCount}
                                         </span>

@@ -2,22 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import HospitalCities from '../hospital/Json/HospitalCities.json';
-import HospitalStates from '../hospital/Json/HospitalStates.json';
 import SideNav from '../../components/sideNav/SideNav';
 import { updateHospital, removeHospital, getHospitals } from '../../functions/auth';
+import FormClassComp from '../../components/reusables/FormClassComp';
 
 const UpdateHospital = () =>{
     const { user, hospitals } = useSelector((state) => ({ ...state }));
     const { slug } = useParams();
     const history = useHistory();
-    const dispatch = useDispatch();
-    // let hospital = hospitals && hospitals.find((hospital) => hospital._id === slug);
+    const dispatch = useDispatch();    
     
-    
-    let citiesOptions = null;
-
-    let hospital=[];
+    let hospital = [];
     const [hospitalName, setHospitalName] = useState();
     const [address, setAddress] = useState();
     const [state, setState] = useState();
@@ -30,6 +25,12 @@ const UpdateHospital = () =>{
     const [ventilatorBeds, setVentilatorBeds] = useState();
     const [oxygenBeds, setOxygenBeds] = useState();
     const [status, setStatus] = useState();
+    const [loading, setLoading] = useState(true);
+    const [disabled, setDisabled] = useState(true);
+    const [buttons, setButtons] = useState([
+        {name: "Update", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"},
+        {name: "Delete", type: "reset", className: "btn btn-outline-danger btn-raised fw-bold"}
+    ]);
 
     useEffect(() => {
         getHospitals()
@@ -47,18 +48,33 @@ const UpdateHospital = () =>{
             setVentilatorBeds(hospital && hospital.ventilatorBeds);
             setOxygenBeds(hospital && hospital.oxygenBeds);
             setStatus(hospital && hospital.status);
-
+            setLoading(false);
         })
-    })
-    
-    HospitalCities.map((item)=>{
-            if(item.state===state)
-            citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
-    })
+    }, [user])
 
+    const onChange = (e, id, value) => {
+        e.preventDefault();
+        switch(id){
+            case "hospitalName": setHospitalName(value); break;
+            case "address": setAddress(value); break;
+            case "pinCode": setPinCode(value); break;
+            case "state": setState(value); break;
+            case "city":  setCity(value); break;
+            case "hospitalContact": setContact(value); break;
+            case "hospitalEmail": setEmail(value); break;
+            case "generalBeds": setGeneralBeds(value); break;
+            case "icuBeds": setIcuBeds(value); break;
+            case "ventilatorBeds": setVentilatorBeds(value); break;
+            case "oxygenBeds": setOxygenBeds(value); break;
+        }
+        
+    }
+
+    let data = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, disabled}
+    
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        
+
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, status};
         
         let answer = window.confirm("Update Hospital Details?");
@@ -82,7 +98,7 @@ const UpdateHospital = () =>{
         
     }
 
-    const handleDelete = async (e) =>{
+    const handleReset = async (e) =>{
         e.preventDefault();
 
         let answer = window.confirm("Delete Hospital?");
@@ -118,173 +134,14 @@ const UpdateHospital = () =>{
                     <div className="col">
                         <div className="row justify-content-center">
                             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow border">
-
-                            <h3>Hospital Info</h3>
-                            <form onSubmit={handleSubmit} onReset={handleDelete} className="container-fluid">
-                                <div className="form-group my-xl-5 my-3 row">
-                                    <label htmlFor="hospitalName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Hospital</label>
-                                    <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                        <input 
-                                            type="text" 
-                                            id="hospitalName"
-                                            required
-                                            className="form-control w-100"  
-                                            value={hospitalName}
-                                            placeholder="Name"
-                                            onChange={(e) => setHospitalName(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-group my-xl-5 my-3 row">
-                                    <label htmlFor="address" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                                    <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                        <input 
-                                            type="text" 
-                                            id="address"
-                                            className="form-control w-100"  
-                                            value={address}
-                                            placeholder="Street"
-                                            required
-                                            onChange={(e) => setAddress(e.target.value)}/>
-                                        </div>
-                                </div>
-                                <div className="form-group my-xl-5 my-3 row">
-                                    <label htmlFor="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
-                                    <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                        <select className="w-100 h-100 form-select" id="state" aria-label="Default select example" required value={state} onChange={(e)=> setState(e.target.value) }>
-                                            <option value="">Select State</option>
-                                            { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select className="w-100 h-100 form-select" id="city" aria-label="Default select example" required value={city} onChange={(e)=> setCity(e.target.value) }>
-                                                <option value="">Select City</option>
-                                                {citiesOptions}
-                                            </select>
-                                        </div>
-                                
-                                </div>
-                                <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="pinCode" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text"
-                                                id="pinCode"
-                                                inputMode="numeric"
-                                                className="form-control w-100"
-                                                name={pinCode}  
-                                                value={pinCode}
-                                                required
-                                                pattern="[0-9]{6}" 
-                                                maxLength="6"
-                                                onChange={(e) => setPinCode(e.target.value)}/>
-                                        </div>
-                                </div>
-                                <div className="form-group my-xl-5 my-3 row">
-                                    <label htmlFor="hospitalContact" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact</label>
-                                    <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                        <input 
-                                            type="text" 
-                                            id="hospitalContact"
-                                            className="form-control w-100"
-                                            name="hospitalContact"
-                                            value={contact}
-                                            required 
-                                            placeholder="Number"
-                                            onChange={(e)=> setContact(e.target.value)}
-                                            />
-                                    </div>
-                                </div>
-                                <div className="form-group my-xl-5 my-3 row">
-                                    <label htmlFor="hospitalEmail" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-                                    <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                        <input 
-                                            type="text" 
-                                            id="hospitalEmail"
-                                            className="form-control w-100"
-                                            name="hospitalEmail"
-                                            value= {email}  
-                                            placeholder="Email"
-                                            onChange={(e)=> setEmail(e.target.value)}
-                                            disabled
-                                            />
-                                    </div>
-                                </div>
-                                <div className="row border border-0 border-top border-3 pt-3 fs-4" style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</div>
-                                
-                                <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="generalBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">General</label>
-                                        <div className="col-md-3 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text" 
-                                                id="generalBeds"
-                                                className="form-control w-100"  
-                                                name="generalBeds"
-                                                value={generalBeds}
-                                                required
-                                                placeholder="General Beds"
-                                                onChange={(e)=> setGeneralBeds(e.target.value)} />
-                                        </div>
-
-                                        <label htmlFor="icuBeds" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">ICU</label>
-                                        <div className="col-md-3 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text"
-                                                id="icuBeds"
-                                                className="form-control w-100"  
-                                                name="icuBeds"
-                                                value={icuBeds}
-                                                required
-                                                placeholder="ICU Beds"
-                                                onChange={(e)=> setIcuBeds(e.target.value)} />
-                                        </div>
-                                </div>
-                                <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="ventilatorBeds" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Ventilator</label>
-                                        <div className="col-md-3 col-12 mb-3 mb-md-1 mb-3 mb-xl-0">
-                                            <input 
-                                                type="text" 
-                                                id="ventilatorBeds"
-                                                className="form-control w-100"  
-                                                name="ventilatorBeds"
-                                                value={ventilatorBeds}
-                                                required
-                                                placeholder="Ventilator Beds"
-                                                onChange={(e)=> setVentilatorBeds(e.target.value)} />
-                                        </div>
-
-                                        <label htmlFor="oxygenBeds" className="col-md-2 d-none d-md-block col-form-label text-end fw-bold fs-6">Oxygen</label>
-                                        <div className="col-md-3 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text"
-                                                id="oxygenBeds"
-                                                className="form-control w-100"  
-                                                name="oxygenBeds"
-                                                value={oxygenBeds}
-                                                required
-                                                placeholder="Oxygen Beds"
-                                                onChange={(e)=> setOxygenBeds(e.target.value)} />
-                                        </div>
-                                </div>
-
-                                <div className="form-group row justify-content-center">
-                                    <div className="col-lg-2 col-md-3 col-5">
-                                        <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Update</button>
-                                    </div>
-                                    <div className="col-lg-2 col-md-3 col-5">
-                                        <button type="reset" className="btn btn-raised btn-outline-danger fw-bold">Delete</button>
-                                    </div>
-                                </div>
-                            </form>
+                                <h3>Hospital Info</h3>
+                                {console.log(data)}
+                                {loading ? <h3>Loading...</h3> : <FormClassComp data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
                         </div>
                     </div>
                 </div>
-                </div>
-             </div>
+            </div>
+        </div>
         )
 }
 export default UpdateHospital;

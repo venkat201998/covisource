@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { createHospital } from '../../functions/auth';
 import { useHistory } from 'react-router-dom';
-import Form from '../../components/reusables/Form';
+import FormClassComp from '../../components/reusables/FormClassComp';
 
 const HospitalDetailsRegistration = () =>{
     const { user } = useSelector((state) => ({ ...state }));
@@ -21,15 +21,25 @@ const HospitalDetailsRegistration = () =>{
     const [ventilatorBeds, setVentilatorBeds] = useState("");
     const [oxygenBeds, setOxygenBeds] = useState("");
     const [status, setStatus] = useState("Inactive");
+    const [loading, setLoading] = useState(true);
+    const [disabled, setDisabled] = useState("");
+    const [buttons, setButtons] = useState([
+        {name: "Submit", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"},
+        {name: "Reset", type: "reset", className: "btn btn-outline-danger btn-raised fw-bold"}
+    ]);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if(user && user.type === "Hospital"){
             setEmail(user.email);
             setStatus("Inactive");
+            setDisabled(true);
+            setLoading(false);
         }else if(user && user.type === "Admin"){
             setEmail("");
             setStatus("Active");
+            setDisabled(false);
+            setLoading(false);
         }
     }, [user])
 
@@ -51,9 +61,11 @@ const HospitalDetailsRegistration = () =>{
         
     }
 
+    let data = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, disabled};
+
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        
+
         const hospitalDetails = {hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, status};
 
         let answer = window.confirm("Confirm Registration?");
@@ -106,7 +118,8 @@ const HospitalDetailsRegistration = () =>{
         return(
                 <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                     <h3>Registration Form</h3>
-                    <Form data={hospitalName, address, state, city, pinCode, contact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, email} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset} />
+                    {loading ? <h3>Loading...</h3> :
+                    <FormClassComp data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
                 </div>
         )
 }

@@ -1,33 +1,51 @@
-// import React, { useState } from 'react';
+import React from 'react';
 
-// const FormInput = (props) =>{
+const Input = ({ config, onChange }) => {
+    
+    const handleChange = (e, id, value) => {
+        onChange(e,id,value);
+    }
 
-//     const { user } = useSelector((state) => ({ ...state }));
+    let inputElement;
 
-//     const handleChange =(e) =>{
-//         if(props.onChange){
-//             props.onChange(e.target.value);
-//         }
-//     }
+    switch(config.elementType){
+        case 'input': inputElement = 
+            <div className="form-group my-xl-5 my-3 row">
+                <label htmlFor={config.elementConfig.id} className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">{config.elementConfig.placeholder}</label>
+                <div className="col-md-8 col-12 mb-3 mb-md-1">
+                    <input 
+                        {...config.elementConfig}
+                        className="form-control"  
+                        value={config.value}
+                        onChange={(e) => handleChange(e, e.target.id, e.target.value)}
+                    />
+                </div>
+            </div>
+            break;
+        case 'select': inputElement = 
+            <div className="form-group my-xl-5 my-3 row">
+                <label htmlFor={config.elementConfig.id} className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">{config.elementConfig.placeholder}</label>
+                <div className="col-md-8 col-12 mb-3 mb-md-1">
+                    <select className="h-100 form-select" id={config.elementConfig.id} aria-label="Default select example" value={config.value} required onChange={(e) => handleChange(e, e.target.id, e.target.value)}>
+                        {config.elementConfig.options && config.elementConfig.options.map((option) => <option key={option.id} value={option.value}>{option.displayValue}</option>)}
+                    </select>
+                </div>
+            </div>
+            break;
+        case 'partition': inputElement = 
+            <div className="row border-top border-3 pt-3 fs-4" >
+                <div className="col text-center">
+                    <h4 style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</h4>
+                </div>
+            </div>
+        
+    }
 
-//     return(
-//         <div className="form-group my-xl-5 my-3 row">
-//             <label htmlFor={props.label} className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">{props.labelName}</label>
-//             <div className="col-md-8 col-12 mb-3 mb-md-1">
-//                 <input 
-//                     id={props.label}
-//                     type={props.type} 
-//                     required
-//                     className="form-control"  
-//                     value={props.value}
-//                     maxLength={props.label==="pinCode" ? "6": ""}
-//                     placeholder={props.placeholder}
-//                     // pattern={props.label==="hospitalContact"? "[0-9][10]": ""}
-//                     onChange={handleChange}
-//                 />
-//             </div>
-//         </div>
-//     )
+    return(
+        <div>
+            { inputElement }
+        </div>
+    )
+}
 
-// }
-// export default FormInput;
+export default Input;

@@ -12,7 +12,7 @@ import UpdatePassword from '../../components/UpdatePassword';
 import ManagePatients from './ManagePatients';
 
 const HospitalHome = ({history}) =>{
-    const { user } = useSelector((state) => ({ ...state }));
+    const { user, hospital } = useSelector((state) => ({ ...state }));
     const [path, setPath] = useState("");
     const [hospitalStatus, setHospitalStatus] = useState(false);
     const dispatch = useDispatch();
