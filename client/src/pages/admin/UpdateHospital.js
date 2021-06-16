@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SideNav from '../../components/sideNav/SideNav';
 import { updateHospital, removeHospital, getHospitals } from '../../functions/auth';
-import FormClassComp from '../../components/reusables/FormClassComp';
+import HospitalForm from '../../components/reusables/HospitalForm';
 
 const UpdateHospital = () =>{
     const { user, hospitals } = useSelector((state) => ({ ...state }));
@@ -136,7 +136,7 @@ const UpdateHospital = () =>{
                             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow border">
                                 <h3>Hospital Info</h3>
                                 {console.log(data)}
-                                {loading ? <h3>Loading...</h3> : <FormClassComp data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
+                                {loading ? <h3>Loading...</h3> : <HospitalForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
                         </div>
                     </div>
                 </div>

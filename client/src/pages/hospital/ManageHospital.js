@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { updateHospital, checkHospital } from '../../functions/auth';
 import { useHistory } from 'react-router-dom';
-import FormClassComp from '../../components/reusables/FormClassComp';
+import HospitalForm from '../../components/reusables/HospitalForm';
 
 const ManageHospital = () =>{
     const { user, hospital } = useSelector((state) => ({...state}));
@@ -108,7 +108,7 @@ const ManageHospital = () =>{
                 {hospital ? loading ? <h3>Loading...</h3> :
                     (<div>   
                         <h3>Hospital Info</h3>
-                        <FormClassComp data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
+                        <HospitalForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
                     </div>) : (<h3>Hospital Not Registered</h3>)}
             </div>
         )

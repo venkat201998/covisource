@@ -32,6 +32,43 @@ const Input = ({ config, onChange }) => {
                 </div>
             </div>
             break;
+        case 'textarea': inputElement = 
+            <div className="form-group my-xl-5 my-3 row">
+                <label htmlFor={config.elementConfig.id} class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">{config.elementConfig.placeholder}</label>
+                <div class="col-md-8 col-12 mb-3 mb-md-1">
+                    <textarea className="form-control" id={config.elementConfig.id} value={config.value} required onChange={(e) => handleChange(e, e.target.id, e.target.value)}/>
+                </div>
+            </div>
+            break;
+        case 'radio': inputElement = 
+            <div class="form-group my-xl-5 my-3 row">
+                <label htmlFor={config.elementConfig.id} className={config.elementConfig.labelClassName}>{config.elementConfig.labelTitle}</label>
+                <div className={config.elementConfig.parentDivClassName} id={config.elementConfig.id}>
+                    {config.elementConfig.radios.map((radio) => 
+                        <span key={radio[0].id}>
+                            <input type="radio" {...radio[0]} required onChange={(e) => handleChange(e, config.elementConfig.id, e.target.value)}/>
+                            <label {...radio[1]}>{radio[0].value}</label>
+                        </span>
+                    )}
+                </div>
+            </div>
+            break;
+        case 'checkbox': inputElement = 
+            <div class="form-group my-xl-5 my-3 row">     
+                <label htmlFor={config.elementConfig.id} class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">{config.elementConfig.labelTitle}</label>
+                <div className="col-md-8 col-12 mb-3 mb-md-1">
+                    <div className="row my-2">
+                        { config.elementConfig.list.map((item, i)=>{
+                            return(
+                                <div key={i} className="col-12 col-md-6 mb-2">
+                                    <input className="col-2 m-auto" type="checkbox" id={item} key={item} defaultChecked={config.elementConfig.inputChecked} value={item} onClick={(e) => handleChange(e, config.elementConfig.id, e.target.value)} />
+                                    <label htmlFor={item} className="col-10 m-auto text-start">{item}</label>
+                                </div>)
+                            })}
+                    </div>
+                </div>
+            </div>
+        break;
         case 'partition': inputElement = 
             <div className="row border-top border-3 pt-3 fs-4" >
                 <div className="col text-center">

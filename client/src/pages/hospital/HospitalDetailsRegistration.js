@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { createHospital } from '../../functions/auth';
 import { useHistory } from 'react-router-dom';
-import FormClassComp from '../../components/reusables/FormClassComp';
+import HospitalForm from '../../components/reusables/HospitalForm';
 
 const HospitalDetailsRegistration = () =>{
     const { user } = useSelector((state) => ({ ...state }));
@@ -119,7 +119,7 @@ const HospitalDetailsRegistration = () =>{
                 <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                     <h3>Registration Form</h3>
                     {loading ? <h3>Loading...</h3> :
-                    <FormClassComp data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
+                    <HospitalForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
                 </div>
         )
 }

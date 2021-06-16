@@ -5,6 +5,7 @@ import HospitalStates from './Json/HospitalStates.json';
 import { registerPatientFromHospital, addSlotFromHospital } from '../../functions/auth';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import PatientForm from '../../components/reusables/PatientForm';
 
 const RegisterPatientFromHospital = () =>{
 
@@ -38,69 +39,38 @@ const RegisterPatientFromHospital = () =>{
     let [healthIssuesChecked, setHealthIssuesChecked] = useState([]);
     let [covidSymptomsChecked, setCovidSymptomsChecked] = useState([]);
 
-
-    const inputChecked= false;
-    let healthIssues=[];
-    // let healthIssuesChecked=[];
-    let covidSymptoms=[];
-    // let covidSymptomsChecked=[];
-    
     let citiesOptions = null;
-
-    const healthList = [ "Anemia", "Asthma", "Arthritis", "Cancer", "Diabetes", "Epilepsy Seizures", "Gallstones", "Heart Disease", "Heart Attack", "Rheumatic Fever",
-                         "Blood Pressure", "Digestive Problems", "Ulcerative Colitis", "Ulcer Disease","Hepatitis", "Kidney Disease", "Liver Disease", "Sleep Apnea",
-                         "Thyroid Problems", "Tuberculosis", "Venereal Disease", "Emphysema", "Bleeding Disorders", "Lung Disease"];
-
-    const covidSymptomsList = [ "High Fever", "Cough", "Difficulty in breathing", "Pain or pressure in chest",
-                                "Body aches", "Nasal congestion", "Runny nose", "Sore throat", "Diarrhea", "Other"];
 
     HospitalCities.map((item)=>{
         if(item.state===state)
         citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
     })
 
-    const checkListHandler = (e) =>{
-        if(e.target.id==="healthIssues"){
-            if(healthIssues[e.target.value]===true){
-                healthIssues[e.target.value]=false;
-                healthIssuesChecked = healthIssuesChecked.filter((item)=> item!== e.target.value);
+    const onChange = (e, id, value) => {
+        console.log(id, value);
+        switch(id){
+            case 'allergies': setMedicationAllergies(value); break;
+            case 'medication': setMedicationStatus(value); break;
+            case 'healthIssues': {
+                if(!e.target.checked){
+                    healthIssuesChecked = healthIssuesChecked.filter((item)=> item!== value);
+                }
+                else{
+                    healthIssuesChecked.push(value);
+                }
                 setHealthIssuesChecked(healthIssuesChecked);
-            }
-            else if (healthIssues[e.target.value]===false){
-                healthIssues[e.target.value]=true;
-                healthIssuesChecked.push(e.target.value);
-                setHealthIssuesChecked(healthIssuesChecked);
-            }
-            else{
-                healthIssues[e.target.value] = !inputChecked;
-                healthIssuesChecked.push(e.target.value);
-                setHealthIssuesChecked(healthIssuesChecked);
-            }
-            
-            // console.log(healthIssues);
-            // console.log(healthIssuesChecked);
-            // setHealthIssuesC(healthIssuesChecked);
-        }
-        else{
-            if(covidSymptoms[e.target.value]===true){
-                covidSymptoms[e.target.value]=false;
-                covidSymptomsChecked = covidSymptomsChecked.filter((item)=> item!== e.target.value);
+            }; break;
+
+            case 'covidSymptoms': {
+                if(!e.target.checked){
+                    covidSymptomsChecked = covidSymptomsChecked.filter((item)=> item!== value);
+                }
+                else{
+                    covidSymptomsChecked.push(value);
+                }
+                console.log(covidSymptomsChecked);
                 setCovidSymptomsChecked(covidSymptomsChecked);
-            }
-            else if (covidSymptoms[e.target.value]===false){
-                covidSymptoms[e.target.value]=true;
-                covidSymptomsChecked.push(e.target.value);
-                setCovidSymptomsChecked(covidSymptomsChecked);
-            }
-            else{
-                covidSymptoms[e.target.value] = !inputChecked;
-                covidSymptomsChecked.push(e.target.value);
-                setCovidSymptomsChecked(covidSymptomsChecked);
-            }
-            
-            // console.log(covidSymptoms);
-            // console.log(covidSymptomsChecked);
-            // setCovidSymptomsC(covidSymptomsChecked);
+            }; break;
         }
     }
      
@@ -113,11 +83,11 @@ const RegisterPatientFromHospital = () =>{
     }
 
     const handleSubmit = (e) => {
-        const bookedBy = user.email;
         e.preventDefault();
-        const patientDetails = { bookedBy, firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, 
-                                eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, 
-                                medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, status};
+
+        const bookedBy = user.email;
+        const patientDetails = { bookedBy, firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, status};
+        
         let answer = window.confirm("Confirm Registration?");
         if(answer){
             registerPatientFromHospital(patientDetails, user.token)
@@ -465,7 +435,7 @@ const RegisterPatientFromHospital = () =>{
                             />
                         </div>
                     </div>
-                    <div class="form-group my-xl-5 my-3 row">     
+                    {/* <div class="form-group my-xl-5 my-3 row">     
                         <label htmlFor="healthIssues" class="col-md-3 col-12 col-form-label text-md-end text-start fw-bold fs-6">
                             Have you ever had <br/>
                             ( Please check all that apply...)
@@ -481,14 +451,14 @@ const RegisterPatientFromHospital = () =>{
                                 })}
                             </div>
                         </div>
-                    </div>
+                    </div> */}
         {/* ---------Covid Symptoms----------- */}
                     <div className="row border-top border-3 pt-3 fs-4" >
                         <div className="col text-center">
                             <h4 style={{color: "gray", borderColor: "gray"}}>Covid-19 Questionnaire</h4>
                         </div>
                     </div>
-                    <div class="form-group my-xl-5 my-3 row">     
+                    {/* <div class="form-group my-xl-5 my-3 row">     
                         <label htmlFor="covidSymptoms" class="col-md-3 d-none d-md-block col-form-label text-md-end text-start fw-bold fs-6">
                             Please check the symptoms that apply...
                         </label>
@@ -503,7 +473,7 @@ const RegisterPatientFromHospital = () =>{
                                 })}
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="form-group my-xl-5 my-3 row">
                         <label htmlFor="bedType" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Available Beds</label>
                         <div class="col-md-8 col-12 mb-3 mb-md-1">
@@ -525,6 +495,10 @@ const RegisterPatientFromHospital = () =>{
                             </div>
                     </div>
                 </form>
+
+                <PatientForm onChange={(e, id, value) => onChange(e, id, value)}/>
+
+                {console.log(medicationStatus, medicationAllergies, healthIssuesChecked, covidSymptomsChecked)}
             
         </div>   
     )

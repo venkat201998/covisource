@@ -1,12 +1,12 @@
 import { React, Component } from "react";
-import FormInput from '../reusables/FormInput';
+import FormInput from './FormInput';
 import HospitalStates from '../../pages/hospital/Json/HospitalStates.json';
 import HospitalCities from '../../pages/hospital/Json/HospitalCities.json';
 import Div from "./Div";
 import Button from "./Button";
 import { withRouter } from 'react-router-dom'
 
-class FormClassComp extends Component{
+class HospitalForm extends Component{
     constructor(props){
         super(props);
         
@@ -205,4 +205,4 @@ class FormClassComp extends Component{
     }
 }
 
-export default withRouter(FormClassComp);
+export default withRouter(HospitalForm);
