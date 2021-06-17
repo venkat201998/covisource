@@ -325,9 +325,7 @@ class PatientForm extends Component {
     handleChange = (e, id, value) => {
         this.props.onChange(e, id, value);
         
-        switch(id){
-            
-            
+        switch(id){            
             case 'firstName': {
                 this.setState({form: {
                     ...this.state.form,

@@ -84,7 +84,7 @@ class HospitalForm extends Component{
                         type: 'text',
                         placeholder: 'Email',
                         required: true,
-                        disabled: this.props.disabled
+                        disabled: this.props.data.disabled
                     },
                     value: this.props.data.email
                 },
@@ -163,36 +163,112 @@ class HospitalForm extends Component{
     handleChange = (e, id, value) => {
         
         this.props.onChange(e, id, value);
-        if(id === "state"){
-            HospitalCities.map((item)=>{
-                if(item.state === value){
-                    let cities = [{ value: '', displayValue: 'Select City', id: -1}];
-                    item.cities.map((city, i)=> cities.push({ value: city, displayValue: city, id: i}));
-                    this.setState({form: {
-                        ...this.state.form,
-                        state:{
-                            ...this.state.form.state,
-                            value: value
-                        },
-                        city:{
-                            ...this.state.form.city,
-                            elementConfig: {
-                                ...this.state.form.city.elementConfig,
-                                options: cities
+        switch(id){
+            case 'hospitalName':{
+                this.setState({form: {
+                    ...this.state.form,
+                    hospitalName:{
+                        ...this.state.form.hospitalName,
+                        value: value
+                    } }});
+            }; break;
+            case 'address':{
+                this.setState({form: {
+                    ...this.state.form,
+                    address:{
+                        ...this.state.form.address,
+                        value: value
+                    } }});
+            }; break;
+            case "state": {
+                HospitalCities.map((item)=>{
+                    if(item.state === value){
+                        let cities = [{ value: '', displayValue: 'Select City', id: -1}];
+                        item.cities.map((city, i)=> cities.push({ value: city, displayValue: city, id: i}));
+                        this.setState({form: {
+                            ...this.state.form,
+                            state:{
+                                ...this.state.form.state,
+                                value: value
                             },
-                        } }});
-                }
-            })
+                            city:{
+                                ...this.state.form.city,
+                                elementConfig: {
+                                    ...this.state.form.city.elementConfig,
+                                    options: cities
+                                },
+                            } }});
+                    }
+                })
+            }; break;
+            case "city": {
+                this.setState({form: {
+                    ...this.state.form,
+                    city:{
+                        ...this.state.form.city,
+                        value: value
+                    } }});
+            }break;
+            case 'pinCode':{
+                this.setState({form: {
+                    ...this.state.form,
+                    pinCode:{
+                        ...this.state.form.pinCode,
+                        value: value
+                    } }});
+            }; break;
+            case 'hospitalContact':{
+                this.setState({form: {
+                    ...this.state.form,
+                    hospitalContact:{
+                        ...this.state.form.hospitalContact,
+                        value: value
+                    } }});
+            }; break;
+            case 'hospitalEmail':{
+                this.setState({form: {
+                    ...this.state.form,
+                    hospitalEmail:{
+                        ...this.state.form.hospitalEmail,
+                        value: value
+                    } }});
+            }; break;
+            case 'generalBeds':{
+                this.setState({form: {
+                    ...this.state.form,
+                    generalBeds:{
+                        ...this.state.form.generalBeds,
+                        value: value
+                    } }});
+            }; break;
+            case 'icuBeds':{
+                this.setState({form: {
+                    ...this.state.form,
+                    icuBeds:{
+                        ...this.state.form.icuBeds,
+                        value: value
+                    } }});
+            }; break;
+            case 'ventilatorBeds':{
+                this.setState({form: {
+                    ...this.state.form,
+                    ventilatorBeds:{
+                        ...this.state.form.ventilatorBeds,
+                        value: value
+                    } }});
+            }; break;
+            case 'oxygenBeds':{
+                this.setState({form: {
+                    ...this.state.form,
+                    oxygenBeds:{
+                        ...this.state.form.oxygenBeds,
+                        value: value
+                    } }});
+            }; break;
         }
+        
 
-        else if(id === "city"){
-            this.setState({form: {
-                ...this.state.form,
-                city:{
-                    ...this.state.form.city,
-                    value: value
-                } }});
-        }
+        
     }
 
     

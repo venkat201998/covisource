@@ -61,8 +61,6 @@ const HospitalDetailsRegistration = () =>{
         
     }
 
-    let data = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, disabled};
-
     const handleSubmit = async (e) =>{
         e.preventDefault();
 
@@ -117,9 +115,11 @@ const HospitalDetailsRegistration = () =>{
 
         return(
                 <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
-                    <h3>Registration Form</h3>
                     {loading ? <h3>Loading...</h3> :
-                    <HospitalForm data={data} buttons={buttons} disabled={disabled} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
+                    <div>
+                        <h3>Registration Form</h3>
+                        <HospitalForm data={{hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, disabled}} buttons={buttons} disabled={disabled} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>
+                    </div>}
                 </div>
         )
 }
