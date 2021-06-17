@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import SideNav from '../../components/sideNav/SideNav';
 import { useParams, useHistory } from 'react-router-dom';
 import { updatePatientStatus } from '../../functions/auth';
+import UpdatePatientForm from '../../components/reusables/UpdatePatientForm';
 
 const UpdatePatient = () =>{
     const { user, hospital } = useSelector((state) => ({ ...state }))
@@ -11,26 +12,32 @@ const UpdatePatient = () =>{
     const { slug } = useParams();
     const history = useHistory();
 
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
-    const [dob, setDob] = useState();
-    const [gender, setGender] = useState();
-    const [email, setEmail] = useState();
-    const [contact, setContact] = useState();
-    const [address, setAddress] = useState();
-    const [state, setState] = useState();
-    const [city, setCity] = useState();
-    const [pinCode, setPinCode] = useState();
-    const [maritalStatus, setMaritalStatus] = useState();
-    const [eFirstName, setEFirstName] = useState();
-    const [eLastName, setELastName] = useState();
-    const [relationship, setRelationship] = useState();
-    const [eContact, setEContact] = useState();
-    const [bedType, setBedType] = useState();
-    const [status, setStatus] = useState();
-    const [comments, setComments] = useState();
-    const [patientStatus, setPatientStatus] = useState();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [dob, setDob] = useState("");
+    const [gender, setGender] = useState("");
+    const [email, setEmail] = useState("");
+    const [contact, setContact] = useState("");
+    const [address, setAddress] = useState("");
+    const [state, setState] = useState("");
+    const [city, setCity] = useState("");
+    const [pinCode, setPinCode] = useState("");
+    const [maritalStatus, setMaritalStatus] = useState("");
+    const [eFirstName, setEFirstName] = useState("");
+    const [eLastName, setELastName] = useState("");
+    const [relationship, setRelationship] = useState("");
+    const [eContact, setEContact] = useState("");
+    const [bedType, setBedType] = useState("");
+    const [status, setStatus] = useState("");
+    const [comments, setComments] = useState("");
+    const [patientStatus, setPatientStatus] = useState("");
+    const [disabled, setDisabled] = useState(true);
+    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.generalBeds);
+    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
+    const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
+    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
     const [loading, setLoading] = useState(true);
+    const [buttons, setButtons] = useState([{name: "Update", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
 
 
     useEffect(()=>{
@@ -59,7 +66,32 @@ const UpdatePatient = () =>{
         }
 
     },[user, hospital])
-   
+
+    const onChange = (e, id, value) => {
+        switch(id){
+            case 'firstName': setFirstName(value); break;
+            case 'lastName': setLastName(value); break;
+            case 'dob': setDob(value); break;
+            case 'gender': setGender(value); break;
+            case 'email': setEmail(value); break;
+            case 'contact': setContact(value); break;
+            case 'address': setAddress(value); break;
+            case 'state': setState(value); break;
+            case 'city': setCity(value); break;
+            case 'pinCode': setPinCode(value); break;
+            case 'maritalStatus': setMaritalStatus(value); break;
+            case 'eFirstName': setEFirstName(value); break;
+            case 'eLastName': setELastName(value); break;
+            case 'relationship': setRelationship(value); break;
+            case 'eContact': setEContact(value); break;
+            case 'bedType': setBedType(value); break;
+            case 'patientStatus': setStatus(value); break;
+            case 'comments': setComments(value); break;
+        }
+    }
+
+    let data = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, eFirstName, eLastName, relationship, eContact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, patientStatus, bedType, status, comments, disabled};
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -95,258 +127,7 @@ const UpdatePatient = () =>{
                             { loading ? <h3>Loading...</h3> : 
                             <div>
                                 <h3>Update Patient</h3> 
-                                <form onSubmit={handleSubmit} className="container-fluid">
-                        {/* ---------Personal details----------- */}    
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="patientName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Patient Name</label>
-                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="patientName"
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="firstName"
-                                                value={firstName}
-                                                placeholder="First Name"
-                                                onChange={(e)=> setFirstName(e.target.value)}
-                                                disabled
-                                            />
-                                        </div>
-                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="patientName"
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="lastName"
-                                                value={lastName}
-                                                placeholder="Last Name"
-                                                onChange={(e)=> setLastName(e.target.value)}
-                                                disabled
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="patientBirthDate" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Birth Date</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="patientBirthDate"
-                                                type="date" 
-                                                className="form-control w-100"  
-                                                name="patientBirthDate"
-                                                value={dob}
-                                                placeholder="Date of Birth"
-                                                onChange={(e)=> setDob(e.target.value)}
-                                                disabled
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="gender" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select className="w-100 h-100 form-select" id="gender" value={gender} disabled aria-label="Default select example" onChange={(e)=> setGender(e.target.value)}>
-                                                <option value="sg">Select Gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="NA">N/A</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="contactNumber" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="contactNumber"
-                                                type="tel" 
-                                                className="form-control w-100"  
-                                                name="contactNumber"
-                                                value={contact}
-                                                placeholder="Contact"
-                                                onChange={(e)=> setContact(e.target.value)}
-                                                disabled
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="email" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">E-mail</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="email"
-                                                type="email" 
-                                                className="form-control w-100"  
-                                                name="email"
-                                                value={email}
-                                                placeholder="example@example.com"
-                                                onChange={(e)=> setEmail(e.target.value)}
-                                                disabled
-
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="streetAddress"
-                                                type="text" 
-                                                className="form-control w-100 mb-3 mb-xl-0"  
-                                                name="streetAddress"
-                                                value={address}
-                                                placeholder="Street address"
-                                                onChange={(e)=> setAddress(e.target.value)}
-                                                disabled
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                                    <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setState(e.target.value) }>
-                                                        <option value="ss">{state}</option>
-                                                    </select>
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                                    <select className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setCity(e.target.value) }>
-                                                        <option value="sc">{city}</option>
-                                                    </select>
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="streetAddress" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text"
-                                                inputMode="numeric"
-                                                className="form-control col-12 col-xl-8"  
-                                                value={pinCode}
-                                                pattern="[0-9]{6}" 
-                                                maxLength="6"
-                                                placeholder="pin code"
-                                                onChange={(e) => setPinCode(e.target.value)}
-                                                disabled
-                                                />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="maritalStatus" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Marital Status</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select id="maritalStatus" className="w-100 h-100 form-select" aria-label="Default select example" disabled onChange={(e)=> setMaritalStatus(e.target.value) }>
-                                                <option value="ss">{maritalStatus}</option>
-                                                <option value="single">Single</option>
-                                                <option value="married">Married</option>
-                                                <option value="divorced">Divorced</option>
-                                                <option value="separated">Legally separated</option>
-                                                <option value="widowed">Widowed</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                        {/* ---------Emergency Fields----------- */}
-                                    <div className="row border-top border-3 pt-3 fs-4" >
-                                        <div className="col text-center">
-                                            <h4 style={{color: "gray", borderColor: "gray"}}>In Case of Emergency</h4>
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="emergencyCName" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Emergency Contact</label>
-                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="emergencyCName"
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="EcfirstName"
-                                                value={eFirstName}
-                                                required
-                                                placeholder="First Name"
-                                                onChange={(e)=> setEFirstName(e.target.value)}
-                                            />
-                                        </div>
-                                        <div className="col-md-4 col-12 mb-3 mb-md-1">
-                                            <input
-                                                id="emergencyCName" 
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="EclastName"
-                                                value={eLastName}
-                                                required
-                                                placeholder="Last Name"
-                                                onChange={(e)=> setELastName(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="relationship" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Relationship</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="relationship"
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="relationship"
-                                                value={relationship}
-                                                required
-                                                onChange={(e)=> setRelationship(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="EContactNumber" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact Number</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="EContactNumber"
-                                                type="tel" 
-                                                className="form-control w-100"  
-                                                name="EContactNumber"
-                                                value={eContact}
-                                                required
-                                                placeholder="Contact"
-                                                onChange={(e)=> setEContact(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row border-top border-3 pt-3 fs-4" >
-                                        <div className="col text-center">
-                                            <h4 style={{color: "gray", borderColor: "gray"}}>Patient Status</h4>
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="bedType" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Bed Type</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                id="bedType"
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="bedType"
-                                                value={bedType}
-                                                required
-                                                placeholder="Contact"
-                                                disabled
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="patientStatus" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Update Status</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select id="patientStatus" className="w-100 form-select" aria-label="Default select example" required onChange={(e)=> setStatus(e.target.value)}>
-                                                <option value="">Select status</option>
-                                                {patientStatus && patientStatus==="Admitted" ? 
-                                                <><option value="Discharged">Discharged</option>
-                                                <option value="Deceased">Deceased</option></> : <option value="Admitted">Admit</option>}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label htmlFor="comments" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Status Message</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <textarea className="form-control" id="comments" placeholder="Comments" required value={comments} onChange={(e)=> setComments(e.target.value)}></textarea>
-                                        </div>
-                                    </div>
-                                    <div className="form-group row justify-content-center">
-                                        <div className="col-lg-2 col-md-3 col-5">
-                                            <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Update</button>
-                                        </div>
-                                    </div>
-                        
-                                </form>
+                                <UpdatePatientForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
                             </div>}
                         </div>
                     </div>

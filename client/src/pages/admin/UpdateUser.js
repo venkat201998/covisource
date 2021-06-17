@@ -6,6 +6,7 @@ import UserForm from '../../components/reusables/UserForm';
 import SideNav from '../../components/sideNav/SideNav';
 import { updateUser } from '../../functions/auth';
 
+
 const UpdateUser = () =>{
     const { users, user } = useSelector((state) => ({...state}));
     const { slug } = useParams();
@@ -24,6 +25,8 @@ const UpdateUser = () =>{
     const [pinCode, setPinCode] = useState();
     const [type, setType] = useState();
     const [loading, setLoading] = useState(true);
+    const [disabled, setDisabled] = useState(true);
+    const [buttons, setButtons] = useState([{name: "Update", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
 
     useEffect(() => {
         if(users){

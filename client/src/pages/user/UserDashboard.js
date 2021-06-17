@@ -2,8 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { createOrUpdateUser } from "../../functions/auth";
-import HospitalCities from '../hospital/Json/HospitalCities';
-import HospitalStates from '../hospital/Json/HospitalStates';
+import UserForm from '../../components/reusables/UserForm';
 
 const UserDashboard = () => {
 

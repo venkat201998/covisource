@@ -393,12 +393,12 @@ exports.hospitalsList = async(req, res) => {
 exports.updatePatientStatus = async (req, res) => {
     
     try{
-        const { email } = req.user;
+        const { email } = req.user;        
         const {patientUpdatedDetails, id} = req.body;
         const { eFirstName, eLastName, relationship, eContact, status, comments } = patientUpdatedDetails;
+
         const hospital = await Hospital.findOne({email});
         const patients = hospital.patients;
-
         const patientIndex = patients.findIndex((patient)=> patient._id == id);
         const bedType= patients[patientIndex].bedType;
         let updatedHospital=[];
@@ -411,7 +411,11 @@ exports.updatePatientStatus = async (req, res) => {
         patients[patientIndex].comments = comments;
         patients[patientIndex].updatedDate = Date.now();
 
-        const user = await User.findOne({email: patients[patientIndex].bookedBy});
+        let user = await User.findOne({email: patients[patientIndex].bookedBy});
+        //===================== Added extra ==========================//
+        if(user.type==="Hospital"){
+            user = await User.findOne({email: patients[patientIndex].email});
+        }
         const slots = user.slots;
         const slotIndex = slots.findIndex((slot) => (slot.patientEmail===patients[patientIndex].email && slot.hospitalEmail===email))
         slots[slotIndex].slotStatus = status;
