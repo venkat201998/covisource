@@ -10,6 +10,7 @@ class HospitalForm extends Component{
     constructor(props){
         super(props);
         
+        console.log(this.props);
         let options= [{ value: '', displayValue: 'Select State', id: -1}];
         HospitalStates.map((state, i)=> options.push({ value: state, displayValue: state, id: i}));
         
@@ -83,7 +84,7 @@ class HospitalForm extends Component{
                         type: 'text',
                         placeholder: 'Email',
                         required: true,
-                        disabled: this.props.data.disabled
+                        disabled: this.props.disabled
                     },
                     value: this.props.data.email
                 },

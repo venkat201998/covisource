@@ -25,37 +25,25 @@ const ManageHospital = () =>{
     const [buttons, setButtons] = useState([{name: "Update", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
 
     useEffect(()=>{
-        if(hospital){
-            checkHospital(email)
-            .then((res)=>{
-                if(res.data!=="Hospital not registered"){
-                    setHospitalName(res.data.hospitalName);
-                    setAddress(res.data.streetAddress);
-                    setState(res.data.state);
-                    setCity(res.data.city);
-                    setPinCode(res.data.pinCode);
-                    setContact(res.data.contact);
-                    setGeneralBeds(res.data.generalBeds);
-                    setIcuBeds(res.data.icuBeds);
-                    setVentilatorBeds(res.data.ventilatorBeds);
-                    setOxygenBeds(res.data.oxygenBeds);
-                    dispatch({
-                        type:'LOGIN',
-                        payload: res.data 
-                    })
-                    setLoading(false);
-                }
-                else toast.error(res.data);
-            })
-            .catch((e) => console.log(e));
-        }
-    },[user])   
+        setHospitalName(hospital && hospital.hospitalName);
+        setAddress(hospital && hospital.streetAddress);
+        setState(hospital && hospital.state);
+        setCity(hospital && hospital.city);
+        setPinCode(hospital && hospital.pinCode);
+        setContact(hospital && hospital.contact);
+        setGeneralBeds(hospital && hospital.generalBeds);
+        setIcuBeds(hospital && hospital.icuBeds);
+        setVentilatorBeds(hospital && hospital.ventilatorBeds);
+        setOxygenBeds(hospital && hospital.oxygenBeds);
+        setLoading(false);
+    },[user, hospital])   
 
     const dispatch = useDispatch();
 
 
     const onChange = (e, id, value) => {
         e.preventDefault();
+        setLoading(true);
         switch(id){
             case "hospitalName": setHospitalName(value); break;
             case "address": setAddress(value); break;
@@ -68,10 +56,10 @@ const ManageHospital = () =>{
             case "ventilatorBeds": setVentilatorBeds(value); break;
             case "oxygenBeds": setOxygenBeds(value); break;
         }
+        setLoading(false);
         
     }
 
-    let data = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, disabled}
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -108,7 +96,7 @@ const ManageHospital = () =>{
                 {hospital ? loading ? <h3>Loading...</h3> :
                     (<div>   
                         <h3>Hospital Info</h3>
-                        <HospitalForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
+                        <HospitalForm data={hospital} d={hospitalName} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
                     </div>) : (<h3>Hospital Not Registered</h3>)}
             </div>
         )

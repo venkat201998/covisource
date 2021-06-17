@@ -6,10 +6,12 @@ import { useParams, useHistory } from 'react-router-dom';
 import { checkHospital, updatePatientStatus } from '../../functions/auth';
 
 const UpdatePatient = () =>{
-    const { user } = useSelector((state) => ({ ...state }))
+    const { user, hospital } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
     const { slug } = useParams();
     const history = useHistory();
+
+    console.log(hospital && hospital.patients);
 
     const [Hospital, setHospital] = useState();
 
@@ -36,37 +38,33 @@ const UpdatePatient = () =>{
     const [status, setStatus] = useState();
     const [comments, setComments] = useState();
     const [patientStatus, setPatientStatus] = useState();
+    const [loading, setLoading] = useState(true);
 
 
     useEffect(()=>{
+        console.log('hospital', hospital && hospital);
+        let patients = hospital && hospital.patients;
+        patientDetails = patients && patients.find((patient) => patient._id===slug);
+            setFirstName(patientDetails && patientDetails.firstName);
+            setLastName(patientDetails && patientDetails.lastName);
+            setDob(patientDetails && patientDetails.dob);
+            setGender(patientDetails && patientDetails.gender);
+            setEmail(patientDetails && patientDetails.email);
+            setContact(patientDetails && patientDetails.contact);
+            setAddress(patientDetails && patientDetails.address);
+            setState(patientDetails && patientDetails.state);
+            setCity(patientDetails && patientDetails.city);
+            setPinCode(patientDetails && patientDetails.pinCode);
+            setMaritalStatus(patientDetails && patientDetails.maritalStatus);
+            setEFirstName(patientDetails && patientDetails.eFirstName);
+            setELastName(patientDetails && patientDetails.eLastName);
+            setRelationship(patientDetails && patientDetails.relationship);
+            setEContact(patientDetails && patientDetails.eContact);
+            setBedType(patientDetails && patientDetails.bedType);
+            setPatientStatus(patientDetails && patientDetails.status);
+            setLoading(false);
 
-        checkHospital(user.email)
-        .then((res)=>{
-            if(res.data!=="Hospital not registered"){
-                setHospital(res.data);
-                patientDetails = res.data.patients.find((patient)=> patient._id===slug);
-                setFirstName(patientDetails.firstName);
-                setLastName(patientDetails.lastName);
-                setDob(patientDetails.dob);
-                setGender(patientDetails.gender);
-                setEmail(patientDetails.email);
-                setContact(patientDetails.contact);
-                setAddress(patientDetails.address);
-                setState(patientDetails.state);
-                setCity(patientDetails.city);
-                setPinCode(patientDetails.pinCode);
-                setMaritalStatus(patientDetails.maritalStatus);
-                setEFirstName(patientDetails.eFirstName);
-                setELastName(patientDetails.eLastName);
-                setRelationship(patientDetails.relationship);
-                setEContact(patientDetails.eContact);
-                setBedType(patientDetails.bedType);
-                setPatientStatus(patientDetails.status);
-            }
-            else toast.error(res.data);
-        })
-        .catch((e)=> console.log(e))
-    },[user])
+    },[user, hospital])
    
 
     const handleSubmit = (e) => {
@@ -100,8 +98,9 @@ const UpdatePatient = () =>{
                     <div className="col">
                         <div className="row justify-content-center">
                             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow border">
-
+                                
                                 <h3>Update Patient</h3>
+                                { loading ? <h3>Loading...</h3> : 
                                 <form onSubmit={handleSubmit} className="container-fluid">
                         {/* ---------Personal details----------- */}    
                                     <div className="form-group my-xl-5 my-3 row">
@@ -353,7 +352,7 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                         
-                                </form>
+                                </form>}
                             </div>
                         </div>
                     </div>
