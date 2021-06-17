@@ -33,6 +33,7 @@ const UpdateHospital = () =>{
     ]);
 
     useEffect(() => {
+        console.log("hospitals:", hospitals && hospitals);
         if(hospitals){
             hospital = hospitals.find((hospital)=> hospital._id===slug);
             setHospitalName(hospital && hospital.hospitalName);

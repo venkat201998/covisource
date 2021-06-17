@@ -27,7 +27,7 @@ const UserHome = ({history}) => {
             })
         })
         .catch((err) => toast.error(err));
-    },[history.location.pathname]);
+    },[history.location.pathname, user]);
 
     return(
         <>

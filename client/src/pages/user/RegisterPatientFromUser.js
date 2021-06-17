@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import HospitalCities from '../hospital/Json/HospitalCities.json';
-import HospitalStates from '../hospital/Json/HospitalStates.json';
-import { registerPatientFromUser, getHospitals, currentUser } from '../../functions/auth';
+import { registerPatientFromUser } from '../../functions/auth';
 import { toast } from 'react-toastify';
 import { useHistory, useParams } from 'react-router-dom';
 import PatientForm from '../../components/reusables/PatientForm';
 
 const RegisterPatientFromUser = () =>{
 
-    const { user } = useSelector((state) => ({ ...state }))
+    const { user, hospitals } = useSelector((state) => ({ ...state }))
     const { slug }  = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -51,36 +49,31 @@ const RegisterPatientFromUser = () =>{
     ]);
 
     useEffect(()=>{
+        if(user){
+            setFirstName(user && user.firstName);
+            setLastName(user && user.lastName);
+            setDob(user && user.dob);
+            setGender(user && user.gender);
+            setEmail(user && user.email);
+            setContact(user && user.contact);
+            setAddress(user && user.address);
+            setState(user && user.state);
+            setCity(user && user.city);
+            setPinCode(user && user.pinCode);
+            setLoading(false);
+        }
 
-        currentUser(user.token)
-        .then((res) => {
-            if(res.data!=="User not found"){
-                setFirstName(res.data.firstName);
-                setLastName(res.data.lastName);
-                setDob(res.data.dob);
-                setGender(res.data.gender);
-                setEmail(res.data.email);
-                setContact(res.data.contact);
-                setAddress(res.data.address);
-                setState(res.data.state);
-                setCity(res.data.city);
-                setPinCode(res.data.pinCode);
-                setLoading(false);
-            }
-        })
-
-        getHospitals()
-        .then((res)=>{
-            setHospital(res.data.find((r)=> r._id===slug));
+        if(hospitals){
+            setHospital(hospitals && hospitals.find((hospital)=> hospital._id===slug));
             setGeneralBeds(hospital.generalBeds);
             setIcuBeds(hospital.icuBeds);
             setVentilatorBeds(hospital.ventilatorBeds);
             setOxygenBeds(hospital.oxygenBeds);
 
-        })
+        }
         
 
-    },[user]) 
+    },[user, hospitals]) 
 
     const onChange = (e, id, value) => {
         switch(id){
@@ -127,8 +120,6 @@ const RegisterPatientFromUser = () =>{
             }; break;
         }
     }
-    let data = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, generalBeds, icuBeds, ventilatorBeds, oxygenBeds};
-
      
     const resetData = () => {
         setFirstName(""); setLastName(""); setDob(""); setGender(""); setEmail(""); setContact("");
@@ -202,11 +193,12 @@ const RegisterPatientFromUser = () =>{
 
     return(
         <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
-                <h3>Patient Registration Form</h3>
-                { loading ? <h3>Loading...</h3> : 
-                <PatientForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/> }
-                    
-        </div>   
+            { loading ? <h3>Loading...</h3> : 
+                <div>
+                    <h3>Patient Registration Form</h3>
+                    <PatientForm data={{ firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, eFirstName, eLastName, relationship, eContact, weight, height, medicationStatus, medicationList, medicationAllergies, operationsList, healthIssuesChecked, covidSymptomsChecked, bedType, generalBeds, icuBeds, ventilatorBeds, oxygenBeds}} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>  
+                </div>}
+            </div> 
     )
 }
 export default RegisterPatientFromUser;

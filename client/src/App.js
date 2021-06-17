@@ -1,5 +1,5 @@
 import { Switch, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { auth } from './firebase';
@@ -18,12 +18,11 @@ import UserHome from './pages/user/UserHome';
 import AdminRoute from './components/routes/AdminRoute';
 import UserRoute from './components/routes/UserRoute';
 import HospitalRoute from './components/routes/HospitalRoute';
-import { currentUser, checkHospital } from './functions/auth';
+import { currentUser, checkHospital, getHospitals, getInactiveHospitals, getUsers } from './functions/auth';
 import UpdateHospital from './pages/admin/UpdateHospital';
 import UpdatePatient from './pages/hospital/UpdatePatient';
 import UpdateHospitalStatus from './pages/admin/UpdateHospitalStatus';
 import UpdateUser from './pages/admin/UpdateUser';
-
 
 
 const App = () => {
@@ -47,7 +46,7 @@ const App = () => {
                 case 'User': options=['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'];
                 break;
                 
-            }
+            };
             dispatch({
               type: "LOGGED_IN_USER",
               payload: {
@@ -69,18 +68,60 @@ const App = () => {
                   token: res.config.headers.idToken
               },
             });
-        })
+            if(res.data.type === 'Hospital'){
+              checkHospital(user.email)
+              .then((res)=>{
+                  if(res.data!=="Hospital not registered"){
+                      dispatch({
+                          type:'LOGIN',
+                          payload: res.data
+                      })
+                  }
+              })
+              .catch((e) => toast.error(e));
+            }
+            else if(res.data.type === 'Admin'){
+              getInactiveHospitals(idTokenResult.token)
+              .then((res) => {
+                  dispatch({
+                      type: "HOSPITAL_STATUS_INACTIVE",
+                      payload: res.data
+                  })
+              })
+              .catch((err) => toast.error(err));
 
-        checkHospital(user.email)
-        .then((res)=>{
-            if(res.data!=="Hospital not registered"){
-                dispatch({
-                    type:'LOGIN',
-                    payload: res.data
-                })
+              getHospitals()
+              .then((res) => {
+                  dispatch({
+                      type: "ACTIVE_HOSPITALS",
+                      payload: res.data
+                  })
+              })
+              .catch((err) => toast.error(err));
+
+              getUsers(idTokenResult.token)
+              .then((res) => {
+                  if(res.data !== "No User Found"){
+                      dispatch({
+                          type: "REGISTERED_USERS",
+                          payload: res.data
+                      })
+                  }
+              })
+              .catch((err) => toast.error(err))
+            }
+            else if(res.data.type === 'User'){
+              getHospitals()
+              .then((res) => {
+                  dispatch({
+                      type: "ACTIVE_HOSPITALS",
+                      payload: res.data
+                  })
+              })
+              .catch((err) => toast.error(err));
             }
         })
-        .catch((e) => console.log(e));        
+                
       }
     })
     return () => unsubscribe();

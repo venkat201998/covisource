@@ -35,7 +35,7 @@ const HospitalDashboard = () => {
     return(
         <>
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
-                <h3 className="fw-bold text-center">{hospital.hospitalName}</h3>
+                <h3 className="fw-bold text-center">{hospital && hospital.hospitalName}</h3>
                 <form className="container-fluid p-0">
                     <div className="card border-0">
                     {/* <img src="" className="card-img-top" alt="..."/> */}
@@ -45,7 +45,7 @@ const HospitalDashboard = () => {
                                     <li className="list-group-item border-0 bg-transparent">
                                         <label className="col-form-label text-start fw-bold fs-6">Contact:</label>
                                         <span className="ps-2">
-                                            {hospital.contact}
+                                            {hospital && hospital.contact}
                                         </span>
                                     </li>
                                 </div>
@@ -53,7 +53,7 @@ const HospitalDashboard = () => {
                                     <li className="list-group-item border-0 bg-transparent">
                                         <label className="col-form-label text-start fw-bold fs-6">Email:</label>
                                         <span className="ps-2">
-                                            {hospital.email}
+                                            {hospital && hospital.email}
                                         </span>
                                     </li>
                                 </div>
@@ -61,7 +61,7 @@ const HospitalDashboard = () => {
                                     <li className="list-group-item border-0 bg-transparent">
                                     <label className="col-form-label text-start fw-bold fs-6">Address:</label>
                                         <span className="ps-2">
-                                            {hospital.streetAddress}, {hospital.city}, {hospital.state}, {hospital.pinCode}
+                                            {hospital && hospital.streetAddress}, {hospital && hospital.city}, {hospital && hospital.state}, {hospital && hospital.pinCode}
                                         </span>
                                     </li>
                                 </div>
@@ -77,13 +77,13 @@ const HospitalDashboard = () => {
                                     <li className="list-group-item border-0 bg-transparent">
                                         <label className="col-form-label text-start fw-bold fs-6">General:</label>
                                         <span className="ps-2">
-                                            {hospital.generalBeds}
+                                            {hospital && hospital.generalBeds}
                                         </span>
                                     </li>
                                     <li className="list-group-item border-0 bg-transparent">
                                         <label className="col-form-label text-start fw-bold fs-6">ICU:</label>
                                         <span className="ps-2">
-                                            {hospital.icuBeds}
+                                            {hospital && hospital.icuBeds}
                                         </span>
                                     </li>
                                 </div>
@@ -91,13 +91,13 @@ const HospitalDashboard = () => {
                                     <li className="list-group-item border-0 bg-transparent">
                                         <label className="col-form-label text-start fw-bold fs-6">Ventilator:</label>
                                         <span className="ps-2">
-                                            {hospital.ventilatorBeds}
+                                            {hospital && hospital.ventilatorBeds}
                                         </span>
                                     </li>
                                     <li className="list-group-item border-0 bg-transparent">    
                                         <label className="col-form-label text-start fw-bold fs-6">Oxygen:</label>
                                         <span className="ps-2">
-                                            {hospital.oxygenBeds}
+                                            {hospital && hospital.oxygenBeds}
                                         </span>
                                     </li>
                                 </div>

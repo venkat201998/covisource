@@ -3,21 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import UserForm from '../../components/reusables/UserForm';
-// import HospitalCities from '../hospital/Json/HospitalCities.json';
-// import HospitalStates from '../hospital/Json/HospitalStates.json';
 import SideNav from '../../components/sideNav/SideNav';
-import { getUsers, updateUser } from '../../functions/auth';
+import { updateUser } from '../../functions/auth';
 
 const UpdateUser = () =>{
     const { users, user } = useSelector((state) => ({...state}));
     const { slug } = useParams();
     const dispatch = useDispatch();
 
-    // const u = users && users.find((u) => u._id === slug);
 
-    // let citiesOptions = null;
-
-    // let User={};
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [dob, setDob] = useState();
@@ -30,24 +24,6 @@ const UpdateUser = () =>{
     const [pinCode, setPinCode] = useState();
     const [type, setType] = useState();
     const [loading, setLoading] = useState(true);
-    const [disabled, setDisabled] = useState(true);
-    const [buttons, setButtons] = useState([{name: "Update", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
-
-
-    // const autoPopulate = () =>{
-    //     setFirstName(User && User.firstName);
-    //     setLastName(User && User.lastName);
-    //     setDob(User && User.dob);
-    //     setGender(User && User.gender);
-    //     setEmail(User && User.email);
-    //     setContact(User && User.contact);
-    //     setAddress(User && User.address);
-    //     setState(User && User.state);
-    //     setCity(User && User.city);
-    //     setPinCode(User && User.pinCode);
-    //     setType(User && User.type);
-    //     setLoading(false);
-    // }
 
     useEffect(() => {
         if(users){
@@ -65,14 +41,7 @@ const UpdateUser = () =>{
             setType(user && user.type);
             setLoading(false);
         }
-        // getUsers(user.token)
-        // .then((res) => {
-        //     if(res.data !== "No User Found"){
-        //         User = res.data.find((user) => user._id === slug);
-        //         autoPopulate();
-        //     }
-        // })
-    },[user])
+    },[user, users])
     
 
     

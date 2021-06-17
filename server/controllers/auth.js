@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Hospital = require("../models/hospital");
 
+//===================== User ==========================//
 exports.createOrUpdateUser = async(req, res) => {
     try {
         const { email } = req.user;
@@ -53,6 +54,9 @@ exports.currentUser = async(req, res) => {
     }
 }
 
+//===================== User ==========================//
+
+//===================== Hospital ==========================//
 exports.createHospital = async(req, res)=> {
     try{
         const hospitalDetails = req.body.hospitalDetails;
@@ -132,8 +136,8 @@ exports.updateHospital = async(req, res) => {
         const hospitals = await Hospital.find({status});
         if(updateHospital){
             res.json({
-                updateHospital: updateHospital,
-                hospitals: hospitals
+                updateHospital,
+                hospitals
             });
         }
         else{
@@ -142,6 +146,25 @@ exports.updateHospital = async(req, res) => {
     }
     catch(error){
         res.json(error);
+    }
+}
+
+exports.removeHospital = async (req, res) => {
+    try{
+        const email = req.body.email;
+        const removeHospital = await Hospital.findOneAndDelete({email});
+        const status = "Active";
+        const hospitals = await Hospital.find({status}); 
+        if(removeHospital){
+            res.json({
+                removeHospital,
+                hospitals
+            });
+        }else{
+            res.json("Failed To Remove The Hospital");
+        }
+    }catch(error){
+        res.json(error)
     }
 }
 
@@ -335,25 +358,6 @@ exports.updateHospitalStatus = async(req, res) => {
             res.json(updateHospital);
         }else{
             res.json("Failed to update");
-        }
-    }catch(error){
-        res.json(error)
-    }
-}
-
-exports.removeHospital = async (req, res) => {
-    try{
-        const email = req.body.email;
-        const removeHospital = await Hospital.findOneAndDelete({email});
-        const status = "Active";
-        const hospitals = await Hospital.find({status}); 
-        if(removeHospital){
-            res.json({
-                removeHospital,
-                hospitals
-            });
-        }else{
-            res.json("Failed To Remove The Hospital");
         }
     }catch(error){
         res.json(error)
