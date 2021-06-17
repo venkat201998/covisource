@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SideNav from '../../components/sideNav/SideNav';
-import { updateHospital, removeHospital, getHospitals } from '../../functions/auth';
+import { updateHospital, removeHospital } from '../../functions/auth';
 import HospitalForm from '../../components/reusables/HospitalForm';
 
 const UpdateHospital = () =>{
@@ -12,7 +12,7 @@ const UpdateHospital = () =>{
     const history = useHistory();
     const dispatch = useDispatch();    
     
-    let hospital = [];
+    let hospital = {};
     const [hospitalName, setHospitalName] = useState();
     const [address, setAddress] = useState();
     const [state, setState] = useState();
@@ -33,9 +33,8 @@ const UpdateHospital = () =>{
     ]);
 
     useEffect(() => {
-        getHospitals()
-        .then((res)=>{
-            hospital = res.data.find((r)=> r._id===slug);
+        if(hospitals){
+            hospital = hospitals.find((hospital)=> hospital._id===slug);
             setHospitalName(hospital && hospital.hospitalName);
             setAddress(hospital && hospital.streetAddress);
             setState(hospital && hospital.state);
@@ -49,11 +48,12 @@ const UpdateHospital = () =>{
             setOxygenBeds(hospital && hospital.oxygenBeds);
             setStatus(hospital && hospital.status);
             setLoading(false);
-        })
+        }
     }, [user])
 
     const onChange = (e, id, value) => {
         e.preventDefault();
+        setLoading(true);
         switch(id){
             case "hospitalName": setHospitalName(value); break;
             case "address": setAddress(value); break;
@@ -67,10 +67,9 @@ const UpdateHospital = () =>{
             case "ventilatorBeds": setVentilatorBeds(value); break;
             case "oxygenBeds": setOxygenBeds(value); break;
         }
+        setLoading(false);
         
     }
-
-    let data = {hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, disabled}
     
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -80,17 +79,16 @@ const UpdateHospital = () =>{
         let answer = window.confirm("Update Hospital Details?");
         if(answer){
             updateHospital(hospitalDetails, user.token)
-            .then((res) => toast.success("Hospital Updated Successfully"))
-            .catch((err) => toast.error(err))
-
-            getHospitals(user.token)
             .then((res) => {
-                dispatch({
-                    type: "ACTIVE_HOSPITALS",
-                    payload: res.data
-                })
+                if(res.data!=="Update Failed"){
+                    dispatch({
+                        type: "ACTIVE_HOSPITALS",
+                        payload: res.data.hospitals
+                    })
+                    toast.success("Hospital Updated Successfully");
+                }
             })
-            .catch((err) => toast.error(err));
+            .catch((err) => toast.error(err))
         }else{
             toast.error("Failed To Update")
         }
@@ -105,19 +103,16 @@ const UpdateHospital = () =>{
         if(answer){
             removeHospital(email, user.token)
             .then((res) => {
-                toast.success("Hospital Removed Successfully");
-                history.push('/Admin/ManageHospitals');
+                if(res.data!=="Failed To Remove The Hospital"){
+                    dispatch({
+                        type: "ACTIVE_HOSPITALS",
+                        payload: res.data.hospitals
+                    })
+                    toast.success("Hospital Removed Successfully");
+                    history.push('/Admin/ManageHospitals');
+                }
             })
             .catch((err) => toast.error(err))
-
-            getHospitals(user.token)
-            .then((res) => {
-                dispatch({
-                    type: "ACTIVE_HOSPITALS",
-                    payload: res.data
-                })
-            })
-            .catch((err) => toast.error(err));
         }else{
             toast.error("Failed To Delete");
         }
@@ -134,9 +129,11 @@ const UpdateHospital = () =>{
                     <div className="col">
                         <div className="row justify-content-center">
                             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow border">
+                            {loading ? <h3>Loading...</h3> : 
+                            <div>
                                 <h3>Hospital Info</h3>
-                                {console.log(data)}
-                                {loading ? <h3>Loading...</h3> : <HospitalForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>}
+                                <HospitalForm data={{hospitalName, address, state, city, pinCode, contact, email, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, disabled}} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>
+                            </div>}
                         </div>
                     </div>
                 </div>

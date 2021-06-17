@@ -128,8 +128,13 @@ exports.updateHospital = async(req, res) => {
             },
             { new: true }
         );
+        const status = "Active";
+        const hospitals = await Hospital.find({status});
         if(updateHospital){
-            res.json(updateHospital);
+            res.json({
+                updateHospital: updateHospital,
+                hospitals: hospitals
+            });
         }
         else{
             res.json("Update Failed");
@@ -340,8 +345,13 @@ exports.removeHospital = async (req, res) => {
     try{
         const email = req.body.email;
         const removeHospital = await Hospital.findOneAndDelete({email});
+        const status = "Active";
+        const hospitals = await Hospital.find({status}); 
         if(removeHospital){
-            res.json("Hospital Removed Successfully");
+            res.json({
+                removeHospital,
+                hospitals
+            });
         }else{
             res.json("Failed To Remove The Hospital");
         }
