@@ -18,5 +18,97 @@
             "Suryapet", "Miryalaguda", "Jagtial", "Sangareddy", "Mancherial",
             "Sircilla", "Metpally", "Koratla", "Gadwal", "Bhongir"
         ]
+    },
+    {
+        "state": "Arunachal Pradesh",
+        "cities":[
+            "Tawang", "Itanagar", "Ziro", "Tezu"
+        ]
+    },
+    {
+        "state": "Assam",
+        "cities":[
+            "Guwahati", "Silchar", "Jorhat", "Nagaon", "Dibrugarh"
+        ]
+    },
+    {
+        "state": "Bihar",
+        "cities":[
+            "Patna", "Gaya", "Purnia", "Arrah", "Chhapra"
+        ]
+    },
+    {
+        "state": "Chandigarh",
+        "cities":[
+            "Atawa", "Burail", "Dariya", "Kansil", "Shahpur"
+        ]
+    },
+    {
+        "state": "Chattisgarh",
+        "cities":[
+            "Raipur", "Kawardha", "Korba", "Akaltara", "Champa"
+        ]
+    },
+    {
+        "state": "Dadra and Nagar Haveli",
+        "cities":[
+            "Naroli", "Maghval", "Silvassa", "Dadra"
+        ]
+    },
+    {
+        "state": "Daman and Diu",
+        "cities":[
+            "Gogola", "Dholar", "Sigsar", "Bhimpur", "Marwad"
+        ]
+    },
+    {
+        "state": "Delhi",
+        "cities":[
+            "Alipur", "Dindarput", "Khaira", "Soreda", "Roshanpura"
+        ]
+    },
+    {
+        "state": "Goa",
+        "cities":[
+            "Panaji", "Margao", "Mapusa", "Ponda", "Salcete"
+        ]
+    },
+    {
+        "state": "Gujarat",
+        "cities":[
+            "Ahmedabad", "Surat", "Vadodara", "Palanpur", "Amreli"
+        ]
+    },
+    {
+        "state": "Haryana",
+        "cities":[
+            "Faridabad", "Gurugram", "Ambala", "Kaithal", "Sirsa"
+        ]
+    },
+    {
+        "state": "Himachal Pradesh",
+        "cities":[
+            "Shimla", "Palampur", "Solan", "Kullu", "Bilaspur"
+        ]
+    },
+    {
+        "state": "Jammu and Kashmir",
+        "cities":[
+            "Srinagar", "Gulmarg", "Udhampur", "Patnitop", "Sonamarg"
+        ]
+    },
+    {
+        "state": "Jharkand",
+        "cities":[
+            "Ranchi", "Jamshedpur", "Dhanbad", "Deoghar", "Daltonganj"
+        ]
+    },
+    {
+        "state": "Karnataka",
+        "cities":[
+            "Bengaluru", "Belgaum", "Gulbarga", "Hubli", "Ballari"
+        ]
     }
+    
+ 
 ]

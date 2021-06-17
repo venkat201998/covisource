@@ -159,6 +159,7 @@ class HospitalForm extends Component{
 
 
     handleChange = (e, id, value) => {
+        
         this.props.onChange(e, id, value);
         if(id === "state"){
             HospitalCities.map((item)=>{
@@ -167,22 +168,33 @@ class HospitalForm extends Component{
                     item.cities.map((city, i)=> cities.push({ value: city, displayValue: city, id: i}));
                     this.setState({form: {
                         ...this.state.form,
+                        state:{
+                            ...this.state.form.state,
+                            value: value
+                        },
                         city:{
                             ...this.state.form.city,
                             elementConfig: {
                                 ...this.state.form.city.elementConfig,
                                 options: cities
-                            }
+                            },
                         } }});
                 }
             })
+        }
+
+        else if(id === "city"){
+            this.setState({form: {
+                ...this.state.form,
+                city:{
+                    ...this.state.form.city,
+                    value: value
+                } }});
         }
     }
 
     
     render(){
-
-        console.log(this.props.data.state);
 
         const formElements = [];
         for(let key in this.state.form){
@@ -199,6 +211,8 @@ class HospitalForm extends Component{
                     <Div>
                         {this.props.buttons.map((button) => <Button key={button.type} type={button.type} className={button.className} name={button.name}/>)}
                     </Div>
+                    {console.log("state: ", this.state)}
+                    {console.log("Props:", this.props.data.city)}
                 </form>
             </> 
         )
