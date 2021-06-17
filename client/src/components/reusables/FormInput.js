@@ -24,6 +24,7 @@ const Input = ({ config, onChange }) => {
             break;
         case 'select': inputElement = 
             <div className="form-group my-xl-5 my-3 row">
+                    {console.log(config.value)}
                 <label htmlFor={config.elementConfig.id} className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">{config.elementConfig.placeholder}</label>
                 <div className="col-md-8 col-12 mb-3 mb-md-1">
                     <select className="h-100 form-select" id={config.elementConfig.id} aria-label="Default select example" value={config.value} required onChange={(e) => handleChange(e, e.target.id, e.target.value)}>

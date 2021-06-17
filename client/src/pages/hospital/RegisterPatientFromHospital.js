@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import HospitalCities from './Json/HospitalCities.json';
-import HospitalStates from './Json/HospitalStates.json';
 import { registerPatientFromHospital, addSlotFromHospital } from '../../functions/auth';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
@@ -42,35 +40,37 @@ const RegisterPatientFromHospital = () =>{
     const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
     const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
     const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
+    const [buttons, setButtons] = useState([
+        {name: "Submit", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"},
+        {name: "Reset", type: "reset", className: "btn btn-outline-danger btn-raised fw-bold"}
+    ]);
 
-    let citiesOptions = null;
-
-    HospitalCities.map((item)=>{
-        if(item.state===state)
-        citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
-    })
 
     const onChange = (e, id, value) => {
         switch(id){
-            case 'patientBirthDate': setDob(value); break;
+            case 'firstName': setFirstName(value); break;
+            case 'lastName': setLastName(value); break;
+            case 'eFirstName': setEFirstName(value); break;
+            case 'eLastName': setELastName(value); break;
+            case 'dob': setDob(value); break;
             case 'gender': setGender(value); break;
-            case 'contactNumber': setContact(value); break;
+            case 'contact': setContact(value); break;
             case 'email': setEmail(value); break;
-            case 'streetAddress': setAddress(value); break;
+            case 'address': setAddress(value); break;
             case 'state': setState(value); break;
             case 'city': setCity(value); break;
             case 'pinCode': setPinCode(value); break;
             case 'maritalStatus': setMaritalStatus(value); break;
             case 'relationship': setRelationship(value); break;
-            case 'eContactNumber': setEContact(value); break;
+            case 'eContact': setEContact(value); break;
             case 'weight': setWeight(value); break;
             case 'height': setHeight(value); break;
-            case 'medication': setMedicationStatus(value); break;
-            case 'medicationTextArea': setMedicationList(value); break;
-            case 'allergies': setMedicationAllergies(value); break;
-            case 'operationsTextArea': setOperationsList(value); break;
+            case 'medicationStatus': setMedicationStatus(value); break;
+            case 'medicationList': setMedicationList(value); break;
+            case 'medicationAllergies': setMedicationAllergies(value); break;
+            case 'operationsList': setOperationsList(value); break;
             case 'bedType': setBedType(value); break;
-            case 'healthIssues': {
+            case 'healthIssuesChecked': {
                 if(!e.target.checked){
                     healthIssuesChecked = healthIssuesChecked.filter((item)=> item!== value);
                 }
@@ -80,14 +80,13 @@ const RegisterPatientFromHospital = () =>{
                 setHealthIssuesChecked(healthIssuesChecked);
             }; break;
 
-            case 'covidSymptoms': {
+            case 'covidSymptomsChecked': {
                 if(!e.target.checked){
                     covidSymptomsChecked = covidSymptomsChecked.filter((item)=> item!== value);
                 }
                 else{
                     covidSymptomsChecked.push(value);
                 }
-                console.log(covidSymptomsChecked);
                 setCovidSymptomsChecked(covidSymptomsChecked);
             }; break;
         }
@@ -127,7 +126,7 @@ const RegisterPatientFromHospital = () =>{
                         .then((res)=>{
 
                         })
-                        .catch((e)=> console.log(e))
+                        .catch((e)=> toast.error(e))
                         toast.success("Patient Registered");
                         resetData();
                         history.push('Dashboard');
@@ -157,12 +156,7 @@ const RegisterPatientFromHospital = () =>{
     return(
         <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                 <h3>Patient Registration Form</h3>
-                
-
-                <PatientForm data={data} onChange={(e, id, value) => onChange(e, id, value)}/>
-
-                {console.log(bedType, gender)}
-            
+                <PatientForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>
         </div>   
     )
 }

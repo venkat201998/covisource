@@ -212,8 +212,6 @@ class HospitalForm extends Component{
                     <Div>
                         {this.props.buttons.map((button) => <Button key={button.type} type={button.type} className={button.className} name={button.name}/>)}
                     </Div>
-                    {console.log("state: ", this.state)}
-                    {console.log("Props:", this.props.data.city)}
                 </form>
             </> 
         )
