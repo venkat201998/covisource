@@ -89,6 +89,7 @@ class HospitalForm extends Component{
                 },
                 partition: {
                     elementType: 'partition',
+                    title: 'Resources (Beds)'
                 },
                 generalBeds: {
                     elementType: 'input',

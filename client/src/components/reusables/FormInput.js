@@ -70,9 +70,9 @@ const Input = ({ config, onChange }) => {
             </div>
         break;
         case 'partition': inputElement = 
-            <div className="row border-top border-3 pt-3 fs-4" >
+            <div className="row border-top border-3 pt-3 fs-4" id={config.id} >
                 <div className="col text-center">
-                    <h4 style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</h4>
+                    <h4 style={{color: "gray", borderColor: "gray"}}>{config.title}</h4>
                 </div>
             </div>
         
