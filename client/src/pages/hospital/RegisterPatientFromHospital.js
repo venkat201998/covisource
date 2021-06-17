@@ -54,7 +54,7 @@ const RegisterPatientFromHospital = () =>{
             setOxygenBeds(hospital && hospital.oxygenBeds);
             setLoading(false);
         }
-    }, hospital)
+    }, [hospital])
 
     const onChange = (e, id, value) => {
         switch(id){
