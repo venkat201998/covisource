@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import UserSlotCard from '../../components/cards/UserSlotCard';
 
@@ -7,7 +7,7 @@ const UserSlot = () => {
     let detailsArr = [];
     let hospitalDetails;
     let patientDetails;
-    let ActiveSlots =[];
+    const [ActiveSlots, setActiveSlots] = useState([]);
     const { user, hospitals } = useSelector((state) => ({...state}));
 
     const data = () =>{
@@ -22,13 +22,12 @@ const UserSlot = () => {
             })
         })
 
-        ActiveSlots = detailsArr && detailsArr.filter((d) => d && (d.status === "OnHold" || d.status === "Admitted"));
+        setActiveSlots(detailsArr && detailsArr.filter((d) => d && (d.status === "OnHold" || d.status === "Admitted")));
     }
 
     useEffect(() =>{
         data();
     },[user, hospitals])
-    data();
 
 
     return (

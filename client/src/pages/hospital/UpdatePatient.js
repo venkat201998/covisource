@@ -3,21 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import SideNav from '../../components/sideNav/SideNav';
 import { useParams, useHistory } from 'react-router-dom';
-import { checkHospital, updatePatientStatus } from '../../functions/auth';
+import { updatePatientStatus } from '../../functions/auth';
 
 const UpdatePatient = () =>{
     const { user, hospital } = useSelector((state) => ({ ...state }))
     const dispatch = useDispatch();
     const { slug } = useParams();
     const history = useHistory();
-
-    console.log(hospital && hospital.patients);
-
-    const [Hospital, setHospital] = useState();
-
-    // const patients =Hospital && Hospital.patients;
-    
-    let patientDetails={};
 
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
@@ -42,9 +34,10 @@ const UpdatePatient = () =>{
 
 
     useEffect(()=>{
-        console.log('hospital', hospital && hospital);
-        let patients = hospital && hospital.patients;
-        patientDetails = patients && patients.find((patient) => patient._id===slug);
+        
+        if(hospital){
+            let patients = hospital && hospital.patients;
+            let patientDetails = patients && patients.find((patient) => patient._id===slug);
             setFirstName(patientDetails && patientDetails.firstName);
             setLastName(patientDetails && patientDetails.lastName);
             setDob(patientDetails && patientDetails.dob);
@@ -63,6 +56,7 @@ const UpdatePatient = () =>{
             setBedType(patientDetails && patientDetails.bedType);
             setPatientStatus(patientDetails && patientDetails.status);
             setLoading(false);
+        }
 
     },[user, hospital])
    
@@ -98,9 +92,9 @@ const UpdatePatient = () =>{
                     <div className="col">
                         <div className="row justify-content-center">
                             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow border">
-                                
-                                <h3>Update Patient</h3>
-                                { loading ? <h3>Loading...</h3> : 
+                            { loading ? <h3>Loading...</h3> : 
+                            <div>
+                                <h3>Update Patient</h3> 
                                 <form onSubmit={handleSubmit} className="container-fluid">
                         {/* ---------Personal details----------- */}    
                                     <div className="form-group my-xl-5 my-3 row">
@@ -352,12 +346,13 @@ const UpdatePatient = () =>{
                                         </div>
                                     </div>
                         
-                                </form>}
-                            </div>
+                                </form>
+                            </div>}
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
+        </div>
     )
 }
 

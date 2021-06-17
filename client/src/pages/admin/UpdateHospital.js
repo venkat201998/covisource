@@ -33,6 +33,7 @@ const UpdateHospital = () =>{
     ]);
 
     useEffect(() => {
+        console.log("hospitals:", hospitals && hospitals);
         if(hospitals){
             hospital = hospitals.find((hospital)=> hospital._id===slug);
             setHospitalName(hospital && hospital.hospitalName);
@@ -49,7 +50,7 @@ const UpdateHospital = () =>{
             setStatus(hospital && hospital.status);
             setLoading(false);
         }
-    }, [user])
+    }, [user, hospitals])
 
     const onChange = (e, id, value) => {
         e.preventDefault();

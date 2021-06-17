@@ -13,17 +13,16 @@ import LoadingCard from '../../components/cards/LoadingCard';
 
 const Home = () => {
     const { user } = useSelector((state) => ({ ...state }));
-    const [hospitals, setHospitals] = useState("");
     const dispatch = useDispatch();
+
+    const [hospitals, setHospitals] = useState("");
     const [pinOption, setPinOption] = useState(false);
     const [cityOption, setCityOption] = useState(false);
-
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [page, setPage] = useState(1);
     const [hospitalsCount, setHospitalsCount] = useState(0);
-    // const [activeHospitals, setActiveHospitals] = useState("");
     const [loading, setLoading] = useState(true);
     
     let citiesOptions = null;
@@ -37,7 +36,6 @@ const Home = () => {
         getHospitals()
         .then((res) => {
             setHospitalsCount(res.data.length);
-            //setActiveHospitals(res.data);
             dispatch({
                 type: "ACTIVE_HOSPITALS",
                 payload: res.data
@@ -59,7 +57,6 @@ const Home = () => {
     const handleSearchPincode = (e) => {
         e.preventDefault();
         setPinCode(e.target.value);
-        // setHospitalsCount(pinOption && activeHospitals && activeHospitals.filter(searchPincode(pinCode)).length);
     }
 
     const active = (id) => {

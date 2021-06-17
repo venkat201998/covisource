@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { currentUser, createOrUpdateUser } from "../../functions/auth";
+import { createOrUpdateUser } from "../../functions/auth";
 import HospitalCities from '../hospital/Json/HospitalCities';
 import HospitalStates from '../hospital/Json/HospitalStates';
 
@@ -21,45 +21,25 @@ const UserDashboard = () => {
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [type, setType] = useState("");
+    const [loading, setLoading] = useState(true);
     let citiesOptions = null;
 
     useEffect(()=>{
-        currentUser(user.token)
-        .then((res)=> {
-                setFirstName(res.data.firstName);
-                setLastName(res.data.lastName);
-                setDob(res.data.dob);
-                setGender(res.data.gender);
-                setEmail(res.data.email);
-                setContact(res.data.contact);
-                setAddress(res.data.address);
-                setState(res.data.state);
-                setCity(res.data.city);
-                setPinCode(res.data.pinCode);      
-                setType(res.data.type);
-                dispatch({
-                    type: "LOGGED_IN_USER",
-                    payload: {
-                        firstName: res.data.firstName,
-                        lastName: res.data.lastName,
-                        dob: res.data.dob,
-                        gender:res.data.gender,
-                        email:res.data.email,
-                        contact: res.data.contact,
-                        address: res.data.address,
-                        state: res.data.state,
-                        city:res.data.city,
-                        pinCode: res.data.pinCode,      
-                        type: res.data.type,
-                        _id: res.data._id,
-                        options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
-                        slots: res.data.slots,
-                        token: res.config.headers.idToken    
-                    },
-                });
-        })
-        .catch((err) => toast.error(err));
-    },[])
+        if(user){
+            setFirstName(user && user.firstName);
+            setLastName(user && user.lastName);
+            setDob(user && user.dob);
+            setGender(user && user.gender);
+            setEmail(user && user.email);
+            setContact(user && user.contact);
+            setAddress(user && user.address);
+            setState(user && user.state);
+            setCity(user && user.city);
+            setPinCode(user && user.pinCode);      
+            setType(user && user.type);
+            setLoading(user && false);
+        }
+    },[user])
 
     HospitalCities.map((item)=>{
         if(item.state===state)
@@ -104,7 +84,7 @@ const UserDashboard = () => {
     
     return (
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
-                <form onSubmit={handleSubmit} className="container-fluid" >
+                {loading ? <h3>Loading...</h3> : <form onSubmit={handleSubmit} className="container-fluid" >
                     <div className="form-group mb-4 text-center">
                         <h3>User Info</h3>
                     </div>
@@ -258,7 +238,7 @@ const UserDashboard = () => {
                             <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Save Changes</button>
                         </div>
                     </div>
-                </form>
+                </form>}
             </div>
     );
 };
