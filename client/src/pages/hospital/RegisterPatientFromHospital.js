@@ -36,15 +36,25 @@ const RegisterPatientFromHospital = () =>{
     const [bedType, setBedType] = useState("");
     let [healthIssuesChecked, setHealthIssuesChecked] = useState([]);
     let [covidSymptomsChecked, setCovidSymptomsChecked] = useState([]);
-    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.generalBeds);
-    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
-    const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
-    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
+    const [generalBeds, setGeneralBeds] = useState("");
+    const [ventilatorBeds, setVentilatorBeds] = useState("");
+    const [icuBeds, setIcuBeds] = useState("");
+    const [oxygenBeds, setOxygenBeds] = useState("");
+    const [loading, setLoading] = useState(true);
     const [buttons, setButtons] = useState([
         {name: "Submit", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"},
         {name: "Reset", type: "reset", className: "btn btn-outline-danger btn-raised fw-bold"}
     ]);
 
+    useEffect(()=> {
+        if(hospital){
+            setGeneralBeds(hospital && hospital.generalBeds);
+            setIcuBeds(hospital && hospital.icuBeds);
+            setVentilatorBeds(hospital && hospital.ventilatorBeds);
+            setOxygenBeds(hospital && hospital.oxygenBeds);
+            setLoading(false);
+        }
+    }, hospital)
 
     const onChange = (e, id, value) => {
         switch(id){
@@ -155,8 +165,13 @@ const RegisterPatientFromHospital = () =>{
 
     return(
         <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
-                <h3>Patient Registration Form</h3>
-                <PatientForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>
+            { loading ? <h3>Loading...</h3> : 
+                <div>
+                    <h3>Patient Registration Form</h3>
+                    <PatientForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit} handleReset={handleReset}/>    
+                </div>
+
+            }
         </div>   
     )
 }

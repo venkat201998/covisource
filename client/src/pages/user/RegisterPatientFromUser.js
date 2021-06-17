@@ -12,7 +12,7 @@ const RegisterPatientFromUser = () =>{
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [hospital, setHospital] = useState("");
+    // const [hospital, setHospital] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [dob, setDob] = useState("");
@@ -38,10 +38,10 @@ const RegisterPatientFromUser = () =>{
     const [bedType, setBedType] = useState("");
     let [healthIssuesChecked, setHealthIssuesChecked] = useState([]);
     let [covidSymptomsChecked, setCovidSymptomsChecked] = useState([]);
-    const [generalBeds, setGeneralBeds] = useState();
-    const [ventilatorBeds, setVentilatorBeds] = useState();
-    const [icuBeds, setIcuBeds] = useState();
-    const [oxygenBeds, setOxygenBeds] = useState();
+    const [generalBeds, setGeneralBeds] = useState("");
+    const [ventilatorBeds, setVentilatorBeds] = useState("");
+    const [icuBeds, setIcuBeds] = useState("");
+    const [oxygenBeds, setOxygenBeds] = useState("");
     const [loading, setLoading] = useState(true);
     const [buttons, setButtons] = useState([
         {name: "Submit", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"},
@@ -60,16 +60,24 @@ const RegisterPatientFromUser = () =>{
             setState(user && user.state);
             setCity(user && user.city);
             setPinCode(user && user.pinCode);
-            setLoading(false);
+            // setLoading(false);
         }
 
         if(hospitals){
-            setHospital(hospitals && hospitals.find((hospital)=> hospital._id===slug));
-            setGeneralBeds(hospital.generalBeds);
-            setIcuBeds(hospital.icuBeds);
-            setVentilatorBeds(hospital.ventilatorBeds);
-            setOxygenBeds(hospital.oxygenBeds);
+            // setHospital(hospitals && hospitals.find((hospital)=> hospital._id===slug));
+            // setGeneralBeds(hospital.generalBeds);
+            // setIcuBeds(hospital.icuBeds);
+            // setVentilatorBeds(hospital.ventilatorBeds);
+            // setOxygenBeds(hospital.oxygenBeds);
+            let hospital = (hospitals && hospitals.find((hospital)=> hospital._id===slug));
+            setGeneralBeds(hospital && hospital.generalBeds);
+            setIcuBeds(hospital && hospital.icuBeds);
+            setVentilatorBeds(hospital && hospital.ventilatorBeds);
+            setOxygenBeds(hospital && hospital.oxygenBeds);
 
+        }
+        if(user && hospitals){
+            setLoading(false);
         }
         
 
