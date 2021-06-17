@@ -125,9 +125,9 @@ const RegisterComplete = () => {
     }
 
     return(
-        <div className="container mt-5">
-            <div className="row mt-5 pt-5">
-                <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
+        <div className="container-fluid mt-5 px-md-5">
+                <div className="row mt-5 pt-5 mx-md-2">
+                <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
 
                     <form onSubmit={handleSubmit} className="container-fluid" >
                                 <div className="form-group mb-4 text-center">

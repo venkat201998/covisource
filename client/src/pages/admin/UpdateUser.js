@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import HospitalCities from '../hospital/Json/HospitalCities.json';
-import HospitalStates from '../hospital/Json/HospitalStates.json';
+import UserForm from '../../components/reusables/UserForm';
+// import HospitalCities from '../hospital/Json/HospitalCities.json';
+// import HospitalStates from '../hospital/Json/HospitalStates.json';
 import SideNav from '../../components/sideNav/SideNav';
 import { getUsers, updateUser } from '../../functions/auth';
 
@@ -14,9 +15,9 @@ const UpdateUser = () =>{
 
     // const u = users && users.find((u) => u._id === slug);
 
-    let citiesOptions = null;
+    // let citiesOptions = null;
 
-    let User={};
+    // let User={};
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [dob, setDob] = useState();
@@ -27,38 +28,72 @@ const UpdateUser = () =>{
     const [state, setState] = useState();
     const [city, setCity] = useState();
     const [pinCode, setPinCode] = useState();
-    const [userType, setUserType] = useState();
+    const [type, setType] = useState();
+    const [loading, setLoading] = useState(true);
+    const [disabled, setDisabled] = useState(true);
+    const [buttons, setButtons] = useState([{name: "Update", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
 
-    const autoPopulate = () =>{
-        setFirstName(User && User.firstName);
-        setLastName(User && User.lastName);
-        setDob(User && User.dob);
-        setGender(User && User.gender);
-        setEmail(User && User.email);
-        setContact(User && User.contact);
-        setAddress(User && User.address);
-        setState(User && User.state);
-        setCity(User && User.city);
-        setPinCode(User && User.pinCode);
-        setUserType(User && User.type);
-    }
+
+    // const autoPopulate = () =>{
+    //     setFirstName(User && User.firstName);
+    //     setLastName(User && User.lastName);
+    //     setDob(User && User.dob);
+    //     setGender(User && User.gender);
+    //     setEmail(User && User.email);
+    //     setContact(User && User.contact);
+    //     setAddress(User && User.address);
+    //     setState(User && User.state);
+    //     setCity(User && User.city);
+    //     setPinCode(User && User.pinCode);
+    //     setType(User && User.type);
+    //     setLoading(false);
+    // }
 
     useEffect(() => {
-        getUsers(user.token)
-        .then((res) => {
-            if(res.data !== "No User Found"){
-                User = res.data.find((user) => user._id === slug);
-                autoPopulate();
-            }
-        })
+        if(users){
+            let user = users.find((user) => user._id === slug);
+            setFirstName(user && user.firstName);
+            setLastName(user && user.lastName);
+            setDob(user && user.dob);
+            setGender(user && user.gender);
+            setEmail(user && user.email);
+            setContact(user && user.contact);
+            setAddress(user && user.address);
+            setState(user && user.state);
+            setCity(user && user.city);
+            setPinCode(user && user.pinCode);
+            setType(user && user.type);
+            setLoading(false);
+        }
+        // getUsers(user.token)
+        // .then((res) => {
+        //     if(res.data !== "No User Found"){
+        //         User = res.data.find((user) => user._id === slug);
+        //         autoPopulate();
+        //     }
+        // })
     },[user])
     
 
     
-    HospitalCities.map((item)=>{
-            if(item.state===state)
-            citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
-    })
+    const onChange = (e, id, value) => {
+        e.preventDefault();
+        setLoading(true);
+        switch(id){
+            case 'firstName': setFirstName(value); break;
+            case 'lastName': setLastName(value); break;
+            case 'dob': setDob(value); break;
+            case 'gender': setGender(value); break;
+            case 'contact': setContact(value); break;
+            case 'email': setEmail(value); break;
+            case 'type': setType(value); break;
+            case 'address': setAddress(value); break;
+            case 'state': setState(value); break;
+            case 'city': setCity(value); break;
+            case 'pinCode': setPinCode(value); break;
+        }
+        setLoading(false);
+    }
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -94,142 +129,12 @@ const UpdateUser = () =>{
                     <div className="col">
                         <div className="row justify-content-center">
                             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow border">
-
-                                <h3>User Info</h3>
-                                <form onSubmit={handleSubmit} >
-                                    <div class="form-group my-xl-5 my-3 row">
-                                        <label for="patientName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Patient Name</label>
-                                        <div class="col-md-4 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="firstName"
-                                                value={firstName}
-                                                required
-                                                placeholder="First Name"
-                                                onChange={(e)=> setFirstName(e.target.value)}
-                                            />
-                                        </div>
-                                        <div class="col-md-4 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                name="lastName"
-                                                value={lastName}
-                                                required
-                                                placeholder="Last Name"
-                                                onChange={(e)=> setLastName(e.target.value)}
-                                            />
-                                        </div>
+                                {loading ? <h3>Loading...</h3> :
+                                    <div>
+                                        <h3>User Info</h3>
+                                        <UserForm data={{firstName, lastName, dob, gender, email, type, contact, address, state, city, pinCode, disabled}} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
                                     </div>
-                                    <div class="form-group my-xl-5 my-3 row">
-                                        <label for="patientBirthDate" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Birth Date</label>
-                                        <div class="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="date" 
-                                                className="form-control w-100"  
-                                                name="patientBirthDate"
-                                                value={dob}
-                                                required
-                                                placeholder="Date of Birth"
-                                                onChange={(e)=> setDob(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="form-group my-xl-5 my-3 row">
-                                        <label for="gender" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Gender</label>
-                                        <div class="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select class="w-100 h-100 form-select" value={gender} aria-label="Default select example" required onChange={(e)=> setGender(e.target.value)}>
-                                                <option value="">Select Gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="NA">N/A</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group my-xl-5 my-3 row">
-                                        <label for="contactNumber" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Contact</label>
-                                        <div class="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="tel" 
-                                                className="form-control w-100"  
-                                                name="contactNumber"
-                                                value={contact}
-                                                required
-                                                placeholder="Contact Number"
-                                                onChange={(e)=> setContact(e.target.value)}
-                                                
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label for="hospitalContact" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text" 
-                                                className="form-control w-100"
-                                                name="hospitalContact"
-                                                value= {email}  
-                                                placeholder="Email"
-                                                onChange={(e)=> setEmail(e.target.value)}
-                                                disabled
-                                                />
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label for="address" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Address</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <input 
-                                                type="text" 
-                                                className="form-control w-100"  
-                                                value={address}
-                                                required 
-                                                placeholder="Street Address"
-                                                onChange={(e) => setAddress(e.target.value)}/>
-                                            </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                        <label for="state" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">State</label>
-                                        <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                            <select className="w-100 h-100 form-select" aria-label="Default select example" value={state} required onChange={(e)=> setState(e.target.value) }>
-                                                <option value="">Select State</option>
-                                                { HospitalStates.map((item, i)=> <option key={i} value={item}>{item}</option>) }
-                                                
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                            <label for="city" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">City</label>
-                                            <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                                <select className="w-100 h-100 form-select" aria-label="Default select example" value={city} required onChange={(e)=> setCity(e.target.value) }>
-                                                    <option value="">Select City</option>
-                                                    {citiesOptions}
-                                                </select>
-                                            </div>
-                                    </div>
-                                    <div className="form-group my-xl-5 my-3 row">
-                                            <label for="pinCode" className="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Pin Code</label>
-                                            <div className="col-md-8 col-12 mb-3 mb-md-1">
-                                                <input 
-                                                    type="text"
-                                                    inputMode="numeric"
-                                                    className="form-control w-100"
-                                                    name={pinCode}  
-                                                    value={pinCode}
-                                                    required
-                                                    pattern="[0-9]{6}" 
-                                                    maxLength="6"
-                                                    placeholder="Pin Code"
-                                                    onChange={(e) => setPinCode(e.target.value)}/>
-                                            </div>
-                                    </div>                            
-
-                                    <div className="form-group row justify-content-center">
-                                        <div className="col-lg-2 col-md-3 col-5">
-                                            <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Update</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                }
                             </div>
                         </div>
                     </div>

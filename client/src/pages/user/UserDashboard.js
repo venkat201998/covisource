@@ -2,69 +2,89 @@ import { React, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { currentUser, createOrUpdateUser } from "../../functions/auth";
-import HospitalCities from '../hospital/Json/HospitalCities';
-import HospitalStates from '../hospital/Json/HospitalStates';
+import UserForm from '../../components/reusables/UserForm';
 
 const UserDashboard = () => {
 
     const { user } = useSelector((state) => ({...state}));
     const dispatch = useDispatch();
 
-    const [email, setEmail] = useState("")
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [dob, setDob] = useState("");
     const [gender, setGender] = useState("");
+    const [email, setEmail] = useState("");
     const [contact, setContact] = useState("");
     const [address, setAddress] = useState("");
     const [state, setState] = useState("");
     const [city, setCity] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [type, setType] = useState("");
-    let citiesOptions = null;
+    const [loading, setLoading] = useState(true);
+    const [disabled, setDisabled] = useState(true);
+    const [buttons, setButtons] = useState([{name: "Save Changes", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
+
+
 
     useEffect(()=>{
-        currentUser(user.token)
-        .then((res)=> {
-                setFirstName(res.data.firstName);
-                setLastName(res.data.lastName);
-                setDob(res.data.dob);
-                setGender(res.data.gender);
-                setEmail(res.data.email);
-                setContact(res.data.contact);
-                setAddress(res.data.address);
-                setState(res.data.state);
-                setCity(res.data.city);
-                setPinCode(res.data.pinCode);      
-                setType(res.data.type);
-                dispatch({
-                    type: "LOGGED_IN_USER",
-                    payload: {
-                        firstName: res.data.firstName,
-                        lastName: res.data.lastName,
-                        dob: res.data.dob,
-                        gender:res.data.gender,
-                        email:res.data.email,
-                        contact: res.data.contact,
-                        address: res.data.address,
-                        state: res.data.state,
-                        city:res.data.city,
-                        pinCode: res.data.pinCode,      
-                        type: res.data.type,
-                        _id: res.data._id,
-                        options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
-                        slots: res.data.slots,
-                        token: res.config.headers.idToken    
-                    },
-                });
-        })
-        .catch((err) => toast.error(err));
-    },[])
+        if(user){
+        // currentUser(user.token)
+        // .then((res)=> {
+                setFirstName(user && user.firstName);
+                setLastName(user && user.lastName);
+                setDob(user && user.dob);
+                setGender(user && user.gender);
+                setEmail(user && user.email);
+                setContact(user && user.contact);
+                setAddress(user && user.address);
+                setState(user && user.state);
+                setCity(user && user.city);
+                setPinCode(user && user.pinCode);      
+                setType(user && user.type);
+                // dispatch({
+                //     type: "LOGGED_IN_USER",
+                //     payload: {
+                //         firstName: res.data.firstName,
+                //         lastName: res.data.lastName,
+                //         dob: res.data.dob,
+                //         gender:res.data.gender,
+                //         email:res.data.email,
+                //         contact: res.data.contact,
+                //         address: res.data.address,
+                //         state: res.data.state,
+                //         city:res.data.city,
+                //         pinCode: res.data.pinCode,      
+                //         type: res.data.type,
+                //         _id: res.data._id,
+                //         options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
+                //         slots: res.data.slots,
+                //         token: res.config.headers.idToken    
+                //     },
+                // });
+                setLoading(false);
+        }
+        // })
+        // .catch((err) => toast.error(err));
+    },[user])
 
-    HospitalCities.map((item)=>{
-        if(item.state===state)
-        citiesOptions = item.cities.map((item, i)=> <option key={i} value={item}>{item}</option>)
-    })
+    const onChange = (e, id, value) => {
+        e.preventDefault();
+        setLoading(true);
+        switch(id){
+            case 'firstName': setFirstName(value); break;
+            case 'lastName': setLastName(value); break;
+            case 'dob': setDob(value); break;
+            case 'gender': setGender(value); break;
+            case 'contact': setContact(value); break;
+            case 'email': setEmail(value); break;
+            case 'type': setType(value); break;
+            case 'address': setAddress(value); break;
+            case 'state': setState(value); break;
+            case 'city': setCity(value); break;
+            case 'pinCode': setPinCode(value); break;
+        }
+        setLoading(false);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -103,12 +123,20 @@ const UserDashboard = () => {
     }
     
     return (
-            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 shadow">
-                <form onSubmit={handleSubmit} className="container-fluid" >
-                    <div className="form-group mb-4 text-center">
+            <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
+
+                {loading ? <h3>Loading...</h3> :
+                    <div>
                         <h3>User Info</h3>
+                        <UserForm data={{firstName, lastName, dob, gender, email, type, contact, address, state, city, pinCode, disabled}} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
                     </div>
-                    <div class="form-group my-xl-4 my-3 row">
+                }
+
+                {/* <form onSubmit={handleSubmit} className="container-fluid" > */}
+                    {/* <div className="form-group mb-4 text-center"> */}
+                        {/* <h3>User Info</h3> */}
+                    {/* </div> */}
+                    {/* <div class="form-group my-xl-4 my-3 row">
                         <label htmlFor="patientName" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Name</label>
                         <div class="col-md-4 col-12 mb-3 mb-md-1">
                             <input 
@@ -257,8 +285,8 @@ const UserDashboard = () => {
                         <div className="col-md-4 col-9 text-center">
                             <button type="submit" className="btn btn-raised btn-outline-success fw-bold">Save Changes</button>
                         </div>
-                    </div>
-                </form>
+                    </div> */}
+                {/* </form> */}
             </div>
     );
 };

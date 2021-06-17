@@ -49,7 +49,7 @@ const UpdateHospital = () =>{
             setStatus(hospital && hospital.status);
             setLoading(false);
         }
-    }, [user])
+    }, [user, hospitals])
 
     const onChange = (e, id, value) => {
         e.preventDefault();
