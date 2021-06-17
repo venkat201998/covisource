@@ -12,7 +12,6 @@ const RegisterPatientFromUser = () =>{
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const [hospital, setHospital] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [dob, setDob] = useState("");
@@ -49,7 +48,8 @@ const RegisterPatientFromUser = () =>{
     ]);
 
     useEffect(()=>{
-        if(user){
+        if(user && hospitals){
+            let hospital = (hospitals && hospitals.find((hospital)=> hospital._id===slug));
             setFirstName(user && user.firstName);
             setLastName(user && user.lastName);
             setDob(user && user.dob);
@@ -60,26 +60,12 @@ const RegisterPatientFromUser = () =>{
             setState(user && user.state);
             setCity(user && user.city);
             setPinCode(user && user.pinCode);
-            // setLoading(false);
-        }
-
-        if(hospitals){
-            // setHospital(hospitals && hospitals.find((hospital)=> hospital._id===slug));
-            // setGeneralBeds(hospital.generalBeds);
-            // setIcuBeds(hospital.icuBeds);
-            // setVentilatorBeds(hospital.ventilatorBeds);
-            // setOxygenBeds(hospital.oxygenBeds);
-            let hospital = (hospitals && hospitals.find((hospital)=> hospital._id===slug));
             setGeneralBeds(hospital && hospital.generalBeds);
             setIcuBeds(hospital && hospital.icuBeds);
             setVentilatorBeds(hospital && hospital.ventilatorBeds);
             setOxygenBeds(hospital && hospital.oxygenBeds);
-
-        }
-        if(user && hospitals){
             setLoading(false);
-        }
-        
+        }       
 
     },[user, hospitals]) 
 
@@ -191,12 +177,12 @@ const RegisterPatientFromUser = () =>{
     }
 
     const handleReset = (e) => {
-            let answer = window.confirm("Reset Form?");
-            if(answer){
-                resetData();
-            }else{
-                toast.error("Failed To Reset Form");
-            }
+        let answer = window.confirm("Reset Form?");
+        if(answer){
+            resetData();
+        }else{
+            toast.error("Failed To Reset Form");
+        }
     }
 
     return(
