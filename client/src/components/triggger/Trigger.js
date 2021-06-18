@@ -70,7 +70,7 @@ const Trigger = () => {
                     </Menu> :
                     <Menu theme="light" mode="vertical" defaultSelectedKeys={[]}>
                         { 
-                            user.options.map((item)=> item==="SlotRegistration" ? <Menu.Item className="nav-item fs-6 disabledList p-0" key={item} style={{height: 50}} >
+                            user && user.options && user.options.map((item)=> item==="SlotRegistration" ? <Menu.Item className="nav-item fs-6 disabledList p-0" key={item} style={{height: 50}} >
                                                                                         <NavLink className="nav-link disabledLink" aria-disabled="true" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
                                                                                             {item} 
                                                                                         </NavLink>

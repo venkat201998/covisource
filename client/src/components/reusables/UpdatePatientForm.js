@@ -56,8 +56,8 @@ class UpdatePatientForm extends Component {
                         placeholder: 'Gender',
                         options: [
                             { value: '', displayValue: 'Select Gender', id: -1},
-                            { value: 'Male', displayValue: 'Male', id: 0},
-                            { value: 'Female', displayValue: 'Female', id: 1},
+                            { value: 'male', displayValue: 'Male', id: 0},
+                            { value: 'female', displayValue: 'Female', id: 1},
                             { value: 'N/A', displayValue: 'N/A', id: 2}
                         ],
                         disabled: this.props.data.disabled
@@ -202,17 +202,10 @@ class UpdatePatientForm extends Component {
                 },
                 
                 bedType: {
-                    elementType: 'select',
+                    elementType: 'input',
                     elementConfig: {
                         id: 'bedType',
                         placeholder: 'Bed Type',
-                        options: [
-                            { value: '', displayValue: 'Select Bed', id: -1},
-                            this.props.data.generalBeds > 0 && { value: 'generalBeds', displayValue: 'General Beds: ' + this.props.data.generalBeds, id: 0},
-                            this.props.data.icuBeds > 0 && { value: 'icuBeds', displayValue: 'ICU Beds: ' + this.props.data.icuBeds, id: 1},
-                            this.props.data.ventilatorBeds > 0 && { value: 'ventilatorBeds', displayValue: 'Ventilator Beds: ' + this.props.data.ventilatorBeds, id: 2},
-                            this.props.data.oxygenBeds > 0 && { value: 'oxygenBeds', displayValue: 'Oxygen Beds: ' + this.props.data.oxygenBeds, id: 3},
-                        ],
                         disabled: this.props.data.disabled
                     },
                     value: this.props.data.bedType
@@ -222,12 +215,14 @@ class UpdatePatientForm extends Component {
                     elementConfig: {
                         id: 'patientStatus',
                         placeholder: 'Update Status',
-                        options: [
-                            { value: '', displayValue: 'Select Status', id: -1},
-                            this.props.data.patientStatus==='Admitted' && { value: 'Discharged', displayValue: 'Discharged', id: 0},
-                            this.props.data.patientStatus==='Admitted' && { value: 'Deceased', displayValue: 'Deceased', id: 1},
-                            this.props.data.patientStatus!=='Admitted' && { value: 'Admitted', displayValue: 'Admit', id: 2}
-                        ]
+                        options: this.props.data.patientStatus==='Admitted' ?[
+                                { value: '', displayValue: 'Select Status', id: -1},
+                                { value: 'Discharged', displayValue: 'Discharged', id: 0}, 
+                                { value: 'Deceased', displayValue: 'Deceased', id: 1}
+                            ] : [
+                                { value: '', displayValue: 'Select Status', id: -1},
+                                { value: 'Admitted', displayValue: 'Admit', id: 2}
+                            ]
                     },
                     value: this.props.data.status
                 },

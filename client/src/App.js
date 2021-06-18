@@ -2,6 +2,7 @@ import { Switch, Route } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { auth } from './firebase';
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
@@ -28,6 +29,7 @@ import UpdateUser from './pages/admin/UpdateUser';
 const App = () => {
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -79,6 +81,7 @@ const App = () => {
                   }
               })
               .catch((e) => toast.error(e));
+              history.push('/Hospital/Dashboard');
             }
             else if(res.data.type === 'Admin'){
               getInactiveHospitals(idTokenResult.token)
@@ -121,7 +124,14 @@ const App = () => {
               .catch((err) => toast.error(err));
             }
         })
-                
+              
+      }
+      else{
+        dispatch({
+          type: 'LOGOUT',
+          payload: null
+        })
+        history.push('/login');
       }
     })
     return () => unsubscribe();

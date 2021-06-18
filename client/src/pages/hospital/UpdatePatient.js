@@ -32,10 +32,6 @@ const UpdatePatient = () =>{
     const [comments, setComments] = useState("");
     const [patientStatus, setPatientStatus] = useState("");
     const [disabled, setDisabled] = useState(true);
-    const [generalBeds, setGeneralBeds] = useState(hospital && hospital.generalBeds);
-    const [ventilatorBeds, setVentilatorBeds] = useState(hospital && hospital.ventilatorBeds);
-    const [icuBeds, setIcuBeds] = useState(hospital && hospital.icuBeds);
-    const [oxygenBeds, setOxygenBeds] = useState(hospital && hospital.oxygenBeds);
     const [loading, setLoading] = useState(true);
     const [buttons, setButtons] = useState([{name: "Update", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
 
@@ -90,9 +86,6 @@ const UpdatePatient = () =>{
         }
     }
 
-    let data = { firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, eFirstName, eLastName, relationship, eContact, generalBeds, icuBeds, ventilatorBeds, oxygenBeds, patientStatus, bedType, status, comments, disabled};
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const patientDetails = { eFirstName, eLastName, relationship, eContact, status, comments };
@@ -107,7 +100,13 @@ const UpdatePatient = () =>{
                     })
                     toast.success("Patient updated");
                 }
-            history.push("/Hospital/ManagePatients");
+                if(history.location.pathname.includes('/Hospital/PatientsHistory/')){
+                    history.push("/Hospital/PatientsHistory");
+                }
+                else{
+                    history.push("/Hospital/ManagePatients");
+                }
+            
                 
             })
             .catch((e)=> toast.error(e));
@@ -127,7 +126,7 @@ const UpdatePatient = () =>{
                             { loading ? <h3>Loading...</h3> : 
                             <div>
                                 <h3>Update Patient</h3> 
-                                <UpdatePatientForm data={data} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
+                                <UpdatePatientForm data={{ firstName, lastName, dob, gender, email, contact, address, state, city, pinCode, maritalStatus, eFirstName, eLastName, relationship, eContact, patientStatus, bedType, status, comments, disabled}} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
                             </div>}
                         </div>
                     </div>

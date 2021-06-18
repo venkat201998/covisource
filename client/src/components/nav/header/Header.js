@@ -3,11 +3,13 @@ import firebase from 'firebase';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
 
-  const { user, signOut } = useSelector((state) => ({...state}));
+  const { user, signInOut } = useSelector((state) => ({...state}));
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const logout = () => {
     firebase.auth().signOut();
@@ -16,10 +18,6 @@ const Header = () => {
       payload: null
     })
   }
-
-  useEffect(() => {
-    logout();
-  }, [signOut])
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-lg px-md-5">

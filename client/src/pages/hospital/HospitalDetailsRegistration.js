@@ -99,17 +99,23 @@ const HospitalDetailsRegistration = () =>{
 
     const handleReset = async(e) =>{
         e.preventDefault();
-        setHospitalName("");
-        setAddress("");
-        setState("");
-        setCity("");
-        setPinCode("");
-        setContact("");
-        setEmail("");
-        setGeneralBeds("");
-        setIcuBeds("");
-        setVentilatorBeds("");
-        setOxygenBeds("");
+        let answer = window.confirm("Reset Form?");
+            if(answer){
+                setHospitalName("");
+                setAddress("");
+                setState("");
+                setCity("");
+                setPinCode("");
+                setContact("");
+                setEmail("");
+                setGeneralBeds("");
+                setIcuBeds("");
+                setVentilatorBeds("");
+                setOxygenBeds("");
+            }else{
+                toast.error("Failed To Reset Form");
+            }
+        
     }
 
 

@@ -3,13 +3,15 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-import { currentUser } from '../../functions/auth';
+import { checkUser, currentUser } from '../../functions/auth';
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState("");
   const { user } = useSelector((state) => ({...state}));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (user && user.token) history.push("/");
@@ -28,11 +30,26 @@ const Login = ({ history }) => {
     }
   };
 
-  let dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+
+    checkUser(email)
+      .then((res) => {
+        if(res.data==="User not found"){
+          setMessage(res.data);
+        }
+
+      })
+      .catch((e) => toast.error(e))
+
+    if(message === 'User not found'){
+      toast.error('Please Complete Registration To Login');
+      history.push('/register');
+      return;
+    }
+
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const {user} = result;

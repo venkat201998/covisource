@@ -8,7 +8,7 @@ import Button from './Button';
 class PatientForm extends Component {
     constructor(props){
         super(props);
-        
+       
         let options= [{ value: '', displayValue: 'Select State', id: -1}];
         HospitalStates.map((state, i)=> options.push({ value: state, displayValue: state, id: i}));
 
@@ -321,6 +321,107 @@ class PatientForm extends Component {
         })
     }
 
+    handleReset = (e) => {
+        console.log("handle reset");
+        this.props.handleReset(e);
+
+        this.setState({form: {
+            ...this.state.form,
+            firstName:{
+                ...this.state.form.firstName,
+                value: ""
+            },
+            lastName:{
+                ...this.state.form.lastName,
+                value: ""
+            },
+            dob:{
+                ...this.state.form.dob,
+                value: ""
+            },
+            gender:{
+                ...this.state.form.gender,
+                value: ""
+            },
+            contact:{
+                ...this.state.form.contact,
+                value: ""
+            },
+            email:{
+                ...this.state.form.email,
+                value: ""
+            },
+            address:{
+                ...this.state.form.address,
+                value: ""
+            },
+            state:{
+                ...this.state.form.state,
+                value: ""
+            },
+            city:{
+                ...this.state.form.city,
+                elementConfig: {
+                    ...this.state.form.city.elementConfig,
+                    options: [{ value: '', displayValue: 'Select City', id: -1}]
+                },
+                value: ""
+            },
+            pinCode:{
+                ...this.state.form.pinCode,
+                value: ""
+            },
+            maritalStatus:{
+                ...this.state.form.maritalStatus,
+                value: ""
+            } ,
+            eFirstName:{
+                ...this.state.form.eFirstName,
+                value: ""
+            },
+            eLastName:{
+                ...this.state.form.eLastName,
+                value: ""
+            },
+            relationship:{
+                ...this.state.form.relationship,
+                value: ""
+            },
+            eContact:{
+                ...this.state.form.eContact,
+                value: ""
+            },
+            weight:{
+                ...this.state.form.weight,
+                value: ""
+            },
+            height:{
+                ...this.state.form.height,
+                value: ""
+            },
+            medicationStatus:{
+                ...this.state.form.medicationStatus,
+                value: ""
+            },
+            medicationList:{
+                ...this.state.form.medicationList,
+                value: ""
+            },
+            medicationAllergies:{
+                ...this.state.form.medicationAllergies,
+                value: ""
+            },
+            operationsList:{
+                ...this.state.form.operationsList,
+                value: ""
+            },
+            bedType:{
+                ...this.state.form.bedType,
+                value: ""
+            }
+        }})
+
+    }
 
     handleChange = (e, id, value) => {
         this.props.onChange(e, id, value);
@@ -558,8 +659,8 @@ class PatientForm extends Component {
 
         return(
             <>
-                <form className='container-fluid' onSubmit={this.props.handleSubmit} onReset={this.props.handleReset}>
-                    {formElements && formElements.map((formElement) => <FormInput key={formElement.id} config={formElement.config} onChange={(e, id, value) => this.handleChange(e, id, value)} />)}
+                <form className='container-fluid' onSubmit={this.props.handleSubmit} onReset={(e) => this.handleReset(e)}>
+                    {formElements && formElements.map((formElement) => <FormInput key={formElement.id} config={formElement.config} onChange={(e, id, value) => this.handleChange(e, id, value)}/>)}
                     <Div>
                         {this.props.buttons.map((button) => <Button key={button.type} type={button.type} className={button.className} name={button.name}/>)}
                     </Div>

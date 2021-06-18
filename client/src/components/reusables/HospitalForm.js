@@ -158,6 +158,61 @@ class HospitalForm extends Component{
         })
     }
 
+    handleReset = (e) => {
+        this.props.handleReset(e);
+        this.setState({form: {
+            ...this.state.form,
+            hospitalName:{
+                ...this.state.form.hospitalName,
+                value: ""
+            },
+            address:{
+                ...this.state.form.address,
+                value: ""
+            },
+            state:{
+                ...this.state.form.state,
+                value: ""
+            },
+            city:{
+                ...this.state.form.city,
+                elementConfig: {
+                    ...this.state.form.city.elementConfig,
+                    options: [{ value: '', displayValue: 'Select City', id: -1}]
+                },
+                value: ""
+            },
+            pinCode:{
+                ...this.state.form.pinCode,
+                value: ""
+            },
+            hospitalContact:{
+                ...this.state.form.hospitalContact,
+                value: ""
+            },
+            hospitalEmail:{
+                ...this.state.form.hospitalEmail,
+                value: ""
+            },
+            generalBeds:{
+                ...this.state.form.generalBeds,
+                value: ""
+            },
+            icuBeds:{
+                ...this.state.form.icuBeds,
+                value: ""
+            },
+            ventilatorBeds:{
+                ...this.state.form.ventilatorBeds,
+                value: ""
+            },
+            oxygenBeds:{
+                ...this.state.form.oxygenBeds,
+                value: ""
+            }
+        }})
+    }
+
 
     handleChange = (e, id, value) => {
         
@@ -283,7 +338,7 @@ class HospitalForm extends Component{
         
         return(
             <>
-                <form className="container-fluid" onSubmit={this.props.handleSubmit} onReset={this.props.handleReset}>
+                <form className="container-fluid" onSubmit={this.props.handleSubmit} onReset={(e) => this.handleReset(e)}>
                     {formElements && formElements.map((formElement) => <FormInput key={formElement.id} config={formElement.config} onChange={(e, id, value) => this.handleChange(e, id, value)} />)}
                     <Div>
                         {this.props.buttons.map((button) => <Button key={button.type} type={button.type} className={button.className} name={button.name}/>)}

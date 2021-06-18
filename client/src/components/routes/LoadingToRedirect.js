@@ -17,7 +17,7 @@ const LoadingToRedirect = () =>{
             history.push("/");
         }
         else if(count === 0 && (user && user.type === "Hospital")){
-            history.push("/hospital/dashboard");
+            history.push("/Hospital/Dashboard");
         }
         else if(count === 0){
             history.push("/");
