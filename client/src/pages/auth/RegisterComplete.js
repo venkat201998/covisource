@@ -55,88 +55,90 @@ const RegisterComplete = () => {
     const handleSubmit = async (e) => {
         setLoading(true);
         e.preventDefault();
-        const result = await auth.signInWithEmailLink(email, window.location.href);
-        const user = auth.currentUser;
-        const idTokenResult = await user.getIdTokenResult();
-
-        if (!email || !password) {
-            toast.error("Email and password is required");
-            setLoading(false);
-            return;
-        }
-      
-        if (password.length < 6) {
-            toast.error("Password must be at least 6 characters long");
-            setLoading(false);
-            return;
-        }
-
-        if(result.user.emailVerified){
-            user.updatePassword(password);
-            const userDetails = {firstName, lastName, dob, gender, contact, address, state, city, pinCode, type };
-            createOrUpdateUser(userDetails, idTokenResult.token)
-            .then((res) => {
-                toast.success("Registration Success");
+        try{
+            if (!email || !password) {
+                toast.error("Email and password is required");
                 setLoading(false);
-            })
-            .catch((err) => {
-                toast.error("Registration Failure");
-                setLoading(false);
-            });
-
-        }
-        window.localStorage.removeItem("email");
-        window.localStorage.removeItem("type");
-
-
-        let options=[];
-        let uaoptions=[];
-
-        currentUser(idTokenResult.token)
-        .then((res)=>{
-            switch(res.data.type){
-                case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
-                break;
-                case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
-                break;
-                case 'User': options=['Dashboard', 'SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'];
-                break;
-                
+                return;
             }
-          dispatch({
-            type: "LOGGED_IN_USER",
-            payload: {
-                firstName: res.data.firstName,
-                lastName: res.data.lastName,
-                dob: res.data.dob,
-                gender:res.data.gender,
-                email:res.data.email,
-                contact: res.data.contact,
-                address: res.data.address,
-                state: res.data.state,
-                city:res.data.city,
-                pinCode: res.data.pinCode,      
-                type: res.data.type,
-                _id: res.data._id,
-                options: options,
-                uaoptions: uaoptions,
-                slots: res.data.slots,
-                token: res.config.headers.idToken
-            },
-          });
-          switch(res.data.type){
-            case 'Admin': history.push('/');
-            break;
-            case 'Hospital': history.push("/Hospital/Dashboard");
-            break;
-            case 'User': history.push('/');
-            break;
-            
-        }
-        })
-
         
+            if (password.length < 6) {
+                toast.error("Password must be at least 6 characters long");
+                setLoading(false);
+                return;
+            }
 
+            const result = await auth.signInWithEmailLink(email, window.location.href);
+            const user = auth.currentUser;
+            const idTokenResult = await user.getIdTokenResult();
+
+            if(result.user.emailVerified){
+                user.updatePassword(password);
+                const userDetails = {firstName, lastName, dob, gender, contact, address, state, city, pinCode, type };
+                createOrUpdateUser(userDetails, idTokenResult.token)
+                .then((res) => {
+                    toast.success("Registration Success");
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    toast.error("Registration Failure");
+                    setLoading(false);
+                });
+
+            }
+            window.localStorage.removeItem("email");
+            window.localStorage.removeItem("type");
+
+
+            let options=[];
+            let uaoptions=[];
+
+            currentUser(idTokenResult.token)
+            .then((res)=>{
+                switch(res.data.type){
+                    case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                    break;
+                    case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
+                    break;
+                    case 'User': options=['Dashboard', 'SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'];
+                    break;
+                    
+                }
+                dispatch({
+                    type: "LOGGED_IN_USER",
+                    payload: {
+                        firstName: res.data.firstName,
+                        lastName: res.data.lastName,
+                        dob: res.data.dob,
+                        gender:res.data.gender,
+                        email:res.data.email,
+                        contact: res.data.contact,
+                        address: res.data.address,
+                        state: res.data.state,
+                        city:res.data.city,
+                        pinCode: res.data.pinCode,      
+                        type: res.data.type,
+                        _id: res.data._id,
+                        options: options,
+                        uaoptions: uaoptions,
+                        slots: res.data.slots,
+                        token: res.config.headers.idToken
+                    },
+                });
+                switch(res.data.type){
+                    case 'Admin': history.push('/');
+                    break;
+                    case 'Hospital': history.push("/Hospital/Dashboard");
+                    break;
+                    case 'User': history.push('/');
+                    break;
+                    
+                }
+            })
+        }catch(err){
+            toast.error(err);
+            history.push("/");
+        }
     }
 
     return(

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import firebase from 'firebase';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import "./Header.css";
 
 const Header = () => {
 
-  const { user } = useSelector((state) => ({...state}));
+  const { user, signOut } = useSelector((state) => ({...state}));
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -16,6 +16,10 @@ const Header = () => {
       payload: null
     })
   }
+
+  useEffect(() => {
+    logout();
+  }, [signOut])
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-lg px-md-5">

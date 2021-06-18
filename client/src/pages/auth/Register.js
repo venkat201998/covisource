@@ -38,6 +38,7 @@ const Register = ({history}) => {
           toast.success(
             `Email is sent to ${email}. Click the link to complete your registration.`
           );
+          history.push("/");
       }
     }    
 

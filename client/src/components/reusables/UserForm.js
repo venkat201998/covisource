@@ -9,7 +9,6 @@ import { withRouter } from 'react-router-dom';
 class UserForm extends Component {
     constructor(props){
         super(props);
-        console.log(this.props.match.path);
 
         let options= [{ value: '', displayValue: 'Select State', id: -1}];
         HospitalStates.map((state, i)=> options.push({ value: state, displayValue: state, id: i}));
@@ -135,15 +134,17 @@ class UserForm extends Component {
                     value: this.props.data.pinCode
                 }
             },
-            password: {
-                elementType: 'input',
-                elementConfig: {
-                    id: 'password',
-                    type: 'password',
-                    placeholder: 'Password',
-                    required: true,
-                },
-                value: this.props.data.password
+            form_password: {
+                password: {
+                    elementType: 'input',
+                    elementConfig: {
+                        id: 'password',
+                        type: 'password',
+                        placeholder: 'Password',
+                        required: true,
+                    },
+                    value: this.props.data.password
+                }
             }
         }
     }
@@ -169,13 +170,15 @@ class UserForm extends Component {
 
     handleChange = (e, id, value) => {
         this.props.onChange(e, id, value);
-        console.log(id, value)
         switch(id){         
             case 'password': {
-               this.setState({
-                    ...this.state.password,
-                    value: value
-               })
+               this.setState({form_password: {
+                   ...this.state.form_password,
+                   password: {
+                       ...this.state.form_password.password,
+                       value: value
+                   }
+               }})
             };
             break;   
             case 'firstName': {
@@ -282,7 +285,6 @@ class UserForm extends Component {
             };
             break;
         }
-        console.log(this.state);
     }
     render(){
 
@@ -295,10 +297,12 @@ class UserForm extends Component {
         }
 
         const formPassword = [];
-        formPassword.push({
-            id: 'password',
-            config: this.state.password
-        })
+        for(let key in this.state.form_password){
+            formPassword.push({
+                id: key,
+                config: this.state.form_password[key]
+            })
+        }
         
         return(
             <>
