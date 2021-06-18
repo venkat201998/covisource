@@ -44,7 +44,6 @@ const ManageHospital = () =>{
 
 
     const onChange = (e, id, value) => {
-        console.log(id, value);
         e.preventDefault();
         setLoading(true);
         switch(id){
@@ -59,7 +58,6 @@ const ManageHospital = () =>{
             case "ventilatorBeds": setVentilatorBeds(value); break;
             case "oxygenBeds": setOxygenBeds(value); break;
         }
-        console.log(hospitalName);
         setLoading(false);
         
     }

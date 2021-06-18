@@ -24,9 +24,7 @@
 }
 
 @media screen and (min-width: 769px) {
-    /* .banner{
-        height: 25rem
-    } */
+
 }
 .searchOption.focus, .searchOption:focus{
     box-shadow: none;

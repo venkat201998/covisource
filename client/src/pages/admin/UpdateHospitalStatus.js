@@ -26,7 +26,7 @@ const UpdateHospitalStatus = ({hospital}) =>{
                 })
                 
             })
-            .catch((err) => console.log(err));
+            .catch((err) => toast.error(err));
         }else{
             toast.error("Failed To Accept");
         }

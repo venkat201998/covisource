@@ -207,7 +207,6 @@ export const getUsers = async (idToken) => {
 }
 
 export const updateUser = async (userDetails, idToken) => {
-    console.log(userDetails);
     return axios.post(
         `${process.env.REACT_APP_API}/update-user`,
         {

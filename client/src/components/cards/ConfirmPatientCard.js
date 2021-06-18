@@ -23,7 +23,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
                 }
                 else toast.error(res.data);
             })
-            .catch((e)=> console.log(e))
+            .catch((e)=> toast.error(e))
         }
         else{
             toast.error("Failed To Confirm");
@@ -45,7 +45,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
                 }
                 else toast.error(res.data);
             })
-            .catch((e)=> console.log(e))
+            .catch((e)=> toast.error(e))
         }else{
             toast.error("Failed To Reject");
         }

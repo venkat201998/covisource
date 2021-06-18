@@ -16,7 +16,6 @@ const UserSlotCard = ({hospital, patient}) =>{
             UpdateSlotStatus(patient.email, bedType, hospital.email, user.token)
             .then((res)=>{
                 if(res.data!=="Failed To Update Slot"){
-                    console.log(res.data);
                     dispatch({
                         type: "LOGGED_IN_USER",
                         payload: {
@@ -45,7 +44,7 @@ const UserSlotCard = ({hospital, patient}) =>{
                 }
                 else toast.error(res.data);
             })
-            .catch((e) => console.log(e));
+            .catch((e) => toast.error(e));
         }
         else{
             toast.error("Failed To Update Slot");
@@ -54,14 +53,6 @@ const UserSlotCard = ({hospital, patient}) =>{
 
     return(
         <div className="col-12 p-lg-4 my-4 shadow">
-                    {/* <div className="row justify-content-between border-bottom border-3 mx-auto py-2">
-                        <div className="col-8">
-                            <span className="fw-bold logo">CoviSource</span>
-                        </div>
-                        <div className="col-1 text-center">
-                            <i className="fa fa-star fa-2x" aria-hidden="true"></i>
-                        </div>
-                    </div> */}
                 <div className="container-fluid p-0">
                     <div className="row border-bottom border-3 mx-auto py-3">
                         <h6>Status: {patient && patient.status}</h6>

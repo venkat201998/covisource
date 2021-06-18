@@ -48,7 +48,7 @@ const Home = () => {
             setHospitals(res.data);
             setLoading(false);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => toast.error(err))
     }, [user, page])
 
     

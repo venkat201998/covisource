@@ -7,7 +7,6 @@ const UserCard = ({ user }) => {
     <div className="col-12 p-lg-4 my-4">
       <form className="container-fluid p-0">
         <div className="card shadow w-100">
-          {/* <img src="" className="card-img-top" alt="..."/> */}
           <div className="card-body row">
             <div className="col-lg-5 col-12">
               <li className="list-group-item border-0 bg-transparent">

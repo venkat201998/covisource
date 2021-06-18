@@ -38,7 +38,6 @@ const HospitalDashboard = () => {
                 <h3 className="fw-bold text-center">{hospital && hospital.hospitalName}</h3>
                 <form className="container-fluid p-0">
                     <div className="card border-0">
-                    {/* <img src="" className="card-img-top" alt="..."/> */}
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-lg-6 col-12">
