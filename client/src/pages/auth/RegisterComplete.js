@@ -36,6 +36,7 @@ const RegisterComplete = () => {
         e.preventDefault();
         setLoading(true);
         switch(id){
+            case 'password': setPassword(value); break;
             case 'firstName': setFirstName(value); break;
             case 'lastName': setLastName(value); break;
             case 'dob': setDob(value); break;
@@ -146,7 +147,7 @@ const RegisterComplete = () => {
                 {loading ? <h3>Loading...</h3> :
                     <div>
                         <h3>User Registration Complete</h3>
-                        <UserForm data={{firstName, lastName, dob, gender, email, type, contact, address, state, city, pinCode, disabled}} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
+                        <UserForm data={{password, firstName, lastName, dob, gender, email, type, contact, address, state, city, pinCode, disabled}} buttons={buttons} onChange={(e, id, value) => onChange(e, id, value)} handleSubmit={handleSubmit}/>
                     </div>
                 }
 

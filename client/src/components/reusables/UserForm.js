@@ -4,10 +4,12 @@ import HospitalStates from '../../pages/hospital/Json/HospitalStates.json';
 import HospitalCities from '../../pages/hospital/Json/HospitalCities.json';
 import Div from './Div';
 import Button from './Button';
+import { withRouter } from 'react-router-dom';
 
 class UserForm extends Component {
     constructor(props){
         super(props);
+        console.log(this.props.match.path);
 
         let options= [{ value: '', displayValue: 'Select State', id: -1}];
         HospitalStates.map((state, i)=> options.push({ value: state, displayValue: state, id: i}));
@@ -132,6 +134,16 @@ class UserForm extends Component {
                     },
                     value: this.props.data.pinCode
                 }
+            },
+            password: {
+                elementType: 'input',
+                elementConfig: {
+                    id: 'password',
+                    type: 'password',
+                    placeholder: 'Password',
+                    required: true,
+                },
+                value: this.props.data.password
             }
         }
     }
@@ -157,8 +169,15 @@ class UserForm extends Component {
 
     handleChange = (e, id, value) => {
         this.props.onChange(e, id, value);
-        
-        switch(id){            
+        console.log(id, value)
+        switch(id){         
+            case 'password': {
+               this.setState({
+                    ...this.state.password,
+                    value: value
+               })
+            };
+            break;   
             case 'firstName': {
                 this.setState({form: {
                     ...this.state.form,
@@ -263,6 +282,7 @@ class UserForm extends Component {
             };
             break;
         }
+        console.log(this.state);
     }
     render(){
 
@@ -274,9 +294,17 @@ class UserForm extends Component {
             })
         }
 
+        const formPassword = [];
+        formPassword.push({
+            id: 'password',
+            config: this.state.password
+        })
+        
         return(
             <>
                 <form className='container-fluid' onSubmit={this.props.handleSubmit} onReset={this.props.handleReset}>
+                    {this.props.match.path==='/registerComplete' ? formPassword && formPassword.map((password) => <FormInput key={password.id} config={password.config} onChange={(e, id, value) => this.handleChange(e, id, value)} />) : null}
+                    
                     {formElements && formElements.map((formElement) => <FormInput key={formElement.id} config={formElement.config} onChange={(e, id, value) => this.handleChange(e, id, value)} />)}
                     <Div>
                         {this.props.buttons.map((button) => <Button key={button.type} type={button.type} className={button.className} name={button.name}/>)}
@@ -287,4 +315,4 @@ class UserForm extends Component {
     }
 }
 
-export default UserForm;
+export default withRouter(UserForm);
