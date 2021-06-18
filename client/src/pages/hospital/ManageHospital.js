@@ -74,7 +74,7 @@ const ManageHospital = () =>{
                 if(res.data!=="Update Failed"){
                     toast.success("Details Updated");
                     dispatch({
-                        type:'LOGIN',
+                        type:'HOSPITAL',
                         payload: {
                             data: res.data
                         } 

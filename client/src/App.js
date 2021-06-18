@@ -41,7 +41,7 @@ const App = () => {
         currentUser(idTokenResult.token)
         .then((res)=>{
             switch(res.data.type){
-                case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                case 'Admin': options= ['Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword'];
                 break;
                 case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
                 break;
@@ -75,7 +75,7 @@ const App = () => {
               .then((res)=>{
                   if(res.data!=="Hospital not registered"){
                       dispatch({
-                          type:'LOGIN',
+                          type:'HOSPITAL',
                           payload: res.data
                       })
                   }
@@ -87,7 +87,7 @@ const App = () => {
               getInactiveHospitals(idTokenResult.token)
               .then((res) => {
                   dispatch({
-                      type: "HOSPITAL_STATUS_INACTIVE",
+                      type: "INACTIVE_HOSPITALS",
                       payload: res.data
                   })
               })
@@ -131,7 +131,7 @@ const App = () => {
           type: 'LOGOUT',
           payload: null
         })
-        history.push('/login');
+        history.push('/');
       }
     })
     return () => unsubscribe();

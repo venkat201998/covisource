@@ -11,6 +11,13 @@ const Trigger = () => {
 
     const { user } = useSelector((state) => ({...state}));
     const history = useHistory();
+    const [path, setPath] = useState("");
+    
+    useEffect(()=>{
+        setPath(history.location.pathname);
+    },[history.location.pathname]);
+
+    let uaoptions = ['Dashboard', 'SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'];
 
     return(
         <div className="Trigger d-lg-none d-sm-block">
@@ -70,17 +77,27 @@ const Trigger = () => {
                     </Menu> :
                     <Menu theme="light" mode="vertical" defaultSelectedKeys={[]}>
                         { 
-                            user && user.options && user.options.map((item)=> item==="SlotRegistration" ? <Menu.Item className="nav-item fs-6 disabledList p-0" key={item} style={{height: 50}} >
-                                                                                        <NavLink className="nav-link disabledLink" aria-disabled="true" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
-                                                                                            {item} 
-                                                                                        </NavLink>
-                                                                                    </Menu.Item>
-                                                                                    : <Menu.Item className="nav-item fs-6 p-0" key={item} style={{height: 50}}>
-                                                                                        <NavLink className="nav-link active" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
-                                                                                            {item} 
-                                                                                        </NavLink>
-                                                                                    </Menu.Item>
-                                            )
+
+                            user && user.type === 'Admin' && path.includes('/User/') ? uaoptions.map((item) => item==="SlotRegistration" ?  <Menu.Item className="nav-item fs-6 disabledList p-0" key={item} style={{height: 50}} >
+                                                                                                                                                <NavLink className="nav-link disabledLink" aria-disabled="true" aria-current="page" to={`/User/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                                    {item} 
+                                                                                                                                                </NavLink>
+                                                                                                                                            </Menu.Item>
+                                                                                                                                        :   <Menu.Item className="nav-item fs-6 p-0" key={item} style={{height: 50}} >
+                                                                                                                                                <NavLink className="nav-link active" aria-current="page" to={`/User/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                                    {item} 
+                                                                                                                                                </NavLink>
+                                                                                                                                            </Menu.Item>)
+                                                                                    : user.options.map((item)=> item==="SlotRegistration" ? <Menu.Item className="nav-item fs-6 disabledList p-0" key={item} style={{height: 50}} >
+                                                                                                                                                <NavLink className="nav-link disabledLink" aria-disabled="true" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                                    {item} 
+                                                                                                                                                </NavLink>
+                                                                                                                                            </Menu.Item>
+                                                                                                                                            : <Menu.Item className="nav-item fs-6 p-0" key={item} style={{height: 50}}>
+                                                                                                                                                <NavLink className="nav-link active" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                                    {item} 
+                                                                                                                                                </NavLink>
+                                                                                                                                            </Menu.Item>)
                         }
                     </Menu>
                 }

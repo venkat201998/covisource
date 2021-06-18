@@ -25,7 +25,7 @@ const HospitalHome = ({history}) =>{
             if(res.data!=="Hospital not registered"){
                 setHospitalStatus(true);
                 dispatch({
-                    type:'LOGIN',
+                    type:'HOSPITAL',
                     payload: res.data 
                 })
             }

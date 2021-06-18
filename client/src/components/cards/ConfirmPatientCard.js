@@ -16,7 +16,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
             .then((res)=>{
                 if(res.data!=="Failed To Confirm Patient"){
                     dispatch({
-                        type: "LOGIN",
+                        type: "HOSPITAL",
                         payload: res.data.hospital
                     })
                     toast.success("Patient Admitted");
@@ -38,7 +38,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
             .then((res)=>{
                 if(res.data!=="Failed To Reject Patient"){
                     dispatch({
-                        type: "LOGIN",
+                        type: "HOSPITAL",
                         payload: res.data.hospital
                     })
                     toast.success("Patient Rejected");
@@ -52,10 +52,9 @@ const ConfirmPatientCard = ( {patient} ) =>{
     }
 
     return(
-        <div className="col-12">
+        <div className="col-12 my-4">
         <form onSubmit={handleConfirmPatient} onReset={handleRejectPatient}>
             <div className="card shadow w-100">
-            {/* <img src="" className="card-img-top" alt="..."/> */}
                 <div className="card-body row">
                     <div className="col-12">
                         <h4 className="text-center">Confirm Patient</h4>

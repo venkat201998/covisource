@@ -127,7 +127,7 @@ const RegisterPatientFromHospital = () =>{
                 if(res.data!=="User Not Registered"){
                     if(res.data!=="Patient Already registered with these details"){
                         dispatch({
-                            type:'LOGIN',
+                            type:'HOSPITAL',
                             payload: res.data 
                         })
 

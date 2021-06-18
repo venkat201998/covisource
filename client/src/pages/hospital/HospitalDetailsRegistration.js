@@ -76,7 +76,7 @@ const HospitalDetailsRegistration = () =>{
                         ? toast.success("Added Details and waiting to be validated by admin")
                         : toast.success("Hospital Registered Succesfully");
                         dispatch({
-                            type:'LOGIN',
+                            type:'HOSPITAL',
                             payload: res.data 
                         })
                     }

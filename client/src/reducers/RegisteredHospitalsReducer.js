@@ -1,6 +1,6 @@
 export const registeredHospitalReducer = (state = null, action) => {
     switch (action.type) {
-      case "HOSPITAL_STATUS_INACTIVE":
+      case "INACTIVE_HOSPITALS":
         return action.payload;
       case "LOGOUT":
         return action.payload;

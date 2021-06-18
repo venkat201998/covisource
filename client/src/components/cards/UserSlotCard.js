@@ -9,6 +9,7 @@ const UserSlotCard = ({hospital, patient}) =>{
     const dispatch = useDispatch();
 
     const [bedType, setBedType] = useState("");
+    let uaoptions = [];
 
     const submit = () =>{
         let answer = window.confirm("Confirm Update?");
@@ -31,7 +32,8 @@ const UserSlotCard = ({hospital, patient}) =>{
                             pinCode: res.data.user.pinCode,      
                             type: res.data.user.type,
                             _id: res.data.user._id,
-                            options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
+                            options: res.data.user.type === 'Admin' ? ['Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword'] :['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
+                            uaoptions: uaoptions,
                             slots: res.data.user.slots,
                             token: res.config.headers.idToken
                         }

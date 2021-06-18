@@ -95,7 +95,7 @@ const UpdatePatient = () =>{
             .then((res)=> {
                 if(res.data!== "Update failed"){
                     dispatch({
-                        type:'LOGIN',
+                        type:'HOSPITAL',
                         payload: res.data.hospital 
                     })
                     toast.success("Patient updated");

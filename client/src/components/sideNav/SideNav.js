@@ -13,21 +13,32 @@ const SideNav = () =>{
         setPath(history.location.pathname);
     },[history.location.pathname]);
 
+    let uaoptions = ['Dashboard', 'SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'];
+
     return(
         <div className="col-lg-2 bgSideNav d-lg-block d-none position-fixed">
             <ul className="nav flex-column">
                 {
-                    user && user.options.map((item)=> item==="SlotRegistration" ? <li className="nav-item fs-6 disabledList" key={item} >
-                                                                                    <NavLink className="nav-link disabledLink" aria-disabled="true" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
-                                                                                        {item} 
-                                                                                    </NavLink>
-                                                                                </li>
-                                                                                : <li className="nav-item fs-6" key={item}>
-                                                                                    <NavLink className="nav-link active" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
-                                                                                        {item} 
-                                                                                    </NavLink>
-                                                                                </li>
-                                            )
+                    user && user.type === 'Admin' && path.includes('/User/') ? uaoptions.map((item) => item==="SlotRegistration" ? <li className="nav-item fs-6 disabledList" key={item} >
+                                                                                                                                        <NavLink className="nav-link disabledLink" aria-disabled="true" aria-current="page" to={`/User/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                            {item} 
+                                                                                                                                        </NavLink>
+                                                                                                                                    </li>
+                                                                                                                                    :   <li className="nav-item fs-6" key={item}>
+                                                                                                                                                <NavLink className="nav-link active" aria-current="page" to={`/User/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                                    {item} 
+                                                                                                                                                </NavLink>
+                                                                                                                                        </li>)
+                                                                            :   user.options.map((item)=> item==="SlotRegistration" ? <li className="nav-item fs-6 disabledList" key={item} >
+                                                                                                                                            <NavLink className="nav-link disabledLink" aria-disabled="true" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                                {item} 
+                                                                                                                                            </NavLink>
+                                                                                                                                        </li>
+                                                                                                                                    :   <li className="nav-item fs-6" key={item}>
+                                                                                                                                                <NavLink className="nav-link active" aria-current="page" to={`/${user.type}/${item}`} activeStyle={{color: '#fff', background: '#0c3f57'}}>
+                                                                                                                                                    {item} 
+                                                                                                                                                </NavLink>
+                                                                                                                                        </li>)
                 }
             </ul>
         </div>

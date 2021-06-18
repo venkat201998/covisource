@@ -19,7 +19,7 @@ const AdminHome = ({history}) => {
         getInactiveHospitals(user.token)
         .then((res) => {
             dispatch({
-                type: "HOSPITAL_STATUS_INACTIVE",
+                type: "INACTIVE_HOSPITALS",
                 payload: res.data
             })
         })

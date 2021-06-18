@@ -25,7 +25,6 @@ const UserDashboard = () => {
     const [buttons, setButtons] = useState([{name: "Save Changes", type: "submit", className: "btn btn-outline-success btn-raised fw-bold"}]);
 
 
-
     useEffect(()=>{
         if(user){
             setFirstName(user && user.firstName);
@@ -62,6 +61,9 @@ const UserDashboard = () => {
         setLoading(false);
     }
 
+    let options=[];
+    let uaoptions=[];
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -71,6 +73,14 @@ const UserDashboard = () => {
             createOrUpdateUser(userDetails, user.token)
             .then((res) => {
                 toast.success("Updated Success");
+                switch(res.data.type){
+                    case 'Admin': options = ['Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword'];
+                    break;
+                    case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
+                    break;
+                    case 'User': options=['Dashboard', 'SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'];
+                    break;
+                }
                 dispatch({
                     type: "LOGGED_IN_USER",
                     payload: {
@@ -86,7 +96,8 @@ const UserDashboard = () => {
                         pinCode: res.data.pinCode,      
                         type: res.data.type,
                         _id: res.data._id,
-                        options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
+                        options: options,
+                        uaoptions: uaoptions,
                         token: res.config.headers.idToken
                     },
                   });

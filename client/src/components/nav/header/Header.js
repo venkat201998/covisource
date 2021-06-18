@@ -39,6 +39,9 @@ const Header = () => {
                 <i class="fas fa-user fs-5"></i>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {
+                  user && user.type==="Admin" || user.type==="User" ? <li><Link  className="dropdown-item" to="/">Home</Link></li> : null
+                }
                 <li><Link  className="dropdown-item" to={`/${user.type}/Dashboard`}>{user.type} Dashboard</Link></li>
                 {
                   (user && user.type==="Admin") && <li><Link  className="dropdown-item" to={`/User/Dashboard`}>User Dashboard</Link></li>

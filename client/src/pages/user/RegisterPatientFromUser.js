@@ -47,6 +47,8 @@ const RegisterPatientFromUser = () =>{
         {name: "Reset", type: "reset", className: "btn btn-outline-danger btn-raised fw-bold"}
     ]);
 
+    let uaoptions = [];
+
     useEffect(()=>{
         if(user && hospitals){
             let hospital = (hospitals && hospitals.find((hospital)=> hospital._id===slug));
@@ -141,25 +143,26 @@ const RegisterPatientFromUser = () =>{
                     dispatch({
                         type: "LOGGED_IN_USER",
                         payload: {
-                            firstName: res.data.firstName,
-                            lastName: res.data.lastName,
-                            dob: res.data.dob,
-                            gender:res.data.gender,
-                            email:res.data.email,
-                            contact: res.data.contact,
-                            address: res.data.address,
-                            state: res.data.state,
-                            city:res.data.city,
-                            pinCode: res.data.pinCode,      
-                            type: res.data.type,
-                            _id: res.data._id,
-                            options: ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'],
-                            slots: res.data.slots,
+                            firstName: res.data.user.firstName,
+                            lastName: res.data.user.lastName,
+                            dob: res.data.user.dob,
+                            gender:res.data.user.gender,
+                            email:res.data.user.email,
+                            contact: res.data.user.contact,
+                            address: res.data.user.address,
+                            state: res.data.user.state,
+                            city:res.data.user.city,
+                            pinCode: res.data.user.pinCode,      
+                            type: res.data.user.type,
+                            _id: res.data.user._id,
+                            options: res.data.user.type === 'User' ? ['Dashboard','SlotRegistration', 'Slot', 'SlotsHistory', 'UpdatePassword'] : ['Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword'],
+                            uaoptions: uaoptions,
+                            slots: res.data.user.slots,
                             token: res.config.headers.idToken
                         }
                     });
                     dispatch({
-                        type: "LOGIN",
+                        type: "HOSPITAL",
                         payload: res.data.hospital
                     });
                     dispatch({
@@ -167,7 +170,7 @@ const RegisterPatientFromUser = () =>{
                         payload: res.data.hospitals
                     })
                     toast.success("Patient Registered");
-                    history.push("/User/Dashboard");
+                    history.push("/User/Slot");
                 }
             })
             .catch((e)=> toast.error(e));

@@ -8,15 +8,13 @@ import { checkUser, currentUser } from '../../functions/auth';
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(true);
   const { user } = useSelector((state) => ({...state}));
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (user && user.token) history.push("/");
   }, [user]);
-
 
   const rolebasedredirect = (type) => {
     if(type==="Admin"){
@@ -30,26 +28,8 @@ const Login = ({ history }) => {
     }
   };
 
-
-  const handleSubmit = async (e) => {
-    setLoading(true);
+  const handleSubmit = async (e) => { 
     e.preventDefault();
-
-    checkUser(email)
-      .then((res) => {
-        if(res.data==="User not found"){
-          setMessage(res.data);
-        }
-
-      })
-      .catch((e) => toast.error(e))
-
-    if(message === 'User not found'){
-      toast.error('Please Complete Registration To Login');
-      history.push('/register');
-      return;
-    }
-
     try {
       const result = await auth.signInWithEmailAndPassword(email, password);
       const {user} = result;
@@ -69,7 +49,7 @@ const Login = ({ history }) => {
       currentUser(idTokenResult.token)
         .then((res)=>{
             switch(res.data.type){
-                case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');
+                case 'Admin': options = ['Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword'];
                 break;
                 case 'Hospital': options=['Dashboard', 'ManageHospital', 'RegisterPatient', 'ManagePatients', 'PatientsHistory', 'UpdatePassword'];
                 break;
@@ -100,8 +80,17 @@ const Login = ({ history }) => {
           rolebasedredirect(res.data.type);
         })
     } catch (error) {
-      toast.error("Invalid Credentials");
-      setLoading(false);
+        checkUser(email)
+        .then((res) => {
+          if(res.data == "User not found"){
+            toast.error('Please Complete Registration To Login');
+            history.push('/register');
+          }else{
+            toast.error("Invalid Credentials");
+          }
+        })
+        .catch((err) => toast.error(err));
+        setLoading(false);
     }
     
   };

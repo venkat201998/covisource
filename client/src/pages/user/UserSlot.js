@@ -32,7 +32,7 @@ const UserSlot = () => {
 
     return (
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
-                { ActiveSlots.length > 0 ? ActiveSlots.map((d) => <UserSlotCard hospital={d.hospital} patient={d.patient}/>) : <h3 className="text-center">No Active Slots</h3> }
+                { ActiveSlots.length > 0 ? ActiveSlots.map((d) => <UserSlotCard key={d.patient._id} hospital={d.hospital} patient={d.patient}/>) : <h3 className="text-center">No Active Slots</h3> }
             </div>
     );
 };

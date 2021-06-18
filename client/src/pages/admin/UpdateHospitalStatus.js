@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { toast } from "react-toastify";
-import { updateHospitalStatus, removeHospital, getInactiveHospitals } from "../../functions/auth";
+import { updateHospitalStatus, removeHospital } from "../../functions/auth";
 
 const UpdateHospitalStatus = ({hospital}) =>{
 
@@ -15,22 +15,19 @@ const UpdateHospitalStatus = ({hospital}) =>{
         let answer = window.confirm("Accept?");
         if(answer){
             updateHospitalStatus(email, user.token)
-            .then((res) => toast.success("Hospital Registration Request Accepted Successfully"))
-            .catch((err) => toast.error(err));
-
-            getInactiveHospitals(user.token)
             .then((res) => {
-                dispatch({
-                    type: "HOSPITAL_STATUS_INACTIVE",
-                    payload: res.data
-                })
-                
+                if(res.data !== 'Failed to update'){
+                    dispatch({
+                        type: "INACTIVE_HOSPITALS",
+                        payload: res.data.inActiveHospitals
+                    })
+                    toast.success("Hospital Registration Request Accepted Successfully");
+                }
             })
             .catch((err) => toast.error(err));
         }else{
             toast.error("Failed To Accept");
         }
-        
         history.push('/Admin/Dashboard');
     };
     
@@ -39,16 +36,16 @@ const UpdateHospitalStatus = ({hospital}) =>{
         let answer = window.confirm("Accept?");
         if(answer){
             removeHospital(email, user.token)
-            .then((res) => toast.success("Hospital Registration Request Rejected Successfully"))
-            .catch((err) => toast.error(err))
-            getInactiveHospitals(user.token)
             .then((res) => {
-                dispatch({
-                    type: "HOSPITAL_STATUS_INACTIVE",
-                    payload: res.data
-                })
+                if(res.data !== 'Failed To Remove The Hospital'){
+                    dispatch({
+                        type: "INACTIVE_HOSPITALS",
+                        payload: res.data.inActiveHospitals
+                    })
+                    toast.success("Hospital Registration Request Rejected Successfully");
+                }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => toast.error(err))            
         }else{
             toast.error("Failed To Delete");
         }
@@ -60,7 +57,6 @@ const UpdateHospitalStatus = ({hospital}) =>{
             <div className="col-12 p-lg-4 my-4">
                 <form onSubmit={(e) => handleSubmit(e, hospital.email)} onReset={(e) => handleReject(e, hospital.email)} className="container-fluid">
                     <div className="card shadow w-100">
-                        {/* <img src="" className="card-img-top" alt="..."/> */}
                         <div className="card-body row text-center">
                             <h4>{hospital.hospitalName}</h4>
                             <ul className="list-group flex-row justify-content-center">
