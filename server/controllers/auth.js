@@ -421,11 +421,14 @@ exports.updatePatientStatus = async (req, res) => {
         if(user.type==="Hospital"){
             user = await User.findOne({email: patients[patientIndex].email});
         }
+        console.log(user);
         const slots = user.slots;
         const slotIndex = slots.findIndex((slot) => (slot.patientEmail===patients[patientIndex].email && slot.hospitalEmail===email))
         slots[slotIndex].slotStatus = status;
 
-        const updateUser = await User.findOneAndUpdate({email: patients[patientIndex].bookedBy}, {slots}, {new:true});
+        //const updateUser = await User.findOneAndUpdate({email: patients[patientIndex].bookedBy}, {slots}, {new:true});
+        const updateUser = await User.findOneAndUpdate({email: user.email}, {slots}, {new:true});
+
 
 
         if(status === "Deceased" || status === "Discharged"){
@@ -604,7 +607,7 @@ exports.UpdateSlotStatus = async (req, res) => {
 
         const patients = hospital.patients;
 
-        const patientIndex = patients.findIndex((patient) => (patient.email === patientEmail && patient.bookedBy === email));
+        const patientIndex = patients.findIndex((patient) => (patient.email === patientEmail && (patient.bookedBy === email || patient.bookedBy === hospitalEmail )));
 
         patients[patientIndex].status = "OnHold";
         patients[patientIndex].bedType = bedType;
