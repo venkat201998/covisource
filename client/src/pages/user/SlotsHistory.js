@@ -7,8 +7,9 @@ const SlotsHistory = () => {
     let detailsArr = [];
     let hospitalDetails;
     let patientDetails;
-    const { user, hospitals } = useSelector((state) => ({...state}));
     const [historySlots, setHistorySlots] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { user, hospitals } = useSelector((state) => ({...state}));
 
     const data = () =>{
         const slots = user && user.slots;
@@ -23,17 +24,20 @@ const SlotsHistory = () => {
         
     })
         setHistorySlots(detailsArr && detailsArr.filter((d) => d && (d.status === "Discharged" || d.status === "Deceased" || d.status === "Rejected")));
+        setLoading(false);
     }
     
     useEffect(() =>{
-        data();
+        if(user && hospital){
+            data();
+        }
     },[user, hospitals])
     
     
 
     return (
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
-                { historySlots.length > 0 ? historySlots.map((d) => <UserSlotCard key={d.patient._id} hospital={d.hospital} patient={d.patient}/>): <h3 className="text-center">No Slots History</h3> }
+                {loading ? <h3>Loading...</h3> : historySlots.length > 0 ? historySlots.map((d) => <UserSlotCard key={d.patient._id} hospital={d.hospital} patient={d.patient}/>): <h3 className="text-center">No Slots History</h3> }
             </div>
     );
 };
