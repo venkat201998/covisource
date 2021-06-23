@@ -8,6 +8,7 @@ const UserSlot = () => {
     let hospitalDetails;
     let patientDetails;
     const [ActiveSlots, setActiveSlots] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { user, hospitals } = useSelector((state) => ({...state}));
 
     const data = () =>{
@@ -23,16 +24,19 @@ const UserSlot = () => {
         })
 
         setActiveSlots(detailsArr && detailsArr.filter((d) => d && (d.status === "OnHold" || d.status === "Admitted")));
+        setLoading(false);
     }
 
     useEffect(() =>{
-        data();
+        if(user && hospitals){
+            data();
+        }
     },[user, hospitals])
 
 
     return (
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3">
-                { ActiveSlots.length > 0 ? ActiveSlots.map((d) => d && <UserSlotCard key={d.patient && d.patient._id} hospital={d.hospital} patient={d.patient}/>) : <h3 className="text-center">No Active Slots</h3> }
+                {loading ? <h3>Loading...</h3> : ActiveSlots.length > 0 ? ActiveSlots.map((d) => d && <UserSlotCard key={d.patient && d.patient._id} hospital={d.hospital} patient={d.patient}/>) : <h3 className="text-center">No Active Slots</h3> }
             </div>
     );
 };

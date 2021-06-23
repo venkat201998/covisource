@@ -46,7 +46,7 @@ const Header = () => {
                 {
                   (user && user.type==="Admin") && <li><Link  className="dropdown-item" to={`/User/Dashboard`}>User Dashboard</Link></li>
                 }
-                <li><Link  className="dropdown-item" to="/login" onClick={logout}>Logout</Link></li>
+                <li><Link  className="dropdown-item" to="/" onClick={logout}>Logout</Link></li>
               </ul>
             </div>}
       </div>
