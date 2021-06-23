@@ -28,7 +28,7 @@ const UserSlot = () => {
     }
 
     useEffect(() =>{
-        if(user && hospital){
+        if(user && hospitals){
             data();
         }
     },[user, hospitals])
