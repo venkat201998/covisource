@@ -6,10 +6,9 @@ import { checkUser } from '../../functions/auth';
 const Register = ({history}) => {
   const [email, setEmail] = useState("");
   const [type, setType] = useState("");
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
 
     checkUser(email)
@@ -52,7 +51,7 @@ const Register = ({history}) => {
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
           <form onSubmit={handleSubmit} className="container-fluid">
             <div className="form-group mb-4 text-center">
-                {loading ? <h3>Loading..</h3> :  <h3>Registration</h3>}
+                {loading ? <h3>Registration</h3> :  <h3>Loading...</h3>}
             </div>
             <div class="form-group my-3 row">
 						<label htmlFor="email" class="col-md-3 d-none d-md-block col-form-label text-end fw-bold fs-6">Email</label>

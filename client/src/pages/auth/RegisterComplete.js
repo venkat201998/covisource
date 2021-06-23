@@ -53,7 +53,6 @@ const RegisterComplete = () => {
     }
 
     const handleSubmit = async (e) => {
-        setLoading(true);
         e.preventDefault();
         try{
             if (!email || !password) {
