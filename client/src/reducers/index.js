@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { userReducer } from "./UserReducer";
+import { userReducer } from "./LoggedInUserReducer";
 import { hospitalReducer } from "./HospitalReducer";
-import { hospitalsReducer } from "./HospitalsReducer";
+import { hospitalsReducer } from "./ActiveHospitalsReducer";
 import { registeredHospitalReducer } from "./RegisteredHospitalsReducer";
 import { usersReducer } from './UsersReducer';
 

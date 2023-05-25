@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Input = ({ config, onChange }) => {
+const FormInput = ({ config, onChange }) => {
     
     const handleChange = (e, id, value) => {
         onChange(e,id,value);
@@ -85,4 +85,4 @@ const Input = ({ config, onChange }) => {
     )
 }
 
-export default Input;
+export default FormInput;

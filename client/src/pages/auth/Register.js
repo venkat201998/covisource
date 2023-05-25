@@ -32,12 +32,18 @@ const Register = ({history}) => {
             handleCodeInApp: true,
           };
           
-          auth.sendSignInLinkToEmail(email, config);
-          setLoading(false);
-          toast.success(
-            `Email is sent to ${email}. Click the link to complete your registration.`
-          );
-          history.push("/");
+          auth.sendSignInLinkToEmail(email, config)
+          .then(() => {
+            setLoading(false);
+            toast.success(
+              `Email is sent to ${email}. Click the link to complete your registration.`
+            );
+            history.push("/");
+          })
+          .catch(err => {
+            window.alert(err);
+            history.push("/");
+          });
       }
     }    
 

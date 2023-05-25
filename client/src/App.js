@@ -145,7 +145,7 @@ const App = () => {
         <Route exact path="/" component={ Home }></Route>
         <Route exact path="/login" component={ Login }></Route>
         <Route exact path="/register" component={ Register }></Route>
-        <Route exact path="/registerComplete" component={ RegisterComplete }></Route>
+        <Route exact path="/RegisterComplete" component={ RegisterComplete }></Route>
         <Route exact path="/forgot/password" component={ForgotPassword} />
         <AdminRoute exact path="/Admin/:slug" component={ AdminHome } />
         <AdminRoute exact path="/Admin/ManageHospitals/:slug" component={ UpdateHospital } />
