@@ -307,7 +307,7 @@ class UserForm extends Component {
         return(
             <>
                 <form className='container-fluid' onSubmit={this.props.handleSubmit} onReset={this.props.handleReset}>
-                    {this.props.match.path==='/RegisterComplete' ? formPassword && formPassword.map((password) => <FormInput key={password.id} config={password.config} onChange={(e, id, value) => this.handleChange(e, id, value)} />) : null}
+                    {this.props.match.path==='/register/complete' ? formPassword && formPassword.map((password) => <FormInput key={password.id} config={password.config} onChange={(e, id, value) => this.handleChange(e, id, value)} />) : null}
                     
                     {formElements && formElements.map((formElement) => <FormInput key={formElement.id} config={formElement.config} onChange={(e, id, value) => this.handleChange(e, id, value)} />)}
                     <Div>
