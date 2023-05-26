@@ -61,7 +61,7 @@ const UpdatePassword = () => {
             .then(() => {
                 toast.success("Check your email for password reset link");
                 history.push('/')
-                signOut();
+                signOut(auth);
                 dispatch({
                 type: 'LOGOUT',
                 payload: null
