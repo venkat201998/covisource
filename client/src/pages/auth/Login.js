@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { auth } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
@@ -31,7 +32,7 @@ const Login = ({ history }) => {
   const handleSubmit = async (e) => { 
     e.preventDefault();
     try {
-      const result = await auth.signInWithEmailAndPassword(email, password);
+      const result = await signInWithEmailAndPassword(auth, email, password);
       const {user} = result;
       if(user){
         toast.success("Login Success");

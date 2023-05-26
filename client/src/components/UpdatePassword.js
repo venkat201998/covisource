@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../firebase";
+import { signInWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useHistory, Link } from 'react-router-dom';
 import { signOut } from "firebase/auth";
@@ -23,10 +24,11 @@ const UpdatePassword = () => {
         try {
             let answer = window.confirm("Update Password?");
             if(answer){
-                const result = await auth.signInWithEmailAndPassword(email, password);
+                const result = await signInWithEmailAndPassword(auth, email, password);
                 const {user} = result;
                 if(user){
-                    auth.currentUser.updatePassword(newPassword);
+                    const currentUser = auth.currentUser
+                    updatePassword(currentUser, newPassword);
                     setLoading(false);
                     toast.success("Updated password successfully");
                 }else{

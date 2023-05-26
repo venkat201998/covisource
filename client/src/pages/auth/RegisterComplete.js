@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { auth } from '../../firebase';
+import { signInWithEmailLink } from "firebase/auth";
 import { createOrUpdateUser, currentUser } from '../../functions/auth';
 import { useDispatch } from 'react-redux';
 import UserForm from '../../components/reusables/UserForm';
@@ -67,7 +68,7 @@ const RegisterComplete = () => {
                 return;
             }
 
-            const result = await auth.signInWithEmailLink(email, window.location.href);
+            const result = signInWithEmailLink(auth, email, window.location.href);
             const user = auth.currentUser;
             const idTokenResult = await user.getIdTokenResult();
 

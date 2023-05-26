@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { auth } from './firebase';
+import { onAuthStateChanged } from "firebase/auth";
 import "react-toastify/dist/ReactToastify.css";
 import './App.css';
 
@@ -32,7 +33,7 @@ const App = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const idTokenResult = await user.getIdTokenResult();
         let options=[];

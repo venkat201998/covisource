@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { auth } from "../../firebase";
+import { sendSignInLinkToEmail } from "firebase/auth";
 import { toast } from "react-toastify";
 import { checkUser } from '../../functions/auth';
 
@@ -32,7 +33,7 @@ const Register = ({history}) => {
             handleCodeInApp: true,
           };
           
-          auth.sendSignInLinkToEmail(email, config)
+          sendSignInLinkToEmail(auth, email, config)
           .then(() => {
             setLoading(false);
             toast.success(
