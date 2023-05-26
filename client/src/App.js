@@ -132,7 +132,6 @@ const App = () => {
           type: 'LOGOUT',
           payload: null
         })
-        history.push('/');
       }
     })
     return () => unsubscribe();

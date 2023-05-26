@@ -29,7 +29,7 @@ const Login = ({ history }) => {
     }
   };
 
-  const handleSubmit = async (e) => { 
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
