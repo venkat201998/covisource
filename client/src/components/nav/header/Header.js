@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import firebase from 'firebase';
+import { signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Header.css";
@@ -12,7 +12,7 @@ const Header = () => {
   const history = useHistory();
 
   const logout = () => {
-    firebase.auth().signOut();
+    signOut();
     dispatch({
       type: 'LOGOUT',
       payload: null

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
 import { useHistory, Link } from 'react-router-dom';
-import firebase from 'firebase';
+import { signOut } from "firebase/auth";
 
 const UpdatePassword = () => {
 
@@ -59,7 +59,7 @@ const UpdatePassword = () => {
             .then(() => {
                 toast.success("Check your email for password reset link");
                 history.push('/')
-                firebase.auth().signOut();
+                signOut();
                 dispatch({
                 type: 'LOGOUT',
                 payload: null
@@ -76,7 +76,7 @@ const UpdatePassword = () => {
     return (
             <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
                 
-                <form className="py-5" onSubmit={handleSubmit} onReset={forgotPassword} className="container-fluid">
+                <form className="py-5 container-fluid" onSubmit={handleSubmit} onReset={forgotPassword}>
                     <div className="form-group mb-5 text-center">
                         {loading ? <h3>Loading..</h3> :  <h3>Update Password</h3>}
                     </div>
