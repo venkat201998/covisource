@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/covisource/static/css/main.ba470e3e.css",
+    "main.js": "/covisource/static/js/main.500fb5cd.js",
+    "static/js/787.44e022fc.chunk.js": "/covisource/static/js/787.44e022fc.chunk.js",
+    "static/media/banner.png": "/covisource/static/media/banner.620543a0acb09dd7d9f1.png",
+    "index.html": "/covisource/index.html",
+    "main.ba470e3e.css.map": "/covisource/static/css/main.ba470e3e.css.map",
+    "main.500fb5cd.js.map": "/covisource/static/js/main.500fb5cd.js.map",
+    "787.44e022fc.chunk.js.map": "/covisource/static/js/787.44e022fc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ba470e3e.css",
+    "static/js/main.500fb5cd.js"
+  ]
+}
