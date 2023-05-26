@@ -1,0 +1,40 @@
+.contacts{
+    color: blue;
+}
+.overflow{
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 420px) {
+    .banner-div{
+        margin-top: 4rem;
+    }
+    .banner{
+        height: 10rem
+    }
+}
+
+@media screen and (min-width: 421px) and (max-width: 768px) {
+    .banner-div{
+        margin-top: 4rem;
+    }
+    .banner{
+        height: 15rem
+    }
+}
+
+@media screen and (min-width: 769px) {
+
+}
+.searchOption.focus, .searchOption:focus{
+    box-shadow: none;
+}
+.searchOption:hover{
+    background-color: #0c3f57;
+    color: white;
+}
+
+.activeSearch{
+    background-color: #0c3f57;
+    color: white;
+}
