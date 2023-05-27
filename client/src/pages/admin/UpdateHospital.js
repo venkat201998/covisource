@@ -8,6 +8,7 @@ import HospitalForm from '../../components/reusables/HospitalForm';
 
 const UpdateHospital = () =>{
     const { user, hospitals } = useSelector((state) => ({ ...state }));
+    const token = user && user.token;
     const { slug } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();    
@@ -78,7 +79,7 @@ const UpdateHospital = () =>{
         
         let answer = window.confirm("Update Hospital Details?");
         if(answer){
-            updateHospital(hospitalDetails, user.token)
+            updateHospital(hospitalDetails, token)
             .then((res) => {
                 if(res.data!=="Update Failed"){
                     dispatch({
@@ -101,7 +102,7 @@ const UpdateHospital = () =>{
 
         let answer = window.confirm("Delete Hospital?");
         if(answer){
-            removeHospital(email, user.token)
+            removeHospital(email, token)
             .then((res) => {
                 if(res.data!=="Failed To Remove The Hospital"){
                     dispatch({

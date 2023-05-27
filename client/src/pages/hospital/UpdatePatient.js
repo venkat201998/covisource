@@ -7,7 +7,8 @@ import { updatePatientStatus } from '../../functions/auth';
 import UpdatePatientForm from '../../components/reusables/UpdatePatientForm';
 
 const UpdatePatient = () =>{
-    const { user, hospital } = useSelector((state) => ({ ...state }))
+    const { user, hospital } = useSelector((state) => ({ ...state }));
+    const token = user && user.token;
     const dispatch = useDispatch();
     const { slug } = useParams();
     const history = useHistory();
@@ -91,7 +92,7 @@ const UpdatePatient = () =>{
         const patientDetails = { eFirstName, eLastName, relationship, eContact, status, comments };
         let answer = window.confirm("Confirm Update?");
         if(answer){
-            updatePatientStatus(patientDetails, slug, user.token)
+            updatePatientStatus(patientDetails, slug, token)
             .then((res)=> {
                 if(res.data!== "Update failed"){
                     dispatch({

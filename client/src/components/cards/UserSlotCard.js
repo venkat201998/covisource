@@ -6,6 +6,7 @@ import { UpdateSlotStatus } from '../../functions/auth';
 const UserSlotCard = ({hospital, patient}) =>{
 
     const { user } = useSelector((state) => ({...state}));
+    const token = user && user.token;
     const dispatch = useDispatch();
 
     const [bedType, setBedType] = useState("");
@@ -14,7 +15,7 @@ const UserSlotCard = ({hospital, patient}) =>{
     const submit = () =>{
         let answer = window.confirm("Confirm Update?");
         if(answer){
-            UpdateSlotStatus(patient.email, bedType, hospital.email, user.token)
+            UpdateSlotStatus(patient.email, bedType, hospital.email, token)
             .then((res)=>{
                 if(res.data!=="Failed To Update Slot"){
                     dispatch({

@@ -6,13 +6,14 @@ import { confirmPatient, rejectPatient } from '../../functions/auth';
 const ConfirmPatientCard = ( {patient} ) =>{
 
     const { user } = useSelector((state) => ({...state}));
+    const token = user && user.token;
     const dispatch = useDispatch();
 
     const handleConfirmPatient = (e) =>{
         e.preventDefault();
         let answer = window.confirm("Confirm?");
         if(answer){
-            confirmPatient(patient.email, patient.bookedBy, user.token)
+            confirmPatient(patient.email, patient.bookedBy, token)
             .then((res)=>{
                 if(res.data!=="Failed To Confirm Patient"){
                     dispatch({
@@ -34,7 +35,7 @@ const ConfirmPatientCard = ( {patient} ) =>{
         e.preventDefault();
         let answer = window.confirm("Confirm?");
         if(answer){
-            rejectPatient(patient.email, patient.bookedBy, user.token)
+            rejectPatient(patient.email, patient.bookedBy, token)
             .then((res)=>{
                 if(res.data!=="Failed To Reject Patient"){
                     dispatch({

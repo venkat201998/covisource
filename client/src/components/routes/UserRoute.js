@@ -9,14 +9,13 @@ const UserRoute = ({...rest}) =>{
 
     useEffect(()=>{
         if(user && (user.type==="User" || user.type==="Admin")){
-            setOk(true);
+            setOk(!ok);
+        } else {
+            setOk(!ok);
         }
     },[user]);
 
     return ok ? <Route {...rest}/> : <LoadingToRedirect/>
-
-
-
 }
 
 export default UserRoute;

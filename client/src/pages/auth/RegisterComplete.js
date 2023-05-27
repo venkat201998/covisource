@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { auth } from '../../firebase';
-import { signInWithEmailLink } from "firebase/auth";
+import { signInWithEmailLink, updatePassword } from "firebase/auth";
 import { createOrUpdateUser, currentUser } from '../../functions/auth';
 import { useDispatch } from 'react-redux';
 import UserForm from '../../components/reusables/UserForm';
@@ -69,15 +69,13 @@ const RegisterComplete = () => {
             }
 
             const result = await signInWithEmailLink(auth, email, window.location.href);
-            console.log('Check-->result: ', result);
             const user = auth.currentUser;
-            console.log('Check-->user: ', user);
             const idTokenResult = await user.getIdTokenResult();
 
             if(result.user.emailVerified){
-                user.updatePassword(password);
+                updatePassword(user, password);
                 const userDetails = {firstName, lastName, dob, gender, contact, address, state, city, pinCode, type };
-                createOrUpdateUser(userDetails, idTokenResult.token)
+                await createOrUpdateUser(userDetails, idTokenResult.token)
                 .then((res) => {
                     toast.success("Registration Success");
                     setLoading(false);
@@ -95,7 +93,7 @@ const RegisterComplete = () => {
             let options=[];
             let uaoptions=[];
 
-            currentUser(idTokenResult.token)
+            await currentUser(idTokenResult.token)
             .then((res)=>{
                 switch(res.data.type){
                     case 'Admin': options.push('Dashboard', 'RegisterHospital', 'ManageHospitals', 'ManageUsers', 'UpdatePassword');

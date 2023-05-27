@@ -7,6 +7,7 @@ import HospitalForm from '../../components/reusables/HospitalForm';
 
 const ManageHospital = () =>{
     const { user, hospital } = useSelector((state) => ({...state}));
+    const token = user && user.token;
     const history = useHistory();
 
     const [hospitalName, setHospitalName] = useState("");
@@ -69,7 +70,7 @@ const ManageHospital = () =>{
         
         let answer = window.confirm("Update Hospital Details?");
         if(answer){
-            updateHospital(hospitalData, user.token)
+            updateHospital(hospitalData, token)
             .then((res) =>{
                 if(res.data!=="Update Failed"){
                     toast.success("Details Updated");

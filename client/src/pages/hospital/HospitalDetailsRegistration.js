@@ -7,6 +7,7 @@ import HospitalForm from '../../components/reusables/HospitalForm';
 
 const HospitalDetailsRegistration = () =>{
     const { user } = useSelector((state) => ({ ...state }));
+    const token = user && user.token;
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -68,7 +69,7 @@ const HospitalDetailsRegistration = () =>{
 
         let answer = window.confirm("Confirm Registration?");
         if(answer){
-            createHospital(hospitalDetails, email, user.token)
+            createHospital(hospitalDetails, email, token)
             .then((res) =>{
                 if(res.data !== "No User Exists With The Email Provided"){
                     if(res.data !== "Hospital already exists"){

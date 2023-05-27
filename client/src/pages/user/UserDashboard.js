@@ -7,6 +7,7 @@ import UserForm from '../../components/reusables/UserForm';
 const UserDashboard = () => {
 
     const { user } = useSelector((state) => ({...state}));
+    const token = user && user.token;
     const dispatch = useDispatch();
 
     const [firstName, setFirstName] = useState("");
@@ -70,7 +71,7 @@ const UserDashboard = () => {
         let answer = window.confirm("Update?");
         if(answer){
             const userDetails = {firstName, lastName, dob, gender, contact, address, state, city, pinCode, type};
-            createOrUpdateUser(userDetails, user.token)
+            createOrUpdateUser(userDetails, token)
             .then((res) => {
                 toast.success("Updated Success");
                 switch(res.data.type){

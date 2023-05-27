@@ -9,6 +9,7 @@ import { updateUser } from '../../functions/auth';
 
 const UpdateUser = () =>{
     const { users, user } = useSelector((state) => ({...state}));
+    const token = user && user.token;
     const { slug } = useParams();
     const dispatch = useDispatch();
 
@@ -73,7 +74,7 @@ const UpdateUser = () =>{
         const userDetails = {firstName, lastName, dob, gender, email, contact, address, state, city, pinCode };
         let answer = window.confirm("Update User Details?");
         if(answer){
-            updateUser(userDetails, user.token)
+            updateUser(userDetails, token)
             .then((res) => {
                 if(res.data !== "Update Failed"){
                     dispatch({

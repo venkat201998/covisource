@@ -29,7 +29,7 @@ const LoadingToRedirect = () =>{
             <div className="container mt-5">
                 <div className="row mt-5 pt-5">
                     <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-10 offset-1 shadow p-lg-5 p-md-4 p-3">
-                        <p>Redirecting you in {count} seconds</p>
+                        <p>Session Expired... Redirecting you in {count} seconds</p>
                     </div>
                 </div>
             </div>

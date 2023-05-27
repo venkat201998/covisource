@@ -7,7 +7,8 @@ import PatientForm from '../../components/reusables/PatientForm';
 
 const RegisterPatientFromUser = () =>{
 
-    const { user, hospitals } = useSelector((state) => ({ ...state }))
+    const { user, hospitals } = useSelector((state) => ({ ...state }));
+    const token = user && user.token;
     const { slug }  = useParams();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -133,7 +134,7 @@ const RegisterPatientFromUser = () =>{
         
         let answer = window.confirm("Confirm Registration?");
         if(answer){
-            registerPatientFromUser(patientDetails, slug, user.token)
+            registerPatientFromUser(patientDetails, slug, token)
             .then((res)=> {
                 if(res.data==="Patient Already registered with these details" || res.data==="Hospital Not Registered" || res.data==="Patient either admitted or onhold by another user"
                 || res.data==="Failed To Update Hospital" || res.data==="User Not Registered" || res.data==="Failed To Update User"){

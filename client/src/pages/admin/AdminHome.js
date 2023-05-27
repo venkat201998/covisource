@@ -12,11 +12,12 @@ import { toast } from 'react-toastify';
 
 const AdminHome = ({history}) => {
     const { user } = useSelector((state) => ({ ...state }));
+    const token = user && user.token;
     const [path, setPath] = useState("");
     const dispatch = useDispatch();
     
     useEffect(()=>{
-        getInactiveHospitals(user.token)
+        getInactiveHospitals(token)
         .then((res) => {
             dispatch({
                 type: "INACTIVE_HOSPITALS",
@@ -34,7 +35,7 @@ const AdminHome = ({history}) => {
         })
         .catch((err) => toast.error(err));
 
-        getUsers(user.token)
+        getUsers(token)
         .then((res) => {
             if(res.data !== "No User Found"){
                 dispatch({

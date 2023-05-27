@@ -53,7 +53,7 @@ const UpdatePassword = () => {
         let answer = window.confirm("Forgot Password? Confirm To Reset");
         if(answer){
             const config = {
-                url: "http://localhost:3000/login",
+                url: process.env.REACT_APP_LOGIN_REDIRECT_URL,
                 handleCodeInApp: true,
             };
             await auth

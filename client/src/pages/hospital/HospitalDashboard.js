@@ -56,7 +56,7 @@ const HospitalDashboard = () => {
                                         </span>
                                     </li>
                                 </div>
-                                <div className="col-12">
+                                <div className="col-lg-6 col-12">
                                     <li className="list-group-item border-0 bg-transparent">
                                     <label className="col-form-label text-start fw-bold fs-6">Address:</label>
                                         <span className="ps-2">
@@ -64,10 +64,14 @@ const HospitalDashboard = () => {
                                         </span>
                                     </li>
                                 </div>
-                            
-                            
-                            
-
+                                <div className="col-lg-6 col-12">
+                                    <li className="list-group-item border-0 bg-transparent">
+                                    <label className="col-form-label text-start fw-bold fs-6">Status:</label>
+                                        <span className="ps-2">
+                                            {hospital && hospital.status}
+                                        </span>
+                                    </li>
+                                </div>
                                 <div className="col-12 border-top border-3 text-center my-3 pt-3">
                                     <h4 style={{color: "gray", borderColor: "gray"}}>Resources (Beds)</h4>
                                 </div>

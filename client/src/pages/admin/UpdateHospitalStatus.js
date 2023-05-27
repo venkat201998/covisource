@@ -7,6 +7,7 @@ import { updateHospitalStatus, removeHospital } from "../../functions/auth";
 const UpdateHospitalStatus = ({hospital}) =>{
 
     const { user } = useSelector((state) => ({...state}));
+    const token = user && user.token;
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -14,7 +15,7 @@ const UpdateHospitalStatus = ({hospital}) =>{
         e.preventDefault();
         let answer = window.confirm("Accept?");
         if(answer){
-            updateHospitalStatus(email, user.token)
+            updateHospitalStatus(email, token)
             .then((res) => {
                 if(res.data !== 'Failed to update'){
                     dispatch({
@@ -35,7 +36,7 @@ const UpdateHospitalStatus = ({hospital}) =>{
         e.preventDefault();
         let answer = window.confirm("Accept?");
         if(answer){
-            removeHospital(email, user.token)
+            removeHospital(email, token)
             .then((res) => {
                 if(res.data !== 'Failed To Remove The Hospital'){
                     dispatch({
