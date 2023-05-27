@@ -68,8 +68,10 @@ const RegisterComplete = () => {
                 return;
             }
 
-            const result = signInWithEmailLink(auth, email, window.location.href);
+            const result = await signInWithEmailLink(auth, email, window.location.href);
+            console.log('Check-->result: ', result);
             const user = auth.currentUser;
+            console.log('Check-->user: ', user);
             const idTokenResult = await user.getIdTokenResult();
 
             if(result.user.emailVerified){

@@ -29,7 +29,7 @@ const Register = ({history}) => {
       }
       else if(data==="User not found"){
           const config = {
-            url: "http://localhost:3000/register/complete",
+            url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
             handleCodeInApp: true,
           };
           
