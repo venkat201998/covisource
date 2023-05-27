@@ -15,6 +15,7 @@ export const createOrUpdateUser = async (userDetails, idToken) => {
 }
 
 export const checkUser = async (email) => {
+    console.log('Check-->REACT_APP_API: ', process.env.REACT_APP_API);
     return await axios.post(
         `${process.env.REACT_APP_API}/check-user`,
         {
