@@ -89,7 +89,7 @@ const Home = () => {
                                     </div>
                                     <div className="col-8">
                                         <h6 className="fw-bold fs-6">Number</h6>
-                                        <h6 className="contacts">8106105731</h6>
+                                        <h6 className="contacts">9999998888</h6>
                                     </div>
                                 </div>
                             </div>
