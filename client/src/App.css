@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.form-control:focus,
+.form-select:focus {
+    border: 1px solid black;
+    box-shadow: none;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
