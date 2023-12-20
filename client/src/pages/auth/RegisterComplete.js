@@ -143,8 +143,8 @@ const RegisterComplete = () => {
 
     return(
         <div className="container-fluid mt-5 px-md-5">
-                <div className="row mt-5 pt-5 mx-md-2">
-                <div className="col-lg-8 col-10 offset-lg-2 p-md-4 p-3 text-center shadow">
+            <div className="row mt-5 pt-5 mx-2">
+                <div className="col-lg-8 col-12 offset-lg-2 p-md-4 p-3 text-center shadow">
                 
                 {loading ? <h3>Loading...</h3> :
                     <div>
