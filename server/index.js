@@ -4,10 +4,12 @@ const cors = require("cors");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const { readdirSync } = require("fs");
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 
-mongoose.connect("mongodb+srv://covisource:YMrnHuaKaNaFXNw5@cluster0.i1mxl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",{
+mongoose.connect(process.env.EXPRESS_APP_MONGO_DB_KEY,{
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
@@ -22,6 +24,6 @@ app.use(cors());
 
 readdirSync("./routes").map((r) => app.use("/api", require("./routes/" + r)));
 
-const PORT = 8000;
+const PORT = process.env.EXPRESS_APP_PORT_NUMBER || 8000;
 
 app.listen(PORT, ()=> console.log(`Server is running at PORT: ${PORT}`));
